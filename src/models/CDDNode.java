@@ -1,6 +1,6 @@
 package models;
 
-import jdk.jshell.spi.ExecutionControl;
+//import jdk.jshell.spi.ExecutionControl;
 import lib.CDDLib;
 
 public class CDDNode {
@@ -14,11 +14,11 @@ public class CDDNode {
         return pointer;
     }
 
-    public int getLevel() throws ExecutionControl.NotImplementedException {
+   /* public int getLevel() throws ExecutionControl.NotImplementedException {
         throw new ExecutionControl.NotImplementedException("CDDLib.getNodeLevel call crashes");
         // TODO: Fix this function call crash
         // return CDDLib.getNodeLevel(pointer);
-    }
+    }*/
 
     public SegmentIterable getElemIterable() {
         return new SegmentIterable(this);
