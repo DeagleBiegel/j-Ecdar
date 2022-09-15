@@ -36,8 +36,8 @@
       "invariant": "",
       "type": "NORMAL",
       "urgency": "NORMAL",
-      "x": 380.00001,
-      "y": 300.0,
+      "x": 160.00000999999997,
+      "y": 190.0,
       "color": "3",
       "nicknameX": 30.0,
       "nicknameY": -10.0,
@@ -61,34 +61,6 @@
         {
           "x": 170.0,
           "y": 300.0,
-          "propertyType": "SYNCHRONIZATION",
-          "propertyX": 10.0,
-          "propertyY": 0.0
-        }
-      ]
-    },
-    {
-      "id": "E1",
-      "group": "",
-      "sourceLocation": "L1",
-      "targetLocation": "L2",
-      "status": "INPUT",
-      "select": "",
-      "guard": "1 \u003d\u003d 0;",
-      "update": "",
-      "sync": "",
-      "isLocked": false,
-      "nails": [
-        {
-          "x": 260.0,
-          "y": 300.0,
-          "propertyType": "GUARD",
-          "propertyX": 10.0,
-          "propertyY": 0.0
-        },
-        {
-          "x": 296.0,
-          "y": 296.0,
           "propertyType": "SYNCHRONIZATION",
           "propertyX": 10.0,
           "propertyY": 0.0
