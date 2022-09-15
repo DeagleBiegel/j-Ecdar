@@ -403,7 +403,43 @@ public class SimpleTransitionSystem extends TransitionSystem{
         return 0;
     }
 
+    public boolean isReachableHelper(Location location){
 
+        Set<Channel> actions = getActions();
+
+        waiting = new ArrayDeque<>();
+        passed = new ArrayList<>();
+        waiting.add(getInitialState());
+
+        if (location.getName().equals(getInitialLocation().getName())){
+            return true;
+        }
+
+        while (!waiting.isEmpty()) {
+            State currState = new State(waiting.pop());
+            State toStore = new State(currState);
+
+            toStore.extrapolateMaxBounds(this.getMaxBounds(), clocks.getItems());
+            passed.add(toStore);
+
+            for (Channel action : actions){
+                List<Transition> tempTrans = getNextTransitions(currState, action);
+                for (Transition trans : tempTrans){
+                    if (trans.getTarget().getLocation().getName().equals(location.getName())){
+                        return true;
+                    }
+                }
+
+                List<State> toAdd = tempTrans.stream().map(Transition::getTarget).
+                        filter(s -> !passedContainsState(s) && !waitingContainsState(s)).collect(Collectors.toList()); // TODO I added waitingConstainsState... Okay??
+                toAdd.forEach(e->e.extrapolateMaxBounds(getMaxBounds(),clocks.getItems()));
+
+                waiting.addAll(toAdd);
+            }
+
+        }
+        return false;
+    }
 
 
 }

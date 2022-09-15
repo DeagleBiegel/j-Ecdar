@@ -1,5 +1,7 @@
 import logic.SimpleTransitionSystem;
+import logic.TransitionSystem;
 import models.Automaton;
+import models.Location;
 import parser.JSONParser;
 
 import java.io.FileNotFoundException;
@@ -11,8 +13,7 @@ public class Playground {
 
         for (Automaton a: list) {
             SimpleTransitionSystem s = new SimpleTransitionSystem(a);
-
-            System.out.println(a.getLocations());
+            System.out.println(s.isReachable(a.getLocations().get(0)));
         }
 
     }
