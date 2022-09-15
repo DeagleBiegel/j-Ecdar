@@ -1,3 +1,4 @@
+import logic.SimpleTransitionSystem;
 import models.Automaton;
 import parser.JSONParser;
 
@@ -9,7 +10,9 @@ public class Playground {
         Automaton[] list = JSONParser.parse("samples/json/AG",true);
 
         for (Automaton a: list) {
-            System.out.println(a.getName());
+            SimpleTransitionSystem s = new SimpleTransitionSystem(a);
+
+            System.out.println(a.getLocations());
         }
 
     }
