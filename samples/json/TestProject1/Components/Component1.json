@@ -15,7 +15,7 @@
       "nicknameY": -10.0,
       "invariantX": 30.0,
       "invariantY": 10.0,
-      "testCode": "L0 testcode \n"
+      "testCode": "L0"
     },
     {
       "id": "L1",
@@ -30,7 +30,7 @@
       "nicknameY": -10.0,
       "invariantX": 10.0,
       "invariantY": 60.0,
-      "testCode": "L1 testcode \n"
+      "testCode": "L1"
     },
     {
       "id": "L2",
@@ -38,14 +38,14 @@
       "invariant": "",
       "type": "NORMAL",
       "urgency": "NORMAL",
-      "x": 130.00000999999997,
-      "y": 180.0,
+      "x": 140.00000999999997,
+      "y": 380.0,
       "color": "3",
       "nicknameX": 30.0,
       "nicknameY": -10.0,
       "invariantX": 30.0,
       "invariantY": 10.0,
-      "testCode": "L2 testcode \n"
+      "testCode": "L2"
     },
     {
       "id": "L3",
@@ -60,7 +60,52 @@
       "nicknameY": -10.0,
       "invariantX": 30.0,
       "invariantY": 10.0,
-      "testCode": "L3 testcode \n"
+      "testCode": "l3"
+    },
+    {
+      "id": "L4",
+      "nickname": "",
+      "invariant": "",
+      "type": "NORMAL",
+      "urgency": "NORMAL",
+      "x": 190.00000999999995,
+      "y": 457.7833333333334,
+      "color": "3",
+      "nicknameX": 30.0,
+      "nicknameY": -10.0,
+      "invariantX": 30.0,
+      "invariantY": 10.0,
+      "testCode": "L4"
+    },
+    {
+      "id": "L5",
+      "nickname": "",
+      "invariant": "",
+      "type": "NORMAL",
+      "urgency": "NORMAL",
+      "x": 250.00000999999995,
+      "y": 540.0,
+      "color": "3",
+      "nicknameX": 30.0,
+      "nicknameY": -10.0,
+      "invariantX": 30.0,
+      "invariantY": 10.0,
+      "testCode": "L5"
+    },
+    {
+      "id": "L6",
+      "nickname": "",
+      "invariant": "",
+      "type": "NORMAL",
+      "urgency": "NORMAL",
+      "x": 330.00001,
+      "y": 550.0,
+      "color": "3",
+      "nicknameX": 30.0,
+      "nicknameY": -10.0,
+      "invariantX": 30.0,
+      "invariantY": 10.0,
+      "testCode": "L6"
     }
   ],
   "edges": [
@@ -75,7 +120,7 @@
       "update": "",
       "sync": "",
       "isLocked": false,
-      "testCode": "E0 testcode \n",
+      "testCode": "E0",
       "nails": [
         {
           "x": 170.0,
@@ -97,7 +142,7 @@
       "update": "",
       "sync": "",
       "isLocked": false,
-      "testCode": "E1 testcode \n",
+      "testCode": "E1",
       "nails": [
         {
           "x": 270.0,
@@ -126,7 +171,7 @@
       "update": "x \u003d 0",
       "sync": "",
       "isLocked": false,
-      "testCode": "E2 testcode \n",
+      "testCode": "E2",
       "nails": [
         {
           "x": 213.25,
@@ -162,11 +207,77 @@
       "update": "",
       "sync": "",
       "isLocked": false,
-      "testCode": "E3 testcode \n",
+      "testCode": "E3",
       "nails": [
         {
-          "x": 170.0,
-          "y": 300.0,
+          "x": 125.21666666666668,
+          "y": 330.11666666666673,
+          "propertyType": "SYNCHRONIZATION",
+          "propertyX": 10.0,
+          "propertyY": 0.0
+        }
+      ]
+    },
+    {
+      "id": "E4",
+      "group": "",
+      "sourceLocation": "L2",
+      "targetLocation": "L4",
+      "status": "INPUT",
+      "select": "",
+      "guard": "",
+      "update": "",
+      "sync": "",
+      "isLocked": false,
+      "testCode": "E4",
+      "nails": [
+        {
+          "x": 159.36666666666667,
+          "y": 409.80000000000007,
+          "propertyType": "SYNCHRONIZATION",
+          "propertyX": 10.0,
+          "propertyY": 0.0
+        }
+      ]
+    },
+    {
+      "id": "E5",
+      "group": "",
+      "sourceLocation": "L4",
+      "targetLocation": "L5",
+      "status": "INPUT",
+      "select": "",
+      "guard": "",
+      "update": "",
+      "sync": "",
+      "isLocked": false,
+      "testCode": "E5",
+      "nails": [
+        {
+          "x": 216.28333333333336,
+          "y": 489.4833333333334,
+          "propertyType": "SYNCHRONIZATION",
+          "propertyX": 10.0,
+          "propertyY": 0.0
+        }
+      ]
+    },
+    {
+      "id": "E6",
+      "group": "",
+      "sourceLocation": "L5",
+      "targetLocation": "L6",
+      "status": "INPUT",
+      "select": "",
+      "guard": "",
+      "update": "",
+      "sync": "",
+      "isLocked": false,
+      "testCode": "E6",
+      "nails": [
+        {
+          "x": 284.58333333333337,
+          "y": 535.0166666666668,
           "propertyType": "SYNCHRONIZATION",
           "propertyX": 10.0,
           "propertyY": 0.0

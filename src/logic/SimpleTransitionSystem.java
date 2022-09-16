@@ -3,6 +3,7 @@ package logic;
 import models.*;
 import parser.XMLFileWriter;
 
+import java.lang.reflect.Array;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -404,9 +405,8 @@ public class SimpleTransitionSystem extends TransitionSystem{
     }
 
     public boolean isReachableHelper(Location location){
-        String testcode = "";
         Set<Channel> actions = getActions();
-        ArrayList<Transition> passedEdges = new ArrayList<>();
+        ArrayList<Transition> passedTransitions = new ArrayList<>();
         waiting = new ArrayDeque<>();
         passed = new ArrayList<>();
         waiting.add(getInitialState());
@@ -415,7 +415,6 @@ public class SimpleTransitionSystem extends TransitionSystem{
         System.out.println("Is " + location.getName() + " reachable?");
 
         if (location.getName().equals(getInitialLocation().getName())){
-
             return true;
         }
 
@@ -432,34 +431,22 @@ public class SimpleTransitionSystem extends TransitionSystem{
 
                 for (Transition trans : tempTrans){
 
-                    passedEdges.add(trans);
+                    passedTransitions.add(trans);
+
                     if (trans.getTarget().getLocation().getName().equals(location.getName())){
-                        Collections.reverse(passedEdges);
 
-
-                        for (Transition t: passedEdges) {
-                            if (t.getSource().getLocation().getName().equals(getInitialLocation().getName())) {
-                                testcode += t.getSource().getLocation().getTestCode();
-                                testcode += t.getEdges().get(0).getTestCode();
-                                testcode += t.getTarget().getLocation().getTestCode();
-                                break;
-                            }
-                            testcode += t.getSource().getLocation().getTestCode();
-                            testcode += t.getEdges().get(0).getTestCode();
-                            testcode += t.getTarget().getLocation().getTestCode();
-                        }
-
-                        System.out.println(testcode);
+                        findTrace(passedTransitions, location);
 
                         return true;
                     }
+
                 }
 
                 List<State> toAdd = tempTrans.stream().map(Transition::getTarget).
-                        filter(s -> !passedContainsState(s) && !waitingContainsState(s)).collect(Collectors.toList()); // TODO I added waitingConstainsState... Okay??
-                toAdd.forEach(e->e.extrapolateMaxBounds(getMaxBounds(),clocks.getItems()));
+                        filter(s -> !passedContainsState(s) && !waitingContainsState(s)).collect(Collectors.toList());
 
                 waiting.addAll(toAdd);
+
             }
 
         }
@@ -467,5 +454,36 @@ public class SimpleTransitionSystem extends TransitionSystem{
         return false;
     }
 
+
+    public void findTrace(ArrayList<Transition> passedTransitions, Location loc) {
+        boolean check = true;
+        String newLoc = "";
+        ArrayDeque<Transition> trace = new ArrayDeque<>();
+
+        for (Transition t: passedTransitions) {
+            if (t.getTarget().getLocation().getName().equals(loc.getName())) {
+                trace.push(t);
+                newLoc = t.getSource().getLocation().getName();
+            }
+        }
+
+        while (check) {
+
+            for (Transition t: passedTransitions) {
+                if (t.getTarget().getLocation().getName().equals(newLoc)) {
+                    trace.push(t);
+                    newLoc = t.getSource().getLocation().getName();
+                }
+
+                if(newLoc.equals(getInitialLocation().getName())) {
+                    check = false;
+                }
+            }
+        }
+
+        for (Transition t: trace) {
+            System.out.println(t.getSource().getLocation().getName() + " -> " + t.getEdges().get(0).getTestCode() + " -> " + t.getTarget().getLocation().getName());
+        }
+    }
 
 }
