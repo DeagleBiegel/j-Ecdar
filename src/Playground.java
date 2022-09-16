@@ -13,7 +13,10 @@ public class Playground {
 
         for (Automaton a: list) {
             SimpleTransitionSystem s = new SimpleTransitionSystem(a);
-            System.out.println(s.isReachable(a.getLocations().get(0)));
+            for (Location x: a.getLocations()) {
+                System.out.println(s.isReachable(x));
+            }
+
         }
 
     }

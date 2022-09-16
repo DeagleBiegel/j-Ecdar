@@ -1,6 +1,6 @@
 {
   "name": "Component1",
-  "declarations": "",
+  "declarations": "clock x;",
   "locations": [
     {
       "id": "L0",
@@ -14,12 +14,13 @@
       "nicknameX": 30.0,
       "nicknameY": -10.0,
       "invariantX": 30.0,
-      "invariantY": 10.0
+      "invariantY": 10.0,
+      "testCode": "L0 testcode \n"
     },
     {
       "id": "L1",
       "nickname": "",
-      "invariant": "",
+      "invariant": "x \u003c\u003d1",
       "type": "NORMAL",
       "urgency": "NORMAL",
       "x": 230.00000999999997,
@@ -27,8 +28,9 @@
       "color": "3",
       "nicknameX": 30.0,
       "nicknameY": -10.0,
-      "invariantX": 30.0,
-      "invariantY": 10.0
+      "invariantX": 10.0,
+      "invariantY": 60.0,
+      "testCode": "L1 testcode \n"
     },
     {
       "id": "L2",
@@ -36,13 +38,29 @@
       "invariant": "",
       "type": "NORMAL",
       "urgency": "NORMAL",
-      "x": 160.00000999999997,
-      "y": 190.0,
+      "x": 130.00000999999997,
+      "y": 180.0,
       "color": "3",
       "nicknameX": 30.0,
       "nicknameY": -10.0,
       "invariantX": 30.0,
-      "invariantY": 10.0
+      "invariantY": 10.0,
+      "testCode": "L2 testcode \n"
+    },
+    {
+      "id": "L3",
+      "nickname": "",
+      "invariant": "",
+      "type": "NORMAL",
+      "urgency": "NORMAL",
+      "x": 400.00001,
+      "y": 300.0,
+      "color": "3",
+      "nicknameX": 30.0,
+      "nicknameY": -10.0,
+      "invariantX": 30.0,
+      "invariantY": 10.0,
+      "testCode": "L3 testcode \n"
     }
   ],
   "edges": [
@@ -57,6 +75,94 @@
       "update": "",
       "sync": "",
       "isLocked": false,
+      "testCode": "E0 testcode \n",
+      "nails": [
+        {
+          "x": 170.0,
+          "y": 300.0,
+          "propertyType": "SYNCHRONIZATION",
+          "propertyX": 10.0,
+          "propertyY": 0.0
+        }
+      ]
+    },
+    {
+      "id": "E1",
+      "group": "",
+      "sourceLocation": "L1",
+      "targetLocation": "L3",
+      "status": "INPUT",
+      "select": "",
+      "guard": "x \u003d\u003d 2",
+      "update": "",
+      "sync": "",
+      "isLocked": false,
+      "testCode": "E1 testcode \n",
+      "nails": [
+        {
+          "x": 270.0,
+          "y": 300.0,
+          "propertyType": "GUARD",
+          "propertyX": 10.0,
+          "propertyY": 0.0
+        },
+        {
+          "x": 324.3333333333333,
+          "y": 298.55,
+          "propertyType": "SYNCHRONIZATION",
+          "propertyX": 20.0,
+          "propertyY": 0.0
+        }
+      ]
+    },
+    {
+      "id": "E2",
+      "group": "",
+      "sourceLocation": "L1",
+      "targetLocation": "L1",
+      "status": "INPUT",
+      "select": "",
+      "guard": "",
+      "update": "x \u003d 0",
+      "sync": "",
+      "isLocked": false,
+      "testCode": "E2 testcode \n",
+      "nails": [
+        {
+          "x": 213.25,
+          "y": 170.6,
+          "propertyType": "SYNCHRONIZATION",
+          "propertyX": 10.0,
+          "propertyY": 0.0
+        },
+        {
+          "x": 150.0,
+          "y": 140.0,
+          "propertyType": "UPDATE",
+          "propertyX": 10.0,
+          "propertyY": 0.0
+        },
+        {
+          "x": 173.25,
+          "y": 220.6,
+          "propertyType": "NONE",
+          "propertyX": 0.0,
+          "propertyY": 0.0
+        }
+      ]
+    },
+    {
+      "id": "E3",
+      "group": "",
+      "sourceLocation": "L0",
+      "targetLocation": "L2",
+      "status": "INPUT",
+      "select": "",
+      "guard": "",
+      "update": "",
+      "sync": "",
+      "isLocked": false,
+      "testCode": "E3 testcode \n",
       "nails": [
         {
           "x": 170.0,
@@ -69,8 +175,8 @@
     }
   ],
   "description": "",
-  "x": 769.0,
-  "y": 315.0,
+  "x": 418.0,
+  "y": 102.0,
   "width": 450.0,
   "height": 600.0,
   "color": "3",

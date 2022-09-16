@@ -54,6 +54,11 @@ public class SimpleLocation extends SymbolicLocation {
     }
 
     @Override
+    public String getTestCode() {
+        return location.getTestCode();
+    }
+
+    @Override
     public boolean equals(Object obj) {
         if (this == obj) {
             return true;

@@ -223,7 +223,7 @@ public class JSONParser {
             Guard invariant = ("".equals(jsonObject.get("invariant").toString()) ? new TrueGuard() :
                     GuardParser.parse(jsonObject.get("invariant").toString(), componentClocks, BVs));
             Location loc = new Location(jsonObject.get("id").toString(), invariant, isInitial, !isNotUrgent,
-                    isUniversal, isInconsistent);
+                    isUniversal, isInconsistent, jsonObject.get("testCode").toString());
 
             returnLocList.add(loc);
         }
@@ -284,7 +284,7 @@ public class JSONParser {
 
             Channel c = addChannel(jsonObject.get("sync").toString());
             if (c != null) {
-                Edge edge = new Edge(sourceLocation, targetLocation, c, isInput, guards, updatesList);
+                Edge edge = new Edge(sourceLocation, targetLocation, c, isInput, guards, updatesList, jsonObject.get("testCode").toString());
                 edges.add(edge);
             }
         }

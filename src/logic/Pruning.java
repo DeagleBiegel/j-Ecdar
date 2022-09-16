@@ -79,7 +79,7 @@ public class Pruning {
 
         if (initialStateIsInconsistent) {
             locations = new ArrayList<>();
-            locations.add(new Location("inc", new TrueGuard(), true, false, false, true));
+            locations.add(new Location("inc", new TrueGuard(), true, false, false, true, ""));
             edges = new ArrayList<>();
         }
 

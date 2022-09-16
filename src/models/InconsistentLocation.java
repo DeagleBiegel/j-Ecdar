@@ -36,6 +36,9 @@ public class InconsistentLocation extends SymbolicLocation {
         return 0;
     }
 
+    @Override
+    public String getTestCode(){ return ""; }
+
     public CDD getInvariant() {
         // TODO the new clock should be <= 0
         return CDD.cddZero();

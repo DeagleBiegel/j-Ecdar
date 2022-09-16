@@ -118,4 +118,7 @@ public class ComplexLocation extends SymbolicLocation {
     public String toString() {
         return "" + locations;
     }
+
+    @Override
+    public String getTestCode() { return "" ;}
 }

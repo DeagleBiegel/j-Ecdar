@@ -118,7 +118,7 @@ public class Quotient extends TransitionSystem {
                     boolean isInitial = l_spec.isInitial() && l_comp.isInitial();
                     boolean isUrgent = l_spec.isUrgent() || l_comp.isUrgent();
                     String locName = l_spec.getName() + "DIV" + l_comp.getName();
-                    Location loc = new Location(locName, new TrueGuard(), isInitial, isUrgent, false, false);
+                    Location loc = new Location(locName, new TrueGuard(), isInitial, isUrgent, false, false, "");
                     locationMap.put(locName, loc);
                     locations.add(loc);
                 }
@@ -126,8 +126,8 @@ public class Quotient extends TransitionSystem {
         }
 
         // Create univ. and inc. location
-        Location univ = new Location("univ", new TrueGuard(), false, false, true, false);
-        Location inc = new Location("inc", new TrueGuard(), false, true, false, true);
+        Location univ = new Location("univ", new TrueGuard(), false, false, true, false, "");
+        Location inc = new Location("inc", new TrueGuard(), false, true, false, true, "");
 
         locationMap.put("univ", univ);
         locationMap.put("inc", inc);
@@ -175,7 +175,7 @@ public class Quotient extends TransitionSystem {
                                     updatesList.addAll(e_comp.getUpdates());
 
                                     boolean isInput = inputs.contains(e_comp.getChan());
-                                    Edge resultE = new Edge(loc, target, c, isInput, guard.getGuard(clocks.getItems()), updatesList);
+                                    Edge resultE = new Edge(loc, target, c, isInput, guard.getGuard(clocks.getItems()), updatesList, "");
                                     edges.add(resultE);
                                 }
                             }
@@ -202,7 +202,7 @@ public class Quotient extends TransitionSystem {
                                     targetInvar = targetInvar.conjunction(l_comp.getInvariantCDD());
                                     targetInvar = targetInvar.conjunction(l_spec.getInvariantCDD());
                                     boolean isInput = inputs.contains(e_comp.getChan());
-                                    edges.add(new Edge(loc, target, c, isInput, targetInvar.getGuard(clocks.getItems()), e_comp.getUpdates()));
+                                    edges.add(new Edge(loc, target, c, isInput, targetInvar.getGuard(clocks.getItems()), e_comp.getUpdates(), ""));
                                 }
                             }
                         }
@@ -222,7 +222,7 @@ public class Quotient extends TransitionSystem {
 
                         // if guards have been collected
                         if (negated.isNotFalse())
-                            edges.add(new Edge(loc, univ, c, isInput, negated.getGuard(clocks.getItems()), new ArrayList<>()));
+                            edges.add(new Edge(loc, univ, c, isInput, negated.getGuard(clocks.getItems()), new ArrayList<>(), ""));
                     }
 
                     System.out.println("RULE 5");
@@ -232,7 +232,7 @@ public class Quotient extends TransitionSystem {
                         CDD l_comp_invar_negated = l_comp.getInvariantCDD().negation().removeNegative();
                         for (Channel c : allChans) {
                             boolean isInput = inputs.contains(c);
-                            edges.add(new Edge(loc, univ, c, isInput, l_comp_invar_negated.getGuard(clocks.getItems()), new ArrayList<>()));
+                            edges.add(new Edge(loc, univ, c, isInput, l_comp_invar_negated.getGuard(clocks.getItems()), new ArrayList<>(), ""));
                         }
                     }
 
@@ -263,7 +263,7 @@ public class Quotient extends TransitionSystem {
                                         add(new ClockUpdate(newClock, 0));
                                     }};
                                     System.out.println("adding edge");
-                                    edges.add(new Edge(loc, inc, c, true, targetState.getGuard(clocks.getItems()), updates));
+                                    edges.add(new Edge(loc, inc, c, true, targetState.getGuard(clocks.getItems()), updates, ""));
                                 }
                             }
                         }
@@ -283,7 +283,7 @@ public class Quotient extends TransitionSystem {
                             add(new ClockUpdate(newClock, 0));
                         }};
                         System.out.println("adding edge " + combined);
-                        edges.add(new Edge(loc, inc, newChan, true, combined.getGuard(clocks.getItems()), updates));
+                        edges.add(new Edge(loc, inc, newChan, true, combined.getGuard(clocks.getItems()), updates, ""));
                     }
 
 
@@ -311,7 +311,7 @@ public class Quotient extends TransitionSystem {
                                     if (c.getName().equals("patent"))
                                         System.out.println("HERE " + targetInvar);
                                     boolean isInput = inputs.contains(c);
-                                    edges.add(new Edge(loc, target, c, isInput, targetInvar.getGuard(clocks.getItems()), e_spec.getUpdates()));
+                                    edges.add(new Edge(loc, target, c, isInput, targetInvar.getGuard(clocks.getItems()), e_spec.getUpdates(), ""));
                                 }
                             }
                         }
@@ -323,16 +323,16 @@ public class Quotient extends TransitionSystem {
         // Rule 10: for each input, create a selfloop in inc.
         for (Channel c : getInputs()) {
             Guard g = new ClockGuard(newClock, null, 0, Relation.LESS_EQUAL);
-            edges.add(new Edge(inc, inc, c, true, g, new ArrayList<>()));
+            edges.add(new Edge(inc, inc, c, true, g, new ArrayList<>(), ""));
         }
 
 
         // Rule 9: for each input or output,  create a selfloop in univ.
         for (Channel c : getInputs()) {
-            edges.add(new Edge(univ, univ, c, true, new TrueGuard(), new ArrayList<>()));
+            edges.add(new Edge(univ, univ, c, true, new TrueGuard(), new ArrayList<>(), ""));
         }
         for (Channel c : getOutputs()) {
-            edges.add(new Edge(univ, univ, c, false, new TrueGuard(), new ArrayList<>()));
+            edges.add(new Edge(univ, univ, c, false, new TrueGuard(), new ArrayList<>(), ""));
         }
 
         System.out.println("Done with creating edges");
@@ -372,7 +372,7 @@ public class Quotient extends TransitionSystem {
             for (Edge e : edges) {
                 if (e.getTarget().getName().equals("univ") & channelsThatOnlySelfLoopInSpec.contains(e.getChannel())) {
                     toRemove.add(e);
-                    toAdd.add(new Edge(e.getSource(), e.getSource(), e.getChannel(), e.isInput(), e.getGuard(), e.getUpdates()));
+                    toAdd.add(new Edge(e.getSource(), e.getSource(), e.getChannel(), e.isInput(), e.getGuard(), e.getUpdates(), e.getTestCode()));
                 }
             }
 

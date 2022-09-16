@@ -404,14 +404,18 @@ public class SimpleTransitionSystem extends TransitionSystem{
     }
 
     public boolean isReachableHelper(Location location){
-
+        String testcode = "";
         Set<Channel> actions = getActions();
-
+        ArrayList<Transition> passedEdges = new ArrayList<>();
         waiting = new ArrayDeque<>();
         passed = new ArrayList<>();
         waiting.add(getInitialState());
 
+        System.out.println("------------");
+        System.out.println("Is " + location.getName() + " reachable?");
+
         if (location.getName().equals(getInitialLocation().getName())){
+
             return true;
         }
 
@@ -423,9 +427,30 @@ public class SimpleTransitionSystem extends TransitionSystem{
             passed.add(toStore);
 
             for (Channel action : actions){
+
                 List<Transition> tempTrans = getNextTransitions(currState, action);
+
                 for (Transition trans : tempTrans){
+
+                    passedEdges.add(trans);
                     if (trans.getTarget().getLocation().getName().equals(location.getName())){
+                        Collections.reverse(passedEdges);
+
+
+                        for (Transition t: passedEdges) {
+                            if (t.getSource().getLocation().getName().equals(getInitialLocation().getName())) {
+                                testcode += t.getSource().getLocation().getTestCode();
+                                testcode += t.getEdges().get(0).getTestCode();
+                                testcode += t.getTarget().getLocation().getTestCode();
+                                break;
+                            }
+                            testcode += t.getSource().getLocation().getTestCode();
+                            testcode += t.getEdges().get(0).getTestCode();
+                            testcode += t.getTarget().getLocation().getTestCode();
+                        }
+
+                        System.out.println(testcode);
+
                         return true;
                     }
                 }
@@ -438,6 +463,7 @@ public class SimpleTransitionSystem extends TransitionSystem{
             }
 
         }
+
         return false;
     }
 

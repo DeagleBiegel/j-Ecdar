@@ -40,4 +40,7 @@ public class UniversalLocation extends SymbolicLocation {
         // should be true, so no invariants
         return CDD.cddTrue();
     }
+
+    @Override
+    public String getTestCode() { return ""; }
 }

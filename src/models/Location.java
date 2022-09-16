@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 
 public class Location {
     private final String name;
+    private String testCode;
 
     private int x, y;
     private Guard invariant;
@@ -18,7 +19,7 @@ public class Location {
     private boolean isUniversal;
     private boolean isInconsistent;
 
-    public Location(String name, Guard invariant, boolean isInitial, boolean isUrgent, boolean isUniversal, boolean isInconsistent, int x, int y) {
+    public Location(String name, Guard invariant, boolean isInitial, boolean isUrgent, boolean isUniversal, boolean isInconsistent, int x, int y, String testCode) {
         this.name = name;
         this.invariant = invariant;
         this.isInitial = isInitial;
@@ -28,10 +29,11 @@ public class Location {
         this.inconsistentPart = null;
         this.x = x;
         this.y = y;
+        this.testCode = testCode;
     }
 
-    public Location(String name, Guard invariant, boolean isInitial, boolean isUrgent, boolean isUniversal, boolean isInconsistent) {
-        this(name, invariant, isInitial, isUrgent, isUniversal, isInconsistent, 0, 0);
+    public Location(String name, Guard invariant, boolean isInitial, boolean isUrgent, boolean isUniversal, boolean isInconsistent, String testCode) {
+        this(name, invariant, isInitial, isUrgent, isUniversal, isInconsistent, 0, 0, testCode);
     }
 
     public Location(Location copy, List<Clock> newClocks, List<Clock> oldClocks, List<BoolVar> newBVs, List<BoolVar> oldBVs) {
@@ -45,7 +47,8 @@ public class Location {
             copy.isUniversal,
             copy.isInconsistent,
             copy.x,
-            copy.y
+            copy.y,
+            copy.testCode
         );
     }
 
@@ -89,7 +92,8 @@ public class Location {
                 state.getLocation().getIsUniversal(),
                 state.getLocation().getIsInconsistent(),
                 state.getLocation().getX(),
-                state.getLocation().getX()
+                state.getLocation().getX(),
+                state.getLocation().getTestCode()
         );
     }
 
@@ -163,6 +167,10 @@ public class Location {
 
     public int getMaxConstant(Clock clock) {
         return invariant.getMaxConstant(clock);
+    }
+
+    public String getTestCode() {
+        return testCode;
     }
 
     @Override

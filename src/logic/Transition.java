@@ -34,8 +34,6 @@ public  class Transition {
 
         this(state, state, new Move(state.getLocation(), state.getLocation(), new ArrayList<>()), new CDD(guardCDD.getPointer()));
 
-
-
     }
 
     public State getSource() {
