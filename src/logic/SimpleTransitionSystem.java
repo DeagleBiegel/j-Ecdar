@@ -396,7 +396,6 @@ public class SimpleTransitionSystem extends TransitionSystem{
     }
 
 
-
     private int getIndexOfClock(Clock clock, List<Clock> clocks) {
         for (int i = 0; i < clocks.size(); i++){
             if(clock.hashCode() == clocks.get(i).hashCode()) return i+1;
@@ -406,7 +405,8 @@ public class SimpleTransitionSystem extends TransitionSystem{
 
     public boolean isReachableHelper(Location location){
         Set<Channel> actions = getActions();
-        ArrayList<Transition> passedTransitions = new ArrayList<>();
+        HashMap<String, ArrayList<Transition>> passedTransitions = new HashMap<>();
+
         waiting = new ArrayDeque<>();
         passed = new ArrayList<>();
         waiting.add(getInitialState());
@@ -429,9 +429,15 @@ public class SimpleTransitionSystem extends TransitionSystem{
 
                 List<Transition> tempTrans = getNextTransitions(currState, action);
 
-                for (Transition trans : tempTrans){
+                for (Transition trans : tempTrans) {
 
-                    passedTransitions.add(trans);
+                    if (!passedTransitions.containsKey(trans.getTarget().getLocation().getName())) {
+                        passedTransitions.put(trans.getTarget().getLocation().getName(), new ArrayList<>());
+                        passedTransitions.get(trans.getTarget().getLocation().getName()).add(trans);
+                    }
+                    else {
+                        passedTransitions.get(trans.getSource().getLocation().getName()).add(trans);
+                    }
 
                     if (trans.getTarget().getLocation().getName().equals(location.getName())){
 
@@ -454,36 +460,30 @@ public class SimpleTransitionSystem extends TransitionSystem{
         return false;
     }
 
-
-    public void findTrace(ArrayList<Transition> passedTransitions, Location loc) {
-        boolean check = true;
-        String newLoc = "";
+    public void findTrace(HashMap<String, ArrayList<Transition>> passedTransitions, Location loc) {
+        Transition newLoc;
         ArrayDeque<Transition> trace = new ArrayDeque<>();
+        ArrayList<Transition> temp;
 
-        for (Transition t: passedTransitions) {
-            if (t.getTarget().getLocation().getName().equals(loc.getName())) {
-                trace.push(t);
-                newLoc = t.getSource().getLocation().getName();
-            }
-        }
 
-        while (check) {
+        newLoc = passedTransitions.get(loc.getName()).get(0);
+        trace.add(passedTransitions.get(loc.getName()).get(0));
 
-            for (Transition t: passedTransitions) {
-                if (t.getTarget().getLocation().getName().equals(newLoc)) {
-                    trace.push(t);
-                    newLoc = t.getSource().getLocation().getName();
-                }
+        while (!newLoc.getSource().getLocation().getName().equals(getInitialLocation().getName())) {
+                temp = passedTransitions.get(newLoc.getSource().getLocation().getName());
 
-                if(newLoc.equals(getInitialLocation().getName())) {
-                    check = false;
-                }
+                for (Transition t: temp) {
+                    if (t.getTarget().getLocation().getName().equals(newLoc.getSource().getLocation().getName())) {
+                        trace.add(t);
+                        newLoc = t;
+                    }
             }
         }
 
         for (Transition t: trace) {
             System.out.println(t.getSource().getLocation().getName() + " -> " + t.getEdges().get(0).getTestCode() + " -> " + t.getTarget().getLocation().getName());
         }
+
     }
 
 }
