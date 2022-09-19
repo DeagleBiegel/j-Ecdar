@@ -440,9 +440,7 @@ public class SimpleTransitionSystem extends TransitionSystem{
                     }
 
                     if (trans.getTarget().getLocation().getName().equals(location.getName())){
-
                         findTrace(passedTransitions, location);
-
                         return true;
                     }
 
@@ -462,29 +460,24 @@ public class SimpleTransitionSystem extends TransitionSystem{
 
     public void findTrace(HashMap<String, ArrayList<Transition>> passedTransitions, Location loc) {
         Transition newLoc;
-        ArrayDeque<Transition> trace = new ArrayDeque<>();
+        ArrayList<Transition> trace = new ArrayList();
         ArrayList<Transition> temp;
-
 
         newLoc = passedTransitions.get(loc.getName()).get(0);
         trace.add(passedTransitions.get(loc.getName()).get(0));
 
         while (!newLoc.getSource().getLocation().getName().equals(getInitialLocation().getName())) {
-                temp = passedTransitions.get(newLoc.getSource().getLocation().getName());
+            temp = passedTransitions.get(newLoc.getSource().getLocation().getName());
 
-                for (Transition t: temp) {
-                    if (t.getTarget().getLocation().getName().equals(newLoc.getSource().getLocation().getName())) {
-                        trace.add(t);
-                        newLoc = t;
-                    }
+            for (Transition t : temp) {
+                if (t.getTarget().getLocation().getName().equals(newLoc.getSource().getLocation().getName())) {
+                    trace.add(t);
+                    newLoc = t;
+                }
             }
         }
 
-        for (Transition t: trace) {
-            System.out.println(t.getSource().getLocation().getName() + " -> " + t.getEdges().get(0).getTestCode() + " -> " + t.getTarget().getLocation().getName());
-            System.out.println(t.getSource().getLocation().getEnterTestCode() + t.getSource().getLocation().getExitTestCode());
-        }
+        //insert testcode into file
 
     }
-
 }
