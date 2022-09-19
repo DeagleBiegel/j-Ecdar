@@ -2,6 +2,7 @@ package logic;
 
 import models.*;
 
+import java.io.IOException;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -264,7 +265,7 @@ public abstract class TransitionSystem {
         return moves;
     }
 
-    public boolean isReachable(Location location){
+    public boolean isReachable(Location location) throws IOException {
         boolean initialisedCdd = CDD.tryInit(getClocks(), getBVs());
         boolean isReachable = true;
         List<SimpleTransitionSystem> systems = getSystems();

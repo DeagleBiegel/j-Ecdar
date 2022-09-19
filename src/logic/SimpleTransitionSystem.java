@@ -3,9 +3,12 @@ package logic;
 import models.*;
 import parser.XMLFileWriter;
 
+import java.io.FileWriter;
 import java.lang.reflect.Array;
 import java.util.*;
 import java.util.stream.Collectors;
+import java.io.File;
+import java.io.IOException;
 
 public class SimpleTransitionSystem extends TransitionSystem{
 
@@ -403,7 +406,7 @@ public class SimpleTransitionSystem extends TransitionSystem{
         return 0;
     }
 
-    public boolean isReachableHelper(Location location){
+    public boolean isReachableHelper(Location location) throws IOException {
         Set<Channel> actions = getActions();
         HashMap<String, ArrayList<Transition>> passedTransitions = new HashMap<>();
 
@@ -458,7 +461,7 @@ public class SimpleTransitionSystem extends TransitionSystem{
         return false;
     }
 
-    public void findTrace(HashMap<String, ArrayList<Transition>> passedTransitions, Location loc) {
+    public void findTrace(HashMap<String, ArrayList<Transition>> passedTransitions, Location loc)  {
         Transition newLoc;
         ArrayList<Transition> trace = new ArrayList();
         ArrayList<Transition> temp;
@@ -477,7 +480,21 @@ public class SimpleTransitionSystem extends TransitionSystem{
             }
         }
 
-        //insert testcode into file
+        StringBuilder sb = new StringBuilder();
+        for (Transition tran : trace){
+            sb.append(tran.getSource().getLocation().getExitTestCode());
+            sb.append(tran.getEdges().get(0).getTestCode());
+            sb.append(tran.getTarget().getLocation().getEnterTestCode());
+        }
 
+        try {
+            FileWriter writer = new FileWriter("testcode.txt", true);
+            writer.write(sb.toString());
+            writer.write("\n");
+            writer.close();
+        } catch (IOException e){
+            e.printStackTrace();
+        }
+        
     }
 }

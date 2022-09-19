@@ -5,10 +5,11 @@ import models.Location;
 import parser.JSONParser;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 
 public class Playground {
 
-    public static void main(String[] args) throws FileNotFoundException {
+    public static void main(String[] args) throws IOException {
         Automaton[] list = JSONParser.parse("samples/json/TestProject1",true);
 
         for (Automaton a: list) {
