@@ -17,5 +17,7 @@ public abstract class SymbolicLocation {
 
     public abstract int getX();
 
-    public abstract String getTestCode();
+    public abstract String getEnterTestCode();
+
+    public abstract String getExitTestCode();
 }

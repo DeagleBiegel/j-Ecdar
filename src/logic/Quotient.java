@@ -118,7 +118,7 @@ public class Quotient extends TransitionSystem {
                     boolean isInitial = l_spec.isInitial() && l_comp.isInitial();
                     boolean isUrgent = l_spec.isUrgent() || l_comp.isUrgent();
                     String locName = l_spec.getName() + "DIV" + l_comp.getName();
-                    Location loc = new Location(locName, new TrueGuard(), isInitial, isUrgent, false, false, "");
+                    Location loc = new Location(locName, new TrueGuard(), isInitial, isUrgent, false, false, "", "");
                     locationMap.put(locName, loc);
                     locations.add(loc);
                 }
@@ -126,8 +126,8 @@ public class Quotient extends TransitionSystem {
         }
 
         // Create univ. and inc. location
-        Location univ = new Location("univ", new TrueGuard(), false, false, true, false, "");
-        Location inc = new Location("inc", new TrueGuard(), false, true, false, true, "");
+        Location univ = new Location("univ", new TrueGuard(), false, false, true, false, "", "");
+        Location inc = new Location("inc", new TrueGuard(), false, true, false, true, "", "");
 
         locationMap.put("univ", univ);
         locationMap.put("inc", inc);

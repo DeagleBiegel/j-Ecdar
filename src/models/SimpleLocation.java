@@ -54,8 +54,13 @@ public class SimpleLocation extends SymbolicLocation {
     }
 
     @Override
-    public String getTestCode() {
-        return location.getTestCode();
+    public String getEnterTestCode() {
+        return location.getEnterTestCode();
+    }
+
+    @Override
+    public String getExitTestCode() {
+        return location.getExitTestCode();
     }
 
     @Override

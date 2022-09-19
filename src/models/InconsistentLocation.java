@@ -37,7 +37,10 @@ public class InconsistentLocation extends SymbolicLocation {
     }
 
     @Override
-    public String getTestCode(){ return ""; }
+    public String getEnterTestCode(){ return ""; }
+
+    @Override
+    public String getExitTestCode(){ return ""; }
 
     public CDD getInvariant() {
         // TODO the new clock should be <= 0

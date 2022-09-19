@@ -120,5 +120,8 @@ public class ComplexLocation extends SymbolicLocation {
     }
 
     @Override
-    public String getTestCode() { return "" ;}
+    public String getEnterTestCode() { return "" ;}
+
+    @Override
+    public String getExitTestCode() {return "" ;}
 }

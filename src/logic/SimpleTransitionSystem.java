@@ -482,6 +482,7 @@ public class SimpleTransitionSystem extends TransitionSystem{
 
         for (Transition t: trace) {
             System.out.println(t.getSource().getLocation().getName() + " -> " + t.getEdges().get(0).getTestCode() + " -> " + t.getTarget().getLocation().getName());
+            System.out.println(t.getSource().getLocation().getEnterTestCode() + t.getSource().getLocation().getExitTestCode());
         }
 
     }
