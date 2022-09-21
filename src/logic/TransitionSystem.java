@@ -265,13 +265,31 @@ public abstract class TransitionSystem {
         return moves;
     }
 
-    public boolean isReachable(Location location) throws IOException {
+    public boolean isReachable(String name) {
         boolean initialisedCdd = CDD.tryInit(getClocks(), getBVs());
         boolean isReachable = true;
         List<SimpleTransitionSystem> systems = getSystems();
 
         for (SimpleTransitionSystem ts : systems){
-            if (!ts.isReachableHelper(location)){
+            if (!ts.isReachableHelper(name)){
+                isReachable = false;
+            }
+        }
+
+        if (initialisedCdd){
+            CDD.done();
+        }
+
+        return isReachable;
+    }
+
+    public boolean generateTrace(String name) {
+        boolean initialisedCdd = CDD.tryInit(getClocks(), getBVs());
+        boolean isReachable = true;
+        List<SimpleTransitionSystem> systems = getSystems();
+
+        for (SimpleTransitionSystem ts : systems){
+            if (!ts.generateTraceHelper(name)){
                 isReachable = false;
             }
         }

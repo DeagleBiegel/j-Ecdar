@@ -1,8 +1,4 @@
-exit L0E0L1
-exit L0E3L2
-exit L2E4L4exit L0E3L2
-exit L4E5L5exit L2E4L4exit L0E3L2
-exit L5E6L6exit L4E5L5exit L2E4L4exit L0E3L2
+
 exit L0E0L1
 exit L0E3L2
 exit L2E4L4exit L0E3L2

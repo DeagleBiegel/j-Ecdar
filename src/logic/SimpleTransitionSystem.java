@@ -406,7 +406,42 @@ public class SimpleTransitionSystem extends TransitionSystem{
         return 0;
     }
 
-    public boolean isReachableHelper(Location location) throws IOException {
+    public boolean isReachableHelper(String name) {
+        System.out.println("------------");
+        System.out.println("Is " + name + " reachable?");
+
+        Set<Channel> actions = getActions();
+
+        waiting = new ArrayDeque<>();
+        passed = new ArrayList<>();
+        waiting.add(getInitialState());
+
+        while (!waiting.isEmpty()) {
+            State currState = new State(waiting.pop());
+            State toStore = new State(currState);
+
+            toStore.extrapolateMaxBounds(this.getMaxBounds(), clocks.getItems());
+            passed.add(toStore);
+
+            for (Channel action : actions){
+                List<Transition> tempTrans = getNextTransitions(currState, action);
+
+                if (currState.getLocation().getName().equals(name)) {
+                    return true;
+                }
+
+                List<State> toAdd = tempTrans.stream().map(Transition::getTarget).
+                        filter(s -> !passedContainsState(s) && !waitingContainsState(s)).collect(Collectors.toList());
+
+                waiting.addAll(toAdd);
+            }
+        }
+
+        return false;
+    }
+
+    public boolean generateTraceHelper(String name) {
+
         Set<Channel> actions = getActions();
         HashMap<String, ArrayList<Transition>> passedTransitions = new HashMap<>();
 
@@ -414,10 +449,7 @@ public class SimpleTransitionSystem extends TransitionSystem{
         passed = new ArrayList<>();
         waiting.add(getInitialState());
 
-        System.out.println("------------");
-        System.out.println("Is " + location.getName() + " reachable?");
-
-        if (location.getName().equals(getInitialLocation().getName())){
+        if (getInitialLocation().getName().equals(name)) {
             return true;
         }
 
@@ -442,8 +474,28 @@ public class SimpleTransitionSystem extends TransitionSystem{
                         passedTransitions.get(trans.getSource().getLocation().getName()).add(trans);
                     }
 
-                    if (trans.getTarget().getLocation().getName().equals(location.getName())){
-                        findTrace(passedTransitions, location);
+                    if (currState.getLocation().getName().equals(name)){
+
+                        Transition newLoc;
+                        ArrayList<Transition> trace = new ArrayList();
+                        ArrayList<Transition> temp;
+
+                        newLoc = passedTransitions.get(currState.getLocation().getName()).get(0);
+                        trace.add(passedTransitions.get(currState.getLocation().getName()).get(0));
+
+                        while (!newLoc.getSource().getLocation().getName().equals(getInitialLocation().getName())) {
+                            temp = passedTransitions.get(newLoc.getSource().getLocation().getName());
+
+                            for (Transition t : temp) {
+                                if (t.getTarget().getLocation().getName().equals(newLoc.getSource().getLocation().getName())) {
+                                    trace.add(t);
+                                    newLoc = t;
+                                }
+                            }
+                        }
+
+                        generateTestCode(trace);
+
                         return true;
                     }
 
@@ -453,14 +505,31 @@ public class SimpleTransitionSystem extends TransitionSystem{
                         filter(s -> !passedContainsState(s) && !waitingContainsState(s)).collect(Collectors.toList());
 
                 waiting.addAll(toAdd);
-
             }
-
         }
 
         return false;
     }
 
+    public void generateTestCode(ArrayList<Transition> trace) {
+        StringBuilder sb = new StringBuilder();
+        for (Transition tran : trace){
+            sb.append(tran.getSource().getLocation().getExitTestCode());
+            sb.append(tran.getEdges().get(0).getTestCode());
+            sb.append(tran.getTarget().getLocation().getEnterTestCode());
+        }
+
+        try {
+            FileWriter writer = new FileWriter("testcode.txt", true);
+            writer.write(sb.toString());
+            writer.write("\n");
+            writer.close();
+        } catch (IOException e){
+            e.printStackTrace();
+        }
+    }
+
+    /*
     public void findTrace(HashMap<String, ArrayList<Transition>> passedTransitions, Location loc)  {
         Transition newLoc;
         ArrayList<Transition> trace = new ArrayList();
@@ -495,6 +564,6 @@ public class SimpleTransitionSystem extends TransitionSystem{
         } catch (IOException e){
             e.printStackTrace();
         }
-        
     }
+     */
 }

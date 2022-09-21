@@ -10,14 +10,21 @@ import java.io.IOException;
 public class Playground {
 
     public static void main(String[] args) throws IOException {
-        Automaton[] list = JSONParser.parse("samples/json/TestProject1",true);
+        try {
+            Automaton[] automaton = JSONParser.parse("samples/json/TestProject1", true);
 
-        for (Automaton a: list) {
-            SimpleTransitionSystem s = new SimpleTransitionSystem(a);
-            for (Location x: a.getLocations()) {
-                System.out.println(s.isReachable(x));
+            for (var a : automaton) {
+                SimpleTransitionSystem STS = new SimpleTransitionSystem(a);
+
+                for (var x : a.getLocations()) {
+                    System.out.println(STS.isReachable(x.getName()));
+                    STS.generateTrace(x.getName());
+                }
+
             }
-
+        }
+        catch (FileNotFoundException e) {
+            e.printStackTrace();
         }
 
     }
