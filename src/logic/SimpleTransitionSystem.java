@@ -1,6 +1,7 @@
 package logic;
 
 import models.*;
+import parser.GuardParser;
 import parser.XMLFileWriter;
 
 import java.io.FileWriter;
@@ -440,6 +441,48 @@ public class SimpleTransitionSystem extends TransitionSystem{
         return false;
     }
 
+    public boolean isStateReachableHelper(String name, String state) {
+        System.out.println("------------");
+        System.out.println("Is " + name + " " + state +" reachable?");
+
+        Set<Channel> actions = getActions();
+
+        waiting = new ArrayDeque<>();
+        passed = new ArrayList<>();
+        waiting.add(getInitialState());
+
+        while (!waiting.isEmpty()) {
+            State currState = new State(waiting.pop());
+            State toStore = new State(currState);
+
+            toStore.extrapolateMaxBounds(this.getMaxBounds(), clocks.getItems());
+            passed.add(toStore);
+
+            for (Channel action : actions){
+                List<Transition> tempTrans = getNextTransitions(currState, action);
+
+                if (currState.getLocation().getName().equals(name)) {
+                    Guard g = GuardParser.parse(state,getClocks(),getBVs());
+                    CDD cdd = new CDD(g);
+                    CDD cdd1 = currState.getInvariant().conjunction(cdd);
+
+                    if (!cdd1.toString().equals("false")) {
+                        System.out.println(cdd1);
+                        return true;
+                    }
+                    return false;
+                }
+
+                List<State> toAdd = tempTrans.stream().map(Transition::getTarget).
+                        filter(s -> !passedContainsState(s) && !waitingContainsState(s)).collect(Collectors.toList());
+
+                waiting.addAll(toAdd);
+            }
+        }
+
+        return false;
+    }
+
     public boolean generateTraceHelper(String name) {
 
         Set<Channel> actions = getActions();
@@ -529,41 +572,5 @@ public class SimpleTransitionSystem extends TransitionSystem{
         }
     }
 
-    /*
-    public void findTrace(HashMap<String, ArrayList<Transition>> passedTransitions, Location loc)  {
-        Transition newLoc;
-        ArrayList<Transition> trace = new ArrayList();
-        ArrayList<Transition> temp;
 
-        newLoc = passedTransitions.get(loc.getName()).get(0);
-        trace.add(passedTransitions.get(loc.getName()).get(0));
-
-        while (!newLoc.getSource().getLocation().getName().equals(getInitialLocation().getName())) {
-            temp = passedTransitions.get(newLoc.getSource().getLocation().getName());
-
-            for (Transition t : temp) {
-                if (t.getTarget().getLocation().getName().equals(newLoc.getSource().getLocation().getName())) {
-                    trace.add(t);
-                    newLoc = t;
-                }
-            }
-        }
-
-        StringBuilder sb = new StringBuilder();
-        for (Transition tran : trace){
-            sb.append(tran.getSource().getLocation().getExitTestCode());
-            sb.append(tran.getEdges().get(0).getTestCode());
-            sb.append(tran.getTarget().getLocation().getEnterTestCode());
-        }
-
-        try {
-            FileWriter writer = new FileWriter("testcode.txt", true);
-            writer.write(sb.toString());
-            writer.write("\n");
-            writer.close();
-        } catch (IOException e){
-            e.printStackTrace();
-        }
-    }
-     */
 }

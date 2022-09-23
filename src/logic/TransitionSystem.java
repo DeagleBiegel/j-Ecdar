@@ -283,6 +283,24 @@ public abstract class TransitionSystem {
         return isReachable;
     }
 
+    public boolean isStateReachable(String name, String state) {
+        boolean initialisedCdd = CDD.tryInit(getClocks(), getBVs());
+        boolean isStateReachable = true;
+        List<SimpleTransitionSystem> systems = getSystems();
+
+        for (SimpleTransitionSystem ts : systems){
+            if (!ts.isStateReachableHelper(name, state)){
+                isStateReachable = false;
+            }
+        }
+
+        if (initialisedCdd){
+            CDD.done();
+        }
+
+        return isStateReachable;
+    }
+
     public boolean generateTrace(String name) {
         boolean initialisedCdd = CDD.tryInit(getClocks(), getBVs());
         boolean isReachable = true;
