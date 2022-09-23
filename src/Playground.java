@@ -9,7 +9,7 @@ import java.io.IOException;
 
 public class Playground {
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
         try {
             Automaton[] automaton = JSONParser.parse("samples/json/cofmachine", true);
 
