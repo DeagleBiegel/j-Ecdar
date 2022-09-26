@@ -325,7 +325,7 @@ public abstract class TransitionSystem {
         List<SimpleTransitionSystem> systems = getSystems();
 
         for (SimpleTransitionSystem ts : systems){
-            if (!ts.generateShortestTraceHelper(name)){
+            if (!ts.generateShortestTraceHelper2(name)){
                 isReachable = false;
             }
         }

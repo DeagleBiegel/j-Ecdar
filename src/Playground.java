@@ -21,8 +21,8 @@ public class Playground {
                     System.out.println(STS.isReachable(x.getName()));
                 }
                  */
-
-                STS.generateTrace("L6");
+                STS.generateShortestTrace("L6");
+                //STS.generateTrace("L6");
                 //System.out.println(STS.isStateReachable("L1", "x >= 3 && x <= 6"));
             }
         }

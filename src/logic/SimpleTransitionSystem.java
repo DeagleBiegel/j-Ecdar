@@ -562,6 +562,49 @@ public class SimpleTransitionSystem extends TransitionSystem{
         return false;
     }
 
+    public boolean generateShortestTraceHelper2(String dest){
+        State src = getInitialState();
+        List<State> queue = new ArrayList<>();
+        HashMap<String, Transition> pred = new HashMap<>();
+        HashMap<String, Integer> dist = new HashMap<>();
+        HashMap<String, Boolean> visited = new HashMap<>();
+
+        for (Location loc : automaton.getLocations()){
+            visited.put(loc.getName(), false);
+            dist.put(loc.getName(), Integer.MAX_VALUE);
+        }
+
+        visited.put(src.getLocation().getName(), true);
+        dist.put(src.getLocation().getName(), 0);
+        queue.add(src);
+
+        while (!queue.isEmpty()){
+            State state = queue.remove(0);
+            for (Channel action : getActions()) {
+                List<Transition> tempTrans = getNextTransitions(state, action);
+                for (Transition t : tempTrans) {
+                    if (visited.get(t.getTarget().getLocation().getName()) == false) {
+                        visited.put(t.getTarget().getLocation().getName(), true);
+                        dist.put(t.getTarget().getLocation().getName(), dist.get(state.getLocation().getName()) + 1);
+                        pred.put(t.getTarget().getLocation().getName(), t);
+
+                        if (t.getTarget().getLocation().getName().equals(dest)) {
+                            Transition tempT = t;
+                            while (!tempT.getTarget().getLocation().getName().equals(getInitialLocation().getName())){
+                                System.out.println(pred.get(tempT.getTarget().getLocation().getName()));
+                                tempT = pred.get(tempT.getTarget().getLocation().getName());
+                            }
+                            return true;
+                        }
+                    }
+                }
+                queue.addAll(tempTrans.stream().map(Transition::getTarget).
+                        filter(s -> !passedContainsState(s) && !waitingContainsState(s)).collect(Collectors.toList()));
+            }
+        }
+        return false;
+    }
+
     public boolean generateShortestTraceHelper(String name) {
         System.out.println("------------");
         System.out.println("Shortest trace for " + name + ":");
