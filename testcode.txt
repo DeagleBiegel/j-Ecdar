@@ -21,3 +21,8 @@ Exit L7 L7 -> L0 Enter L0
 Exit L0 L0 -> L5 Enter L5 
 Exit L5 L5 -> L6 Enter L6 
 
+Idle exitL0 -> L1Brewing1 enter
+
+Idle exitL0 -> L1Brewing1 enter
+Brewing1 exitL1 -> L2Brewing2 enter
+
