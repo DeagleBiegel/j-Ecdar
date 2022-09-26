@@ -16,12 +16,13 @@ public class Playground {
             for (var a : automaton) {
                 SimpleTransitionSystem STS = new SimpleTransitionSystem(a);
 
-                /*
+
                 for (var x : a.getLocations()) {
-                    System.out.println(STS.isReachable(x.getName()));
+                    System.out.println(STS.generateShortestTrace(x.getName()));
                 }
-                 */
-                STS.generateShortestTrace("L6");
+
+
+                //STS.generateShortestTrace("L0");
                 //STS.generateTrace("L6");
                 //System.out.println(STS.isStateReachable("L1", "x >= 3 && x <= 6"));
             }

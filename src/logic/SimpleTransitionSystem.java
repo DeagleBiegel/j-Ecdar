@@ -442,11 +442,6 @@ public class SimpleTransitionSystem extends TransitionSystem{
     }
 
     public boolean isStateReachableHelper(String name, String state) {
-        System.out.println("------------");
-        System.out.println("Is " + name + " " + state +" reachable?");
-
-        Set<Channel> actions = getActions();
-
         waiting = new ArrayDeque<>();
         passed = new ArrayList<>();
         waiting.add(getInitialState());
@@ -458,7 +453,7 @@ public class SimpleTransitionSystem extends TransitionSystem{
             toStore.extrapolateMaxBounds(this.getMaxBounds(), clocks.getItems());
             passed.add(toStore);
 
-            for (Channel action : actions){
+            for (Channel action : getActions()){
                 List<Transition> tempTrans = getNextTransitions(currState, action);
 
                 if (currState.getLocation().getName().equals(name)) {
@@ -510,11 +505,8 @@ public class SimpleTransitionSystem extends TransitionSystem{
 
                     if (!passedTransitions.containsKey(trans.getTarget().getLocation().getName())) {
                         passedTransitions.put(trans.getTarget().getLocation().getName(), new ArrayList<>());
-                        passedTransitions.get(trans.getTarget().getLocation().getName()).add(trans);
                     }
-                    else {
-                        passedTransitions.get(trans.getTarget().getLocation().getName()).add(trans);
-                    }
+                    passedTransitions.get(trans.getTarget().getLocation().getName()).add(trans);
 
                     if (currState.getLocation().getName().equals(name)){
 
@@ -562,7 +554,12 @@ public class SimpleTransitionSystem extends TransitionSystem{
         return false;
     }
 
-    public boolean generateShortestTraceHelper2(String dest){
+    public boolean generateShortestTraceHelper(String dest){
+        if (dest.equals(getInitialLocation().getName())) {
+            return true;
+        }
+
+        ArrayList<Transition> transitions = new ArrayList<>();
         State src = getInitialState();
         List<State> queue = new ArrayList<>();
         HashMap<String, Transition> pred = new HashMap<>();
@@ -583,7 +580,7 @@ public class SimpleTransitionSystem extends TransitionSystem{
             for (Channel action : getActions()) {
                 List<Transition> tempTrans = getNextTransitions(state, action);
                 for (Transition t : tempTrans) {
-                    if (visited.get(t.getTarget().getLocation().getName()) == false) {
+                    if (!visited.get(t.getTarget().getLocation().getName())) {
                         visited.put(t.getTarget().getLocation().getName(), true);
                         dist.put(t.getTarget().getLocation().getName(), dist.get(state.getLocation().getName()) + 1);
                         pred.put(t.getTarget().getLocation().getName(), t);
@@ -591,12 +588,12 @@ public class SimpleTransitionSystem extends TransitionSystem{
                         if (t.getTarget().getLocation().getName().equals(dest)) {
                             Transition tempT = t;
                             while (!tempT.getSource().getLocation().getName().equals(getInitialLocation().getName())){
-                                System.out.println(tempT.getSource().getLocation().getName());
-                                System.out.println(tempT.getTarget().getLocation().getName());
+                                transitions.add(tempT);
                                 tempT = pred.get(tempT.getSource().getLocation().getName());
                             }
-                            System.out.println(tempT.getSource().getLocation().getName());
-                            System.out.println(tempT.getTarget().getLocation().getName());
+                            transitions.add(tempT);
+
+                            generateTestCode(transitions);
                             return true;
                         }
                     }
@@ -605,45 +602,6 @@ public class SimpleTransitionSystem extends TransitionSystem{
                         filter(s -> !passedContainsState(s) && !waitingContainsState(s)).collect(Collectors.toList()));
             }
         }
-        return false;
-    }
-
-    public boolean generateShortestTraceHelper(String name) {
-        System.out.println("------------");
-        System.out.println("Shortest trace for " + name + ":");
-
-        Set<Channel> actions = getActions();
-
-        waiting = new ArrayDeque<>();
-        passed = new ArrayList<>();
-        waiting.add(getInitialState());
-
-        int transitions = 0;
-
-        while (!waiting.isEmpty()) {
-            State currState = new State(waiting.pop());
-            State toStore = new State(currState);
-
-            toStore.extrapolateMaxBounds(this.getMaxBounds(), clocks.getItems());
-            passed.add(toStore);
-
-            for (Channel action : actions){
-                List<Transition> tempTrans = getNextTransitions(currState, action);
-
-                transitions++;
-                System.out.println(transitions);
-
-                if (currState.getLocation().getName().equals(name)) {
-                    return true;
-                }
-
-                List<State> toAdd = tempTrans.stream().map(Transition::getTarget).
-                        filter(s -> !passedContainsState(s) && !waitingContainsState(s)).collect(Collectors.toList());
-
-                waiting.addAll(toAdd);
-            }
-        }
-
         return false;
     }
 
@@ -666,6 +624,5 @@ public class SimpleTransitionSystem extends TransitionSystem{
             e.printStackTrace();
         }
     }
-
-
+    
 }

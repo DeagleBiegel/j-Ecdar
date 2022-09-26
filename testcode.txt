@@ -1,4 +1,21 @@
+Exit L7 L7 -> L0 Enter L0
 
+Exit L7 L7 -> L0 Enter L0 
+Exit L0 L0 -> L1 Enter L1 
+
+Exit L7 L7 -> L0 Enter L0 
+Exit L0 L0 -> L2 Enter L2 
+
+Exit L7 L7 -> L0 Enter L0 
+Exit L0 L0 -> L2 Enter L2 
+Exit L2 L2 -> L3 Enter L3 
+
+Exit L7 L7 -> L0 Enter L0 
+Exit L0 L0 -> L1 Enter L1 
+Exit L1 L1 -> L4 Enter L4 
+
+Exit L7 L7 -> L0 Enter L0 
+Exit L0 L0 -> L5 Enter L5 
 
 Exit L7 L7 -> L0 Enter L0 
 Exit L0 L0 -> L5 Enter L5 
