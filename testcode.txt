@@ -1,6 +1,6 @@
 
-exit L0E0L1
-exit L0E3L2
-exit L2E4L4exit L0E3L2
-exit L4E5L5exit L2E4L4exit L0E3L2
-exit L5E6L6exit L4E5L5exit L2E4L4exit L0E3L2
+
+Exit L7 L7 -> L0 Enter L0 
+Exit L0 L0 -> L5 Enter L5 
+Exit L5 L5 -> L6 Enter L6 
+

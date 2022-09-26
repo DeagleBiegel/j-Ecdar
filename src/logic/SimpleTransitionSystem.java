@@ -590,10 +590,13 @@ public class SimpleTransitionSystem extends TransitionSystem{
 
                         if (t.getTarget().getLocation().getName().equals(dest)) {
                             Transition tempT = t;
-                            while (!tempT.getTarget().getLocation().getName().equals(getInitialLocation().getName())){
-                                System.out.println(pred.get(tempT.getTarget().getLocation().getName()));
-                                tempT = pred.get(tempT.getTarget().getLocation().getName());
+                            while (!tempT.getSource().getLocation().getName().equals(getInitialLocation().getName())){
+                                System.out.println(tempT.getSource().getLocation().getName());
+                                System.out.println(tempT.getTarget().getLocation().getName());
+                                tempT = pred.get(tempT.getSource().getLocation().getName());
                             }
+                            System.out.println(tempT.getSource().getLocation().getName());
+                            System.out.println(tempT.getTarget().getLocation().getName());
                             return true;
                         }
                     }

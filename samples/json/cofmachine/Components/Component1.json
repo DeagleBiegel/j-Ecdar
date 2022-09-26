@@ -21,7 +21,7 @@
     {
       "id": "L1",
       "nickname": "brewing1",
-      "invariant": "y \u003c\u003d 6",
+      "invariant": "y >= 3 && y \u003c\u003d 6",
       "type": "NORMAL",
       "urgency": "NORMAL",
       "x": 220.00000999999995,
