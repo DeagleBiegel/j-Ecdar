@@ -504,7 +504,6 @@ public class SimpleTransitionSystem extends TransitionSystem{
             passed.add(toStore);
 
             for (Channel action : actions){
-
                 List<Transition> tempTrans = getNextTransitions(currState, action);
 
                 for (Transition trans : tempTrans) {
@@ -514,7 +513,7 @@ public class SimpleTransitionSystem extends TransitionSystem{
                         passedTransitions.get(trans.getTarget().getLocation().getName()).add(trans);
                     }
                     else {
-                        passedTransitions.get(trans.getSource().getLocation().getName()).add(trans);
+                        passedTransitions.get(trans.getTarget().getLocation().getName()).add(trans);
                     }
 
                     if (currState.getLocation().getName().equals(name)){
@@ -522,6 +521,15 @@ public class SimpleTransitionSystem extends TransitionSystem{
                         Transition newLoc;
                         ArrayList<Transition> trace = new ArrayList();
                         ArrayList<Transition> temp;
+
+
+                        for (ArrayList<Transition> t: passedTransitions.values()) {
+                            System.out.println(t.get(0).getTarget().getLocation().getName() + "-----");
+                            for (Transition x : t) {
+                                System.out.println(x.getSource().getLocation().getName() + " - " + x.getEdges().get(0).getTestCode() + " - " + x.getTarget().getLocation().getName());
+
+                            }
+                        }
 
                         newLoc = passedTransitions.get(currState.getLocation().getName()).get(0);
                         trace.add(passedTransitions.get(currState.getLocation().getName()).get(0));
@@ -554,12 +562,53 @@ public class SimpleTransitionSystem extends TransitionSystem{
         return false;
     }
 
+    public boolean generateShortestTraceHelper(String name) {
+        System.out.println("------------");
+        System.out.println("Shortest trace for " + name + ":");
+
+        Set<Channel> actions = getActions();
+
+        waiting = new ArrayDeque<>();
+        passed = new ArrayList<>();
+        waiting.add(getInitialState());
+
+        int transitions = 0;
+
+        while (!waiting.isEmpty()) {
+            State currState = new State(waiting.pop());
+            State toStore = new State(currState);
+
+            toStore.extrapolateMaxBounds(this.getMaxBounds(), clocks.getItems());
+            passed.add(toStore);
+
+            for (Channel action : actions){
+                List<Transition> tempTrans = getNextTransitions(currState, action);
+
+                transitions++;
+                System.out.println(transitions);
+
+                if (currState.getLocation().getName().equals(name)) {
+                    return true;
+                }
+
+                List<State> toAdd = tempTrans.stream().map(Transition::getTarget).
+                        filter(s -> !passedContainsState(s) && !waitingContainsState(s)).collect(Collectors.toList());
+
+                waiting.addAll(toAdd);
+            }
+        }
+
+        return false;
+    }
+
     public void generateTestCode(ArrayList<Transition> trace) {
+        Collections.reverse(trace);
         StringBuilder sb = new StringBuilder();
         for (Transition tran : trace){
             sb.append(tran.getSource().getLocation().getExitTestCode());
             sb.append(tran.getEdges().get(0).getTestCode());
             sb.append(tran.getTarget().getLocation().getEnterTestCode());
+            sb.append("\n");
         }
 
         try {

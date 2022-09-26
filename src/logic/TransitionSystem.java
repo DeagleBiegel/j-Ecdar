@@ -319,6 +319,24 @@ public abstract class TransitionSystem {
         return isReachable;
     }
 
+    public boolean generateShortestTrace(String name) {
+        boolean initialisedCdd = CDD.tryInit(getClocks(), getBVs());
+        boolean isReachable = true;
+        List<SimpleTransitionSystem> systems = getSystems();
+
+        for (SimpleTransitionSystem ts : systems){
+            if (!ts.generateShortestTraceHelper(name)){
+                isReachable = false;
+            }
+        }
+
+        if (initialisedCdd){
+            CDD.done();
+        }
+
+        return isReachable;
+    }
+
     public List<Location> updateLocations(Set<Location> locations, List<Clock> newClocks, List<Clock> oldClocks, List<BoolVar> newBVs, List<BoolVar> oldBVs) {
         return locations
                 .stream()
