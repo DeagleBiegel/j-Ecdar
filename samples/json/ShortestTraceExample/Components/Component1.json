@@ -287,6 +287,28 @@
       ]
     },
     {
+      "id": "E8",
+      "group": "",
+      "sourceLocation": "L4",
+      "targetLocation": "L3",
+      "status": "INPUT",
+      "select": "",
+      "guard": "",
+      "update": "",
+      "sync": "",
+      "isLocked": false,
+      "testCode": "L1 -> L5 ",
+      "nails": [
+        {
+          "x": 151.60000000000002,
+          "y": 214.76666666666668,
+          "propertyType": "SYNCHRONIZATION",
+          "propertyX": 10.0,
+          "propertyY": 0.0
+        }
+      ]
+    },
+    {
       "id": "E7",
       "group": "",
       "sourceLocation": "L0",

@@ -1,5 +1,6 @@
 package logic;
 
+import jdk.jfr.TransitionTo;
 import models.*;
 import parser.GuardParser;
 import parser.XMLFileWriter;
@@ -19,6 +20,7 @@ public class SimpleTransitionSystem extends TransitionSystem{
     private Deque<State> waiting;
     private List<State> passed;
     private HashMap<Clock,Integer> maxBounds;
+    public HashMap<String, ArrayList<String>> transitions = new HashMap<>();
 
     public SimpleTransitionSystem(Automaton automaton) {
         this.automaton = automaton;
@@ -475,6 +477,42 @@ public class SimpleTransitionSystem extends TransitionSystem{
         return false;
     }
 
+    public List<State> allPathsHelper() {
+        waiting = new ArrayDeque<>();
+        passed = new ArrayList<>();
+        waiting.add(getInitialState());
+
+        while (!waiting.isEmpty()) {
+            State currState = new State(waiting.pop());
+            State toStore = new State(currState);
+            toStore.extrapolateMaxBounds(this.getMaxBounds(), clocks.getItems());
+            passed.add(toStore);
+
+
+            for (Channel action : getActions()){
+                List<Transition> tempTrans = getNextTransitions(currState, action);
+
+               /* for (Transition t: tempTrans) {
+                    if (!transitions.containsKey(t.getSource().getLocation().getName())) {
+                        transitions.put(t.getSource().getLocation().getName(),new ArrayList<>());
+                    }
+                    transitions.get(t.getSource().getLocation().getName()).add(t.getTarget().getLocation().getName());
+
+                }
+
+                */
+
+                List<State> toAdd = tempTrans.stream().map(Transition::getTarget).
+                        filter(s -> !passedContainsState(s) && !waitingContainsState(s)).collect(Collectors.toList());
+
+                waiting.addAll(toAdd);
+            }
+        }
+
+       // DFS("L4");
+        return passed;
+    }
+
     public int minClockValue(CDD guard, Clock clock) {
         int max = automaton.getMaxBoundsForAllClocks().get(clock);
         String guardTemplate = clock.getOriginalName() + " == ";
@@ -648,4 +686,34 @@ public class SimpleTransitionSystem extends TransitionSystem{
         }
     }
 
+    public void DFS(String destination) {
+        HashMap<String, Boolean> isVisited = new HashMap<>();
+        ArrayList<String> pathList = new ArrayList<>();
+        for (Location l : automaton.getLocations()) {
+            isVisited.put(l.getName(),false);
+        }
+
+        pathList.add(automaton.getInitial().getName());
+
+        DFSUtility(destination, automaton.getInitial().getName(), isVisited,pathList);
+    }
+
+    public void DFSUtility(String destination, String source, HashMap<String, Boolean> isVisited, ArrayList<String> localPathList) {
+
+        if (source.equals(destination)) {
+            System.out.println(localPathList);
+            return;
+        }
+
+        isVisited.put(source, true);
+
+        for(String l: transitions.get(source)) {
+            if (!isVisited.get(l)) {
+                localPathList.add(l);
+                DFSUtility(destination,l,isVisited,localPathList);
+                localPathList.remove(l);
+            }
+        }
+        isVisited.put(source,false);
+    }
 }

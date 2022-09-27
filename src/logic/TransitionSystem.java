@@ -5,6 +5,9 @@ import models.*;
 import java.io.IOException;
 import java.util.*;
 import java.util.stream.Collectors;
+import static java.util.Comparator.comparingInt;
+import static java.util.stream.Collectors.collectingAndThen;
+import static java.util.stream.Collectors.toCollection;
 
 // parent class for all TS's, so we can use it with regular TS's, composed TS's etc.
 public abstract class TransitionSystem {
@@ -300,6 +303,28 @@ public abstract class TransitionSystem {
         }
 
         return isStateReachable;
+    }
+
+    public List<State> allPaths() {
+        boolean initialisedCdd = CDD.tryInit(getClocks(), getBVs());
+        List<SimpleTransitionSystem> systems = getSystems();
+        List<State> state = new ArrayList<>();
+
+        for (SimpleTransitionSystem ts : systems){
+            state = ts.allPathsHelper();
+
+           /* for (State s: state) {
+                System.out.println(s.getLocation().getName() + " x: " + ts.minClockValue(s.getInvariant(), getClocks().get(0)));
+                System.out.println(s.getLocation().getName() + " y: " + ts.minClockValue(s.getInvariant(), getClocks().get(1)));
+            }
+            */
+        }
+
+        if (initialisedCdd){
+            CDD.done();
+        }
+
+        return state;
     }
 
     public boolean generateTrace(String name) {
