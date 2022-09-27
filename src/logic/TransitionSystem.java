@@ -283,6 +283,7 @@ public abstract class TransitionSystem {
         return isReachable;
     }
 
+
     public boolean isStateReachable(String name, String state) {
         boolean initialisedCdd = CDD.tryInit(getClocks(), getBVs());
         boolean isStateReachable = true;

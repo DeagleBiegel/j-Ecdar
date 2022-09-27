@@ -445,11 +445,6 @@ public class SimpleTransitionSystem extends TransitionSystem{
         passed = new ArrayList<>();
         waiting.add(getInitialState());
 
-        for (Edge edge: automaton.getEdges()) {
-            System.out.println(edge.getTestCode());
-            System.out.println(edge.getGuardCDD());
-        }
-
         while (!waiting.isEmpty()) {
             State currState = new State(waiting.pop());
             State toStore = new State(currState);
@@ -464,59 +459,46 @@ public class SimpleTransitionSystem extends TransitionSystem{
                     Guard g = GuardParser.parse(state,getClocks(),getBVs());
                     CDD cdd = new CDD(g);
                     CDD cdd1 = currState.getInvariant().conjunction(cdd);
-                    int maxX = automaton.getMaxBoundsForAllClocks().get(getClocks().get(0));
-                    int min = 0;
-                    String guardTemplate = getClocks().get(0).getOriginalName() + " == ";
-                    boolean sjov = true;
-
-                    while (sjov) {
-                        String stringer = guardTemplate;
-                        stringer += String.valueOf(min);
-                        Guard g1 = GuardParser.parse(stringer,getClocks(),getBVs());
-                        CDD lilGuard = new CDD(g1);
-                        CDD cdd2 = currState.getInvariant().conjunction(lilGuard);
-
-                        if (!cdd2.toString().equals("false")) {
-                            if (min == 0) {
-                                System.out.println(min);
-                                break;
-                            }
-                            String cd = currState.getInvariant().conjunction(new CDD(GuardParser.parse(guardTemplate + String.valueOf(min - 1),getClocks(),getBVs()))).toString();
-                            if (cd.equals("false")) {
-                                System.out.println(min);
-                                break;
-                            }
-
-                            min = Math.floorDiv(min, 2);
-                        }
-                        else {
-                            min = Math.floorDiv(maxX, 2);
-                        }
-
-
-                    }
-
-
-
-                    System.out.println(maxX + " " + min);
-
 
                     if (!cdd1.toString().equals("false")) {
                         System.out.println(cdd1);
-
                         return true;
                     }
                     return false;
                 }
-
                 List<State> toAdd = tempTrans.stream().map(Transition::getTarget).
                         filter(s -> !passedContainsState(s) && !waitingContainsState(s)).collect(Collectors.toList());
 
                 waiting.addAll(toAdd);
             }
         }
-
         return false;
+    }
+
+    public int minClockValue(CDD guard, Clock clock) {
+        int max = automaton.getMaxBoundsForAllClocks().get(clock);
+        String guardTemplate = clock.getOriginalName() + " == ";
+        //
+        for (int min = 0; min < max ; min++) {
+            String guardCopy = guardTemplate;
+            guardCopy += String.valueOf(min);
+            Guard g = GuardParser.parse(guardCopy, getClocks(), getBVs());
+            CDD cdd = guard.conjunction(new CDD(g));
+
+            if (!cdd.toString().equals("false")) {
+                if (min == 0) {
+                    return min;
+                }
+                guardCopy = guardTemplate;
+                String boundaryCheck = guard.conjunction(new CDD(GuardParser.parse(guardCopy + String.valueOf(min - 1), getClocks(), getBVs()))).toString();
+
+                if (boundaryCheck.equals("false")) {
+                    return min;
+                }
+                min = Math.floorDiv(min, 2);
+            }
+        }
+        return 0;
     }
 
     public boolean generateTraceHelper(String name) {

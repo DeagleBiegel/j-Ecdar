@@ -1,11 +1,14 @@
 import logic.SimpleTransitionSystem;
 import logic.TransitionSystem;
 import models.Automaton;
+import models.Edge;
 import models.Location;
 import parser.JSONParser;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Playground {
 
@@ -21,10 +24,6 @@ public class Playground {
                     System.out.println(STS.isStateReachable(x.getName(), "x == 0"));
                 }
 
-
-                //STS.generateShortestTrace("L0");
-                //STS.generateTrace("L6");
-                //System.out.println(STS.isStateReachable("L1", "x >= 3 && x <= 6"));
             }
         }
         catch (FileNotFoundException e) {
