@@ -492,13 +492,15 @@ public class SimpleTransitionSystem extends TransitionSystem{
             for (Channel action : getActions()){
                 List<Transition> tempTrans = getNextTransitions(currState, action);
 
-               for (Transition t: tempTrans) {
-                   if (!transitions.containsKey(t.getSource().getLocation().getName())) {
-                       transitions.put(t.getSource().getLocation().getName(), new ArrayList<>());
-                   }
-                   transitions.get(t.getSource().getLocation().getName()).add(t.getTarget().getLocation().getName());
+               /* for (Transition t: tempTrans) {
+                    if (!transitions.containsKey(t.getSource().getLocation().getName())) {
+                        transitions.put(t.getSource().getLocation().getName(),new ArrayList<>());
+                    }
+                    transitions.get(t.getSource().getLocation().getName()).add(t.getTarget().getLocation().getName());
 
-               }
+                }
+
+                */
 
                 List<State> toAdd = tempTrans.stream().map(Transition::getTarget).
                         filter(s -> !passedContainsState(s) && !waitingContainsState(s)).collect(Collectors.toList());
@@ -507,7 +509,7 @@ public class SimpleTransitionSystem extends TransitionSystem{
             }
         }
 
-        DFS("L4");
+       // DFS("L4");
         return passed;
     }
 
