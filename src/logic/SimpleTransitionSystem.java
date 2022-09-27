@@ -20,13 +20,12 @@ public class SimpleTransitionSystem extends TransitionSystem{
     private Deque<State> waiting;
     private List<State> passed;
     private HashMap<Clock,Integer> maxBounds;
-    public HashMap<String, ArrayList<String>> transitions = new HashMap<>();
+    public HashMap<String, ArrayList<Transition>> transitions = new HashMap<>();
 
     public SimpleTransitionSystem(Automaton automaton) {
         this.automaton = automaton;
         clocks.addAll(automaton.getClocks());
         BVs.addAll(automaton.getBVs());
-
         this.waiting = new ArrayDeque<>();
         this.passed = new ArrayList<>();
         setMaxBounds();
@@ -492,15 +491,13 @@ public class SimpleTransitionSystem extends TransitionSystem{
             for (Channel action : getActions()){
                 List<Transition> tempTrans = getNextTransitions(currState, action);
 
-               /* for (Transition t: tempTrans) {
+               for (Transition t: tempTrans) {
                     if (!transitions.containsKey(t.getSource().getLocation().getName())) {
                         transitions.put(t.getSource().getLocation().getName(),new ArrayList<>());
                     }
-                    transitions.get(t.getSource().getLocation().getName()).add(t.getTarget().getLocation().getName());
+                    transitions.get(t.getSource().getLocation().getName()).add(t);
 
                 }
-
-                */
 
                 List<State> toAdd = tempTrans.stream().map(Transition::getTarget).
                         filter(s -> !passedContainsState(s) && !waitingContainsState(s)).collect(Collectors.toList());
@@ -509,7 +506,7 @@ public class SimpleTransitionSystem extends TransitionSystem{
             }
         }
 
-       // DFS("L4");
+        DFS("L4");
         return passed;
     }
 
@@ -687,6 +684,7 @@ public class SimpleTransitionSystem extends TransitionSystem{
     }
 
     public void DFS(String destination) {
+        //System.out.println(transitions.toString());
         HashMap<String, Boolean> isVisited = new HashMap<>();
         ArrayList<String> pathList = new ArrayList<>();
         for (Location l : automaton.getLocations()) {
@@ -695,23 +693,36 @@ public class SimpleTransitionSystem extends TransitionSystem{
 
         pathList.add(automaton.getInitial().getName());
 
-        DFSUtility(destination, automaton.getInitial().getName(), isVisited,pathList);
+        DFSUtility(destination, automaton.getInitial().getName(), isVisited, pathList);
     }
 
     public void DFSUtility(String destination, String source, HashMap<String, Boolean> isVisited, ArrayList<String> localPathList) {
-
+        ArrayList<Transition> pathTransitions = new ArrayList<>();
         if (source.equals(destination)) {
-            System.out.println(localPathList);
+            for (int i = 0; i < localPathList.size() - 1; i++) {
+                for (Transition t : transitions.get(localPathList.get(i))) {
+                    if (t.getTarget().getLocation().getName().equals(localPathList.get(i+1))) {
+                        pathTransitions.add(t);
+                    }
+                }
+            }
+
+            System.out.println(localPathList.toString());
+
+            for (Transition t : pathTransitions) {
+                System.out.println(t.getSource().getLocation().getName() + " -> " + t.getTarget().getLocation().getName());
+            }
+
             return;
         }
 
         isVisited.put(source, true);
 
-        for(String l: transitions.get(source)) {
-            if (!isVisited.get(l)) {
-                localPathList.add(l);
-                DFSUtility(destination,l,isVisited,localPathList);
-                localPathList.remove(l);
+        for(Transition l: transitions.get(source)) {
+            if (!isVisited.get(l.getTarget().getLocation().getName())) {
+                localPathList.add(l.getTarget().getLocation().getName());
+                DFSUtility(destination,l.getTarget().getLocation().getName(),isVisited,localPathList);
+                localPathList.remove(l.getTarget().getLocation().getName());
             }
         }
         isVisited.put(source,false);
