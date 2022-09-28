@@ -507,7 +507,7 @@ public class SimpleTransitionSystem extends TransitionSystem{
             }
         }
 
-        DFS("L2");
+        DFS("L4");
         return passed;
     }
 
@@ -726,26 +726,27 @@ public class SimpleTransitionSystem extends TransitionSystem{
         isVisited.put(source,false);
     }
 
-    public void fastestTrace() {
+    public List<Transition> fastestTrace() {
+        List<Transition> fastestPath = new ArrayList<>();
+        int fastestTime = Integer.MAX_VALUE;
 
         for (List<Transition> path : allPaths) {
             int totalTime = 0;
             for (int i = 0; i < path.size(); i++) {
                 Transition trans = path.get(i);
-                if(i > 0 && path.get(i-1).getUpdates().size() == 1) {
+                if(i > 0 && path.get(i-1).getUpdates().size() >= 1) {
                     ClockUpdate cu = (ClockUpdate) path.get(i-1).getUpdates().get(0);
-                    if (cu.getValue() == 0){
-                        totalTime += minClockValue(trans.getGuardCDD(), getClocks().get(0));
-                    }
-                    else {
-                        totalTime += minClockValue(trans.getGuardCDD(), getClocks().get(0)) - cu.getValue();
-                    }
+                    totalTime += minClockValue(trans.getGuardCDD(), getClocks().get(0)) - cu.getValue();
                 }
                 else{
                     totalTime += minClockValue(trans.getGuardCDD(), getClocks().get(0)) - totalTime;
                 }
             }
+            if (fastestTime > totalTime){
+                fastestPath = path;
+            }
             System.out.println(totalTime);
         }
+        return fastestPath;
     }
 }
