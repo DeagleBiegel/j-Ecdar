@@ -21,6 +21,7 @@ public class SimpleTransitionSystem extends TransitionSystem{
     private List<State> passed;
     private HashMap<Clock,Integer> maxBounds;
     public HashMap<String, ArrayList<Transition>> transitions = new HashMap<>();
+    public ArrayList<ArrayList<Transition>> allPaths = new ArrayList<>();
 
     public SimpleTransitionSystem(Automaton automaton) {
         this.automaton = automaton;
@@ -506,7 +507,7 @@ public class SimpleTransitionSystem extends TransitionSystem{
             }
         }
 
-        DFS("L4");
+        DFS("L2");
         return passed;
     }
 
@@ -514,7 +515,7 @@ public class SimpleTransitionSystem extends TransitionSystem{
         int max = automaton.getMaxBoundsForAllClocks().get(clock);
         String guardTemplate = clock.getOriginalName() + " == ";
         //
-        for (int min = 0; min < max ; min++) {
+        for (int min = 0; min <= max ; min++) {
             String guardCopy = guardTemplate;
             guardCopy += String.valueOf(min);
             Guard g = GuardParser.parse(guardCopy, getClocks(), getBVs());
@@ -530,7 +531,6 @@ public class SimpleTransitionSystem extends TransitionSystem{
                 if (boundaryCheck.equals("false")) {
                     return min;
                 }
-                min = Math.floorDiv(min, 2);
             }
         }
         return 0;
@@ -694,6 +694,8 @@ public class SimpleTransitionSystem extends TransitionSystem{
         pathList.add(automaton.getInitial().getName());
 
         DFSUtility(destination, automaton.getInitial().getName(), isVisited, pathList);
+
+        fastestTrace();
     }
 
     public void DFSUtility(String destination, String source, HashMap<String, Boolean> isVisited, ArrayList<String> localPathList) {
@@ -703,15 +705,11 @@ public class SimpleTransitionSystem extends TransitionSystem{
                 for (Transition t : transitions.get(localPathList.get(i))) {
                     if (t.getTarget().getLocation().getName().equals(localPathList.get(i+1))) {
                         pathTransitions.add(t);
+                        break;
                     }
                 }
             }
-
-            System.out.println(localPathList.toString());
-
-            for (Transition t : pathTransitions) {
-                System.out.println(t.getSource().getLocation().getName() + " -> " + t.getTarget().getLocation().getName());
-            }
+            allPaths.add(pathTransitions);
 
             return;
         }
@@ -726,5 +724,32 @@ public class SimpleTransitionSystem extends TransitionSystem{
             }
         }
         isVisited.put(source,false);
+    }
+
+    public void fastestTrace() {
+        int min = Integer.MAX_VALUE;
+
+        //If no assignments then min value of last transition guard is the time it takes :)
+        /*
+        for (List<Transition> path : allPaths){
+            int temp = minClockValue(path.get(path.size()-1).getGuardCDD(), getClocks().get(0));
+            if (min > temp) {
+                min = temp;
+            }
+        }
+
+         */
+
+        for (List<Transition> path : allPaths) {
+            int totalTime = 0;
+            for (Transition trans : path) {
+                if(trans.getUpdates().size() == 1) {
+                    ClockUpdate cu = (ClockUpdate) trans.getUpdates().get(0);
+                    System.out.println(cu.getValue());
+                }
+                totalTime += minClockValue(trans.getGuardCDD(), getClocks().get(0)) - totalTime;
+            }
+            System.out.println(totalTime);
+        }
     }
 }

@@ -17,7 +17,7 @@ public class Playground {
 
     public static void main(String[] args) {
         try {
-            Automaton[] automaton = JSONParser.parse("samples/json/ShortestTraceExample", true);
+            Automaton[] automaton = JSONParser.parse("samples/json/FastestTraceMultiplePathsAssignExample", true);
 
             for (var a : automaton) {
                 SimpleTransitionSystem STS = new SimpleTransitionSystem(a);
