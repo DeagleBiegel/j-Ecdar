@@ -727,27 +727,23 @@ public class SimpleTransitionSystem extends TransitionSystem{
     }
 
     public void fastestTrace() {
-        int min = Integer.MAX_VALUE;
-
-        //If no assignments then min value of last transition guard is the time it takes :)
-        /*
-        for (List<Transition> path : allPaths){
-            int temp = minClockValue(path.get(path.size()-1).getGuardCDD(), getClocks().get(0));
-            if (min > temp) {
-                min = temp;
-            }
-        }
-
-         */
 
         for (List<Transition> path : allPaths) {
             int totalTime = 0;
-            for (Transition trans : path) {
-                if(trans.getUpdates().size() == 1) {
-                    ClockUpdate cu = (ClockUpdate) trans.getUpdates().get(0);
-                    System.out.println(cu.getValue());
+            for (int i = 0; i < path.size(); i++) {
+                Transition trans = path.get(i);
+                if(i > 0 && path.get(i-1).getUpdates().size() == 1) {
+                    ClockUpdate cu = (ClockUpdate) path.get(i-1).getUpdates().get(0);
+                    if (cu.getValue() == 0){
+                        totalTime += minClockValue(trans.getGuardCDD(), getClocks().get(0));
+                    }
+                    else {
+                        totalTime += minClockValue(trans.getGuardCDD(), getClocks().get(0)) - cu.getValue();
+                    }
                 }
-                totalTime += minClockValue(trans.getGuardCDD(), getClocks().get(0)) - totalTime;
+                else{
+                    totalTime += minClockValue(trans.getGuardCDD(), getClocks().get(0)) - totalTime;
+                }
             }
             System.out.println(totalTime);
         }

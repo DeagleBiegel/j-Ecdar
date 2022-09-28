@@ -134,7 +134,7 @@
       "status": "INPUT",
       "select": "",
       "guard": "x == 4",
-      "update": "x = 0",
+      "update": "x = 1",
       "sync": "",
       "isLocked": false,
       "testCode": "L1 -> L3 ",
