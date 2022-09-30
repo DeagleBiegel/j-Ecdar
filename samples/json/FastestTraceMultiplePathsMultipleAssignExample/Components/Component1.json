@@ -111,9 +111,9 @@
       "targetLocation": "L2",
       "status": "INPUT",
       "select": "",
-      "guard": "",
+      "guard": "y > 10",
       "update": "x \u003d 0",
-      "sync": "y \u003e 10",
+      "sync": "",
       "isLocked": false,
       "testCode": "L0 -> L2",
       "nails": [

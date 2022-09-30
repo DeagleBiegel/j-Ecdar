@@ -3,6 +3,7 @@ import logic.State;
 import logic.Transition;
 import logic.TransitionSystem;
 import models.Automaton;
+import models.Clock;
 import models.Edge;
 import models.Location;
 import parser.JSONParser;
@@ -20,6 +21,8 @@ public class Playground {
             Automaton[] automaton = JSONParser.parse("samples/json/FastestTraceMultiplePathsMultipleAssignExample", true);
 
             for (var a : automaton) {
+                Clock z = new Clock("z", a.getName());
+                a.getClocks().add(z);
                 SimpleTransitionSystem STS = new SimpleTransitionSystem(a);
                 STS.allPaths();
             }
