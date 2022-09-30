@@ -477,7 +477,7 @@ public class SimpleTransitionSystem extends TransitionSystem{
         return false;
     }
 
-    public List<State> allPathsHelper() {
+    public void allPathsHelper() {
         waiting = new ArrayDeque<>();
         passed = new ArrayList<>();
         waiting.add(getInitialState());
@@ -508,7 +508,6 @@ public class SimpleTransitionSystem extends TransitionSystem{
         }
 
         DFS("L4");
-        return passed;
     }
 
     public int minClockValue(CDD guard, Clock clock) {
@@ -535,133 +534,6 @@ public class SimpleTransitionSystem extends TransitionSystem{
             }
         }
         return 0;
-    }
-
-    public boolean generateTraceHelper(String name) {
-
-        Set<Channel> actions = getActions();
-        HashMap<String, ArrayList<Transition>> passedTransitions = new HashMap<>();
-
-        waiting = new ArrayDeque<>();
-        passed = new ArrayList<>();
-        waiting.add(getInitialState());
-
-        if (getInitialLocation().getName().equals(name)) {
-            return true;
-        }
-
-        while (!waiting.isEmpty()) {
-            State currState = new State(waiting.pop());
-            State toStore = new State(currState);
-
-            toStore.extrapolateMaxBounds(this.getMaxBounds(), clocks.getItems());
-            passed.add(toStore);
-
-            for (Channel action : actions){
-                List<Transition> tempTrans = getNextTransitions(currState, action);
-
-                for (Transition trans : tempTrans) {
-
-                    if (!passedTransitions.containsKey(trans.getTarget().getLocation().getName())) {
-                        passedTransitions.put(trans.getTarget().getLocation().getName(), new ArrayList<>());
-                    }
-                    passedTransitions.get(trans.getTarget().getLocation().getName()).add(trans);
-
-                    if (currState.getLocation().getName().equals(name)){
-
-                        Transition newLoc;
-                        ArrayList<Transition> trace = new ArrayList();
-                        ArrayList<Transition> temp;
-
-
-                        for (ArrayList<Transition> t: passedTransitions.values()) {
-                            System.out.println(t.get(0).getTarget().getLocation().getName() + "-----");
-                            for (Transition x : t) {
-                                System.out.println(x.getSource().getLocation().getName() + " - " + x.getEdges().get(0).getTestCode() + " - " + x.getTarget().getLocation().getName());
-
-                            }
-                        }
-
-                        newLoc = passedTransitions.get(currState.getLocation().getName()).get(0);
-                        trace.add(passedTransitions.get(currState.getLocation().getName()).get(0));
-
-                        while (!newLoc.getSource().getLocation().getName().equals(getInitialLocation().getName())) {
-                            temp = passedTransitions.get(newLoc.getSource().getLocation().getName());
-
-                            for (Transition t : temp) {
-                                if (t.getTarget().getLocation().getName().equals(newLoc.getSource().getLocation().getName())) {
-                                    trace.add(t);
-                                    newLoc = t;
-                                }
-                            }
-                        }
-
-                        generateTestCode(trace);
-
-                        return true;
-                    }
-
-                }
-
-                List<State> toAdd = tempTrans.stream().map(Transition::getTarget).
-                        filter(s -> !passedContainsState(s) && !waitingContainsState(s)).collect(Collectors.toList());
-
-                waiting.addAll(toAdd);
-            }
-        }
-
-        return false;
-    }
-
-    public boolean generateShortestTraceHelper(String dest){
-        if (dest.equals(getInitialLocation().getName())) {
-            return true;
-        }
-
-        ArrayList<Transition> transitions = new ArrayList<>();
-        State src = getInitialState();
-        List<State> queue = new ArrayList<>();
-        HashMap<String, Transition> pred = new HashMap<>();
-        HashMap<String, Integer> dist = new HashMap<>();
-        HashMap<String, Boolean> visited = new HashMap<>();
-
-        for (Location loc : automaton.getLocations()){
-            visited.put(loc.getName(), false);
-            dist.put(loc.getName(), Integer.MAX_VALUE);
-        }
-
-        visited.put(src.getLocation().getName(), true);
-        dist.put(src.getLocation().getName(), 0);
-        queue.add(src);
-
-        while (!queue.isEmpty()){
-            State state = queue.remove(0);
-            for (Channel action : getActions()) {
-                List<Transition> tempTrans = getNextTransitions(state, action);
-                for (Transition t : tempTrans) {
-                    if (!visited.get(t.getTarget().getLocation().getName())) {
-                        visited.put(t.getTarget().getLocation().getName(), true);
-                        dist.put(t.getTarget().getLocation().getName(), dist.get(state.getLocation().getName()) + 1);
-                        pred.put(t.getTarget().getLocation().getName(), t);
-
-                        if (t.getTarget().getLocation().getName().equals(dest)) {
-                            Transition tempT = t;
-                            while (!tempT.getSource().getLocation().getName().equals(getInitialLocation().getName())){
-                                transitions.add(tempT);
-                                tempT = pred.get(tempT.getSource().getLocation().getName());
-                            }
-                            transitions.add(tempT);
-
-                            generateTestCode(transitions);
-                            return true;
-                        }
-                    }
-                }
-                queue.addAll(tempTrans.stream().map(Transition::getTarget).
-                        filter(s -> !passedContainsState(s) && !waitingContainsState(s)).collect(Collectors.toList()));
-            }
-        }
-        return false;
     }
 
     public void generateTestCode(ArrayList<Transition> trace) {

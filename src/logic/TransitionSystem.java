@@ -305,62 +305,18 @@ public abstract class TransitionSystem {
         return isStateReachable;
     }
 
-    public List<State> allPaths() {
+    public void allPaths() {
         boolean initialisedCdd = CDD.tryInit(getClocks(), getBVs());
         List<SimpleTransitionSystem> systems = getSystems();
         List<State> state = new ArrayList<>();
 
         for (SimpleTransitionSystem ts : systems){
-            state = ts.allPathsHelper();
-
-           /* for (State s: state) {
-                System.out.println(s.getLocation().getName() + " x: " + ts.minClockValue(s.getInvariant(), getClocks().get(0)));
-                System.out.println(s.getLocation().getName() + " y: " + ts.minClockValue(s.getInvariant(), getClocks().get(1)));
-            }
-            */
+            ts.allPathsHelper();
         }
 
         if (initialisedCdd){
             CDD.done();
         }
-
-        return state;
-    }
-
-    public boolean generateTrace(String name) {
-        boolean initialisedCdd = CDD.tryInit(getClocks(), getBVs());
-        boolean isReachable = true;
-        List<SimpleTransitionSystem> systems = getSystems();
-
-        for (SimpleTransitionSystem ts : systems){
-            if (!ts.generateTraceHelper(name)){
-                isReachable = false;
-            }
-        }
-
-        if (initialisedCdd){
-            CDD.done();
-        }
-
-        return isReachable;
-    }
-
-    public boolean generateShortestTrace(String name) {
-        boolean initialisedCdd = CDD.tryInit(getClocks(), getBVs());
-        boolean isReachable = true;
-        List<SimpleTransitionSystem> systems = getSystems();
-
-        for (SimpleTransitionSystem ts : systems){
-            if (!ts.generateShortestTraceHelper(name)){
-                isReachable = false;
-            }
-        }
-
-        if (initialisedCdd){
-            CDD.done();
-        }
-
-        return isReachable;
     }
 
     public List<Location> updateLocations(Set<Location> locations, List<Clock> newClocks, List<Clock> oldClocks, List<BoolVar> newBVs, List<BoolVar> oldBVs) {
