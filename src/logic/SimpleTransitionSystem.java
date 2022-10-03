@@ -539,20 +539,24 @@ public class SimpleTransitionSystem extends TransitionSystem{
     public void generateTestCode(ArrayList<Transition> trace) {
         Collections.reverse(trace);
         StringBuilder sb = new StringBuilder();
+        HashMap<String, Boolean> booleans = new HashMap<>();
+
+        for (BoolVar bv : CDD.BVs) {
+            booleans.put(bv.getOriginalName(), bv.getInitialValue());
+        }
 
         for (Transition tran : trace) {
+            sb.append(replaceBoolVar(new StringBuilder(tran.getSource().getLocation().getExitTestCode()), booleans));
+            sb.append(replaceBoolVar(new StringBuilder(tran.getEdges().get(0).getTestCode()), booleans));
+
             if (tran.getUpdates().size() > 0 ){
                 for (Update update : tran.getUpdates()){
-                        System.out.println(((BoolUpdate) update));
-                        CDD.BVs.get(0).setInitialValue(((BoolUpdate) update).getValue());
+                        booleans.put(((BoolUpdate)update).getBV().getUniqueName(), ((BoolUpdate)update).getValue());
                 }
             }
-            sb.append(tran.getSource().getLocation().getExitTestCode());
-            sb.append(tran.getEdges().get(0).getTestCode());
-            sb.append(tran.getTarget().getLocation().getEnterTestCode());
+            sb.append(replaceBoolVar(new StringBuilder(tran.getTarget().getLocation().getEnterTestCode()), booleans));
             sb.append("\n");
         }
-        replaceBoolVar(sb);
 
         try {
             FileWriter writer = new FileWriter("testcode.txt", true);
@@ -625,22 +629,22 @@ public class SimpleTransitionSystem extends TransitionSystem{
         return fastestPath;
     }
 
-    public void replaceBoolVar (StringBuilder sb) {
+    public StringBuilder replaceBoolVar (StringBuilder sb, HashMap<String, Boolean> booleans) {
+        String BV = "";
         if (sb.indexOf("$") != -1) {
             int startIndex = sb.indexOf("$");
             // This assumes that variables have a length of 1, should be fixed later
             int endIndex = sb.indexOf("$") + 2;
-            String BV = "False ";
-            for (BoolVar boolVar : CDD.BVs){
-                if (String.valueOf(sb.charAt(startIndex+1)).equals(boolVar.getUniqueName())){
-                    if (boolVar.getInitialValue()){
-                        BV = "True";
-                    }
+            for (String key : booleans.keySet()){
+                if (String.valueOf(sb.charAt(startIndex+1)).equals(key)){
+                    BV = booleans.get(key).toString();
                 }
             }
 
             sb.replace(startIndex, endIndex, BV);
-            replaceBoolVar(sb);
+            return replaceBoolVar(sb, booleans);
         }
+        return sb;
     }
+
 }

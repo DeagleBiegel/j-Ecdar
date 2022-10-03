@@ -1,3 +1,4 @@
-Exit L1 z= False L1 -> L2 Enter L2 z= False 
-Exit L0 y= TrueL0 -> L1 Enter L1 y= True
+
+Exit L1 z= falseL1 -> L2 Enter L2 z= true
+Exit L0 y= trueL0 -> L1 Enter L1 y= false
 
