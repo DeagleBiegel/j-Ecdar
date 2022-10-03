@@ -18,7 +18,7 @@ public class Playground {
 
     public static void main(String[] args) {
         try {
-            Automaton[] automaton = JSONParser.parse("samples/json/FastestTraceMultiplePathsMultipleAssignExample", true);
+            Automaton[] automaton = JSONParser.parse("samples/json/FastestTraceExample", true);
 
             for (var a : automaton) {
                 Clock z = new Clock("z", a.getName());

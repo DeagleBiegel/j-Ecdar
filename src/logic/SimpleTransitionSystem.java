@@ -507,11 +507,11 @@ public class SimpleTransitionSystem extends TransitionSystem{
             }
         }
 
-        DFS("L4");
+        DFS("L2");
     }
 
     public int minClockValue(CDD guard, Clock clock) {
-        //use for loop to find greatest maxbound value
+        //use for loop to find minbound value
         int max = automaton.getMaxBoundsForAllClocks().get(getClocks().get(0));
         String guardTemplate = clock.getOriginalName() + " == ";
         //
@@ -557,7 +557,6 @@ public class SimpleTransitionSystem extends TransitionSystem{
     }
 
     public void DFS(String destination) {
-        //System.out.println(transitions.toString());
         HashMap<String, Boolean> isVisited = new HashMap<>();
         ArrayList<String> pathList = new ArrayList<>();
         for (Location l : automaton.getLocations()) {
@@ -602,8 +601,10 @@ public class SimpleTransitionSystem extends TransitionSystem{
     public List<Transition> fastestTrace() {
         List<Transition> fastestPath = new ArrayList<>();
         int fastestTime = Integer.MAX_VALUE;
+        int tempTime;
+
         for (List<Transition> path : allPaths) {
-            int tempTime = minClockValue(path.get(path.size()-1).getGuardCDD(), getClocks().get(getClocks().size()-1));
+            tempTime = minClockValue(path.get(path.size()-1).getGuardCDD(), getClocks().get(getClocks().size()-1));
 
             if (fastestTime > tempTime){
                 fastestTime = tempTime;

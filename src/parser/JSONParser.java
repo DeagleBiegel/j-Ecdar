@@ -121,11 +121,12 @@ public class JSONParser {
     private static Automaton distrubuteObject(JSONObject obj, boolean makeInpEnabled){
         automatonName= (String) obj.get("name");
         addDeclarations((String) obj.get("declarations"));
+        addBVs((String) obj.get("declarations"));
         JSONArray locationList = (JSONArray) obj.get("locations");
         List<Location> locations = addLocations(locationList);
         JSONArray edgeList = (JSONArray) obj.get("edges");
         List<Edge> edges = addEdges(edgeList, locations);
-        Automaton automaton = new Automaton((String) obj.get("name"), locations, edges, new ArrayList<>(componentClocks), BVs, makeInpEnabled);
+        Automaton automaton = new Automaton((String) obj.get("name"), locations, edges, new ArrayList<>(componentClocks), new ArrayList<>(BVs), makeInpEnabled);
         componentClocks.clear();
         BVs.clear();
         return automaton;
