@@ -523,14 +523,14 @@ public class SimpleTransitionSystem extends TransitionSystem{
             Guard g = GuardParser.parse(guardCopy, getClocks(), getBVs());
             CDD cdd = guard.conjunction(new CDD(g));
 
-            if (!cdd.toString().equals("false")) {
+            if (!cdd.isFalse()) {
                 if (min == 0) {
                     return min;
                 }
                 guardCopy = guardTemplate;
-                String boundaryCheck = guard.conjunction(new CDD(GuardParser.parse(guardCopy + String.valueOf(min - 1), getClocks(), getBVs()))).toString();
+                CDD boundaryCheck = guard.conjunction(new CDD(GuardParser.parse(guardCopy + String.valueOf(min - 1), getClocks(), getBVs())));
 
-                if (boundaryCheck.equals("false")) {
+                if (boundaryCheck.isFalse()) {
                     return min;
                 }
             }
@@ -633,6 +633,7 @@ public class SimpleTransitionSystem extends TransitionSystem{
 
     public StringBuilder replaceBoolVar (StringBuilder sb, HashMap<String, Boolean> booleans) {
         String BV = "";
+        String CV = "";
         if (sb.indexOf("$") != -1) {
             int startIndex = sb.indexOf("$");
             int endIndex = 0;
@@ -645,6 +646,11 @@ public class SimpleTransitionSystem extends TransitionSystem{
             for (String key : booleans.keySet()){
                 if (sb.subSequence(startIndex+1, endIndex).equals(key)){
                     BV = booleans.get(key).toString();
+                }
+            }
+            for (Clock key : maxBounds.keySet()) {
+                if (sb.subSequence(startIndex+1, endIndex).equals(key.toString())) {
+                    //find some clock value i dunno
                 }
             }
 

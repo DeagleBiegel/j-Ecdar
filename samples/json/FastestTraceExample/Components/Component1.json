@@ -32,7 +32,7 @@
       "invariantX": 0.0,
       "invariantY": 60.0,
       "enterTestCode": "Enter L1 y= $y",
-      "exitTestCode": "Exit L1 zz= $zz"
+      "exitTestCode": "Exit L1 z = $z "
     },
     {
       "id": "L2",
