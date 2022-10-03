@@ -1,6 +1,6 @@
 {
   "name": "Component1",
-  "declarations": "clock x; bool y = true;",
+  "declarations": "clock x; bool y = true; bool z = false;",
   "locations": [
     {
       "id": "L0",
@@ -16,7 +16,7 @@
       "invariantX": 30.0,
       "invariantY": 10.0,
       "enterTestCode": "Enter L0 ",
-      "exitTestCode": "Exit L0 "
+      "exitTestCode": "Exit L0 y= $y"
     },
     {
       "id": "L1",
@@ -31,8 +31,8 @@
       "nicknameY": -10.0,
       "invariantX": 0.0,
       "invariantY": 60.0,
-      "enterTestCode": "Enter L1 ",
-      "exitTestCode": "Exit L1 "
+      "enterTestCode": "Enter L1 y= $y",
+      "exitTestCode": "Exit L1 z= $z"
     },
     {
       "id": "L2",
@@ -47,7 +47,7 @@
       "nicknameY": -10.0,
       "invariantX": 30.0,
       "invariantY": 10.0,
-      "enterTestCode": "Enter L2 ",
+      "enterTestCode": "Enter L2 z= $z",
       "exitTestCode": "Exit L2 "
     }
   ],
@@ -60,7 +60,7 @@
       "status": "INPUT",
       "select": "",
       "guard": "x \u003e 3",
-      "update": "",
+      "update": "y = false",
       "sync": "",
       "isLocked": false,
       "testCode": "L0 -> L1 ",
@@ -89,10 +89,10 @@
       "status": "INPUT",
       "select": "",
       "guard": "x \u003c\u003d 9",
-      "update": "",
+      "update": "z = true",
       "sync": "",
       "isLocked": false,
-      "testCode": "L1 -> L2 ",
+      "testCode": "L1 -> L2 $",
       "nails": [
         {
           "x": 240.0,

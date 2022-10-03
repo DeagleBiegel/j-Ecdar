@@ -539,22 +539,33 @@ public class SimpleTransitionSystem extends TransitionSystem{
     public void generateTestCode(ArrayList<Transition> trace) {
         Collections.reverse(trace);
         StringBuilder sb = new StringBuilder();
-        for (Transition tran : trace){
+
+        for (Transition tran : trace) {
+            if (tran.getUpdates().size() > 0 ){
+                for (Update update : tran.getUpdates()){
+                    if (update instanceof BoolUpdate){
+                        System.out.println(((BoolUpdate) update));
+                        //((BoolUpdate) update).getBV().setInitialValue(((BoolUpdate) update).getValue());
+                    }
+                }
+            }
             sb.append(tran.getSource().getLocation().getExitTestCode());
             sb.append(tran.getEdges().get(0).getTestCode());
             sb.append(tran.getTarget().getLocation().getEnterTestCode());
             sb.append("\n");
         }
+        replaceBoolVar(sb);
 
         try {
             FileWriter writer = new FileWriter("testcode.txt", true);
             writer.write(sb.toString());
             writer.write("\n");
             writer.close();
-        } catch (IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
 
     public void DFS(String destination) {
         HashMap<String, Boolean> isVisited = new HashMap<>();
@@ -612,7 +623,21 @@ public class SimpleTransitionSystem extends TransitionSystem{
             }
         }
         System.out.println(fastestTime);
-
+        generateTestCode((ArrayList<Transition>) fastestPath);
         return fastestPath;
+    }
+
+    public void replaceBoolVar (StringBuilder sb) {
+        if (sb.indexOf("$") != -1) {
+            int startIndex = sb.indexOf("$");
+            // This assumes that variables have a length of 1, should be fixed later
+            int endIndex = sb.indexOf("$") + 2;
+            String BV = "False ";
+            if (CDD.BVs.get(0).getInitialValue()) {
+                BV = "True ";
+            }
+            sb.replace(startIndex, endIndex, BV);
+            replaceBoolVar(sb);
+        }
     }
 }
