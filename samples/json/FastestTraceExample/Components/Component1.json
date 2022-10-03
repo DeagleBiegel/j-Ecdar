@@ -92,7 +92,7 @@
       "update": "z = true",
       "sync": "",
       "isLocked": false,
-      "testCode": "L1 -> L2 $",
+      "testCode": "L1 -> L2 ",
       "nails": [
         {
           "x": 240.0,

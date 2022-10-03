@@ -543,10 +543,8 @@ public class SimpleTransitionSystem extends TransitionSystem{
         for (Transition tran : trace) {
             if (tran.getUpdates().size() > 0 ){
                 for (Update update : tran.getUpdates()){
-                    if (update instanceof BoolUpdate){
                         System.out.println(((BoolUpdate) update));
-                        //((BoolUpdate) update).getBV().setInitialValue(((BoolUpdate) update).getValue());
-                    }
+                        CDD.BVs.get(0).setInitialValue(((BoolUpdate) update).getValue());
                 }
             }
             sb.append(tran.getSource().getLocation().getExitTestCode());
@@ -633,9 +631,14 @@ public class SimpleTransitionSystem extends TransitionSystem{
             // This assumes that variables have a length of 1, should be fixed later
             int endIndex = sb.indexOf("$") + 2;
             String BV = "False ";
-            if (CDD.BVs.get(0).getInitialValue()) {
-                BV = "True ";
+            for (BoolVar boolVar : CDD.BVs){
+                if (String.valueOf(sb.charAt(startIndex+1)).equals(boolVar.getUniqueName())){
+                    if (boolVar.getInitialValue()){
+                        BV = "True";
+                    }
+                }
             }
+
             sb.replace(startIndex, endIndex, BV);
             replaceBoolVar(sb);
         }
