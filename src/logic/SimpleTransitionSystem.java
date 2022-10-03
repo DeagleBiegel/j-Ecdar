@@ -8,6 +8,8 @@ import parser.XMLFileWriter;
 import java.io.FileWriter;
 import java.lang.reflect.Array;
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.io.File;
 import java.io.IOException;
@@ -633,10 +635,15 @@ public class SimpleTransitionSystem extends TransitionSystem{
         String BV = "";
         if (sb.indexOf("$") != -1) {
             int startIndex = sb.indexOf("$");
+            int endIndex = 0;
             // This assumes that variables have a length of 1, should be fixed later
-            int endIndex = sb.indexOf("$") + 2;
+            Pattern pattern = Pattern.compile("\\$[a-z,A-Z,0-9]+");
+            Matcher m = pattern.matcher(sb.toString());
+                while (m.find()){
+                    endIndex = m.end();
+                }
             for (String key : booleans.keySet()){
-                if (String.valueOf(sb.charAt(startIndex+1)).equals(key)){
+                if (sb.subSequence(startIndex+1, endIndex).equals(key)){
                     BV = booleans.get(key).toString();
                 }
             }

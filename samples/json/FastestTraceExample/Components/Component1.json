@@ -1,6 +1,6 @@
 {
   "name": "Component1",
-  "declarations": "clock x; bool y = true; bool z = false;",
+  "declarations": "clock x; bool y = true; bool zz = false;",
   "locations": [
     {
       "id": "L0",
@@ -32,7 +32,7 @@
       "invariantX": 0.0,
       "invariantY": 60.0,
       "enterTestCode": "Enter L1 y= $y",
-      "exitTestCode": "Exit L1 z= $z"
+      "exitTestCode": "Exit L1 zz= $zz"
     },
     {
       "id": "L2",
@@ -47,7 +47,7 @@
       "nicknameY": -10.0,
       "invariantX": 30.0,
       "invariantY": 10.0,
-      "enterTestCode": "Enter L2 z= $z",
+      "enterTestCode": "Enter L2 zz= $zz",
       "exitTestCode": "Exit L2 "
     }
   ],
@@ -89,7 +89,7 @@
       "status": "INPUT",
       "select": "",
       "guard": "x \u003c\u003d 9",
-      "update": "z = true",
+      "update": "zz = true",
       "sync": "",
       "isLocked": false,
       "testCode": "L1 -> L2 ",
