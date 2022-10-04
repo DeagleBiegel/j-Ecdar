@@ -6,6 +6,7 @@ import parser.GuardParser;
 import parser.XMLFileWriter;
 
 import java.io.FileWriter;
+import java.io.PrintWriter;
 import java.lang.reflect.Array;
 import java.util.*;
 import java.util.regex.Matcher;
@@ -539,7 +540,6 @@ public class SimpleTransitionSystem extends TransitionSystem{
     }
 
     public void generateTestCode(ArrayList<Transition> trace) {
-        Collections.reverse(trace);
         StringBuilder sb = new StringBuilder();
         HashMap<String, Boolean> booleans = new HashMap<>();
 
@@ -547,20 +547,32 @@ public class SimpleTransitionSystem extends TransitionSystem{
             booleans.put(bv.getOriginalName(), bv.getInitialValue());
         }
 
+        sb.append(replaceVar(new StringBuilder(trace.get(0).getSource().getLocation().getEnterTestCode()), booleans, trace.get(0).getSource().getLocationInvariant()));
+
         for (Transition tran : trace) {
-            sb.append(replaceBoolVar(new StringBuilder(tran.getSource().getLocation().getExitTestCode()), booleans));
-            sb.append(replaceBoolVar(new StringBuilder(tran.getEdges().get(0).getTestCode()), booleans));
+            sb.append(replaceVar(new StringBuilder(tran.getSource().getLocation().getExitTestCode()), booleans, tran.getGuardCDD()));
+            sb.append(replaceVar(new StringBuilder(tran.getEdges().get(0).getTestCode()), booleans, tran.getGuardCDD()));
 
             if (tran.getUpdates().size() > 0 ){
                 for (Update update : tran.getUpdates()){
+                    if (update instanceof BoolUpdate) {
                         booleans.put(((BoolUpdate)update).getBV().getUniqueName(), ((BoolUpdate)update).getValue());
+                    }
+                    else if (update instanceof ClockUpdate) {
+                        sb.append(replaceClockVarUpdate(new StringBuilder(tran.getTarget().getLocation().getEnterTestCode()), ((ClockUpdate) update).getClock(), ((ClockUpdate) update).getValue()));
+                    }
                 }
+                sb.append(replaceVar(new StringBuilder(tran.getTarget().getLocation().getEnterTestCode()), booleans, tran.getGuardCDD()));
             }
-            sb.append(replaceBoolVar(new StringBuilder(tran.getTarget().getLocation().getEnterTestCode()), booleans));
+
             sb.append("\n");
+
         }
 
         try {
+            PrintWriter printerWriter = new PrintWriter("testcode.txt");
+            printerWriter.println("");
+            printerWriter.close();
             FileWriter writer = new FileWriter("testcode.txt", true);
             writer.write(sb.toString());
             writer.write("\n");
@@ -569,7 +581,6 @@ public class SimpleTransitionSystem extends TransitionSystem{
             e.printStackTrace();
         }
     }
-
 
     public void DFS(String destination) {
         HashMap<String, Boolean> isVisited = new HashMap<>();
@@ -631,13 +642,13 @@ public class SimpleTransitionSystem extends TransitionSystem{
         return fastestPath;
     }
 
-    public StringBuilder replaceBoolVar (StringBuilder sb, HashMap<String, Boolean> booleans) {
-        String BV = "";
-        String CV = "";
+    public StringBuilder replaceVar (StringBuilder sb, HashMap<String, Boolean> booleans, CDD cdd) {
+        String V = "";
+
         if (sb.indexOf("$") != -1) {
             int startIndex = sb.indexOf("$");
             int endIndex = 0;
-            // This assumes that variables have a length of 1, should be fixed later
+
             Pattern pattern = Pattern.compile("\\$[a-z,A-Z,0-9]+");
             Matcher m = pattern.matcher(sb.toString());
                 while (m.find()){
@@ -645,17 +656,40 @@ public class SimpleTransitionSystem extends TransitionSystem{
                 }
             for (String key : booleans.keySet()){
                 if (sb.subSequence(startIndex+1, endIndex).equals(key)){
-                    BV = booleans.get(key).toString();
+                    V = booleans.get(key).toString();
                 }
             }
             for (Clock key : maxBounds.keySet()) {
-                if (sb.subSequence(startIndex+1, endIndex).equals(key.toString())) {
-                    //find some clock value i dunno
+                if (sb.subSequence(startIndex+1, endIndex).equals(key.getOriginalName())) {
+                    V = String.valueOf(minClockValue(cdd,key));
                 }
             }
 
-            sb.replace(startIndex, endIndex, BV);
-            return replaceBoolVar(sb, booleans);
+            sb.replace(startIndex, endIndex, V);
+            return replaceVar(sb, booleans, cdd);
+        }
+        return sb;
+    }
+
+    public StringBuilder replaceClockVarUpdate (StringBuilder sb, Clock x, Integer val) {
+        String V = "";
+
+        if (sb.indexOf("$") != -1) {
+            int startIndex = sb.indexOf("$");
+            int endIndex = 0;
+
+            Pattern pattern = Pattern.compile("\\$[a-z,A-Z,0-9]+");
+            Matcher m = pattern.matcher(sb.toString());
+            while (m.find()){
+                endIndex = m.end();
+            }
+
+            if (sb.subSequence(startIndex+1, endIndex).equals(x.getOriginalName())) {
+                V = String.valueOf(val);
+            }
+
+            sb.replace(startIndex, endIndex, V);
+            return replaceClockVarUpdate(sb, x, val);
         }
         return sb;
     }

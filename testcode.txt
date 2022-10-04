@@ -1,12 +1,4 @@
-Exit L1 zz= falseL1 -> L2 Enter L2 zz= true
-Exit L0 y= trueL0 -> L1 Enter L1 y= false
 
-Exit L1 zz123abekonegerdroning= L1 -> L2 Enter L2 zz= true
-Exit L0 y= trueL0 -> L1 Enter L1 y= false
-
-Exit L1 z =  L1 -> L2 Enter L2 zz= true
-Exit L0 y= trueL0 -> L1 Enter L1 y= false
-
-Exit L1 z =  L1 -> L2 Enter L2 zz= true
-Exit L0 y= trueL0 -> L1 Enter L1 y= false
+Enter L0 x = 0 Exit L0 x = 4L0 -> L1 x = 4 Enter L1 x = 4
+Exit L1 x = 4 L1 -> L2 x = 4Enter L2 x = 0Enter L2 x = 4
 
