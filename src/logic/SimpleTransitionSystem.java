@@ -1,20 +1,17 @@
 package logic;
 
-import jdk.jfr.TransitionTo;
 import models.*;
 import parser.GuardParser;
 import parser.XMLFileWriter;
 
 import java.io.FileWriter;
 import java.io.PrintWriter;
-import java.lang.reflect.Array;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
-import java.io.File;
 import java.io.IOException;
-import autisme.Client;
+import connection.Client;
 
 public class SimpleTransitionSystem extends TransitionSystem{
 
@@ -695,6 +692,8 @@ public class SimpleTransitionSystem extends TransitionSystem{
 
     public void realFastestTrace(List<Transition> path) throws IOException {
         Client client = new Client();
+        long z = minClockValue(path.get(path.size()-1).getGuardCDD(), getClocks().get(getClocks().size()-1));
+
 
         for (Transition t : path) {
             if(t.getEdges().get(0).getStatus().equals("OUTPUT")){
@@ -704,8 +703,12 @@ public class SimpleTransitionSystem extends TransitionSystem{
                 client.readString();
                 long end = System.currentTimeMillis();
                 client.stopConnection();
-                System.out.println(end - start);
+                z += end - start;
             }
         }
+
+        Guard g = GuardParser.parse("z ==" + z, getClocks(), getBVs());
+        CDD cdd = path.get(path.size()-1).getGuardCDD().conjunction(new CDD(g));
+        System.out.println(cdd);
     }
 }

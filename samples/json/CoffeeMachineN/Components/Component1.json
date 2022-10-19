@@ -53,7 +53,7 @@
     {
       "id": "L3",
       "nickname": "",
-      "invariant": "",
+      "invariant": "y <= 5",
       "type": "NORMAL",
       "urgency": "NORMAL",
       "x": 420.0,
