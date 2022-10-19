@@ -18,7 +18,7 @@ public class Playground {
 
     public static void main(String[] args) {
         try {
-            Automaton[] automaton = JSONParser.parse("samples/json/FastestTraceExample", true);
+            Automaton[] automaton = JSONParser.parse("samples/json/CoffeeMachineN", true);
 
             for (var a : automaton) {
                 Clock z = new Clock("z", a.getName());
@@ -26,6 +26,8 @@ public class Playground {
                 SimpleTransitionSystem STS = new SimpleTransitionSystem(a);
                 STS.allPaths();
             }
+
+
         }
         catch (FileNotFoundException e) {
             e.printStackTrace();

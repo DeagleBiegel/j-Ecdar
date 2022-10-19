@@ -1,4 +1,6 @@
 
-Enter L0 x = 0 Exit L0 x = 4L0 -> L1 x = 4 Enter L1 x = 4
-Exit L1 x = 4 L1 -> L2 x = 4Enter L2 x = 0Enter L2 x = 4
+Enter L0Exit L0L0 -> L1
+Exit L1L1 -> L2Enter L2Enter L2
+Exit L2L2 -> L3
+Exit L3L3 -> L4
 

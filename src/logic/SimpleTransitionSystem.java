@@ -329,12 +329,10 @@ public class SimpleTransitionSystem extends TransitionSystem{
         XMLFileWriter.toXML(filename,this);
     }
 
-
     public void toJson(String filename)
     {
         JsonAutomatonEncoder.writeToJson(this.getAutomaton(),filename);
     }
-
 
     public SimpleTransitionSystem pruneReachTimed(){
         boolean initialisedCdd = CDD.tryInit(clocks.getItems(), BVs.getItems());
@@ -510,7 +508,7 @@ public class SimpleTransitionSystem extends TransitionSystem{
             }
         }
 
-        DFS("L2");
+        DFS("L4");
     }
 
     public int minClockValue(CDD guard, Clock clock) {
@@ -593,7 +591,7 @@ public class SimpleTransitionSystem extends TransitionSystem{
 
         DFSUtility(destination, automaton.getInitial().getName(), isVisited, pathList);
 
-        fastestTrace();
+        realFastestTrace(fastestTrace());
     }
 
     public void DFSUtility(String destination, String source, HashMap<String, Boolean> isVisited, ArrayList<String> localPathList) {
@@ -694,4 +692,10 @@ public class SimpleTransitionSystem extends TransitionSystem{
         return sb;
     }
 
+    public void realFastestTrace(List<Transition> path) {
+        for (Transition t : path) {
+            System.out.println(minClockValue(t.getGuardCDD(), getClocks().get(getClocks().size()-1)));
+            System.out.println(t.getEdges().get(0).getStatus());
+        }
+    }
 }

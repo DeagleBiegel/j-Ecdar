@@ -13,6 +13,7 @@ public class Edge {
     private Guard guard;
     private List<Update> updates;
     private String testCode;
+    private String status;
 
     public void setSource(Location source) {
         this.source = source;
@@ -38,7 +39,7 @@ public class Edge {
         this.guard = guard;
     }
 
-    public Edge(Location source, Location target, Channel chan, boolean isInput, Guard guards, List<Update> updates, String testCode) {
+    public Edge(Location source, Location target, Channel chan, boolean isInput, Guard guards, List<Update> updates, String testCode, String status) {
         this.source = source;
         this.target = target;
         this.chan = chan;
@@ -46,6 +47,7 @@ public class Edge {
         this.guard = guards;
         this.updates = updates;
         this.testCode = testCode;
+        this.status = status;
     }
 
     public Edge(Edge copy, List<Clock> newClocks, List<BoolVar> newBVs, Location sourceR, Location targetR, List<Clock> oldClocks, List<BoolVar> oldBVs) {
@@ -61,7 +63,8 @@ public class Edge {
                         newClocks, oldClocks, newBVs, oldBVs
                 ))
                 .collect(Collectors.toList()),
-            copy.testCode
+            copy.testCode,
+            copy.status
         );
     }
 
@@ -109,6 +112,10 @@ public class Edge {
     }
 
     public String getTestCode() { return testCode; }
+
+    public String getStatus() {
+        return status;
+    }
 
     @Override
     public boolean equals(Object obj) {

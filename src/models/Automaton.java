@@ -165,7 +165,7 @@ public class Automaton {
     private List<Edge> getEdgesFromLocation(Location loc) {
         if (loc.isUniversal()) {
             return actions.stream()
-                    .map(action -> new Edge(loc, loc, action, inputAct.contains(action), new TrueGuard(), new ArrayList<>(), ""))
+                    .map(action -> new Edge(loc, loc, action, inputAct.contains(action), new TrueGuard(), new ArrayList<>(), "", ""))
                     .collect(Collectors.toList());
         }
         return edges.stream().filter(edge -> edge.getSource().equals(loc)).collect(Collectors.toList());
@@ -244,7 +244,7 @@ public class Automaton {
                 }
 
                 if (resCDD.isNotFalse()) {
-                    Edge newEdge = new Edge(loc, loc, input, true, resCDD.getGuard(getClocks()), new ArrayList<>(), "");
+                    Edge newEdge = new Edge(loc, loc, input, true, resCDD.getGuard(getClocks()), new ArrayList<>(), "", "");
                     getEdges().add(newEdge);
                 }
 
