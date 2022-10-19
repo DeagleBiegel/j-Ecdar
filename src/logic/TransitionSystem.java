@@ -305,7 +305,7 @@ public abstract class TransitionSystem {
         return isStateReachable;
     }
 
-    public void allPaths() {
+    public void allPaths() throws IOException {
         boolean initialisedCdd = CDD.tryInit(getClocks(), getBVs());
         List<SimpleTransitionSystem> systems = getSystems();
         List<State> state = new ArrayList<>();

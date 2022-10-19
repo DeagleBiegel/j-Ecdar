@@ -14,6 +14,7 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.io.File;
 import java.io.IOException;
+import autisme.Client;
 
 public class SimpleTransitionSystem extends TransitionSystem{
 
@@ -478,7 +479,7 @@ public class SimpleTransitionSystem extends TransitionSystem{
         return false;
     }
 
-    public void allPathsHelper() {
+    public void allPathsHelper() throws IOException {
         waiting = new ArrayDeque<>();
         passed = new ArrayList<>();
         waiting.add(getInitialState());
@@ -580,7 +581,7 @@ public class SimpleTransitionSystem extends TransitionSystem{
         }
     }
 
-    public void DFS(String destination) {
+    public void DFS(String destination) throws IOException {
         HashMap<String, Boolean> isVisited = new HashMap<>();
         ArrayList<String> pathList = new ArrayList<>();
         for (Location l : automaton.getLocations()) {
@@ -692,10 +693,19 @@ public class SimpleTransitionSystem extends TransitionSystem{
         return sb;
     }
 
-    public void realFastestTrace(List<Transition> path) {
+    public void realFastestTrace(List<Transition> path) throws IOException {
+        Client client = new Client();
+
         for (Transition t : path) {
-            System.out.println(minClockValue(t.getGuardCDD(), getClocks().get(getClocks().size()-1)));
-            System.out.println(t.getEdges().get(0).getStatus());
+            if(t.getEdges().get(0).getStatus().equals("OUTPUT")){
+                client.startConnection("127.0.0.1", 6666);
+                long start = System.currentTimeMillis();
+                client.writeString(t.getEdges().get(0).getChannel().getName());
+                client.readString();
+                long end = System.currentTimeMillis();
+                client.stopConnection();
+                System.out.println(end - start);
+            }
         }
     }
 }

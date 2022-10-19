@@ -16,7 +16,7 @@ import java.util.List;
 
 public class Playground {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         try {
             Automaton[] automaton = JSONParser.parse("samples/json/CoffeeMachineN", true);
 
