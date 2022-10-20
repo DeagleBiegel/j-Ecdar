@@ -305,13 +305,13 @@ public abstract class TransitionSystem {
         return isStateReachable;
     }
 
-    public void allPaths() throws IOException {
+    public void allPaths(String dest) throws IOException {
         boolean initialisedCdd = CDD.tryInit(getClocks(), getBVs());
         List<SimpleTransitionSystem> systems = getSystems();
         List<State> state = new ArrayList<>();
 
         for (SimpleTransitionSystem ts : systems){
-            ts.allPathsHelper();
+            ts.allPathsHelper(dest);
         }
 
         if (initialisedCdd){

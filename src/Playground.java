@@ -24,7 +24,7 @@ public class Playground {
                 Clock z = new Clock("z", a.getName());
                 a.getClocks().add(z);
                 SimpleTransitionSystem STS = new SimpleTransitionSystem(a);
-                STS.allPaths();
+                STS.allPaths("L4");
             }
 
 

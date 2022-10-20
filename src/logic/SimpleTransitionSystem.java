@@ -21,8 +21,8 @@ public class SimpleTransitionSystem extends TransitionSystem{
     private Deque<State> waiting;
     private List<State> passed;
     private HashMap<Clock,Integer> maxBounds;
-    public HashMap<String, ArrayList<Transition>> transitions = new HashMap<>();
-    public ArrayList<ArrayList<Transition>> allPaths = new ArrayList<>();
+
+
 
     public SimpleTransitionSystem(Automaton automaton) {
         this.automaton = automaton;
@@ -476,10 +476,13 @@ public class SimpleTransitionSystem extends TransitionSystem{
         return false;
     }
 
-    public void allPathsHelper() throws IOException {
+    public void allPathsHelper(String dest) throws IOException {
         waiting = new ArrayDeque<>();
         passed = new ArrayList<>();
         waiting.add(getInitialState());
+        ArrayList<ArrayList<Transition>> allPaths = new ArrayList<>();
+        HashMap<String, ArrayList<Transition>> transitions = new HashMap<>();
+
 
         while (!waiting.isEmpty()) {
             State currState = new State(waiting.pop());
@@ -506,7 +509,9 @@ public class SimpleTransitionSystem extends TransitionSystem{
             }
         }
 
-        DFS("L4");
+
+        //System.out.println(transitions);
+        DFS(dest, transitions, allPaths);
     }
 
     public int minClockValue(CDD guard, Clock clock) {
@@ -578,21 +583,22 @@ public class SimpleTransitionSystem extends TransitionSystem{
         }
     }
 
-    public void DFS(String destination) throws IOException {
+    public void DFS(String destination, HashMap<String, ArrayList<Transition>> transitions, ArrayList<ArrayList<Transition>> allPaths) throws IOException {
         HashMap<String, Boolean> isVisited = new HashMap<>();
         ArrayList<String> pathList = new ArrayList<>();
+
         for (Location l : automaton.getLocations()) {
             isVisited.put(l.getName(),false);
         }
 
         pathList.add(automaton.getInitial().getName());
 
-        DFSUtility(destination, automaton.getInitial().getName(), isVisited, pathList);
-
-        realFastestTrace(fastestTrace());
+        DFSUtility(destination, automaton.getInitial().getName(), isVisited, pathList, transitions, allPaths);
+        //System.out.println(fastestTrace(allPaths));
+        realFastestTrace(fastestTrace(allPaths));
     }
 
-    public void DFSUtility(String destination, String source, HashMap<String, Boolean> isVisited, ArrayList<String> localPathList) {
+    public void DFSUtility(String destination, String source, HashMap<String, Boolean> isVisited, ArrayList<String> localPathList, HashMap<String, ArrayList<Transition>> transitions, ArrayList<ArrayList<Transition>> allPaths) {
         ArrayList<Transition> pathTransitions = new ArrayList<>();
         if (source.equals(destination)) {
             for (int i = 0; i < localPathList.size() - 1; i++) {
@@ -613,14 +619,14 @@ public class SimpleTransitionSystem extends TransitionSystem{
         for(Transition l: transitions.get(source)) {
             if (!isVisited.get(l.getTarget().getLocation().getName())) {
                 localPathList.add(l.getTarget().getLocation().getName());
-                DFSUtility(destination,l.getTarget().getLocation().getName(),isVisited,localPathList);
+                DFSUtility(destination,l.getTarget().getLocation().getName(),isVisited,localPathList, transitions, allPaths);
                 localPathList.remove(l.getTarget().getLocation().getName());
             }
         }
         isVisited.put(source,false);
     }
 
-    public List<Transition> fastestTrace() {
+    public List<Transition> fastestTrace(ArrayList<ArrayList<Transition>> allPaths) {
         List<Transition> fastestPath = new ArrayList<>();
         int fastestTime = Integer.MAX_VALUE;
         int tempTime;
@@ -692,23 +698,35 @@ public class SimpleTransitionSystem extends TransitionSystem{
 
     public void realFastestTrace(List<Transition> path) throws IOException {
         Client client = new Client();
-        long z = minClockValue(path.get(path.size()-1).getGuardCDD(), getClocks().get(getClocks().size()-1));
-
+        long y = 0;
+        client.startConnection("127.0.0.1", 6666);
+        long z = 4;
 
         for (Transition t : path) {
             if(t.getEdges().get(0).getStatus().equals("OUTPUT")){
-                client.startConnection("127.0.0.1", 6666);
+                System.out.println("Time before action: " + z);
                 long start = System.currentTimeMillis();
-                client.writeString(t.getEdges().get(0).getChannel().getName());
+                //client.writeString(t.getEdges().get(0).getChannel().getName());
                 client.readString();
                 long end = System.currentTimeMillis();
-                client.stopConnection();
-                z += end - start;
+                z += Math.round((end - start)*0.001);
+                System.out.println("Time after action: " + z);
+                Guard g = GuardParser.parse("z ==" + (int)z, getClocks(), getBVs());
+                CDD cdd = t.getSource().getInvariant().conjunction(new CDD(g));
+                System.out.println(cdd + "\n");
             }
-        }
 
-        Guard g = GuardParser.parse("z ==" + z, getClocks(), getBVs());
+        }
+        client.stopConnection();
+
+        //System.out.println(z);
+        /*
+        z += Math.round(y*0.001);
+        System.out.println(z);
+        Guard g = GuardParser.parse("z ==" + 15, getClocks(), getBVs());
         CDD cdd = path.get(path.size()-1).getGuardCDD().conjunction(new CDD(g));
         System.out.println(cdd);
+
+         */
     }
 }
