@@ -18,13 +18,13 @@ public class Playground {
 
     public static void main(String[] args) throws IOException {
         try {
-            Automaton[] automaton = JSONParser.parse("samples/json/CoffeeMachineN", true);
+            Automaton[] automaton = JSONParser.parse("samples/json/FastestTraceMultiplePathsExample", true);
 
             for (var a : automaton) {
                 Clock z = new Clock("z", a.getName());
                 a.getClocks().add(z);
                 SimpleTransitionSystem STS = new SimpleTransitionSystem(a);
-                STS.allPaths("L4");
+                STS.allPaths("L2");
             }
 
 

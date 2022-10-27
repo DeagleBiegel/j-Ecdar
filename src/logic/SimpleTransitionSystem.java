@@ -594,12 +594,14 @@ public class SimpleTransitionSystem extends TransitionSystem{
         pathList.add(automaton.getInitial().getName());
 
         DFSUtility(destination, automaton.getInitial().getName(), isVisited, pathList, transitions, allPaths);
+
         //System.out.println(fastestTrace(allPaths));
-        realFastestTrace(fastestTrace(allPaths));
+        //realFastestTrace(fastestTrace(allPaths));
     }
 
     public void DFSUtility(String destination, String source, HashMap<String, Boolean> isVisited, ArrayList<String> localPathList, HashMap<String, ArrayList<Transition>> transitions, ArrayList<ArrayList<Transition>> allPaths) {
         ArrayList<Transition> pathTransitions = new ArrayList<>();
+
         if (source.equals(destination)) {
             for (int i = 0; i < localPathList.size() - 1; i++) {
                 for (Transition t : transitions.get(localPathList.get(i))) {
@@ -700,33 +702,50 @@ public class SimpleTransitionSystem extends TransitionSystem{
         Client client = new Client();
         long y = 0;
         client.startConnection("127.0.0.1", 6666);
-        long z = 4;
+        long z = 0;
 
         for (Transition t : path) {
+            // if it is an output edge, we call the implementation and measure the time it takes.
             if(t.getEdges().get(0).getStatus().equals("OUTPUT")){
-                System.out.println("Time before action: " + z);
                 long start = System.currentTimeMillis();
-                //client.writeString(t.getEdges().get(0).getChannel().getName());
                 client.readString();
                 long end = System.currentTimeMillis();
+                System.out.println(end - start);
                 z += Math.round((end - start)*0.001);
-                System.out.println("Time after action: " + z);
-                Guard g = GuardParser.parse("z ==" + (int)z, getClocks(), getBVs());
-                CDD cdd = t.getSource().getInvariant().conjunction(new CDD(g));
-                System.out.println(cdd + "\n");
             }
+            // if it is an input edge, we take the fastest transition
+            else {
+                //case: if the previous transition has exceeded the minimum clock value?
+                int temp = minClockValue(t.getGuardCDD(), getClocks().get(getClocks().size()-1));
+                if (z < temp) {
+                    z = temp;
+                }
+            }
+            helperConjoin("z == " + (int)z, t);
 
         }
         client.stopConnection();
+    }
 
-        //System.out.println(z);
-        /*
-        z += Math.round(y*0.001);
-        System.out.println(z);
-        Guard g = GuardParser.parse("z ==" + 15, getClocks(), getBVs());
-        CDD cdd = path.get(path.size()-1).getGuardCDD().conjunction(new CDD(g));
-        System.out.println(cdd);
+    public CDD helperConjoin(String newGuard, Transition t) {
+        Guard g = GuardParser.parse(newGuard, getClocks(), getBVs());
+        CDD cdd = t.getGuardCDD().conjunction(new CDD(g));
 
-         */
+        if (cdd.isFalse()) {
+            System.out.println("CONSTRAINTS BROKEN");
+            System.out.println(t.getEdges().get(0).getChan().getName());
+            System.out.println("Transition taken at: " + newGuard);
+            System.out.println("Guard: " + t.getGuardCDD() + "\n");
+        }
+        else {
+            System.out.println("CONSTRAINTS HELD");
+            System.out.println(t.getEdges().get(0).getChan().getName());
+            System.out.println("Transition taken at: " + newGuard);
+            System.out.println("Guard: " + t.getGuardCDD() + "\n");
+        }
+
+
+
+        return cdd;
     }
 }
