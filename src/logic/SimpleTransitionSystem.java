@@ -230,12 +230,9 @@ public class SimpleTransitionSystem extends TransitionSystem{
 
         while (!waiting.isEmpty()) {
             State currState = new State(waiting.pop());
-
             State toStore = new State(currState);
-
             toStore.extrapolateMaxBounds(getMaxBounds(),clocks.getItems());
             passed.add(toStore);
-
 
             for (Channel action : actions){
                 List<Transition> tempTrans = getNextTransitions(currState, action);
@@ -267,8 +264,6 @@ public class SimpleTransitionSystem extends TransitionSystem{
         }
         return true;
     }
-
-
 
     private boolean passedContainsState(State state1) {
         State state = new State(state1);
@@ -435,7 +430,6 @@ public class SimpleTransitionSystem extends TransitionSystem{
                 toAdd1.forEach(e->e.getTarget().extrapolateMaxBounds(getMaxBounds(),clocks.getItems()));
 
 
-
                 //find all targets with min value
                 int min = Integer.MAX_VALUE;
                 List<Transition> tempState = new ArrayList<>();
@@ -455,18 +449,16 @@ public class SimpleTransitionSystem extends TransitionSystem{
                     min = Integer.MAX_VALUE;
                     List<Transition> fastestBranch = new ArrayList<>();
                     for (Transition t : tempState) {
-                        List<Transition> temp = exploreBranch(t);
-                        if (temp.size() > 0) {
-                            int temp2 = minClockValue(temp.get(temp.size()-1).getTarget().getInvariant(), getClocks().get(getClocks().size()-1));
-                            System.out.println(temp2);
-                            if (temp2 < min) {
-                                min = temp2;
-                                fastestBranch = temp;
+                        List<Transition> branch = exploreBranch(t);
+                        if (branch.size() > 0) {
+                            int minValue = minClockValue(branch.get(branch.size()-1).getTarget().getInvariant(), getClocks().get(getClocks().size()-1));
+                            if (minValue < min) {
+                                min = minValue;
+                                fastestBranch = branch;
                             }
                         }
                     }
                     fastestPath.addAll(fastestBranch);
-                    waiting.clear();
                 }
                 else {
                     fastestPath.addAll(tempState);
@@ -483,8 +475,6 @@ public class SimpleTransitionSystem extends TransitionSystem{
     public List<Transition> exploreBranch(Transition startTransition) {
         Set<Channel> actions = getActions();
 
-        waiting = new ArrayDeque<>();
-        passed = new ArrayList<>();
         waiting.add(startTransition.getTarget());
         List<Transition> fastestPath = new ArrayList<>();
         fastestPath.add(startTransition);
