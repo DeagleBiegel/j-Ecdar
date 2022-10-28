@@ -286,6 +286,19 @@ public abstract class TransitionSystem {
         return isReachable;
     }
 
+    public void fastestPath() {
+        boolean initialisedCdd = CDD.tryInit(getClocks(), getBVs());
+
+        List<SimpleTransitionSystem> systems = getSystems();
+
+        for (SimpleTransitionSystem ts : systems) {
+            ts.fastestPathHelper();
+        }
+
+        if (initialisedCdd) {
+            CDD.done();
+        }
+    }
 
     public boolean isStateReachable(String name, String state) {
         boolean initialisedCdd = CDD.tryInit(getClocks(), getBVs());
