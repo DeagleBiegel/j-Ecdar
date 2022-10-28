@@ -413,45 +413,51 @@ public class SimpleTransitionSystem extends TransitionSystem{
         waiting = new ArrayDeque<>();
         passed = new ArrayList<>();
         waiting.add(getInitialState());
-        List<State> fastestPath = new ArrayList<>();
-        fastestPath.add(getInitialState());
+        List<Transition> fastestPath = new ArrayList<>();
+
         while (!waiting.isEmpty()) {
             State currState = new State(waiting.pop());
             State toStore = new State(currState);
 
             toStore.extrapolateMaxBounds(this.getMaxBounds(),clocks.getItems());
             passed.add(toStore);
-            //System.out.println("Current State: " + toStore);
+
             for (Channel action : actions) {
 
                 List<Transition> tempTrans = getNextTransitions(currState, action);
-                
+
                 List<State> toAdd = tempTrans.stream().map(Transition::getTarget).
                         filter(s -> !passedContainsState(s) && !waitingContainsState(s)).collect(Collectors.toList());
                 toAdd.forEach(e->e.extrapolateMaxBounds(getMaxBounds(),clocks.getItems()));
 
+                List<Transition> toAdd1 = tempTrans.stream().
+                        filter(s -> !passedContainsState(s.getTarget()) && !waitingContainsState(s.getTarget())).collect(Collectors.toList());
+                toAdd1.forEach(e->e.getTarget().extrapolateMaxBounds(getMaxBounds(),clocks.getItems()));
+
+
+
                 //find all targets with min value
                 int min = Integer.MAX_VALUE;
-                List<State> tempState = new ArrayList<>();
-                for (State s : toAdd) {
-                    int temp = minClockValue(s.getInvariant(), getClocks().get(getClocks().size()-1));
+                List<Transition> tempState = new ArrayList<>();
+                for (Transition t : toAdd1) {
+                    int temp = minClockValue(t.getTarget().getInvariant(), getClocks().get(getClocks().size()-1));
                     if (temp == min) {
-                        tempState.add(s);
+                        tempState.add(t);
                     }
                     if (temp < min) {
                         min = temp;
                         tempState.clear();
-                        tempState.add(s);
+                        tempState.add(t);
                     }
                 }
 
                 if (tempState.size() > 1) { //explore each branch and find which gives the smallest value, might as well return a list of states
                     min = Integer.MAX_VALUE;
-                    List<State> fastestBranch = new ArrayList<>();
-                    for (State s : tempState) {
-                        List<State> temp = exploreBranch(s);
+                    List<Transition> fastestBranch = new ArrayList<>();
+                    for (Transition t : tempState) {
+                        List<Transition> temp = exploreBranch(t);
                         if (temp.size() > 0) {
-                            int temp2 = minClockValue(temp.get(temp.size()-1).getInvariant(), getClocks().get(getClocks().size()-1));
+                            int temp2 = minClockValue(temp.get(temp.size()-1).getTarget().getInvariant(), getClocks().get(getClocks().size()-1));
                             System.out.println(temp2);
                             if (temp2 < min) {
                                 min = temp2;
@@ -468,21 +474,20 @@ public class SimpleTransitionSystem extends TransitionSystem{
                 }
             }
         }
-        for (State s : fastestPath) {
-            System.out.println(s);
-            s.getLocation();
+        for (Transition s : fastestPath) {
+            System.out.println(s.getSource().getLocation().getName() + s.getTarget().getLocation().getName());
         }
-        System.out.println(minClockValue(fastestPath.get(fastestPath.size()-1).getInvariant(), getClocks().get(getClocks().size()-1)));
+        System.out.println(minClockValue(fastestPath.get(fastestPath.size()-1).getTarget().getInvariant(), getClocks().get(getClocks().size()-1)));
     }
 
-    public List<State> exploreBranch(State startState) {
+    public List<Transition> exploreBranch(Transition startTransition) {
         Set<Channel> actions = getActions();
 
         waiting = new ArrayDeque<>();
         passed = new ArrayList<>();
-        waiting.add(startState);
-        List<State> fastestPath = new ArrayList<>();
-        fastestPath.add(startState);
+        waiting.add(startTransition.getTarget());
+        List<Transition> fastestPath = new ArrayList<>();
+        fastestPath.add(startTransition);
         while (!waiting.isEmpty()) {
             State currState = new State(waiting.pop());
             State toStore = new State(currState);
@@ -495,30 +500,35 @@ public class SimpleTransitionSystem extends TransitionSystem{
 
                 List<State> toAdd = tempTrans.stream().map(Transition::getTarget).
                         filter(s -> !passedContainsState(s) && !waitingContainsState(s)).collect(Collectors.toList());
-                toAdd.forEach(e->e.extrapolateMaxBounds(getMaxBounds(),clocks.getItems()));
+                        toAdd.forEach(e->e.extrapolateMaxBounds(getMaxBounds(),clocks.getItems()));
+
+                List<Transition> toAdd1 = tempTrans.stream().
+                        filter(s -> !passedContainsState(s.getTarget()) && !waitingContainsState(s.getTarget())).collect(Collectors.toList());
+                toAdd1.forEach(e->e.getTarget().extrapolateMaxBounds(getMaxBounds(),clocks.getItems()));
+
 
                 int min = Integer.MAX_VALUE;
-                List<State> tempState = new ArrayList<>();
+                List<Transition> tempState = new ArrayList<>();
 
-                for (State s : toAdd) {
-                    int temp = minClockValue(s.getInvariant(), getClocks().get(getClocks().size()-1));
+                for (Transition t : toAdd1) {
+                    int temp = minClockValue(t.getTarget().getInvariant(), getClocks().get(getClocks().size()-1));
                     if (temp == min) {
-                        tempState.add(s);
+                        tempState.add(t);
                     }
                     if (temp < min) {
                         min = temp;
                         tempState.clear();
-                        tempState.add(s);
+                        tempState.add(t);
                     }
                 }
                 if (tempState.size() > 1) { //explore each branch and find which gives the smallest value, might as well return a list of states
-                    List<State> stateList1 = new ArrayList<>();
+                    List<Transition> stateList1 = new ArrayList<>();
                     int min2 = Integer.MAX_VALUE;
-                    for (State s : tempState) {
-                        List<State> temp = exploreBranch(s);
+                    for (Transition t : tempState) {
+                        List<Transition> temp = exploreBranch(t);
 
                         if (temp.size() > 0) {
-                            int temp2 = minClockValue(temp.get(temp.size()-1).getInvariant(), getClocks().get(getClocks().size()-1));
+                            int temp2 = minClockValue(temp.get(temp.size()-1).getTarget().getInvariant(), getClocks().get(getClocks().size()-1));
                             if (temp2 < min2) {
                                 min2 = temp2;
                                 stateList1 = temp;
