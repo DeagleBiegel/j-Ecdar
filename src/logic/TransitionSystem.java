@@ -318,20 +318,6 @@ public abstract class TransitionSystem {
         return isStateReachable;
     }
 
-    public void allPaths(String dest) throws IOException {
-        boolean initialisedCdd = CDD.tryInit(getClocks(), getBVs());
-        List<SimpleTransitionSystem> systems = getSystems();
-        List<State> state = new ArrayList<>();
-
-        for (SimpleTransitionSystem ts : systems){
-            ts.allPathsHelper(dest);
-        }
-
-        if (initialisedCdd){
-            CDD.done();
-        }
-    }
-
     public List<Location> updateLocations(Set<Location> locations, List<Clock> newClocks, List<Clock> oldClocks, List<BoolVar> newBVs, List<BoolVar> oldBVs) {
         return locations
                 .stream()

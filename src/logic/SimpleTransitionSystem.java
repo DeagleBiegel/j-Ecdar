@@ -1,5 +1,6 @@
 package logic;
 
+import javafx.util.Pair;
 import models.*;
 import parser.GuardParser;
 import parser.XMLFileWriter;
@@ -20,6 +21,7 @@ public class SimpleTransitionSystem extends TransitionSystem{
     private final Automaton automaton;
     private Deque<State> waiting;
     private List<State> passed;
+    private HashMap<String, List<Pair<Transition, Integer>>> transitionHashMap;
     private HashMap<Clock,Integer> maxBounds;
 
 
@@ -408,7 +410,8 @@ public class SimpleTransitionSystem extends TransitionSystem{
         waiting = new ArrayDeque<>();
         passed = new ArrayList<>();
         waiting.add(getInitialState());
-        List<Transition> fastestPath = new ArrayList<>();
+        transitionHashMap = new HashMap<>();
+        String destination = "L1";
 
         while (!waiting.isEmpty()) {
             State currState = new State(waiting.pop());
@@ -418,126 +421,57 @@ public class SimpleTransitionSystem extends TransitionSystem{
             passed.add(toStore);
 
             for (Channel action : actions) {
-
                 List<Transition> tempTrans = getNextTransitions(currState, action);
 
                 List<State> toAdd = tempTrans.stream().map(Transition::getTarget).
                         filter(s -> !passedContainsState(s) && !waitingContainsState(s)).collect(Collectors.toList());
                 toAdd.forEach(e->e.extrapolateMaxBounds(getMaxBounds(),clocks.getItems()));
 
-                List<Transition> toAdd1 = tempTrans.stream().
+                List<Transition> newTransitions = tempTrans.stream().
                         filter(s -> !passedContainsState(s.getTarget()) && !waitingContainsState(s.getTarget())).collect(Collectors.toList());
-                toAdd1.forEach(e->e.getTarget().extrapolateMaxBounds(getMaxBounds(),clocks.getItems()));
+                newTransitions.forEach(e->e.getTarget().extrapolateMaxBounds(getMaxBounds(),clocks.getItems()));
 
-
-                //find all targets with min value
-                int min = Integer.MAX_VALUE;
-                List<Transition> tempState = new ArrayList<>();
-                for (Transition t : toAdd1) {
-                    int temp = minClockValue(t.getTarget().getInvariant(), getClocks().get(getClocks().size()-1));
-                    if (temp == min) {
-                        tempState.add(t);
+                for (Transition t : newTransitions) {
+                    if (!transitionHashMap.containsKey(t.getTarget().getLocation().getName())) {
+                        transitionHashMap.put(t.getTarget().getLocation().getName(), new ArrayList<>());
                     }
-                    if (temp < min) {
-                        min = temp;
-                        tempState.clear();
-                        tempState.add(t);
-                    }
+                    transitionHashMap.get(t.getTarget().getLocation().getName()).add(new Pair<>(t, minClockValue(t.getTarget().getInvariant(), getClocks().get(getClocks().size()-1))));
                 }
-
-                if (tempState.size() > 1) { //explore each branch and find which gives the smallest value, might as well return a list of states
-                    min = Integer.MAX_VALUE;
-                    List<Transition> fastestBranch = new ArrayList<>();
-                    for (Transition t : tempState) {
-                        List<Transition> branch = exploreBranch(t);
-                        if (branch.size() > 0) {
-                            int minValue = minClockValue(branch.get(branch.size()-1).getTarget().getInvariant(), getClocks().get(getClocks().size()-1));
-                            if (minValue < min) {
-                                min = minValue;
-                                fastestBranch = branch;
-                            }
-                        }
-                    }
-                    fastestPath.addAll(fastestBranch);
-                }
-                else {
-                    fastestPath.addAll(tempState);
-                    waiting.addAll(toAdd);
-                }
-            }
-        }
-        for (Transition s : fastestPath) {
-            System.out.println(s.getSource().getLocation().getName() + s.getTarget().getLocation().getName());
-        }
-        System.out.println(minClockValue(fastestPath.get(fastestPath.size()-1).getTarget().getInvariant(), getClocks().get(getClocks().size()-1)));
-    }
-
-    public List<Transition> exploreBranch(Transition startTransition) {
-        Set<Channel> actions = getActions();
-
-        waiting.add(startTransition.getTarget());
-        List<Transition> fastestPath = new ArrayList<>();
-        fastestPath.add(startTransition);
-        while (!waiting.isEmpty()) {
-            State currState = new State(waiting.pop());
-            State toStore = new State(currState);
-            toStore.extrapolateMaxBounds(this.getMaxBounds(),clocks.getItems());
-            passed.add(toStore);
-
-            for (Channel action : actions) {
-
-                List<Transition> tempTrans = getNextTransitions(currState, action);
-
-                List<State> toAdd = tempTrans.stream().map(Transition::getTarget).
-                        filter(s -> !passedContainsState(s) && !waitingContainsState(s)).collect(Collectors.toList());
-                        toAdd.forEach(e->e.extrapolateMaxBounds(getMaxBounds(),clocks.getItems()));
-
-                List<Transition> toAdd1 = tempTrans.stream().
-                        filter(s -> !passedContainsState(s.getTarget()) && !waitingContainsState(s.getTarget())).collect(Collectors.toList());
-                toAdd1.forEach(e->e.getTarget().extrapolateMaxBounds(getMaxBounds(),clocks.getItems()));
-
-
-                int min = Integer.MAX_VALUE;
-                List<Transition> tempState = new ArrayList<>();
-
-                for (Transition t : toAdd1) {
-                    int temp = minClockValue(t.getTarget().getInvariant(), getClocks().get(getClocks().size()-1));
-                    if (temp == min) {
-                        tempState.add(t);
-                    }
-                    if (temp < min) {
-                        min = temp;
-                        tempState.clear();
-                        tempState.add(t);
-                    }
-                }
-                if (tempState.size() > 1) { //explore each branch and find which gives the smallest value, might as well return a list of states
-                    List<Transition> stateList1 = new ArrayList<>();
-                    int min2 = Integer.MAX_VALUE;
-                    for (Transition t : tempState) {
-                        List<Transition> temp = exploreBranch(t);
-
-                        if (temp.size() > 0) {
-                            int temp2 = minClockValue(temp.get(temp.size()-1).getTarget().getInvariant(), getClocks().get(getClocks().size()-1));
-                            if (temp2 < min2) {
-                                min2 = temp2;
-                                stateList1 = temp;
-                            }
-                        }
-
-                    }
-                    fastestPath.addAll(stateList1);
-                }
-                else {
-                    fastestPath.addAll(tempState);
-                }
-
 
                 waiting.addAll(toAdd);
             }
         }
 
-        return fastestPath;
+        //find the the destination with the smallest global clock value
+        int min = Integer.MAX_VALUE;
+        Transition fastestTrans = null;
+        for (String s : transitionHashMap.keySet()) {
+            if (s.equals(destination)) {
+                for (Pair<Transition, Integer> p : transitionHashMap.get(s)){
+                    if (p.getValue() < min) {
+                        min = p.getValue();
+                        fastestTrans = p.getKey();
+                    }
+                }
+            }
+        }
+        List<Transition> ft = new ArrayList<>();
+        ft.add(fastestTrans);
+
+        //follow trace back to start
+        while (true) {
+            if (transitionHashMap.containsKey(fastestTrans.getSource().getLocation().getName())) {
+                for (Pair<Transition, Integer> p : transitionHashMap.get(fastestTrans.getSource().getLocation().getName())) {
+                    if (p.getKey().getTarget().toString().equals(fastestTrans.getSource().toString())) {
+                         fastestTrans = p.getKey();
+                         ft.add(fastestTrans);
+                    }
+                }
+            }
+            else {
+                break;
+            }
+        }
     }
 
     public boolean isReachableHelper(String name) {
@@ -609,44 +543,6 @@ public class SimpleTransitionSystem extends TransitionSystem{
         return false;
     }
 
-    public void allPathsHelper(String dest) throws IOException {
-        waiting = new ArrayDeque<>();
-        passed = new ArrayList<>();
-        waiting.add(getInitialState());
-        ArrayList<ArrayList<Transition>> allPaths = new ArrayList<>();
-        HashMap<String, ArrayList<Transition>> transitions = new HashMap<>();
-
-
-        while (!waiting.isEmpty()) {
-            State currState = new State(waiting.pop());
-            State toStore = new State(currState);
-            toStore.extrapolateMaxBounds(this.getMaxBounds(), clocks.getItems());
-            passed.add(toStore);
-
-
-            for (Channel action : getActions()){
-                List<Transition> tempTrans = getNextTransitions(currState, action);
-
-               for (Transition t: tempTrans) {
-                    if (!transitions.containsKey(t.getSource().getLocation().getName())) {
-                        transitions.put(t.getSource().getLocation().getName(),new ArrayList<>());
-                    }
-                    transitions.get(t.getSource().getLocation().getName()).add(t);
-
-                }
-
-                List<State> toAdd = tempTrans.stream().map(Transition::getTarget).
-                        filter(s -> !passedContainsState(s) && !waitingContainsState(s)).collect(Collectors.toList());
-
-                waiting.addAll(toAdd);
-            }
-        }
-
-
-        //System.out.println(transitions);
-        DFS(dest, transitions, allPaths);
-    }
-
     public int minClockValue(CDD guard, Clock clock) {
         //use for loop to find minbound value
         int max = automaton.getMaxBoundsForAllClocks().get(getClocks().get(0));
@@ -714,69 +610,6 @@ public class SimpleTransitionSystem extends TransitionSystem{
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    public void DFS(String destination, HashMap<String, ArrayList<Transition>> transitions, ArrayList<ArrayList<Transition>> allPaths) throws IOException {
-        HashMap<String, Boolean> isVisited = new HashMap<>();
-        ArrayList<String> pathList = new ArrayList<>();
-
-        for (Location l : automaton.getLocations()) {
-            isVisited.put(l.getName(),false);
-        }
-
-        pathList.add(automaton.getInitial().getName());
-
-        DFSUtility(destination, automaton.getInitial().getName(), isVisited, pathList, transitions, allPaths);
-
-        //System.out.println(fastestTrace(allPaths));
-        //realFastestTrace(fastestTrace(allPaths));
-    }
-
-    public void DFSUtility(String destination, String source, HashMap<String, Boolean> isVisited, ArrayList<String> localPathList, HashMap<String, ArrayList<Transition>> transitions, ArrayList<ArrayList<Transition>> allPaths) {
-        ArrayList<Transition> pathTransitions = new ArrayList<>();
-
-        if (source.equals(destination)) {
-            for (int i = 0; i < localPathList.size() - 1; i++) {
-                for (Transition t : transitions.get(localPathList.get(i))) {
-                    if (t.getTarget().getLocation().getName().equals(localPathList.get(i+1))) {
-                        pathTransitions.add(t);
-                        break;
-                    }
-                }
-            }
-            allPaths.add(pathTransitions);
-
-            return;
-        }
-
-        isVisited.put(source, true);
-
-        for(Transition l: transitions.get(source)) {
-            if (!isVisited.get(l.getTarget().getLocation().getName())) {
-                localPathList.add(l.getTarget().getLocation().getName());
-                DFSUtility(destination,l.getTarget().getLocation().getName(),isVisited,localPathList, transitions, allPaths);
-                localPathList.remove(l.getTarget().getLocation().getName());
-            }
-        }
-        isVisited.put(source,false);
-    }
-
-    public List<Transition> fastestTrace(ArrayList<ArrayList<Transition>> allPaths) {
-        List<Transition> fastestPath = new ArrayList<>();
-        int fastestTime = Integer.MAX_VALUE;
-        int tempTime;
-
-        for (List<Transition> path : allPaths) {
-            tempTime = minClockValue(path.get(path.size()-1).getGuardCDD(), getClocks().get(getClocks().size()-1));
-
-            if (fastestTime > tempTime){
-                fastestTime = tempTime;
-                fastestPath = path;
-            }
-        }
-        System.out.println(fastestTime);
-        generateTestCode((ArrayList<Transition>) fastestPath);
-        return fastestPath;
     }
 
     public StringBuilder replaceVar (StringBuilder sb, HashMap<String, Boolean> booleans, CDD cdd) {
