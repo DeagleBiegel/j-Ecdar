@@ -286,18 +286,20 @@ public abstract class TransitionSystem {
         return isReachable;
     }
 
-    public void fastestPath() {
+    public List<Transition> fastestPath(String destination) throws IOException {
         boolean initialisedCdd = CDD.tryInit(getClocks(), getBVs());
 
         List<SimpleTransitionSystem> systems = getSystems();
-
+        List<Transition> fastestTrace = new ArrayList<>();
         for (SimpleTransitionSystem ts : systems) {
-            ts.fastestPathHelper();
+            fastestTrace = ts.fastestPathHelper(destination);
         }
 
         if (initialisedCdd) {
             CDD.done();
         }
+
+        return fastestTrace;
     }
 
     public boolean isStateReachable(String name, String state) {
