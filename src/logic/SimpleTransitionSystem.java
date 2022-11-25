@@ -681,7 +681,7 @@ public class SimpleTransitionSystem extends TransitionSystem{
         }
 
         Client client = new Client();
-        client.startConnection("127.0.0.1", 6666);
+        //client.startConnection("127.0.0.1", 6666);
         long z = 0;
         for (Transition t : path) {
             // if it is an output edge, we call the implementation and measure the time it takes.
@@ -703,7 +703,7 @@ public class SimpleTransitionSystem extends TransitionSystem{
             helperConjoin("z == " + (int)z, t);
 
         }
-        client.stopConnection();
+        //client.stopConnection();
     }
 
     public CDD helperConjoin(String newGuard, Transition t) {
