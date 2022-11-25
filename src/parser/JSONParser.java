@@ -223,8 +223,15 @@ public class JSONParser {
 
             Guard invariant = ("".equals(jsonObject.get("invariant").toString()) ? new TrueGuard() :
                     GuardParser.parse(jsonObject.get("invariant").toString(), componentClocks, BVs));
-            Location loc = new Location(jsonObject.get("id").toString(), invariant, isInitial, !isNotUrgent,
-                    isUniversal, isInconsistent, jsonObject.get("enterTestCode").toString(), jsonObject.get("exitTestCode").toString());
+            Location loc;
+            if (jsonObject.get("enterTestCode") == null){
+                loc = new Location(jsonObject.get("id").toString(), invariant, isInitial, !isNotUrgent,
+                        isUniversal, isInconsistent);
+            }
+            else {
+                loc = new Location(jsonObject.get("id").toString(), invariant, isInitial, !isNotUrgent,
+                        isUniversal, isInconsistent, jsonObject.get("enterTestCode").toString(), jsonObject.get("exitTestCode").toString());
+            }
 
             returnLocList.add(loc);
         }
@@ -285,8 +292,14 @@ public class JSONParser {
 
             Channel c = addChannel(jsonObject.get("sync").toString());
             if (c != null) {
-                Edge edge = new Edge(sourceLocation, targetLocation, c, isInput, guards, updatesList, jsonObject.get("testCode").toString(), jsonObject.get("status").toString());
-                edges.add(edge);
+                if (jsonObject.get("testCode") == null){
+                    Edge edge = new Edge(sourceLocation, targetLocation, c, isInput, guards, updatesList, jsonObject.get("status").toString());
+                    edges.add(edge);
+                }
+                else {
+                    Edge edge = new Edge(sourceLocation, targetLocation, c, isInput, guards, updatesList, jsonObject.get("testCode").toString(), jsonObject.get("status").toString());
+                    edges.add(edge);
+                }
             }
         }
         return edges;

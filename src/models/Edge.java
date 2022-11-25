@@ -50,6 +50,16 @@ public class Edge {
         this.status = status;
     }
 
+    public Edge(Location source, Location target, Channel chan, boolean isInput, Guard guards, List<Update> updates, String status) {
+        this.source = source;
+        this.target = target;
+        this.chan = chan;
+        this.isInput = isInput;
+        this.guard = guards;
+        this.updates = updates;
+        this.status = status;
+    }
+
     public Edge(Edge copy, List<Clock> newClocks, List<BoolVar> newBVs, Location sourceR, Location targetR, List<Clock> oldClocks, List<BoolVar> oldBVs) {
         this(
             sourceR,

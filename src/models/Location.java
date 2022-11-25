@@ -20,6 +20,18 @@ public class Location {
     private boolean isUniversal;
     private boolean isInconsistent;
 
+    public Location(String name, Guard invariant, boolean isInitial, boolean isUrgent, boolean isUniversal, boolean isInconsistent, int x, int y) {
+        this.name = name;
+        this.invariant = invariant;
+        this.isInitial = isInitial;
+        this.isUrgent = isUrgent;
+        this.isUniversal = isUniversal;
+        this.isInconsistent = isInconsistent || this.getName().equals("inc");
+        this.inconsistentPart = null;
+        this.x = x;
+        this.y = y;
+    }
+
     public Location(String name, Guard invariant, boolean isInitial, boolean isUrgent, boolean isUniversal, boolean isInconsistent, int x, int y, String enterTestCode, String exitTestCode) {
         this.name = name;
         this.invariant = invariant;
@@ -32,6 +44,10 @@ public class Location {
         this.y = y;
         this.enterTestCode = enterTestCode;
         this.exitTestCode = exitTestCode;
+    }
+
+    public Location(String name, Guard invariant, boolean isInitial, boolean isUrgent, boolean isUniversal, boolean isInconsistent) {
+        this(name, invariant, isInitial, isUrgent, isUniversal, isInconsistent, 0, 0);
     }
 
     public Location(String name, Guard invariant, boolean isInitial, boolean isUrgent, boolean isUniversal, boolean isInconsistent, String enterTestCode, String exitTestCode) {
