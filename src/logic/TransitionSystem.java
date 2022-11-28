@@ -294,7 +294,7 @@ public abstract class TransitionSystem {
         for (SimpleTransitionSystem ts : systems) {
             shortestTrace = ts.shortestTraceHelper(destination);
         }
-        
+
         if (initialisedCdd) {
             CDD.done();
         }

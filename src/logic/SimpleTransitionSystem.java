@@ -498,7 +498,7 @@ public class SimpleTransitionSystem extends TransitionSystem{
         waiting = new ArrayDeque<>();
         passed = new ArrayList<>();
         waiting.add(getInitialState());
-        transitionHashMap = new HashMap<>(262144);
+        HashMap<String, List<Transition>> transMap = new HashMap<>();
 
         List<Transition> st = new ArrayList<>();
 
@@ -526,23 +526,23 @@ public class SimpleTransitionSystem extends TransitionSystem{
                     if (t.getTarget().getLocation().getName().equals(destination)) {
                         check = false;
                     }
-                    if (!transitionHashMap.containsKey(t.getTarget().getLocation().getName())) {
-                        transitionHashMap.put(t.getTarget().getLocation().getName(), new ArrayList<>());
+                    if (!transMap.containsKey(t.getTarget().getLocation().getName())) {
+                        transMap.put(t.getTarget().getLocation().getName(), new ArrayList<>());
                     }
-                    transitionHashMap.get(t.getTarget().getLocation().getName()).add(new Pair<>(t, minClockValue(t.getTarget().getInvariant(), getClocks().get(getClocks().size()-1))));
+                    transMap.get(t.getTarget().getLocation().getName()).add(t);
                 }
                 waiting.addAll(toAdd);
             }
         }
 
-        Transition shortestTrans = transitionHashMap.get(destination).get(0).getKey();
+        Transition shortestTrans = transMap.get(destination).get(0);
         st.add(shortestTrans);
 
         while (true) {
-            if (transitionHashMap.containsKey(shortestTrans.getSource().getLocation().getName()) && !shortestTrans.getSource().getLocation().getName().equals(getInitialLocation().getName())) {
-                for (Pair<Transition, Integer> p : transitionHashMap.get(shortestTrans.getSource().getLocation().getName())) {
-                    if (p.getKey().getTarget().toString().equals(shortestTrans.getSource().toString())) {
-                        shortestTrans = p.getKey();
+            if (transMap.containsKey(shortestTrans.getSource().getLocation().getName()) && !shortestTrans.getSource().getLocation().getName().equals(getInitialLocation().getName())) {
+                for (Transition p : transMap.get(shortestTrans.getSource().getLocation().getName())) {
+                    if (p.getTarget().toString().equals(shortestTrans.getSource().toString())) {
+                        shortestTrans = p;
                         st.add(shortestTrans);
                     }
                 }
