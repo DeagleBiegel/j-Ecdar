@@ -18,7 +18,7 @@ import java.util.List;
 public class Playground {
 
     public static void main(String[] args) throws IOException, FileNotFoundException {
-        Automaton[] automaton = JSONParser.parse("samples/json/casecd.json", true);
+        Automaton[] automaton = JSONParser.parse("samples/json/FastestTraceMultiplePathsMultipleAssignExample", true);
 
 
             for (var a : automaton) {
@@ -26,12 +26,10 @@ public class Playground {
                 a.getClocks().add(z);
                 SimpleTransitionSystem STS = new SimpleTransitionSystem(a);
 
-                /*
-                for (Location loc : STS.getAutomaton().getLocations()) {
-                    STS.fastestPath(loc.getName());
+                List<Transition> lst = STS.fastestPath("L4");
+                for (Transition trans : lst){
+                    System.out.println(trans.getSource());
                 }
-                 */
-                STS.shortestPath("L7");
                 //STS.realFastestTrace(STS.fastestPath());
             }
 
