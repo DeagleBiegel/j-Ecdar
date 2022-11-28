@@ -5,7 +5,7 @@
     {
       "id": "L0",
       "nickname": "",
-      "invariant": "",
+      "invariant": "c\u003c\u003d0",
       "type": "INITIAL",
       "urgency": "NORMAL",
       "x": 465.0,
@@ -75,7 +75,7 @@
     {
       "id": "L5",
       "nickname": "",
-      "invariant": "",
+      "invariant": "f\u003c\u003d0",
       "type": "NORMAL",
       "urgency": "NORMAL",
       "x": 580.00001,
@@ -204,7 +204,7 @@
       "invariant": "g\u003c\u003d0",
       "type": "NORMAL",
       "urgency": "NORMAL",
-      "x": 200.00001,
+      "x": 180.00001,
       "y": 560.0,
       "color": "2",
       "nicknameX": 30.0,
@@ -390,7 +390,7 @@
       "status": "INPUT",
       "select": "",
       "guard": "",
-      "update": "",
+      "update": "c\u003d0",
       "sync": "unlock",
       "isLocked": false,
       "nails": [
@@ -398,6 +398,13 @@
           "x": 570.0,
           "y": 850.0,
           "propertyType": "SYNCHRONIZATION",
+          "propertyX": 10.0,
+          "propertyY": 0.0
+        },
+        {
+          "x": 520.0,
+          "y": 850.0,
+          "propertyType": "UPDATE",
           "propertyX": 10.0,
           "propertyY": 0.0
         }
@@ -411,7 +418,7 @@
       "status": "INPUT",
       "select": "",
       "guard": "",
-      "update": "",
+      "update": "c\u003d0",
       "sync": "open",
       "isLocked": false,
       "nails": [
@@ -419,6 +426,13 @@
           "x": 390.0,
           "y": 870.0,
           "propertyType": "SYNCHRONIZATION",
+          "propertyX": 10.0,
+          "propertyY": 0.0
+        },
+        {
+          "x": 360.0,
+          "y": 850.0,
+          "propertyType": "UPDATE",
           "propertyX": 10.0,
           "propertyY": 0.0
         }
@@ -485,19 +499,19 @@
       "group": "",
       "sourceLocation": "L5",
       "targetLocation": "L4",
-      "status": "INPUT",
+      "status": "OUTPUT",
       "select": "",
       "guard": "",
       "update": "",
-      "sync": "",
+      "sync": "armedOn",
       "isLocked": false,
       "nails": [
         {
           "x": 510.0,
           "y": 540.0,
           "propertyType": "SYNCHRONIZATION",
-          "propertyX": 10.0,
-          "propertyY": 0.0
+          "propertyX": 0.0,
+          "propertyY": 20.0
         }
       ]
     },
@@ -545,7 +559,7 @@
           "x": 580.0,
           "y": 570.0,
           "propertyType": "UPDATE",
-          "propertyX": 10.0,
+          "propertyX": 30.0,
           "propertyY": 0.0
         }
       ]
@@ -558,7 +572,7 @@
       "status": "INPUT",
       "select": "",
       "guard": "",
-      "update": "",
+      "update": "c\u003d0",
       "sync": "unlock",
       "isLocked": false,
       "nails": [
@@ -566,6 +580,13 @@
           "x": 650.0,
           "y": 870.0,
           "propertyType": "SYNCHRONIZATION",
+          "propertyX": 10.0,
+          "propertyY": 0.0
+        },
+        {
+          "x": 540.0,
+          "y": 880.0,
+          "propertyType": "UPDATE",
           "propertyX": 10.0,
           "propertyY": 0.0
         }
@@ -587,8 +608,8 @@
           "x": 470.0,
           "y": 520.0,
           "propertyType": "SYNCHRONIZATION",
-          "propertyX": 10.0,
-          "propertyY": 0.0
+          "propertyX": 30.0,
+          "propertyY": -10.0
         },
         {
           "x": 470.0,
@@ -789,7 +810,7 @@
       "status": "OUTPUT",
       "select": "",
       "guard": "",
-      "update": "",
+      "update": "c\u003d0",
       "sync": "flashOff",
       "isLocked": false,
       "nails": [
@@ -797,6 +818,13 @@
           "x": 210.0,
           "y": 890.0,
           "propertyType": "SYNCHRONIZATION",
+          "propertyX": 10.0,
+          "propertyY": 0.0
+        },
+        {
+          "x": 300.0,
+          "y": 890.0,
+          "propertyType": "UPDATE",
           "propertyX": 10.0,
           "propertyY": 0.0
         }
@@ -836,8 +864,8 @@
       "isLocked": false,
       "nails": [
         {
-          "x": 520.0,
-          "y": 320.0,
+          "x": 430.0,
+          "y": 330.0,
           "propertyType": "SYNCHRONIZATION",
           "propertyX": 50.0,
           "propertyY": 0.0
@@ -846,7 +874,7 @@
     }
   ],
   "description": "",
-  "x": 238.0,
+  "x": 174.0,
   "y": 0.0,
   "width": 1000.0,
   "height": 960.0,

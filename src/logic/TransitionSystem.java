@@ -286,6 +286,22 @@ public abstract class TransitionSystem {
         return isReachable;
     }
 
+    public List<Transition> shortestPath(String destination) throws IOException {
+        boolean initialisedCdd = CDD.tryInit(getClocks(), getBVs());
+
+        List<SimpleTransitionSystem> systems = getSystems();
+        List<Transition> shortestTrace = new ArrayList<>();
+        for (SimpleTransitionSystem ts : systems) {
+            shortestTrace = ts.shortestTraceHelper(destination);
+        }
+        
+        if (initialisedCdd) {
+            CDD.done();
+        }
+
+        return shortestTrace;
+    }
+
     public List<Transition> fastestPath(String destination) throws IOException {
         boolean initialisedCdd = CDD.tryInit(getClocks(), getBVs());
 

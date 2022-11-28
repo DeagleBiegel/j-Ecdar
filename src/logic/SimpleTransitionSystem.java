@@ -23,6 +23,7 @@ public class SimpleTransitionSystem extends TransitionSystem{
     private List<State> passed;
     private HashMap<String, List<Pair<Transition, Integer>>> transitionHashMap;
     private HashMap<Clock,Integer> maxBounds;
+    private HashMap<Clock, Integer> clockValues;
 
 
 
@@ -404,90 +405,8 @@ public class SimpleTransitionSystem extends TransitionSystem{
         return 0;
     }
 
-    public List<Transition> fastestPathHelper(String destination) throws IOException {
-        Set<Channel> actions = getActions();
 
-        waiting = new ArrayDeque<>();
-        passed = new ArrayList<>();
-        waiting.add(getInitialState());
-        transitionHashMap = new HashMap<>();
-
-        while (!waiting.isEmpty()) {
-            State currState = new State(waiting.pop());
-            State toStore = new State(currState);
-
-            toStore.extrapolateMaxBounds(this.getMaxBounds(),clocks.getItems());
-            passed.add(toStore);
-
-            for (Channel action : actions) {
-                List<Transition> tempTrans = getNextTransitions(currState, action);
-
-                List<State> toAdd = tempTrans.stream().map(Transition::getTarget).
-                        filter(s -> !passedContainsState(s) && !waitingContainsState(s)).collect(Collectors.toList());
-                toAdd.forEach(e->e.extrapolateMaxBounds(getMaxBounds(),clocks.getItems()));
-
-                List<Transition> newTransitions = tempTrans.stream().
-                        filter(s -> !passedContainsState(s.getTarget()) && !waitingContainsState(s.getTarget())).collect(Collectors.toList());
-                newTransitions.forEach(e->e.getTarget().extrapolateMaxBounds(getMaxBounds(),clocks.getItems()));
-
-                for (Transition t : newTransitions) {
-                    if (!transitionHashMap.containsKey(t.getTarget().getLocation().getName())) {
-                        transitionHashMap.put(t.getTarget().getLocation().getName(), new ArrayList<>());
-                    }
-                    transitionHashMap.get(t.getTarget().getLocation().getName()).add(new Pair<>(t, minClockValue(t.getTarget().getInvariant(), getClocks().get(getClocks().size()-1))));
-                }
-
-                waiting.addAll(toAdd);
-            }
-        }
-
-        //find the the destination with the smallest global clock value
-        int min = Integer.MAX_VALUE;
-        Transition fastestTrans = null;
-        for (String s : transitionHashMap.keySet()) {
-            if (s.equals(destination)) {
-                for (Pair<Transition, Integer> p : transitionHashMap.get(s)){
-                    if (p.getValue() < min) {
-                        min = p.getValue();
-                        fastestTrans = p.getKey();
-                    }
-                }
-            }
-        }
-        System.out.println(min);
-        List<Transition> ft = new ArrayList<>();
-        ft.add(fastestTrans);
-
-        //follow trace   to start
-        while (true) {
-            if (transitionHashMap.containsKey(fastestTrans.getSource().getLocation().getName()) && !fastestTrans.getSource().getLocation().getName().equals(getInitialLocation().getName())) {
-                for (Pair<Transition, Integer> p : transitionHashMap.get(fastestTrans.getSource().getLocation().getName())) {
-                    if (p.getKey().getTarget().toString().equals(fastestTrans.getSource().toString())) {
-                         fastestTrans = p.getKey();
-                         ft.add(fastestTrans);
-                    }
-                }
-            }
-            else {
-                break;
-            }
-        }
-        Collections.reverse(ft);
-
-        //realFastestTrace(ft);
-
-        for (Transition t: ft) {
-            System.out.println(t.getSource());
-            System.out.println(t.getTarget());
-            System.out.println(getClocks().get(getClocks().size()-1));
-            System.out.println(minClockValue(t.getTarget().getInvariant(), getClocks().get(getClocks().size()-1)));
-            System.out.println("--------------");
-        }
-
-        System.out.println(transitionHashMap.values());
-        return ft;
-    }
-
+    //Reachability stuff
     public boolean isReachableHelper(String name) {
         System.out.println("------------");
         System.out.println("Is " + name + " reachable?");
@@ -574,6 +493,218 @@ public class SimpleTransitionSystem extends TransitionSystem{
         return min;
     }
 
+    public List<Transition> shortestTraceHelper(String destination) {
+        Set<Channel> actions = getActions();
+        waiting = new ArrayDeque<>();
+        passed = new ArrayList<>();
+        waiting.add(getInitialState());
+        transitionHashMap = new HashMap<>(262144);
+
+        List<Transition> st = new ArrayList<>();
+
+        boolean check = true;
+
+        while (!waiting.isEmpty() && check) {
+            State currState = new State(waiting.pop());
+            State toStore = new State(currState);
+
+            toStore.extrapolateMaxBounds(this.getMaxBounds(),clocks.getItems());
+            passed.add(toStore);
+
+            for (Channel action : actions) {
+                List<Transition> tempTrans = getNextTransitions(currState, action);
+
+                List<State> toAdd = tempTrans.stream().map(Transition::getTarget).
+                        filter(s -> !passedContainsState(s) && !waitingContainsState(s)).collect(Collectors.toList());
+                toAdd.forEach(e->e.extrapolateMaxBounds(getMaxBounds(),clocks.getItems()));
+
+                List<Transition> newTransitions = tempTrans.stream().
+                        filter(s -> !passedContainsState(s.getTarget()) && !waitingContainsState(s.getTarget())).collect(Collectors.toList());
+                newTransitions.forEach(e->e.getTarget().extrapolateMaxBounds(getMaxBounds(),clocks.getItems()));
+
+                for (Transition t : newTransitions) {
+                    if (t.getTarget().getLocation().getName().equals(destination)) {
+                        check = false;
+                    }
+                    if (!transitionHashMap.containsKey(t.getTarget().getLocation().getName())) {
+                        transitionHashMap.put(t.getTarget().getLocation().getName(), new ArrayList<>());
+                    }
+                    transitionHashMap.get(t.getTarget().getLocation().getName()).add(new Pair<>(t, minClockValue(t.getTarget().getInvariant(), getClocks().get(getClocks().size()-1))));
+                }
+                waiting.addAll(toAdd);
+            }
+        }
+
+        Transition shortestTrans = transitionHashMap.get(destination).get(0).getKey();
+        st.add(shortestTrans);
+
+        while (true) {
+            if (transitionHashMap.containsKey(shortestTrans.getSource().getLocation().getName()) && !shortestTrans.getSource().getLocation().getName().equals(getInitialLocation().getName())) {
+                for (Pair<Transition, Integer> p : transitionHashMap.get(shortestTrans.getSource().getLocation().getName())) {
+                    if (p.getKey().getTarget().toString().equals(shortestTrans.getSource().toString())) {
+                        shortestTrans = p.getKey();
+                        st.add(shortestTrans);
+                    }
+                }
+            }
+            else {
+                break;
+            }
+        }
+        Collections.reverse(st);
+        return st;
+    }
+
+    public List<Transition> fastestPathHelper(String destination) throws IOException {
+        Set<Channel> actions = getActions();
+
+        waiting = new ArrayDeque<>();
+        passed = new ArrayList<>();
+        waiting.add(getInitialState());
+        transitionHashMap = new HashMap<>(262144);
+
+        while (!waiting.isEmpty()) {
+            State currState = new State(waiting.pop());
+            State toStore = new State(currState);
+
+            toStore.extrapolateMaxBounds(this.getMaxBounds(),clocks.getItems());
+            passed.add(toStore);
+
+            for (Channel action : actions) {
+                List<Transition> tempTrans = getNextTransitions(currState, action);
+
+                List<State> toAdd = tempTrans.stream().map(Transition::getTarget).
+                        filter(s -> !passedContainsState(s) && !waitingContainsState(s)).collect(Collectors.toList());
+                toAdd.forEach(e->e.extrapolateMaxBounds(getMaxBounds(),clocks.getItems()));
+
+                List<Transition> newTransitions = tempTrans.stream().
+                        filter(s -> !passedContainsState(s.getTarget()) && !waitingContainsState(s.getTarget())).collect(Collectors.toList());
+                newTransitions.forEach(e->e.getTarget().extrapolateMaxBounds(getMaxBounds(),clocks.getItems()));
+
+                for (Transition t : newTransitions) {
+                    if (!transitionHashMap.containsKey(t.getTarget().getLocation().getName())) {
+                        transitionHashMap.put(t.getTarget().getLocation().getName(), new ArrayList<>());
+                    }
+                    transitionHashMap.get(t.getTarget().getLocation().getName()).add(new Pair<>(t, minClockValue(t.getTarget().getInvariant(), getClocks().get(getClocks().size()-1))));
+                }
+
+                waiting.addAll(toAdd);
+            }
+        }
+
+        //find the the destination with the smallest global clock value
+        int min = Integer.MAX_VALUE;
+        Transition fastestTrans = null;
+        for (String s : transitionHashMap.keySet()) {
+            if (s.equals(destination)) {
+                for (Pair<Transition, Integer> p : transitionHashMap.get(s)){
+                    if (p.getValue() < min) {
+                        min = p.getValue();
+                        fastestTrans = p.getKey();
+                    }
+                }
+            }
+        }
+        System.out.println(min);
+        List<Transition> ft = new ArrayList<>();
+        ft.add(fastestTrans);
+
+        //follow trace   to start
+        while (true) {
+            if (transitionHashMap.containsKey(fastestTrans.getSource().getLocation().getName()) && !fastestTrans.getSource().getLocation().getName().equals(getInitialLocation().getName())) {
+                for (Pair<Transition, Integer> p : transitionHashMap.get(fastestTrans.getSource().getLocation().getName())) {
+                    if (p.getKey().getTarget().toString().equals(fastestTrans.getSource().toString())) {
+                        fastestTrans = p.getKey();
+                        ft.add(fastestTrans);
+                    }
+                }
+            }
+            else {
+                break;
+            }
+        }
+        Collections.reverse(ft);
+
+        realFastestTrace(ft);
+
+        return ft;
+    }
+
+    public void realFastestTrace(List<Transition> path) throws IOException {
+        clockValues = new HashMap<>();
+
+        for (Clock c : getClocks()) {
+            clockValues.put(c,0);
+        }
+
+        Client client = new Client();
+        client.startConnection("127.0.0.1", 6666);
+
+        for (Transition t : path) {
+            // if it is an output edge, we call the implementation and measure the time it takes.
+            if(t.getEdges().get(0).getStatus().equals("OUTPUT")){
+                client.writeString(t.getSource().getLocation().getName() + " " + t.getTarget().getLocation().getName());
+                long start = System.currentTimeMillis();
+                client.readString();
+                long end = System.currentTimeMillis();
+                updateClocks((int)Math.round((end - start)*0.001));
+            }
+            // if it is an input edge, we take the fastest transition
+            else {
+                //case: INPUT edge -> if the previous transition has exceeded the minimum clock value, otherwise we use min value
+                for (Clock c : getClocks()) {
+                    int temp = minClockValue(t.getTarget().getInvariant(), c);
+                    if (clockValues.get(c) < temp) {
+                        clockValues.put(c,temp);
+                    }
+                }
+            }
+
+            helperConjoin(t);
+        }
+        client.writeString("done");
+        client.stopConnection();
+    }
+
+    public void updateClocks(int value) {
+        for (Clock c : clockValues.keySet())  {
+            int temp = clockValues.get(c);
+            clockValues.put(c, temp + value);
+        }
+    }
+
+    public CDD helperConjoin(Transition t) {
+        StringBuilder sb = new StringBuilder();
+        for (Clock c : getClocks()) {
+            //String s = String.format("%s <= %2d && %s >= %2d", c.getOriginalName(), clockValues.get(c), c.getOriginalName(), clockValues.get(c)-1);
+            String s = String.format("%s == %2d", c.getOriginalName(), clockValues.get(c));
+            sb.append(s);
+            if (!c.getOriginalName().equals("z")) {
+                sb.append(" && ");
+            }
+        }
+
+        System.out.println(sb);
+        Guard g = GuardParser.parse(sb.toString(), getClocks(), getBVs());
+        CDD cdd = t.getTarget().getInvariant().conjunction(new CDD(g));
+
+        if (cdd.isFalse()) {
+            System.out.println("CONSTRAINTS BROKEN");
+            System.out.println(t.getEdges().get(0).getChan().getName());
+            System.out.println("Guard: " + t.getTarget().getInvariant() + "\n");
+        }
+        else {
+            System.out.println("CONSTRAINTS HELD");
+            System.out.println(t.getEdges().get(0).getChan().getName());
+            System.out.println("Guard: " + t.getTarget().getInvariant() + "\n");
+        }
+
+        return cdd;
+    }
+
+
+
+    //Testcode generation stuff
     public void generateTestCode(ArrayList<Transition> trace) {
         StringBuilder sb = new StringBuilder();
         HashMap<String, Boolean> booleans = new HashMap<>();
@@ -667,62 +798,5 @@ public class SimpleTransitionSystem extends TransitionSystem{
             return replaceClockVarUpdate(sb, x, val);
         }
         return sb;
-    }
-
-    public void realFastestTrace(List<Transition> path) throws IOException {
-        for (Transition t : path) {
-            System.out.println("---------------------------");
-            System.out.println("Source: " + t.getSource().getLocation().getName());
-            System.out.println(t.getTarget().getInvariant());
-            System.out.println("Target: " + t.getTarget().getLocation().getName());
-            System.out.println("Mininum Value for global Clock: " + minClockValue(t.getTarget().getInvariant(), getClocks().get(getClocks().size()-1)));
-            System.out.println("---------------------------");
-
-        }
-
-        Client client = new Client();
-        //client.startConnection("127.0.0.1", 6666);
-        long z = 0;
-        for (Transition t : path) {
-            // if it is an output edge, we call the implementation and measure the time it takes.
-            if(t.getEdges().get(0).getStatus().equals("OUTPUT")){
-                long start = System.currentTimeMillis();
-                client.readString();
-                long end = System.currentTimeMillis();
-                System.out.println(end - start);
-                z += Math.round((end - start)*0.001);
-            }
-            // if it is an input edge, we take the fastest transition
-            else {
-                //case: if the previous transition has exceeded the minimum clock value?
-                int temp = minClockValue(t.getTarget().getInvariant(), getClocks().get(getClocks().size()-1));
-                if (z < temp) {
-                    z = temp;
-                }
-            }
-            helperConjoin("z == " + (int)z, t);
-
-        }
-        //client.stopConnection();
-    }
-
-    public CDD helperConjoin(String newGuard, Transition t) {
-        Guard g = GuardParser.parse(newGuard, getClocks(), getBVs());
-        CDD cdd = t.getTarget().getInvariant().conjunction(new CDD(g));
-
-        if (cdd.isFalse()) {
-            System.out.println("CONSTRAINTS BROKEN");
-            System.out.println(t.getEdges().get(0).getChan().getName());
-            System.out.println("Transition taken at: " + newGuard);
-            System.out.println("Guard: " + t.getTarget().getInvariant() + "\n");
-        }
-        else {
-            System.out.println("CONSTRAINTS HELD");
-            System.out.println(t.getEdges().get(0).getChan().getName());
-            System.out.println("Transition taken at: " + newGuard);
-            System.out.println("Guard: " + t.getTarget().getInvariant() + "\n");
-        }
-
-        return cdd;
     }
 }
