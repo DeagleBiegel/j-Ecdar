@@ -20,6 +20,7 @@ mainClassName = "JECDAR"
 
 
 dependencies {
+    implementation 'junit:junit:4.12'
     testImplementation "junit:junit:4.12"
     implementation 'io.grpc:grpc-netty-shaded:1.42.0'
     implementation 'io.grpc:grpc-protobuf:1.42.0'

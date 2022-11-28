@@ -38,7 +38,7 @@ public class Edge {
     public void setGuard(Guard guard) {
         this.guard = guard;
     }
-
+/*
     public Edge(Location source, Location target, Channel chan, boolean isInput, Guard guards, List<Update> updates, String testCode, String status) {
         this.source = source;
         this.target = target;
@@ -48,7 +48,7 @@ public class Edge {
         this.updates = updates;
         this.testCode = testCode;
         this.status = status;
-    }
+    }*/
 
     public Edge(Location source, Location target, Channel chan, boolean isInput, Guard guards, List<Update> updates, String status) {
         this.source = source;
@@ -58,6 +58,15 @@ public class Edge {
         this.guard = guards;
         this.updates = updates;
         this.status = status;
+    }
+
+    public Edge(Location source, Location target, Channel chan, boolean isInput, Guard guards, List<Update> updates) {
+        this.source = source;
+        this.target = target;
+        this.chan = chan;
+        this.isInput = isInput;
+        this.guard = guards;
+        this.updates = updates;
     }
 
     public Edge(Edge copy, List<Clock> newClocks, List<BoolVar> newBVs, Location sourceR, Location targetR, List<Clock> oldClocks, List<BoolVar> oldBVs) {
@@ -73,10 +82,28 @@ public class Edge {
                         newClocks, oldClocks, newBVs, oldBVs
                 ))
                 .collect(Collectors.toList()),
-            copy.testCode,
             copy.status
         );
     }
+
+    /*
+    public Edge(Edge copy, List<Clock> newClocks, List<BoolVar> newBVs, Location sourceR, Location targetR, List<Clock> oldClocks, List<BoolVar> oldBVs) {
+        this(
+                sourceR,
+                targetR,
+                copy.chan,
+                copy.isInput,
+                copy.guard.copy(newClocks, oldClocks, newBVs, oldBVs),
+                copy.updates
+                        .stream()
+                        .map(update -> update.copy(
+                                newClocks, oldClocks, newBVs, oldBVs
+                        ))
+                        .collect(Collectors.toList()),
+                copy.testCode,
+                copy.status
+        );
+    }*/
 
     public Edge(Edge copy, List<Clock> newClocks, List<BoolVar> newBVs, List<Clock> oldClocks, List<BoolVar> oldBVs) {
         this(copy, newClocks, newBVs, copy.getSource(), copy.getTarget(), oldClocks, oldBVs);

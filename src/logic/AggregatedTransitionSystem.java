@@ -251,6 +251,6 @@ public abstract class AggregatedTransitionSystem extends TransitionSystem {
         Guard guard = transition.getGuards(getClocks());
         List<Update> updates = transition.getUpdates();
         boolean isInput = getInputs().contains(channel);
-        return new Edge(source, target, channel, isInput, guard, updates, "", "");
+        return new Edge(source, target, channel, isInput, guard, updates, "");
     }
 }

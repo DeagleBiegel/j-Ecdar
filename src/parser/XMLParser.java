@@ -260,7 +260,7 @@ public class XMLParser {
                 }
             }
 
-            edgeList.add(new Edge(source, target, chan, isInput, guards, updates, "", ""));
+            edgeList.add(new Edge(source, target, chan, isInput, guards, updates, ""));
         }
 
         return edgeList;
