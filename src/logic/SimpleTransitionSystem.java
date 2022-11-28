@@ -460,7 +460,7 @@ public class SimpleTransitionSystem extends TransitionSystem{
 
         //follow trace   to start
         while (true) {
-            if (transitionHashMap.containsKey(fastestTrans.getSource().getLocation().getName())) {
+            if (transitionHashMap.containsKey(fastestTrans.getSource().getLocation().getName()) && !fastestTrans.getSource().getLocation().getName().equals(getInitialLocation().getName())) {
                 for (Pair<Transition, Integer> p : transitionHashMap.get(fastestTrans.getSource().getLocation().getName())) {
                     if (p.getKey().getTarget().toString().equals(fastestTrans.getSource().toString())) {
                          fastestTrans = p.getKey();
@@ -474,8 +474,17 @@ public class SimpleTransitionSystem extends TransitionSystem{
         }
         Collections.reverse(ft);
 
-        realFastestTrace(ft);
+        //realFastestTrace(ft);
 
+        for (Transition t: ft) {
+            System.out.println(t.getSource());
+            System.out.println(t.getTarget());
+            System.out.println(getClocks().get(getClocks().size()-1));
+            System.out.println(minClockValue(t.getTarget().getInvariant(), getClocks().get(getClocks().size()-1)));
+            System.out.println("--------------");
+        }
+
+        System.out.println(transitionHashMap.values());
         return ft;
     }
 
@@ -549,29 +558,20 @@ public class SimpleTransitionSystem extends TransitionSystem{
     }
 
     public int minClockValue(CDD guard, Clock clock) {
-        //use for loop to find minbound value
-        int max = automaton.getMaxBoundsForAllClocks().get(getClocks().get(0));
         String guardTemplate = clock.getOriginalName() + " == ";
-        //
-        for (int min = 0; min <= max + 1 ; min++) {
+        int min = 0;
+        while (true) {
             String guardCopy = guardTemplate;
             guardCopy += String.valueOf(min);
             Guard g = GuardParser.parse(guardCopy, getClocks(), getBVs());
             CDD cdd = guard.conjunction(new CDD(g));
 
             if (!cdd.isFalse()) {
-                if (min == 0) {
-                    return min;
-                }
-                guardCopy = guardTemplate;
-                CDD boundaryCheck = guard.conjunction(new CDD(GuardParser.parse(guardCopy + (min - 1), getClocks(), getBVs())));
-
-                if (boundaryCheck.isFalse()) {
-                    return min;
-                }
+                break;
             }
+            min++;
         }
-        return 0;
+        return min;
     }
 
     public void generateTestCode(ArrayList<Transition> trace) {
