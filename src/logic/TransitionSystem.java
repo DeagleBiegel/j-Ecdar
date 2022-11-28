@@ -286,7 +286,7 @@ public abstract class TransitionSystem {
         return isReachable;
     }
 
-    public List<Transition> shortestPath(String destination) throws IOException {
+    public List<Transition> shortestPath(String destination) {
         boolean initialisedCdd = CDD.tryInit(getClocks(), getBVs());
 
         List<SimpleTransitionSystem> systems = getSystems();
@@ -309,6 +309,10 @@ public abstract class TransitionSystem {
         List<Transition> fastestTrace = new ArrayList<>();
         for (SimpleTransitionSystem ts : systems) {
             fastestTrace = ts.fastestPathHelper(destination);
+        }
+
+        for (Transition trans : fastestTrace){
+            System.out.println(trans.getSource() + "" + trans.getTarget());
         }
 
         if (initialisedCdd) {
