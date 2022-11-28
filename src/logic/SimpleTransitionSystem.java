@@ -625,7 +625,7 @@ public class SimpleTransitionSystem extends TransitionSystem{
         }
         Collections.reverse(ft);
 
-        realFastestTrace(ft);
+        //realFastestTrace(ft);
 
         return ft;
     }
