@@ -29,8 +29,6 @@ public class ReachabilityTest {
         Automaton[] aut2 = JSONParser.parse("samples/json/fastestPatrh", false);
         sts3 = new SimpleTransitionSystem(aut2[0]);
         Automaton[] aut3 = JSONParser.parse("samples/json/ShortestTraceExample", false);
-        Clock z = new Clock("z", aut3[0].getName());
-        aut3[0].getClocks().add(z);
         sts4 = new SimpleTransitionSystem(aut3[0]);
     }
 
