@@ -312,7 +312,7 @@ public abstract class TransitionSystem {
         }
 
         for (Transition trans : fastestTrace){
-            System.out.println(trans.getSource() + "" + trans.getTarget());
+            System.out.println(trans.getSource() + "\n" + trans.getTarget());
         }
 
         if (initialisedCdd) {

@@ -595,17 +595,13 @@ public class SimpleTransitionSystem extends TransitionSystem{
         //find the the destination with the smallest global clock value
         int min = Integer.MAX_VALUE;
         Transition fastestTrans = null;
-        for (String s : transitionHashMap.keySet()) {
-            if (s.equals(destination)) {
-                for (Pair<Transition, Integer> p : transitionHashMap.get(s)){
-                    if (p.getValue() < min) {
-                        min = p.getValue();
-                        fastestTrans = p.getKey();
-                    }
+            for (Pair<Transition, Integer> p : transitionHashMap.get(destination)){
+                if (p.getValue() < min) {
+                    min = p.getValue();
+                    fastestTrans = p.getKey();
                 }
-            }
         }
-        System.out.println(min);
+
         List<Transition> ft = new ArrayList<>();
         ft.add(fastestTrans);
 
@@ -660,7 +656,8 @@ public class SimpleTransitionSystem extends TransitionSystem{
                 }
             }
 
-            helperConjoin(t);
+            helperConjoin(t, true);
+            helperConjoin(t,false);
         }
         client.writeString("done");
         client.stopConnection();
@@ -673,7 +670,19 @@ public class SimpleTransitionSystem extends TransitionSystem{
         }
     }
 
-    public CDD helperConjoin(Transition t) {
+    public void helperConjoin(Transition t, boolean w) {
+
+        if (!w) {
+            if (t.getUpdates().size() > 0) {
+                for (Update update : t.getUpdates()) {
+                    if (update instanceof ClockUpdate) {
+                        clockValues.put(((ClockUpdate) update).getClock(), ((ClockUpdate) update).getValue());
+                    }
+                }
+            }
+        }
+
+        //create a string with the clock constraints
         StringBuilder sb = new StringBuilder();
         for (Clock c : getClocks()) {
             //String s = String.format("%s <= %2d && %s >= %2d", c.getOriginalName(), clockValues.get(c), c.getOriginalName(), clockValues.get(c)-1);
@@ -684,24 +693,50 @@ public class SimpleTransitionSystem extends TransitionSystem{
             }
         }
 
-        System.out.println(sb);
+        //create a guard from the constraint string
+        // z == 6 --> z == 6 --> z == 6
         Guard g = GuardParser.parse(sb.toString(), getClocks(), getBVs());
-        CDD cdd = t.getTarget().getInvariant().conjunction(new CDD(g));
+        CDD cdd = new CDD();
+
+        System.out.println(sb);
+        //either we use source or target invariant
+        if (w) {
+            cdd = t.getSource().getInvariant().conjunction(new CDD(g));
+        }
+        if (!w) {
+            cdd = t.getTarget().getInvariant().conjunction(new CDD(g));
+        }
 
         if (cdd.isFalse()) {
             System.out.println("CONSTRAINTS BROKEN");
             System.out.println(t.getEdges().get(0).getChan().getName());
             System.out.println("Guard: " + t.getTarget().getInvariant() + "\n");
-        }
-        else {
+
+            sb.append("\nTransition: " + t.getSource().getLocation().getName() + " " + t.getTarget().getLocation().getName() + "\n");
+            sb.append(t.getEdges().get(0).getChan().getName() + "\n");
+
+            if (w) {
+                sb.append("Source Invariant: " + t.getSource().getInvariant() + "\n");
+            }
+            if (!w) {
+                sb.append("Target Invariant:" + t.getTarget().getInvariant() + "\n");
+            }
+
+
+            try {
+                FileWriter writer = new FileWriter("testresults.txt", true);
+                writer.write(sb.toString());
+                writer.write("\n");
+                writer.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else {
             System.out.println("CONSTRAINTS HELD");
             System.out.println(t.getEdges().get(0).getChan().getName());
             System.out.println("Guard: " + t.getTarget().getInvariant() + "\n");
         }
-
-        return cdd;
     }
-
 
 
     //Testcode generation stuff
