@@ -5,10 +5,13 @@ import logic.SimpleTransitionSystem;
 import logic.State;
 import logic.Transition;
 import models.Automaton;
+import models.CDD;
 import models.Clock;
+import models.Guard;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import parser.GuardParser;
 import parser.JSONParser;
 
 import java.io.FileNotFoundException;
@@ -27,6 +30,8 @@ public class ReachabilityTest {
         sts1 = new SimpleTransitionSystem(aut1[0]);
         sts2 = new SimpleTransitionSystem(aut1[1]);
         Automaton[] aut2 = JSONParser.parse("samples/json/fastestPatrh", false);
+        Clock z = new Clock("z", aut2[0].getName());
+        aut2[0].getClocks().add(z);
         sts3 = new SimpleTransitionSystem(aut2[0]);
         Automaton[] aut3 = JSONParser.parse("samples/json/ShortestTraceExample", false);
         sts4 = new SimpleTransitionSystem(aut3[0]);
@@ -41,6 +46,7 @@ public class ReachabilityTest {
     @Test
     public void ReachabilityTest(){
         assert sts2.isStateReachable("L4", "x == 6");
+        assert sts2.isStateReachable("L4", "x > 6");
         assert sts2.isStateReachable("L4", "x < 6") == false;
         assert sts2.isStateReachable("L5", "") == false;
 
@@ -60,20 +66,25 @@ public class ReachabilityTest {
 
     @Test
     public void FastestTrace() throws IOException {
-        String L0 = "L0", L1 = "L1", L2 = "L2", L3 = "L3";
-
         List<Transition> fastestPath = sts3.fastestPath("L1");
+        boolean initialisedCdd = CDD.tryInit(sts3.getClocks(), sts3.getBVs());
+        Guard g = GuardParser.parse("z == 6", sts3.getClocks(), sts3.getBVs());
+        CDD cdd;
 
-        assert fastestPath.get(0).getSource().getLocation().getName().equals(L0);
-        assert fastestPath.get(0).getTarget().getLocation().getName().equals(L2);
-        assert fastestPath.get(1).getSource().getLocation().getName().equals(L2);
-        assert fastestPath.get(1).getTarget().getLocation().getName().equals(L2);
-        assert fastestPath.get(2).getSource().getLocation().getName().equals(L2);
-        assert fastestPath.get(2).getTarget().getLocation().getName().equals(L1);
+        assert fastestPath.get(0).getSource().getLocation().getName().equals("L0");
+        assert fastestPath.get(0).getTarget().getLocation().getName().equals("L2");
+        cdd = fastestPath.get(0).getTarget().getInvariant().conjunction(new CDD(g));
+        assert !cdd.isTrue();
+        assert fastestPath.get(1).getSource().getLocation().getName().equals("L2");
+        assert fastestPath.get(1).getTarget().getLocation().getName().equals("L2");
+        cdd = fastestPath.get(1).getTarget().getInvariant().conjunction(new CDD(g));
+        assert !cdd.isFalse();
+        assert fastestPath.get(2).getSource().getLocation().getName().equals("L2");
+        assert fastestPath.get(2).getTarget().getLocation().getName().equals("L1");
+        cdd = fastestPath.get(2).getTarget().getInvariant().conjunction(new CDD(g));
+        assert !cdd.isFalse();
+        if (initialisedCdd) {
+            CDD.done();
+        }
     }
-
-    public ReachabilityTest() throws FileNotFoundException {
-    }
-
-
 }
