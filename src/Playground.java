@@ -2,10 +2,7 @@ import logic.SimpleTransitionSystem;
 import logic.State;
 import logic.Transition;
 import logic.TransitionSystem;
-import models.Automaton;
-import models.Clock;
-import models.Edge;
-import models.Location;
+import models.*;
 import parser.JSONParser;
 import parser.XMLParser;
 

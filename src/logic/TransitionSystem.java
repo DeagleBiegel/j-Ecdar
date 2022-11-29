@@ -311,9 +311,10 @@ public abstract class TransitionSystem {
             fastestTrace = ts.fastestPathHelper(destination);
         }
 
-        for (Transition trans : fastestTrace){
+        for (Transition trans : fastestTrace) {
             System.out.println(trans.getSource() + "\n" + trans.getTarget());
         }
+
 
         if (initialisedCdd) {
             CDD.done();
