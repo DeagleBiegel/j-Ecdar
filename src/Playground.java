@@ -15,8 +15,7 @@ import java.util.List;
 public class Playground {
 
     public static void main(String[] args) throws IOException, FileNotFoundException {
-        Automaton[] automaton = JSONParser.parse("samples/json/fastestPatrh", true);
-
+        Automaton[] automaton = JSONParser.parse("samples/json/casecd.json", true);
 
             for (var a : automaton) {
                 Clock z = new Clock("z", a.getName());

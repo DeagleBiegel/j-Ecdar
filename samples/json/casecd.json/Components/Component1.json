@@ -47,7 +47,7 @@
     {
       "id": "L3",
       "nickname": "",
-      "invariant": "c\u003c\u003d20",
+      "invariant": "c\u003c\u003d2",
       "type": "NORMAL",
       "urgency": "NORMAL",
       "x": 470.00001,
@@ -61,7 +61,7 @@
     {
       "id": "L4",
       "nickname": "",
-      "invariant": "",
+      "invariant": "c\u003c\u003d2",
       "type": "NORMAL",
       "urgency": "NORMAL",
       "x": 470.00001,
@@ -145,7 +145,7 @@
     {
       "id": "L10",
       "nickname": "",
-      "invariant": "e\u003c\u003d30",
+      "invariant": "e\u003c\u003d3",
       "type": "NORMAL",
       "urgency": "NORMAL",
       "x": 470.00001,
@@ -173,7 +173,7 @@
     {
       "id": "L12",
       "nickname": "",
-      "invariant": "e\u003c\u003d300 ",
+      "invariant": "e\u003c\u003d30 ",
       "type": "NORMAL",
       "urgency": "NORMAL",
       "x": 680.00001,
@@ -182,12 +182,12 @@
       "nicknameX": 30.0,
       "nicknameY": -10.0,
       "invariantX": 30.0,
-      "invariantY": 0.0
+      "invariantY": 10.0
     },
     {
       "id": "L13",
       "nickname": "",
-      "invariant": "e\u003c\u003d300",
+      "invariant": "e\u003c\u003d30",
       "type": "NORMAL",
       "urgency": "NORMAL",
       "x": 680.00001,
@@ -333,7 +333,7 @@
       "targetLocation": "L1",
       "status": "INPUT",
       "select": "",
-      "guard": "c\u003c20",
+      "guard": "c\u003c2",
       "update": "",
       "sync": "unlock",
       "isLocked": false,
@@ -361,7 +361,7 @@
       "targetLocation": "L2",
       "status": "INPUT",
       "select": "",
-      "guard": "c\u003c20",
+      "guard": "c\u003c2",
       "update": "",
       "sync": "open",
       "isLocked": false,
@@ -431,7 +431,7 @@
       "targetLocation": "L4",
       "status": "OUTPUT",
       "select": "",
-      "guard": "c\u003d\u003d20",
+      "guard": "c\u003d\u003d2",
       "update": "",
       "sync": "armedOn",
       "isLocked": false,
@@ -496,8 +496,8 @@
           "x": 510.0,
           "y": 550.0,
           "propertyType": "SYNCHRONIZATION",
-          "propertyX": 0.0,
-          "propertyY": 20.0
+          "propertyX": 30.000000000000004,
+          "propertyY": -20.000000000000007
         }
       ]
     },
@@ -627,7 +627,7 @@
       "targetLocation": "L12",
       "status": "OUTPUT",
       "select": "",
-      "guard": "e\u003d\u003d30",
+      "guard": "e\u003d\u003d3",
       "update": "",
       "sync": "soundOff",
       "isLocked": false,
@@ -655,7 +655,7 @@
       "targetLocation": "L11",
       "status": "INPUT",
       "select": "",
-      "guard": "e\u003c30",
+      "guard": "e\u003c3",
       "update": "g \u003d 0",
       "sync": "unlock",
       "isLocked": false,
@@ -711,7 +711,7 @@
       "targetLocation": "L13",
       "status": "OUTPUT",
       "select": "",
-      "guard": "e\u003d\u003d300",
+      "guard": "e\u003d\u003d30",
       "update": "",
       "sync": "soundOff",
       "isLocked": false,

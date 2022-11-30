@@ -497,12 +497,11 @@ public class SimpleTransitionSystem extends TransitionSystem{
         Set<Channel> actions = getActions();
         waiting = new ArrayDeque<>();
         passed = new ArrayList<>();
-        waiting.add(getInitialState());
-        HashMap<String, List<Transition>> transMap = new HashMap<>();
-
-        List<Transition> st = new ArrayList<>();
-
+        HashMap<String, List<Transition>> transitions = new HashMap<>();
+        List<Transition> shortestTrace = new ArrayList<>();
         boolean check = true;
+
+        waiting.add(getInitialState());
 
         while (!waiting.isEmpty() && check) {
             State currState = new State(waiting.pop());
@@ -512,38 +511,39 @@ public class SimpleTransitionSystem extends TransitionSystem{
             passed.add(toStore);
 
             for (Channel action : actions) {
-                List<Transition> tempTrans = getNextTransitions(currState, action);
-
-                List<State> toAdd = tempTrans.stream().map(Transition::getTarget).
-                        filter(s -> !passedContainsState(s) && !waitingContainsState(s)).collect(Collectors.toList());
-                toAdd.forEach(e->e.extrapolateMaxBounds(getMaxBounds(),clocks.getItems()));
-
-                List<Transition> newTransitions = tempTrans.stream().
+                List<Transition> newTransitions = getNextTransitions(currState, action).stream().
                         filter(s -> !passedContainsState(s.getTarget()) && !waitingContainsState(s.getTarget())).collect(Collectors.toList());
+
                 newTransitions.forEach(e->e.getTarget().extrapolateMaxBounds(getMaxBounds(),clocks.getItems()));
 
+                List<State> toAdd = newTransitions.stream().map(Transition::getTarget).collect(Collectors.toList());
+
                 for (Transition t : newTransitions) {
+
                     if (t.getTarget().getLocation().getName().equals(destination)) {
                         check = false;
                     }
-                    if (!transMap.containsKey(t.getTarget().getLocation().getName())) {
-                        transMap.put(t.getTarget().getLocation().getName(), new ArrayList<>());
+
+                    if (!transitions.containsKey(t.getTarget().getLocation().getName())) {
+                        transitions.put(t.getTarget().getLocation().getName(), new ArrayList<>());
                     }
-                    transMap.get(t.getTarget().getLocation().getName()).add(t);
+
+                    transitions.get(t.getTarget().getLocation().getName()).add(t);
+
                 }
                 waiting.addAll(toAdd);
             }
         }
 
-        Transition shortestTrans = transMap.get(destination).get(0);
-        st.add(shortestTrans);
+        Transition shortestTrans = transitions.get(destination).get(0);
+        shortestTrace.add(shortestTrans);
 
         while (true) {
-            if (transMap.containsKey(shortestTrans.getSource().getLocation().getName()) && !shortestTrans.getSource().getLocation().getName().equals(getInitialLocation().getName())) {
-                for (Transition p : transMap.get(shortestTrans.getSource().getLocation().getName())) {
-                    if (p.getTarget().toString().equals(shortestTrans.getSource().toString())) {
-                        shortestTrans = p;
-                        st.add(shortestTrans);
+            if (transitions.containsKey(shortestTrans.getSource().getLocation().getName()) && !shortestTrans.getSource().getLocation().getName().equals(getInitialLocation().getName())) {
+                for (Transition t : transitions.get(shortestTrans.getSource().getLocation().getName())) {
+                    if (t.getTarget().toString().equals(shortestTrans.getSource().toString())) {
+                        shortestTrans = t;
+                        shortestTrace.add(shortestTrans);
                     }
                 }
             }
@@ -551,17 +551,17 @@ public class SimpleTransitionSystem extends TransitionSystem{
                 break;
             }
         }
-        Collections.reverse(st);
-        return st;
+        Collections.reverse(shortestTrace);
+        return shortestTrace;
     }
 
     public List<Transition> fastestPathHelper(String destination) throws IOException {
         Set<Channel> actions = getActions();
 
+        transitionHashMap = new HashMap<>(262144);
         waiting = new ArrayDeque<>();
         passed = new ArrayList<>();
         waiting.add(getInitialState());
-        transitionHashMap = new HashMap<>(262144);
 
         while (!waiting.isEmpty()) {
             State currState = new State(waiting.pop());
@@ -573,13 +573,11 @@ public class SimpleTransitionSystem extends TransitionSystem{
             for (Channel action : actions) {
                 List<Transition> tempTrans = getNextTransitions(currState, action);
 
-                List<State> toAdd = tempTrans.stream().map(Transition::getTarget).
-                        filter(s -> !passedContainsState(s) && !waitingContainsState(s)).collect(Collectors.toList());
-                toAdd.forEach(e->e.extrapolateMaxBounds(getMaxBounds(),clocks.getItems()));
-
                 List<Transition> newTransitions = tempTrans.stream().
                         filter(s -> !passedContainsState(s.getTarget()) && !waitingContainsState(s.getTarget())).collect(Collectors.toList());
                 newTransitions.forEach(e->e.getTarget().extrapolateMaxBounds(getMaxBounds(),clocks.getItems()));
+
+                List<State> toAdd = newTransitions.stream().map(Transition::getTarget).collect(Collectors.toList());
 
                 for (Transition t : newTransitions) {
                     if (!transitionHashMap.containsKey(t.getTarget().getLocation().getName())) {
@@ -621,12 +619,17 @@ public class SimpleTransitionSystem extends TransitionSystem{
         }
         Collections.reverse(ft);
 
-        //realFastestTrace(ft);
+        for (Transition t : ft) {
+            System.out.println(t.getSource().getLocation().getName());
+            System.out.println(t.getTarget().getLocation().getName());
+        }
+
+        //fastestTraceReal(ft, destination);
 
         return ft;
     }
 
-    public void realFastestTrace(List<Transition> path) throws IOException {
+    public void fastestTraceReal(List<Transition> path, String destination) throws IOException {
         clockValues = new HashMap<>();
 
         for (Clock c : getClocks()) {
@@ -635,7 +638,7 @@ public class SimpleTransitionSystem extends TransitionSystem{
 
         Client client = new Client();
         client.startConnection("127.0.0.1", 6666);
-
+        System.out.println("connected");
         for (Transition t : path) {
             // if it is an output edge, we call the implementation and measure the time it takes.
             if(t.getEdges().get(0).getStatus().equals("OUTPUT")){
@@ -656,11 +659,12 @@ public class SimpleTransitionSystem extends TransitionSystem{
                 }
             }
 
-            helperConjoin(t, true);
-            helperConjoin(t,false);
+            helperConjoin(t, true, destination);
+            helperConjoin(t,false, destination);
         }
         client.writeString("done");
         client.stopConnection();
+        System.out.println("Disconnected");
     }
 
     public void updateClocks(int value) {
@@ -670,7 +674,7 @@ public class SimpleTransitionSystem extends TransitionSystem{
         }
     }
 
-    public void helperConjoin(Transition t, boolean w) {
+    public void helperConjoin(Transition t, boolean w, String destination) {
 
         if (!w) {
             if (t.getUpdates().size() > 0) {
@@ -714,6 +718,7 @@ public class SimpleTransitionSystem extends TransitionSystem{
 
             sb.append("\nTransition: " + t.getSource().getLocation().getName() + " " + t.getTarget().getLocation().getName() + "\n");
             sb.append(t.getEdges().get(0).getChan().getName() + "\n");
+            sb.append(destination + "\n");
 
             if (w) {
                 sb.append("Source Invariant: " + t.getSource().getInvariant() + "\n");

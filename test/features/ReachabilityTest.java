@@ -42,15 +42,15 @@ public class ReachabilityTest {
     @Test
     public void simpleReachability(){
         assert sts1.isReachable("L1");
-        assert sts1.isReachable("L2") == false;
+        assert !sts1.isReachable("L2");
     }
 
     @Test
     public void ReachabilityTest(){
         assert sts2.isStateReachable("L4", "x == 6");
         assert sts2.isStateReachable("L4", "x > 6");
-        assert sts2.isStateReachable("L4", "x < 6") == false;
-        assert sts2.isStateReachable("L5", "") == false;
+        assert !sts2.isStateReachable("L4", "x < 6");
+        assert !sts2.isStateReachable("L5", "");
 
     }
 
@@ -74,15 +74,15 @@ public class ReachabilityTest {
 
         assert fastestPath.get(0).getSource().getLocation().getName().equals("L0");
         assert fastestPath.get(0).getTarget().getLocation().getName().equals("L2");
-        assert !fastestPath.get(0).getTarget().getInvariant().conjunction(new CDD(g)).isTrue();
+        assert fastestPath.get(0).getTarget().getInvariant().conjunction(new CDD(g)).isNotFalse();
 
         assert fastestPath.get(1).getSource().getLocation().getName().equals("L2");
         assert fastestPath.get(1).getTarget().getLocation().getName().equals("L2");
-        assert !fastestPath.get(1).getTarget().getInvariant().conjunction(new CDD(g)).isTrue();
+        assert fastestPath.get(1).getTarget().getInvariant().conjunction(new CDD(g)).isNotFalse();
 
         assert fastestPath.get(2).getSource().getLocation().getName().equals("L2");
         assert fastestPath.get(2).getTarget().getLocation().getName().equals("L1");
-        assert !fastestPath.get(2).getTarget().getInvariant().conjunction(new CDD(g)).isTrue();
+        assert fastestPath.get(2).getTarget().getInvariant().conjunction(new CDD(g)).isNotFalse();
 
         if (initialisedCdd) {
             CDD.done();
