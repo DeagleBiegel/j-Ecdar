@@ -307,9 +307,18 @@ public abstract class TransitionSystem {
 
         List<SimpleTransitionSystem> systems = getSystems();
         List<Transition> fastestTrace = new ArrayList<>();
+
+        /*
+        for (SimpleTransitionSystem ts : systems) {
+            for (Location loc : getAutomaton().getLocations()) {
+                fastestTrace = ts.fastestTraceHelper(loc.getName());
+            }
+        }
+         */
         for (SimpleTransitionSystem ts : systems) {
             fastestTrace = ts.fastestTraceHelper(destination);
         }
+
 
         if (initialisedCdd) {
             CDD.done();
