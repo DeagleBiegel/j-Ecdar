@@ -1,6 +1,5 @@
 package logic;
 
-import javafx.util.Pair;
 import models.*;
 import parser.GuardParser;
 import parser.XMLFileWriter;
@@ -473,30 +472,39 @@ public class SimpleTransitionSystem extends TransitionSystem{
         return false;
     }
 
+    public int highestMaxBound() {
+        int max = 0;
+        for (int i : getMaxBounds().values()) {
+            if (max < i) {
+                max = i;
+            }
+        }
+        return max;
+    }
+
+    public CDD helperConjoinGuardCDD(String guardString, CDD orgCDD) {
+        Guard g = GuardParser.parse(guardString, getClocks(), getBVs());
+        CDD cdd = orgCDD.conjunction(new CDD(g));
+
+        return cdd;
+    }
     public int binaryMinClockValue(CDD guard, Clock clock){
         String guardTemplate = clock.getOriginalName() + " == ";
         int min = 0;
-        int max = 100000;
+        int max = highestMaxBound() * 2;
         int mid = 0;
 
         while (min < max) {
             mid = (min + max) / 2;
-            String guardCopy = guardTemplate;
-            guardCopy += String.valueOf(mid);
-            Guard g = GuardParser.parse(guardCopy, getClocks(), getBVs());
-            CDD cdd = guard.conjunction(new CDD(g));
-
+            CDD cdd = helperConjoinGuardCDD(guardTemplate + mid, guard);
             if (cdd.isNotFalse()) {
                 max = mid;
-                guardCopy = guardTemplate;
-                guardCopy += String.valueOf(mid-1);
-                Guard g1 = GuardParser.parse(guardCopy, getClocks(), getBVs());
-                CDD cdd1 = guard.conjunction(new CDD(g1));
+                CDD cdd1 = helperConjoinGuardCDD(guardTemplate + (mid - 1), guard);
                 if (cdd1.isFalse()) {
                     return mid;
                 }
             } else {
-                min = mid;
+                min = mid + 1;
             }
         }
         return mid;

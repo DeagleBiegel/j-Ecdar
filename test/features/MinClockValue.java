@@ -30,6 +30,7 @@ public class MinClockValue {
             path = sts1.getNextTransitions(sts1.getInitialState(), action, sts1.getClocks());
         }
 
+        //System.out.println(sts1.binaryMinClockValue(path.get(0).getTarget().getInvariant(), sts1.getClocks().get(0)));
         assert sts1.binaryMinClockValue(path.get(0).getTarget().getInvariant(), sts1.getClocks().get(0)) == 11;
         if (initialisedCdd) {
             CDD.done();
