@@ -24,7 +24,7 @@ public class Playground {
                 a.getClocks().add(z);
                 SimpleTransitionSystem STS = new SimpleTransitionSystem(a);
 
-                List<Transition> lst = STS.fastestPath("L1");
+                List<Transition> lst = STS.fastestPath("L13");
 
                 //STS.realFastestTrace(STS.fastestPath());
 
