@@ -13,23 +13,38 @@ import java.util.List;
 
 public class MinClockValue {
 
-    private static SimpleTransitionSystem sts;
+    private static SimpleTransitionSystem sts1, sts2;
 
     @BeforeClass
     public static void setUpBeforeClass() throws FileNotFoundException {
         Automaton[] aut1 = JSONParser.parse("samples/json/MinClockTest", false);
-        sts = new SimpleTransitionSystem(aut1[0]);
+        sts1 = new SimpleTransitionSystem(aut1[0]);
+        sts2 = new SimpleTransitionSystem(aut1[1]);
     }
 
     @Test
-    public void minClockValueTest() {
-        boolean initialisedCdd = CDD.tryInit(sts.getClocks(), sts.getBVs());
+    public void minClockValueGreaterThanTest() {
+        boolean initialisedCdd = CDD.tryInit(sts1.getClocks(), sts1.getBVs());
         List<Transition> path = null;
-        for (Channel action : sts.getActions()){
-            path = sts.getNextTransitions(sts.getInitialState(), action, sts.getClocks());
+        for (Channel action : sts1.getActions()){
+            path = sts1.getNextTransitions(sts1.getInitialState(), action, sts1.getClocks());
         }
 
-        assert sts.binaryMinClockValue(path.get(0).getTarget().getInvariant(), sts.getClocks().get(0)) == 11;
+        assert sts1.binaryMinClockValue(path.get(0).getTarget().getInvariant(), sts1.getClocks().get(0)) == 11;
+        if (initialisedCdd) {
+            CDD.done();
+        }
+    }
+
+    @Test
+    public void minClockValueLessThanTest(){
+        boolean initialisedCdd = CDD.tryInit(sts2.getClocks(), sts2.getBVs());
+        List<Transition> path = null;
+        for (Channel action : sts2.getActions()){
+            path = sts2.getNextTransitions(sts2.getInitialState(), action, sts2.getClocks());
+        }
+
+        assert sts2.binaryMinClockValue(path.get(0).getTarget().getInvariant(), sts2.getClocks().get(0)) == 0;
         if (initialisedCdd) {
             CDD.done();
         }
