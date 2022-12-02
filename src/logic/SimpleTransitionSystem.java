@@ -626,7 +626,7 @@ public class SimpleTransitionSystem extends TransitionSystem{
         }
 
         Client client = new Client();
-        client.startConnection("127.0.0.1", 6666);
+        //client.startConnection("127.0.0.1", 6666);
 
         for (Transition t : path) {
             // if it is an output edge, we call the SUT and measure the time it takes to perform the output
@@ -657,7 +657,7 @@ public class SimpleTransitionSystem extends TransitionSystem{
             //target
             helperConjoin(t,false, destination, clockValues);
         }
-        client.stopConnection();
+        //client.stopConnection();
     }
 
     private HashMap<Clock, Integer> clockReset(HashMap<Clock, Integer> clockValues, Transition t) {
