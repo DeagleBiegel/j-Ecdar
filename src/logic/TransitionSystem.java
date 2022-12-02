@@ -307,20 +307,11 @@ public abstract class TransitionSystem {
 
         List<SimpleTransitionSystem> systems = getSystems();
         List<Transition> fastestTrace = new ArrayList<>();
-<<<<<<< Updated upstream
 
-=======
-        /*
->>>>>>> Stashed changes
         for (SimpleTransitionSystem ts : systems) {
             fastestTrace = ts.fastestTraceHelper(destination);
         }
-        */
-        for (SimpleTransitionSystem ts : systems){
-            for (Location loc : getAutomaton().getLocations()){
-                fastestTrace = ts.fastestTraceHelper(loc.getName());
-            }
-        }
+
 
         if (initialisedCdd) {
             CDD.done();

@@ -588,6 +588,8 @@ public class SimpleTransitionSystem extends TransitionSystem{
         HashMap<String, List<Pair<Transition, Integer>>> transitionHashMap = new HashMap<>();
         waiting = new ArrayDeque<>();
         passed = new ArrayList<>();
+        boolean destinationFound = false;
+        int minClockValue = getMaxBounds().get(getClocks().get(getClocks().size()-1));
         List<Transition> fastestTrace = new ArrayList<>();
 
         waiting.add(getInitialState());
@@ -600,14 +602,27 @@ public class SimpleTransitionSystem extends TransitionSystem{
             passed.add(toStore);
 
             for (Channel action : actions) {
-                List<Transition> newTransitions = getNextTransitions(currState, action).stream().
-                        filter(s -> !passedContainsState(s.getTarget()) && !waitingContainsState(s.getTarget())).collect(Collectors.toList());
-
+                List<Transition> newTransitions;
+                if (destinationFound) {
+                    int finalMinClockValue = minClockValue;
+                    newTransitions = getNextTransitions(currState, action).stream().
+                            filter(s -> !passedContainsState(s.getTarget()) && !waitingContainsState(s.getTarget())
+                                    && minClockValue(s.getTarget().getInvariant(),getClocks().get(getClocks().size()-1)) < finalMinClockValue).collect(Collectors.toList());
+                }
+                else {
+                    newTransitions = getNextTransitions(currState, action).stream().
+                            filter(s -> !passedContainsState(s.getTarget()) && !waitingContainsState(s.getTarget())).collect(Collectors.toList());
+                }
                 newTransitions.forEach(e->e.getTarget().extrapolateMaxBounds(getMaxBounds(),clocks.getItems()));
 
                 List<State> toAdd = newTransitions.stream().map(Transition::getTarget).collect(Collectors.toList());
 
                 for (Transition t : newTransitions) {
+                    if (t.getTarget().getLocation().getName().equals(destination)) {
+                        destinationFound = true;
+                        minClockValue = minClockValue(t.getTarget().getInvariant(),getClocks().get(getClocks().size()-1));
+                    }
+
                     if (!transitionHashMap.containsKey(t.getTarget().getLocation().getName())) {
                         transitionHashMap.put(t.getTarget().getLocation().getName(), new ArrayList<>());
                     }
@@ -657,7 +672,7 @@ public class SimpleTransitionSystem extends TransitionSystem{
         }
 
         Client client = new Client();
-        //client.startConnection("127.0.0.1", 6666);
+        client.startConnection("127.0.0.1", 6666);
 
         for (Transition t : path) {
             // if it is an output edge, we call the SUT and measure the time it takes to perform the output
@@ -688,7 +703,8 @@ public class SimpleTransitionSystem extends TransitionSystem{
             //target
             helperConjoin(t,false, destination, clockValues);
         }
-        //client.stopConnection();
+        client.writeString("done");
+        client.stopConnection();
     }
 
     private HashMap<Clock, Integer> clockReset(HashMap<Clock, Integer> clockValues, Transition t) {
