@@ -566,7 +566,7 @@ public class SimpleTransitionSystem extends TransitionSystem{
 
     public List<Transition> fastestTraceHelper(String destination) throws IOException {
         Set<Channel> actions = getActions();
-        HashMap<String, List<Pair<Transition, Integer>>> transitionHashMap = new HashMap<>();
+        HashMap<String, List<Transition>> transitionHashMap = new HashMap<>();
         waiting = new ArrayDeque<>();
         passed = new ArrayList<>();
         boolean destinationFound = false;
@@ -607,7 +607,7 @@ public class SimpleTransitionSystem extends TransitionSystem{
                     if (!transitionHashMap.containsKey(t.getTarget().getLocation().getName())) {
                         transitionHashMap.put(t.getTarget().getLocation().getName(), new ArrayList<>());
                     }
-                    transitionHashMap.get(t.getTarget().getLocation().getName()).add(new Pair<>(t, binaryMinClockValue(t.getTarget().getInvariant(), getClocks().get(getClocks().size()-1))));
+                    transitionHashMap.get(t.getTarget().getLocation().getName()).add(t);
                 }
 
                 waiting.addAll(toAdd);
@@ -615,12 +615,13 @@ public class SimpleTransitionSystem extends TransitionSystem{
         }
 
         //find the destination state with the smallest global clock value
-        int min = transitionHashMap.get(destination).get(0).getValue();;
-        Transition fastestTrans = transitionHashMap.get(destination).get(0).getKey();
-            for (Pair<Transition, Integer> p : transitionHashMap.get(destination)){
-                if (p.getValue() < min) {
-                    min = p.getValue();
-                    fastestTrans = p.getKey();
+        int min = binaryMinClockValue(transitionHashMap.get(destination).get(0).getTarget().getInvariant(), getClocks().get(getClocks().size()-1));
+        Transition fastestTrans = transitionHashMap.get(destination).get(0);
+            for (Transition t : transitionHashMap.get(destination)){
+                int temp = binaryMinClockValue(t.getTarget().getInvariant(),getClocks().get(getClocks().size()-1));
+                if (temp < min) {
+                    min =temp;
+                    fastestTrans = t;
                 }
         }
 
@@ -629,9 +630,9 @@ public class SimpleTransitionSystem extends TransitionSystem{
         //follow trace to initial state
         while (true) {
             if (transitionHashMap.containsKey(fastestTrans.getSource().getLocation().getName()) && !fastestTrans.getSource().getLocation().getName().equals(getInitialLocation().getName())) {
-                for (Pair<Transition, Integer> p : transitionHashMap.get(fastestTrans.getSource().getLocation().getName())) {
-                    if (p.getKey().getTarget().toString().equals(fastestTrans.getSource().toString())) {
-                        fastestTrans = p.getKey();
+                for (Transition t : transitionHashMap.get(fastestTrans.getSource().getLocation().getName())) {
+                    if (t.getTarget().toString().equals(fastestTrans.getSource().toString())) {
+                        fastestTrans = t;
                         fastestTrace.add(fastestTrans);
                     }
                 }
