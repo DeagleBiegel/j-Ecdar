@@ -482,13 +482,13 @@ public class SimpleTransitionSystem extends TransitionSystem{
         return max;
     }
 
-    public CDD helperConjoinGuardCDD(String guardString, CDD orgCDD) {
+    public CDD helperConjoin(String guardString, CDD orgCDD) {
         Guard g = GuardParser.parse(guardString, getClocks(), getBVs());
         CDD cdd = orgCDD.conjunction(new CDD(g));
 
         return cdd;
     }
-    public int binaryMinClockValue(CDD guard, Clock clock){
+    public int binaryMinClockValue(CDD orgCDD, Clock clock){
         String guardTemplate = clock.getOriginalName() + " == ";
         int min = 0;
         int max = highestMaxBound() * 2;
@@ -496,10 +496,10 @@ public class SimpleTransitionSystem extends TransitionSystem{
 
         while (min < max) {
             mid = (min + max) / 2;
-            CDD cdd = helperConjoinGuardCDD(guardTemplate + mid, guard);
+            CDD cdd = helperConjoin(guardTemplate + mid, orgCDD);
             if (cdd.isNotFalse()) {
                 max = mid;
-                CDD cdd1 = helperConjoinGuardCDD(guardTemplate + (mid - 1), guard);
+                CDD cdd1 = helperConjoin(guardTemplate + (mid - 1), orgCDD);
                 if (cdd1.isFalse()) {
                     return mid;
                 }
@@ -685,13 +685,13 @@ public class SimpleTransitionSystem extends TransitionSystem{
             }
 
             //source
-            helperConjoin(t, true, destination, clockValues);
+            violationCheck(t, true, destination, clockValues);
 
             if (t.getUpdates().size() > 0) {
                 clockValues = clockReset(clockValues, t);
             }
             //target
-            helperConjoin(t,false, destination, clockValues);
+            violationCheck(t,false, destination, clockValues);
         }
         client.writeString("done");
         client.stopConnection();
@@ -714,7 +714,8 @@ public class SimpleTransitionSystem extends TransitionSystem{
         return clockValues;
     }
 
-    private void helperConjoin(Transition t, boolean w, String destination, HashMap<Clock, Integer> clockValues) {
+    private void violationCheck(Transition t, boolean w, String destination, HashMap<Clock, Integer> clockValues) {
+        CDD cdd;
 
         //create a string with the clock constraints
         StringBuilder sb = new StringBuilder();
@@ -727,24 +728,16 @@ public class SimpleTransitionSystem extends TransitionSystem{
             }
         }
 
-        //create a guard from the constraint string
-        // z == 6 --> z == 6 --> z == 6
-        Guard g = GuardParser.parse(sb.toString(), getClocks(), getBVs());
-        CDD cdd;
-
         //either we use source or target invariant
         if (w) {
-            cdd = t.getSource().getInvariant().conjunction(new CDD(g));
+            cdd = helperConjoin(sb.toString(),t.getSource().getInvariant());
         }
         else {
-            cdd = t.getTarget().getInvariant().conjunction(new CDD(g));
+            cdd = helperConjoin(sb.toString(),t.getTarget().getInvariant());
+
         }
 
         if (cdd.isFalse()) {
-            System.out.println("CONSTRAINTS BROKEN");
-            System.out.println(t.getEdges().get(0).getChan().getName());
-            System.out.println("Guard: " + t.getTarget().getInvariant() + "\n");
-
             sb.append("\nTransition: " + t.getSource().getLocation().getName() + " " + t.getTarget().getLocation().getName() + "\n");
             sb.append(t.getEdges().get(0).getChan().getName() + "\n");
             sb.append(destination + "\n");
@@ -764,10 +757,6 @@ public class SimpleTransitionSystem extends TransitionSystem{
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        } else {
-            System.out.println("CONSTRAINTS HELD");
-            System.out.println(t.getEdges().get(0).getChan().getName());
-            System.out.println("Guard: " + t.getTarget().getInvariant() + "\n");
         }
     }
 
