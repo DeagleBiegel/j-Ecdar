@@ -15,20 +15,14 @@ import java.util.List;
 public class Playground {
 
     public static void main(String[] args) throws IOException, FileNotFoundException {
-        Automaton[] automaton = JSONParser.parse("samples/json/casecd", true);
+        Automaton[] automaton = JSONParser.parse("samples/json/casecdabstract", true);
 
             for (var a : automaton) {
                 Clock z = new Clock("z", a.getName());
                 a.getClocks().add(z);
                 SimpleTransitionSystem STS = new SimpleTransitionSystem(a);
-
-                List<Transition> lst = STS.fastestPath("L13");
-
-                //STS.realFastestTrace(STS.fastestPath());
+                List<Transition> lst = STS.allFastestPaths("L13");
             }
-
-
-
     }
 
 }
