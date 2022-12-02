@@ -304,7 +304,7 @@ public abstract class TransitionSystem {
 
     public List<Transition> fastestPath(String destination) throws IOException {
         boolean initialisedCdd = CDD.tryInit(getClocks(), getBVs());
-
+        int i = 10;
         List<SimpleTransitionSystem> systems = getSystems();
         List<Transition> fastestTrace = new ArrayList<>();
 
