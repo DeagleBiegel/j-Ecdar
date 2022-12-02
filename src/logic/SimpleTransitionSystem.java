@@ -486,8 +486,6 @@ public class SimpleTransitionSystem extends TransitionSystem{
             Guard g = GuardParser.parse(guardCopy, getClocks(), getBVs());
             CDD cdd = guard.conjunction(new CDD(g));
 
-            //max = 50, 25 -> max 25 -> mid 6
-
             if (cdd.isNotFalse()) {
                 max = mid;
                 guardCopy = guardTemplate;
@@ -502,23 +500,6 @@ public class SimpleTransitionSystem extends TransitionSystem{
             }
         }
         return mid;
-    }
-
-    public int minClockValue(CDD guard, Clock clock) {
-        String guardTemplate = clock.getOriginalName() + " == ";
-        int min = 0;
-        while (true) {
-            String guardCopy = guardTemplate;
-            guardCopy += String.valueOf(min);
-            Guard g = GuardParser.parse(guardCopy, getClocks(), getBVs());
-            CDD cdd = guard.conjunction(new CDD(g));
-
-            if (!cdd.isFalse()) {
-                break;
-            }
-            min++;
-        }
-        return min;
     }
 
     public List<Transition> shortestTraceHelper(String destination) {
@@ -607,7 +588,7 @@ public class SimpleTransitionSystem extends TransitionSystem{
                     int finalMinClockValue = minClockValue;
                     newTransitions = getNextTransitions(currState, action).stream().
                             filter(s -> !passedContainsState(s.getTarget()) && !waitingContainsState(s.getTarget())
-                                    && minClockValue(s.getTarget().getInvariant(),getClocks().get(getClocks().size()-1)) < finalMinClockValue).collect(Collectors.toList());
+                                    && binaryMinClockValue(s.getTarget().getInvariant(),getClocks().get(getClocks().size()-1)) < finalMinClockValue).collect(Collectors.toList());
                 }
                 else {
                     newTransitions = getNextTransitions(currState, action).stream().
@@ -620,7 +601,7 @@ public class SimpleTransitionSystem extends TransitionSystem{
                 for (Transition t : newTransitions) {
                     if (t.getTarget().getLocation().getName().equals(destination)) {
                         destinationFound = true;
-                        minClockValue = minClockValue(t.getTarget().getInvariant(),getClocks().get(getClocks().size()-1));
+                        minClockValue = binaryMinClockValue(t.getTarget().getInvariant(),getClocks().get(getClocks().size()-1));
                     }
 
                     if (!transitionHashMap.containsKey(t.getTarget().getLocation().getName())) {
@@ -844,7 +825,7 @@ public class SimpleTransitionSystem extends TransitionSystem{
             }
             for (Clock key : maxBounds.keySet()) {
                 if (sb.subSequence(startIndex+1, endIndex).equals(key.getOriginalName())) {
-                    variableValue = String.valueOf(minClockValue(cdd,key));
+                    variableValue = String.valueOf(binaryMinClockValue(cdd,key));
                 }
             }
 
