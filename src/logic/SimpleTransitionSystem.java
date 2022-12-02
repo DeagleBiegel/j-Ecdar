@@ -558,8 +558,6 @@ public class SimpleTransitionSystem extends TransitionSystem{
         waiting = new ArrayDeque<>();
         passed = new ArrayList<>();
         List<Transition> fastestTrace = new ArrayList<>();
-        boolean destinationFound = false;
-        int minClockValue = getMaxBounds().get(getClocks().get(getClocks().size()-1));
 
         waiting.add(getInitialState());
 
@@ -571,39 +569,25 @@ public class SimpleTransitionSystem extends TransitionSystem{
             passed.add(toStore);
 
             for (Channel action : actions) {
-                List<Transition> newTransitions;
-                if (destinationFound) {
-                    int finalMinClockValue = minClockValue;
-                    newTransitions = getNextTransitions(currState, action).stream().
-                            filter(s -> !passedContainsState(s.getTarget()) && !waitingContainsState(s.getTarget())
-                                    && minClockValue(s.getTarget().getInvariant(),getClocks().get(getClocks().size()-1)) < finalMinClockValue).collect(Collectors.toList());
-                }
-                else {
-                    newTransitions = getNextTransitions(currState, action).stream().
-                            filter(s -> !passedContainsState(s.getTarget()) && !waitingContainsState(s.getTarget())).collect(Collectors.toList());
-                }
-
+                List<Transition> newTransitions = getNextTransitions(currState, action).stream().
+                        filter(s -> !passedContainsState(s.getTarget()) && !waitingContainsState(s.getTarget())).collect(Collectors.toList());
 
                 newTransitions.forEach(e->e.getTarget().extrapolateMaxBounds(getMaxBounds(),clocks.getItems()));
 
                 List<State> toAdd = newTransitions.stream().map(Transition::getTarget).collect(Collectors.toList());
 
                 for (Transition t : newTransitions) {
-                    if (t.getTarget().getLocation().getName().equals(destination)) {
-                        destinationFound = true;
-                        minClockValue = minClockValue(t.getTarget().getInvariant(),getClocks().get(getClocks().size()-1));
-                    }
-
                     if (!transitionHashMap.containsKey(t.getTarget().getLocation().getName())) {
                         transitionHashMap.put(t.getTarget().getLocation().getName(), new ArrayList<>());
                     }
                     transitionHashMap.get(t.getTarget().getLocation().getName()).add(new Pair<>(t, minClockValue(t.getTarget().getInvariant(), getClocks().get(getClocks().size()-1))));
                 }
+
                 waiting.addAll(toAdd);
             }
         }
 
-        //find the destination state with the smallest global clock value
+        //find the the destination state with the smallest global clock value
         int min = transitionHashMap.get(destination).get(0).getValue();;
         Transition fastestTrans = transitionHashMap.get(destination).get(0).getKey();
             for (Pair<Transition, Integer> p : transitionHashMap.get(destination)){
@@ -631,8 +615,7 @@ public class SimpleTransitionSystem extends TransitionSystem{
         }
         Collections.reverse(fastestTrace);
 
-        fastestTraceReal(fastestTrace, destination);
-
+        //fastestTraceReal(ft, destination);
         return fastestTrace;
     }
 
@@ -674,7 +657,6 @@ public class SimpleTransitionSystem extends TransitionSystem{
             //target
             helperConjoin(t,false, destination, clockValues);
         }
-        client.writeString("done");
         client.stopConnection();
     }
 
@@ -722,11 +704,10 @@ public class SimpleTransitionSystem extends TransitionSystem{
         }
 
         if (cdd.isFalse()) {
-            /*
             System.out.println("CONSTRAINTS BROKEN");
             System.out.println(t.getEdges().get(0).getChan().getName());
             System.out.println("Guard: " + t.getTarget().getInvariant() + "\n");
-            */
+
             sb.append("\nTransition: " + t.getSource().getLocation().getName() + " " + t.getTarget().getLocation().getName() + "\n");
             sb.append(t.getEdges().get(0).getChan().getName() + "\n");
             sb.append(destination + "\n");

@@ -312,7 +312,6 @@ public abstract class TransitionSystem {
             fastestTrace = ts.fastestTraceHelper(destination);
         }
 
-
         if (initialisedCdd) {
             CDD.done();
         }
