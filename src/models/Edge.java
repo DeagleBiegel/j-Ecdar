@@ -154,6 +154,14 @@ public class Edge {
         return status;
     }
 
+    public void addToUpdates(Update update) {
+        updates.add(update);
+    }
+
+    public void removeFromUpdates(Update update) {
+        getUpdates().remove(update);
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (this == obj) return true;

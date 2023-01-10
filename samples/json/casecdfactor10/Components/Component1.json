@@ -1,6 +1,6 @@
 {
   "name": "Component1",
-  "declarations": "clock c, g, e, d, f; broadcast chan open;\nbroadcast chan close;\nbroadcast chan unlock;\nbroadcast chan lock;\nbroadcast chan armedOn;\nbroadcast chan armedOff;\nbroadcast chan soundOn;\nbroadcast chan soundOff;\nbroadcast chan flashOn;\nbroadcast chan flashOff;",
+  "declarations": "clock c, g, e, d, f, beta; broadcast chan open;\nbroadcast chan close;\nbroadcast chan unlock;\nbroadcast chan lock;\nbroadcast chan armedOn;\nbroadcast chan armedOff;\nbroadcast chan soundOn;\nbroadcast chan soundOff;\nbroadcast chan flashOn;\nbroadcast chan flashOff;",
   "locations": [
     {
       "id": "L0",
@@ -47,7 +47,7 @@
     {
       "id": "L3",
       "nickname": "",
-      "invariant": "c\u003c\u003d3",
+      "invariant": "c\u003c\u003d2",
       "type": "NORMAL",
       "urgency": "NORMAL",
       "x": 470.00001,
@@ -431,7 +431,7 @@
       "targetLocation": "L4",
       "status": "OUTPUT",
       "select": "",
-      "guard": "c\u003e\u003d2 \u0026\u0026 c\u003c\u003d3",
+      "guard": "c\u003d\u003d2",
       "update": "",
       "sync": "armedOn",
       "isLocked": false,
@@ -627,7 +627,7 @@
       "targetLocation": "L12",
       "status": "OUTPUT",
       "select": "",
-      "guard": "e\u003e\u003d3 \u0026\u0026 e\u003c\u003d4",
+      "guard": "e\u003d\u003d3",
       "update": "",
       "sync": "soundOff",
       "isLocked": false,
@@ -691,7 +691,7 @@
       "status": "INPUT",
       "select": "",
       "guard": "",
-      "update": "g\u003d0",
+      "update": "",
       "sync": "unlock",
       "isLocked": false,
       "nails": [
@@ -699,13 +699,6 @@
           "x": 480.0,
           "y": 110.0,
           "propertyType": "SYNCHRONIZATION",
-          "propertyX": 10.0,
-          "propertyY": 0.0
-        },
-        {
-          "x": 330.0,
-          "y": 110.0,
-          "propertyType": "UPDATE",
           "propertyX": 10.0,
           "propertyY": 0.0
         }
@@ -718,7 +711,7 @@
       "targetLocation": "L13",
       "status": "OUTPUT",
       "select": "",
-      "guard": "e\u003e\u003d29 \u0026\u0026 e\u003c\u003d30",
+      "guard": "e\u003d\u003d30",
       "update": "",
       "sync": "soundOff",
       "isLocked": false,

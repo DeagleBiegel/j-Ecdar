@@ -312,7 +312,6 @@ public abstract class TransitionSystem {
             fastestTrace = ts.fastestTraceHelper(destination);
         }
 
-
         if (initialisedCdd) {
             CDD.done();
         }
@@ -320,7 +319,7 @@ public abstract class TransitionSystem {
         return fastestTrace;
     }
 
-    public List<Transition> allFastestPaths(String destination) throws IOException {
+    public List<Transition> allFastestPaths() throws IOException {
         boolean initialisedCdd = CDD.tryInit(getClocks(), getBVs());
 
         List<SimpleTransitionSystem> systems = getSystems();
@@ -331,6 +330,32 @@ public abstract class TransitionSystem {
             for (Location loc : getAutomaton().getLocations()) {
                 fastestTrace = ts.fastestTraceHelper(loc.getName());
             }
+        }
+
+        if (initialisedCdd) {
+            CDD.done();
+        }
+
+        return fastestTrace;
+    }
+
+    public List<Transition> allFastestPaths2() throws IOException {
+        boolean initialisedCdd = CDD.tryInit(getClocks(), getBVs());
+
+        List<SimpleTransitionSystem> systems = getSystems();
+        List<Transition> fastestTrace = new ArrayList<>();
+
+        for (SimpleTransitionSystem ts : systems) {
+            for (Location loc : getAutomaton().getLocations()) {
+                List<Edge> edges = getAutomaton().getEdgesFromLocation(loc);
+                for (Edge e : edges) {
+                    if (!e.isInput()) {
+                        String s = e.getSource().getName() + e.getTarget().getName() + "==true";
+                        List<Transition> trace = ts.fastestTraceToStateHelper(e.getTarget().getName(), s);
+                    }
+                }
+            }
+
         }
 
         if (initialisedCdd) {

@@ -162,7 +162,7 @@ public class Automaton {
         return result;
     }
 
-    private List<Edge> getEdgesFromLocation(Location loc) {
+    public List<Edge> getEdgesFromLocation(Location loc) {
         if (loc.isUniversal()) {
             return actions.stream()
                     .map(action -> new Edge(loc, loc, action, inputAct.contains(action), new TrueGuard(), new ArrayList<>(), ""))
