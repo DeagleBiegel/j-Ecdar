@@ -16,13 +16,14 @@ public class Playground {
 
     public static void main(String[] args) throws IOException, FileNotFoundException {
 
-        Automaton[] automaton = JSONParser.parse("samples/json/casecdabstract", true);
+        Automaton[] automaton = JSONParser.parse("samples/json/testcodeSimple", true);
 
 
         for (var a : automaton) {
             Clock z = new Clock("z", a.getName());
             a.getClocks().add(z);
 
+            /*
             for (Location loc : a.getLocations()) {
                 List<Edge> edges = a.getEdgesFromLocation(loc);
                 for (Edge e : edges) {
@@ -34,11 +35,12 @@ public class Playground {
                     }
                 }
             }
+            */
 
             SimpleTransitionSystem STS = new SimpleTransitionSystem(a);
 
-            STS.allFastestPaths2();
-            //STS.allFastestPaths();
+            //STS.allFastestPaths2();
+            STS.allFastestPaths();
         }
 }
 

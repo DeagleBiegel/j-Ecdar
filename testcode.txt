@@ -1,6 +1,504 @@
+Double x, z = timestamp(now);Enter L0 
+Exit L0 
+assert(x<10) 
+E0
+clock Clock{name='x'}is set to 0
+Enter L1 
+assert(x<4) 
 
-Enter L0Exit L0L0 -> L1
-Exit L1L1 -> L2Enter L2Enter L2
-Exit L2L2 -> L3
-Exit L3L3 -> L4
+ end of test code
+
+Double x, z = timestamp(now);Enter L0 
+Exit L0 
+assert(x<10) 
+E0
+clock Clock{name='x'}is set to 0
+Enter L1 
+assert((x<4 && x-y<=0 && z-y<=0 && x-z<=0 && y-z<=0)) 
+Exit L1 
+E1
+Enter L2 
+assert(true) 
+
+ end of test code
+
+Double x, z = timestamp(now);Enter L0 
+Exit L0 
+assert(z<10) 
+E0
+clock Clock{name='x'}is set to 0
+Enter L1 
+assert(true) 
+
+ end of test code
+
+Double x, z = timestamp(now);Enter L0 
+Exit L0 
+assert(z<10) 
+E0
+clock Clock{name='x'}is set to 0
+Enter L1 
+assert((x<4 && x-y<=0 && z-y<=0 && x-z<=0 && y-z<=0)) 
+Exit L1 
+E1
+Enter L2 
+assert(true) 
+
+ end of test code
+
+Double x, z = timestamp(now);Enter L0 
+Exit L0 
+assert(z<10) 
+E0
+clock Clock{name='x'}is set to 0
+Enter L1 
+assert(true) 
+
+ end of test code
+
+Double x, z = timestamp(now);Enter L0 
+Exit L0 
+assert(z<10) 
+E0
+clock Clock{name='x'}is set to 0
+Enter L1 
+assert((x<4 && x-y<=0 && z-y<=0 && x-z<=0 && y-z<=0)) 
+Exit L1 
+E1
+Enter L2 
+assert(true) 
+
+ end of test code
+
+Double x, z = timestamp(now);Enter L0 
+Exit L0 
+assert(z<10) 
+E0
+clock Clock{name='x'}is set to 0
+Enter L1 
+assert(true) 
+
+ end of test code
+
+Double x, z = timestamp(now);Enter L0 
+Exit L0 
+assert(z<10) 
+E0
+clock Clock{name='x'}is set to 0
+Enter L1 
+assert((x<4 && x-y<=0 && z-y<=0 && x-z<=0 && y-z<=0)) 
+Exit L1 
+E1
+Enter L2 
+assert(true) 
+
+ end of test code
+
+Double x, z = timestamp(now);Enter L0 
+Exit L0 
+assert((x<10 && z<10 && z-x<=0 && x-z<=0)) 
+E0
+clock Clock{name='x'}is set to 0
+Enter L1 
+assert((x<4 && x-z<=0)) 
+
+ end of test code
+
+Double x, z = timestamp(now);Enter L0 
+Exit L0 
+assert((x<10 && z<10 && z-x<=0 && x-z<=0)) 
+E0
+clock Clock{name='x'}is set to 0
+Enter L1 
+assert((x<4 && x-y<=0 && z-y<=0 && x-z<=0 && y-z<=0)) 
+Exit L1 
+E1
+Enter L2 
+assert(x-z<=0) 
+
+ end of test code
+
+Double x, z = timestamp(now);Enter L0 
+Exit L0 
+assert((x<10 && y<10 && z<10 && y-x<=0 && z-x<=0 && x-y<=0 && z-y<=0 && x-z<=0 && y-z<=0)) 
+E0
+clock Clock{name='x'}is set to 0
+Enter L1 
+assert((x<4 && x-y<=0 && z-y<=0 && x-z<=0 && y-z<=0)) 
+
+ end of test code
+
+Double x, z = timestamp(now);Enter L0 
+Exit L0 
+assert((x<10 && y<10 && z<10 && y-x<=0 && z-x<=0 && x-y<=0 && z-y<=0 && x-z<=0 && y-z<=0)) 
+E0
+clock Clock{name='x'}is set to 0
+Enter L1 
+assert((x<4 && x-y<=0 && z-y<=0 && x-z<=0 && y-z<=0)) 
+Exit L1 
+E1
+Enter L2 
+assert((x-y<=0 && z-y<=0 && x-z<=0 && y-z<=0)) 
+
+ end of test code
+
+Double x, z = timestamp(now);Enter L0 
+Exit L0 
+assert((x<10 && z<10 && z-x<=0 && x-z<=0)) 
+E0
+clock Clock{name='x'}is set to 0
+Enter L1 
+assert((x<4 && x-z<=0)) 
+
+ end of test code
+
+Double x, z = timestamp(now);Enter L0 
+Exit L0 
+assert((x<10 && z<10 && z-x<=0 && x-z<=0)) 
+E0
+clock Clock{name='x'}is set to 0
+Enter L1 
+assert((x<4 && x-y<=0 && z-y<=0 && x-z<=0 && y-z<=0)) 
+Exit L1 
+E1
+Enter L2 
+assert(x-z<=0) 
+
+ end of test code
+
+Double x, z = timestamp(now);Enter L0 
+Exit L0 
+assert((x<10 && y<10 && z<10 && y-x<=0 && z-x<=0 && x-y<=0 && z-y<=0 && x-z<=0 && y-z<=0)) 
+E0
+clock Clock{name='x'}is set to 0
+Enter L1 
+assert((x<4 && x-y<=0 && z-y<=0 && x-z<=0 && y-z<=0)) 
+
+ end of test code
+
+Double x, z = timestamp(now);Enter L0 
+Exit L0 
+assert((x<10 && y<10 && z<10 && y-x<=0 && z-x<=0 && x-y<=0 && z-y<=0 && x-z<=0 && y-z<=0)) 
+E0
+clock Clock{name='x'}is set to 0
+Enter L1 
+assert((x<4 && x-y<=0 && z-y<=0 && x-z<=0 && y-z<=0)) 
+Exit L1 
+E1
+Enter L2 
+assert((x-y<=0 && z-y<=0 && x-z<=0 && y-z<=0)) 
+
+ end of test code
+
+Double x, z = timestamp(now);Enter L0 
+Exit L0 
+assert(x<10) 
+E0
+clock Clock{name='x'}is set to 0
+Enter L1 
+assert(x<4) 
+
+ end of test code
+
+Double x, z = timestamp(now);Enter L0 
+Exit L0 
+assert(x<10) 
+E0
+clock Clock{name='x'}is set to 0
+Enter L1 
+assert((x<4 && x-y<=0 && z-y<=0 && x-z<=0 && y-z<=0)) 
+Exit L1 
+E1
+Enter L2 
+assert(true) 
+
+ end of test code
+
+Double x, z = timestamp(now);Enter L0 
+Exit L0 
+assert((x<10 && z<10 && z-x<=0 && x-z<=0)) 
+E0
+clock Clock{name='x'}is set to 0
+Enter L1 
+assert((x<4 && x-z<=0)) 
+
+ end of test code
+
+Double x, z = timestamp(now);Enter L0 
+Exit L0 
+assert((x<10 && z<10 && z-x<=0 && x-z<=0)) 
+E0
+clock Clock{name='x'}is set to 0
+Enter L1 
+assert((x<4 && x-y<=0 && z-y<=0 && x-z<=0 && y-z<=0)) 
+Exit L1 
+E1
+Enter L2 
+assert(x-z<=0) 
+
+ end of test code
+
+Double x, z = timestamp(now);Enter L0 
+Exit L0 
+assert((x<10 && z<10 && z-x<=0 && x-z<=0)) 
+E0
+clock Clock{name='x'}is set to 0
+Enter L1 
+assert((x<4 && x-z<=0)) 
+
+ end of test code
+
+Double x, z = timestamp(now);Enter L0 
+Exit L0 
+assert((x<10 && z<10 && z-x<=0 && x-z<=0)) 
+E0
+clock Clock{name='x'}is set to 0
+Enter L1 
+assert((x<4 && x-z<=0)) 
+Exit L1 
+E1
+Enter L2 
+assert(x-z<=0) 
+
+ end of test code
+
+Double x, z = timestamp(now);Enter L0 
+Exit L0 
+assert((x<10 && z<10 && z-x<=0 && x-z<=0)) 
+E0
+clock Clock{name='x'}is set to 0
+Enter L1 
+assert((x<4 && x-z<=0)) 
+
+ end of test code
+
+Double x, z = timestamp(now);Enter L0 
+Exit L0 
+assert((x<10 && z<10 && z-x<=0 && x-z<=0)) 
+E0
+clock Clock{name='x'}is set to 0
+Enter L1 
+assert((x<4 && x-z<=0)) 
+Exit L1 
+E1
+Enter L2 
+assert(x-z<=0) 
+
+ end of test code
+
+Double x, z = timestamp(now);Enter L0 
+Exit L0 
+assert((x<10 && z<10 && z-x<=0 && x-z<=0)) 
+E0
+clock Clock{name='x'}is set to 0
+Enter L1 
+assert((x<4 && x-z<=0)) 
+
+ end of test code
+
+Double x, z = timestamp(now);Enter L0 
+Exit L0 
+assert((x<10 && z<10 && z-x<=0 && x-z<=0)) 
+E0
+clock Clock{name='x'}is set to 0
+Enter L1 
+assert((x<4 && x-z<=0)) 
+Exit L1 
+E1
+Enter L2 
+assert(x-z<=0) 
+
+ end of test code
+
+Double x, z = timestamp(now);Enter L0 
+Exit L0 
+assert(x<10) 
+E0
+clock Clock{name='x'}is set to 0
+Enter L1 
+assert(x<4) 
+
+ end of test code
+
+Double x, z = timestamp(now);Enter L0 
+Exit L0 
+assert(x<10) 
+E0
+clock Clock{name='x'}is set to 0
+Enter L1 
+assert((x<4 && x-z<=0)) 
+Exit L1 
+E1
+Enter L2 
+assert(true) 
+
+ end of test code
+
+Double x, z = timestamp(now);Enter L0 
+Exit L0 
+assert((x<10 && z<10 && z-x<=0 && x-z<=0)) 
+E0
+clock Clock{name='x'}is set to 0
+Enter L1 
+assert((x<4 && x-z<=0)) 
+
+ end of test code
+
+Double x, z = timestamp(now);Enter L0 
+Exit L0 
+assert((x<10 && z<10 && z-x<=0 && x-z<=0)) 
+E0
+clock Clock{name='x'}is set to 0
+Enter L1 
+assert((x<4 && x-z<=0)) 
+Exit L1 
+E1
+Enter L2 
+assert(x-z<=0) 
+
+ end of test code
+
+Double x, z = timestamp(now);Enter L0 
+Exit L0 
+assert((x<10 && z<10 && z-x<=0 && x-z<=0)) 
+E0
+clock Clock{name='x'}is set to 0
+Enter L1 
+assert((x<4 && x-z<=0)) 
+
+ end of test code
+
+Double x, z = timestamp(now);Enter L0 
+Exit L0 
+assert((x<10 && z<10 && z-x<=0 && x-z<=0)) 
+E0
+clock Clock{name='x'}is set to 0
+Enter L1 
+assert((x<4 && x-z<=0)) 
+Exit L1 
+E1
+Enter L2 
+assert(x-z<=0) 
+
+ end of test code
+
+Double x, z = timestamp(now);Enter L0 
+Exit L0 
+assert(x<10) 
+E0
+clock Clock{name='x'}is set to 0
+Enter L1 
+assert(x<4) 
+
+ end of test code
+
+Double x, z = timestamp(now);Enter L0 
+Exit L0 
+assert(x<10) 
+E0
+clock Clock{name='x'}is set to 0
+Enter L1 
+assert((x<4 && x-z<=0)) 
+Exit L1 
+E1
+Enter L2 
+assert(true) 
+
+ end of test code
+
+Double x, z = timestamp(now);Enter L0 
+Exit L0 
+assert((x<10 && z<10 && z-x<=0 && x-z<=0)) 
+E0
+clock Clock{name='x'}is set to 0
+Enter L1 
+assert((x<4 && x-z<=0)) 
+
+ end of test code
+
+Double x, z = timestamp(now);Enter L0 
+Exit L0 
+assert((x<10 && z<10 && z-x<=0 && x-z<=0)) 
+E0
+clock Clock{name='x'}is set to 0
+Enter L1 
+assert((x<4 && x-z<=0)) 
+Exit L1 
+E1
+Enter L2 
+assert(x-z<=0) 
+
+ end of test code
+
+Double x, z = timestamp(now);Enter L0 
+Exit L0 
+assert((x<10 && z<10 && z-x<=0 && x-z<=0)) 
+E0
+clock Clock{name='x'}is set to 0
+Enter L1 
+assert((x<4 && x-z<=0)) 
+
+ end of test code
+
+Double x, z = timestamp(now);Enter L0 
+Exit L0 
+assert((x<10 && z<10 && z-x<=0 && x-z<=0)) 
+E0
+clock Clock{name='x'}is set to 0
+Enter L1 
+assert((x<4 && x-z<=0)) 
+Exit L1 
+E1
+Enter L2 
+assert(x-z<=0) 
+
+ end of test code
+
+Double x, z = timestamp(now);Enter L0 
+Exit L0 
+assert(x<10) 
+E0
+clock Clock{name='x'}is set to 0
+Enter L1 
+assert(x<4) 
+
+ end of test code
+
+Double x, z = timestamp(now);Enter L0 
+Exit L0 
+assert(x<10) 
+E0
+clock Clock{name='x'}is set to 0
+Enter L1 
+assert((x<4 && x-z<=0)) 
+Exit L1 
+E1
+Enter L2 
+assert(true) 
+
+ end of test code
+
+Double x, z = timestamp(now);Enter L0 
+Exit L0 
+assert(z<10) 
+E0
+clock Clock{name='x'}is set to 0
+Enter L1 
+assert(true) 
+
+ end of test code
+
+Double x, z = timestamp(now);Enter L0 
+Exit L0 
+assert(z<10) 
+E0
+clock Clock{name='x'}is set to 0
+Enter L1 
+assert((x<4 && x-z<=0)) 
+Exit L1 
+E1
+Enter L2 
+assert(true) 
+
+ end of test code
 

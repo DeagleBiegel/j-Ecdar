@@ -292,8 +292,14 @@ public class JSONParser {
 
             Channel c = addChannel(jsonObject.get("sync").toString());
             if (c != null) {
-                Edge edge = new Edge(sourceLocation, targetLocation, c, isInput, guards, updatesList, jsonObject.get("status").toString());
-                edges.add(edge);
+                if (jsonObject.get("testCode") == null){
+                    Edge edge = new Edge(sourceLocation, targetLocation, c, isInput, guards, updatesList,"", jsonObject.get("status").toString());
+                    edges.add(edge);
+                }
+                else {
+                    Edge edge = new Edge(sourceLocation, targetLocation, c, isInput, guards, updatesList, jsonObject.get("testCode").toString(), jsonObject.get("status").toString());
+                    edges.add(edge);
+                }
             }
         }
         return edges;
