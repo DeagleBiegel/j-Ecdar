@@ -5,10 +5,8 @@ import logic.Transition;
 import models.*;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import parser.GuardParser;
 import parser.JSONParser;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
 import java.util.List;
 
 public class MinClockValue {
@@ -30,8 +28,8 @@ public class MinClockValue {
             path = sts1.getNextTransitions(sts1.getInitialState(), action, sts1.getClocks());
         }
 
-        //System.out.println(sts1.binaryMinClockValue(path.get(0).getTarget().getInvariant(), sts1.getClocks().get(0)));
-        assert sts1.binaryMinClockValue(path.get(0).getTarget().getInvariant(), sts1.getClocks().get(0)) == 11;
+        //System.out.println(sts1.minClockValue(path.get(0).getTarget().getInvariant(), sts1.getClocks().get(0)));
+        assert sts1.minClockValue(path.get(0).getTarget().getInvariant(), sts1.getClocks().get(0)) == 11;
         if (initialisedCdd) {
             CDD.done();
         }
@@ -45,7 +43,7 @@ public class MinClockValue {
             path = sts2.getNextTransitions(sts2.getInitialState(), action, sts2.getClocks());
         }
 
-        assert sts2.binaryMinClockValue(path.get(0).getTarget().getInvariant(), sts2.getClocks().get(0)) == 0;
+        assert sts2.minClockValue(path.get(0).getTarget().getInvariant(), sts2.getClocks().get(0)) == 0;
         if (initialisedCdd) {
             CDD.done();
         }

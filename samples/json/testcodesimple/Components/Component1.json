@@ -1,6 +1,6 @@
 {
   "name": "Component1",
-  "declarations": "clock x;",
+  "declarations": "clock x, axe;",
   "locations": [
     {
       "id": "L0",

@@ -435,7 +435,6 @@ public class SimpleTransitionSystem extends TransitionSystem{
 
         return false;
     }
-
     public boolean isStateReachableHelper(String name, String state) {
         waiting = new ArrayDeque<>();
         passed = new ArrayList<>();
@@ -470,14 +469,13 @@ public class SimpleTransitionSystem extends TransitionSystem{
         }
         return false;
     }
-
     public CDD helperConjoin(String guardString, CDD orgCDD) {
         Guard g = GuardParser.parse(guardString, getClocks(), getBVs());
         CDD cdd = orgCDD.conjunction(new CDD(g));
 
         return cdd;
     }
-    public int binaryMinClockValue(CDD orgCDD, Clock clock){
+    public int minClockValue(CDD orgCDD, Clock clock){
 
         String guardTemplate = clock.getOriginalName() + " == ";
         int min = 0;
@@ -491,7 +489,6 @@ public class SimpleTransitionSystem extends TransitionSystem{
         return min;
 
     }
-
     public List<Transition> shortestTraceHelper(String destination) {
         Set<Channel> actions = getActions();
         waiting = new ArrayDeque<>();
@@ -553,7 +550,6 @@ public class SimpleTransitionSystem extends TransitionSystem{
         Collections.reverse(shortestTrace);
         return shortestTrace;
     }
-
     public List<Transition> fastestTraceHelper(String destination) throws IOException {
         Set<Channel> actions = getActions();
         HashMap<String, List<Transition>> transitionHashMap = new HashMap<>();
@@ -578,7 +574,7 @@ public class SimpleTransitionSystem extends TransitionSystem{
                     int finalMinClockValue = minClockValue;
                     newTransitions = getNextTransitions(currState, action).stream().
                             filter(s -> !passedContainsState(s.getTarget()) && !waitingContainsState(s.getTarget())
-                                    && binaryMinClockValue(s.getTarget().getInvariant(),getClocks().get(getClocks().size()-1)) < finalMinClockValue).collect(Collectors.toList());
+                                    && minClockValue(s.getTarget().getInvariant(),getClocks().get(getClocks().size()-1)) < finalMinClockValue).collect(Collectors.toList());
                 }
                 else {
                     newTransitions = getNextTransitions(currState, action).stream().
@@ -591,7 +587,7 @@ public class SimpleTransitionSystem extends TransitionSystem{
                 for (Transition t : newTransitions) {
                     if (t.getTarget().getLocation().getName().equals(destination)) {
                         destinationFound = true;
-                        minClockValue = binaryMinClockValue(t.getTarget().getInvariant(),getClocks().get(getClocks().size()-1));
+                        minClockValue = minClockValue(t.getTarget().getInvariant(),getClocks().get(getClocks().size()-1));
 
                     }
 
@@ -607,10 +603,10 @@ public class SimpleTransitionSystem extends TransitionSystem{
 
         //find the destination state with the smallest global clock value
         if (transitionHashMap.containsKey(destination)) {
-            int min = binaryMinClockValue(transitionHashMap.get(destination).get(0).getTarget().getInvariant(), getClocks().get(getClocks().size() - 1));
+            int min = minClockValue(transitionHashMap.get(destination).get(0).getTarget().getInvariant(), getClocks().get(getClocks().size() - 1));
             Transition fastestTrans = transitionHashMap.get(destination).get(0);
             for (Transition t : transitionHashMap.get(destination)) {
-                int temp = binaryMinClockValue(t.getTarget().getInvariant(), getClocks().get(getClocks().size() - 1));
+                int temp = minClockValue(t.getTarget().getInvariant(), getClocks().get(getClocks().size() - 1));
                 if (temp < min) {
                     min = temp;
                     fastestTrans = t;
@@ -644,7 +640,6 @@ public class SimpleTransitionSystem extends TransitionSystem{
 
         return fastestTrace;
     }
-
     public List<Transition> fastestTraceToStateHelper(String destination, String state) throws IOException {
         Set<Channel> actions = getActions();
         HashMap<String, List<Transition>> transitionHashMap = new HashMap<>();
@@ -670,7 +665,7 @@ public class SimpleTransitionSystem extends TransitionSystem{
                     int finalMinClockValue = minClockValue;
                     newTransitions = getNextTransitions(currState, action).stream().
                             filter(s -> !passedContainsState(s.getTarget()) && !waitingContainsState(s.getTarget())
-                                    && binaryMinClockValue(s.getTarget().getInvariant(),getClocks().get(getClocks().size()-1)) < finalMinClockValue).collect(Collectors.toList());
+                                    && minClockValue(s.getTarget().getInvariant(),getClocks().get(getClocks().size()-1)) < finalMinClockValue).collect(Collectors.toList());
                 }
                 else {
                     newTransitions = getNextTransitions(currState, action).stream().
@@ -683,7 +678,7 @@ public class SimpleTransitionSystem extends TransitionSystem{
                 for (Transition t : newTransitions) {
                     if (t.getTarget().getLocation().getName().equals(destination) && helperConjoin(state,t.getTarget().getInvariant()).isNotFalse() && !destinationFound) {
                         destinationFound = true;
-                        minClockValue = binaryMinClockValue(t.getTarget().getInvariant(),getClocks().get(getClocks().size()-1));
+                        minClockValue = minClockValue(t.getTarget().getInvariant(),getClocks().get(getClocks().size()-1));
                     }
 
                     if (!transitionHashMap.containsKey(t.getTarget().getLocation().getName())) {
@@ -696,11 +691,11 @@ public class SimpleTransitionSystem extends TransitionSystem{
             }
         }
         //find the destination state with the smallest global clock value
-        //int min = binaryMinClockValue(transitionHashMap.get(destination).get(0).getTarget().getInvariant(), getClocks().get(getClocks().size()-1));
+        //int min = minClockValue(transitionHashMap.get(destination).get(0).getTarget().getInvariant(), getClocks().get(getClocks().size()-1));
         int min = Integer.MAX_VALUE;
         Transition fastestTrans = null;
         for (Transition t : transitionHashMap.get(destination)){
-            int temp = binaryMinClockValue(t.getTarget().getInvariant(),getClocks().get(getClocks().size()-1));
+            int temp = minClockValue(t.getTarget().getInvariant(),getClocks().get(getClocks().size()-1));
             CDD cdd = helperConjoin(state, t.getTarget().getInvariant());
 
             if (temp < min && cdd.isNotFalse()) {
@@ -758,7 +753,7 @@ public class SimpleTransitionSystem extends TransitionSystem{
             else {
                 //case: INPUT edge -> if the previous transition has exceeded the minimum clock value, otherwise we use min value
                 for (Clock c : getClocks()) {
-                    int temp = binaryMinClockValue(t.getTarget().getInvariant(), c);
+                    int temp = minClockValue(t.getTarget().getInvariant(), c);
                     if (clockValues.get(c) < temp) {
                         clockValues.put(c,temp);
                     }
@@ -841,7 +836,7 @@ public class SimpleTransitionSystem extends TransitionSystem{
     //Testcode generation stuff
     private void generateTestCode(List<Transition> trace) {
         // Start the test case by creating a time-stamp, and setting each clock to it.
-        StringBuilder sb = new StringBuilder("Double x, z = timestamp(now);");
+        StringBuilder sb = new StringBuilder("Start point for all clocks\n");
         HashMap<String, Boolean> booleans = new HashMap<>();
 
         //initialise hashmap of boolean variables
@@ -853,10 +848,9 @@ public class SimpleTransitionSystem extends TransitionSystem{
         sb.append(parseTestCode(new StringBuilder(trace.get(0).getSource().getLocation().getEnterTestCode()), booleans, trace.get(0).getSource().getInvariant()));
 
         for (Transition tran : trace) {
-            //sb.append(parseTestCode(new StringBuilder(tran.getSource().getLocation().getEnterTestCode()), booleans, tran.getSource().getLocationInvariant()));
+            sb.append("Clock Snapshot for using in assert before exit testcode\n");
             sb.append(parseTestCode(new StringBuilder(tran.getSource().getLocation().getExitTestCode()), booleans, tran.getSource().getInvariant()));
             sb.append(parseTestCode(new StringBuilder(tran.getEdges().get(0).getTestCode()), booleans, tran.getEdges().get(0).getGuardCDD()));
-
 
             //check the transition for updates
             // Clock updates are being considered by adding a "clock reset" to the test code
@@ -867,7 +861,9 @@ public class SimpleTransitionSystem extends TransitionSystem{
                         booleans.put(((BoolUpdate)update).getBV().getUniqueName(), ((BoolUpdate)update).getValue());
                     }
                     else if (update instanceof ClockUpdate) {
-                        sb.append(new StringBuilder("clock " + ((ClockUpdate) update).getClock().toString() + "is set to " + ((ClockUpdate) update).getValue()) + "\n");
+                        //how to approach resets that are not 0?
+                        sb.append("Clock start-point update\n");
+                        //sb.append(new StringBuilder("clock " + ((ClockUpdate) update).getClock().toString() + "is set to " + ((ClockUpdate) update).getValue()) + "\n");
                     }
                 }
             }
@@ -875,7 +871,7 @@ public class SimpleTransitionSystem extends TransitionSystem{
             sb.append(parseTestCode(new StringBuilder(tran.getTarget().getLocation().getEnterTestCode()), booleans, tran.getTarget().getInvariant()));
 
         }
-        sb.append("\n end of test code\n");
+        sb.append("\nend of test code\n");
 
         try {
             //PrintWriter printerWriter = new PrintWriter("testcode.txt");
@@ -891,7 +887,7 @@ public class SimpleTransitionSystem extends TransitionSystem{
     }
 
     private StringBuilder parseTestCode(StringBuilder sb, HashMap<String, Boolean> booleans, CDD cdd) {
-        String variableValue = "";
+        String testCode = "";
 
         //If checks if there is a variable to be "replaced", denoted by $
         if (sb.indexOf("$") != -1) {
@@ -906,50 +902,47 @@ public class SimpleTransitionSystem extends TransitionSystem{
                 String key = sb.subSequence(startIndex+1, endIndex).toString();
 
                 if (booleans.containsKey(key)) {
-                    variableValue = booleans.get(key).toString();
+                    testCode = booleans.get(key).toString();
                 }
 
                 for (Clock c : maxBounds.keySet()) {
                     if (sb.subSequence(startIndex+1, endIndex).equals(c.getOriginalName())) {
-                        List<Clock> clocks1 = new ArrayList<>();
-                        //System.out.println(cdd.getGuard());
-                        //clocks1.add(c);
-                        clocks1.add(getClocks().get(getClocks().size()-1));
-                        variableValue = cdd.getGuard(clocks1).toString();
-                        System.out.println(variableValue);
-
+                        testCode = filterCDD(cdd.toString(), sb.subSequence(startIndex+1, endIndex).toString()).toString();
                     }
                 }
 
-            sb.replace(startIndex, endIndex, variableValue);
+            sb.replace(startIndex, endIndex, testCode);
             return parseTestCode(sb, booleans, cdd);
         }
         return sb;
     }
 
-    //if there is an update one should simply express it in the test code
-    private StringBuilder replaceClockVarUpdate (StringBuilder sb, Clock x, Integer val) {
-        String clockValue = "";
+    private StringBuilder filterCDD (String s, String name) {
+        StringBuilder sb = new StringBuilder();
+        s  = s.replace("(", "").replace(")", "");
+        String[] parts = s.split("&&");
+        List filteredParts = Arrays.stream(parts).filter(x -> containsClock(x, name) || containsClock(x, "z")).collect(Collectors.toList());
 
-        if (sb.indexOf("$") != -1) {
-            int startIndex = sb.indexOf("$");
-            int endIndex = 0;
-
-            Pattern pattern = Pattern.compile("\\$[a-z,A-Z,0-9]+");
-            Matcher m = pattern.matcher(sb.toString());
-            while (m.find()){
-                endIndex = m.end();
+        for (int i = 0; i < filteredParts.size(); i++) {
+            if (i == filteredParts.size()-1) {
+                sb.append(filteredParts.get(i).toString());
             }
-
-            if (sb.subSequence(startIndex+1, endIndex).equals(x.getOriginalName())) {
-                clockValue = String.valueOf(val);
+            else {
+                sb.append(filteredParts.get(i)).append("&&");
             }
-
-            sb.replace(startIndex, endIndex, clockValue);
-            return replaceClockVarUpdate(sb, x, val);
         }
+
         return sb;
     }
 
+    private boolean containsClock(String s, String name) {
+    Pattern pattern = Pattern.compile("([^A-Za-z0-9_]*" + name + "[<>-]+)");
+        Matcher m = pattern.matcher(s);
+
+        while (m.find()){
+            return true;
+        }
+        return false;
+    }
 
 }
