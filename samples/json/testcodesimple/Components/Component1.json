@@ -1,6 +1,6 @@
 {
   "name": "Component1",
-  "declarations": "clock x, axe;",
+  "declarations": "clock x;",
   "locations": [
     {
       "id": "L0",
@@ -16,7 +16,7 @@
       "invariantX": 30.0,
       "invariantY": 10.0,
       "enterTestCode": "Enter L0 \n",
-      "exitTestCode": "Exit L0 \nassert($x) \n"
+      "exitTestCode": "Exit L0 \n"
     },
     {
       "id": "L1",
@@ -31,7 +31,7 @@
       "nicknameY": -10.0,
       "invariantX": 0.0,
       "invariantY": 40.0,
-      "enterTestCode": "Enter L1 \nassert($x) \n",
+      "enterTestCode": "Enter L1 \n",
       "exitTestCode": "Exit L1 \n"
     },
     {
@@ -47,7 +47,7 @@
       "nicknameY": -10.0,
       "invariantX": 30.0,
       "invariantY": 10.0,
-      "enterTestCode": "Enter L2 \nassert($x) \n",
+      "enterTestCode": "Enter L2 \n",
       "exitTestCode": "Exit L2 \n"
     }
   ],
@@ -63,7 +63,7 @@
       "update": "x \u003d 0",
       "sync": "in?",
       "isLocked": false,
-      "testCode": "E0\n",
+      "testCode": "E0 in?\n",
       "nails": [
         {
           "x": 100.0,
@@ -92,7 +92,7 @@
       "update": "",
       "sync": "out!",
       "isLocked": false,
-      "testCode": "E1\n",
+      "testCode": "E1 out!\n",
       "nails": [
         {
           "x": 270.0,

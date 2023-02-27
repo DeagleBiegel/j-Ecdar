@@ -1,6 +1,6 @@
 {
   "name": "Component1",
-  "declarations": "clock c, g, e, d, f, beta; broadcast chan open;\nbroadcast chan close;\nbroadcast chan unlock;\nbroadcast chan lock;\nbroadcast chan armedOn;\nbroadcast chan armedOff;\nbroadcast chan soundOn;\nbroadcast chan soundOff;\nbroadcast chan flashOn;\nbroadcast chan flashOff;",
+  "declarations": "clock c, g, e, d, f; broadcast chan open;\nbroadcast chan close;\nbroadcast chan unlock;\nbroadcast chan lock;\nbroadcast chan armedOn;\nbroadcast chan armedOff;\nbroadcast chan soundOn;\nbroadcast chan soundOff;\nbroadcast chan flashOn;\nbroadcast chan flashOff;",
   "locations": [
     {
       "id": "L0",

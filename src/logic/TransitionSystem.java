@@ -5,9 +5,8 @@ import models.*;
 import java.io.IOException;
 import java.util.*;
 import java.util.stream.Collectors;
-import static java.util.Comparator.comparingInt;
-import static java.util.stream.Collectors.collectingAndThen;
-import static java.util.stream.Collectors.toCollection;
+
+
 
 // parent class for all TS's, so we can use it with regular TS's, composed TS's etc.
 public abstract class TransitionSystem {
@@ -339,24 +338,51 @@ public abstract class TransitionSystem {
         return fastestTrace;
     }
 
-    public List<Transition> allFastestPaths2() throws IOException {
+    public List<Transition> explore() throws IOException {
         boolean initialisedCdd = CDD.tryInit(getClocks(), getBVs());
 
         List<SimpleTransitionSystem> systems = getSystems();
         List<Transition> fastestTrace = new ArrayList<>();
 
+
+        /*
         for (SimpleTransitionSystem ts : systems) {
             for (Location loc : getAutomaton().getLocations()) {
                 List<Edge> edges = getAutomaton().getEdgesFromLocation(loc);
                 for (Edge e : edges) {
-                    if (!e.isInput()) {
-                        String s = e.getSource().getName() + e.getTarget().getName() + "==true";
-                        List<Transition> trace = ts.fastestTraceToStateHelper(e.getTarget().getName(), s);
+                    if (!e.getSource().getName().equals(e.getTarget().getName())) {
+                        String s = e.getSource().getName()+ e.getTarget().getName() + "== true";
+                        List<Transition> ft = ts.fastestTraceToStateHelper(e.getTarget().getName(), s);
+                        //List<Transition> st = ts.slowestTraceToStateHelper(e.getTarget().getName(), s);
                     }
                 }
             }
 
         }
+        */
+        /*
+        for (SimpleTransitionSystem ts : systems) {
+            for (Transition t1 :   ts.fastestTraceToStateHelper("L7", "z >= 0")) {
+                System.out.println(t1.getEdges().get(0));
+                System.out.println(t1.getTarget().getInvariant());
+                System.out.println(t1.getGuardCDD());
+                System.out.println(ts.maxClockValue(t1.getGuardCDD(), ts.getClocks().get(getClocks().size()-1)));
+            }
+        }*/
+        for (SimpleTransitionSystem ts : systems) {
+            HashMap<String, List<Transition>> temp = ts.exploreHelper();
+            List<List<Transition>> traces = new ArrayList<>();
+            for (String key : temp.keySet()) {
+                for (Transition trans : temp.get(key)) {
+                     traces.add(ts.createTrace(trans, temp));
+                }
+            }
+
+            traces = traces.stream().sorted(Comparator.comparingInt(List::size)).collect(Collectors.toList());
+
+            //sort 
+        }
+
 
         if (initialisedCdd) {
             CDD.done();
