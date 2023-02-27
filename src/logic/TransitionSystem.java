@@ -7,7 +7,6 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 
-
 // parent class for all TS's, so we can use it with regular TS's, composed TS's etc.
 public abstract class TransitionSystem {
     final UniqueNamedContainer<Clock> clocks;
@@ -380,7 +379,11 @@ public abstract class TransitionSystem {
 
             traces = traces.stream().sorted(Comparator.comparingInt(List::size)).collect(Collectors.toList());
 
-            //sort 
+            List<List<Transition>> finalTraces = traces;
+            System.out.println(traces.size());
+            traces = traces.stream().filter(s -> isPrefix(s, finalTraces)).collect(Collectors.toList());
+
+            System.out.println(traces.size());
         }
 
 
@@ -389,6 +392,26 @@ public abstract class TransitionSystem {
         }
 
         return fastestTrace;
+    }
+
+    public boolean isPrefix(List<Transition> trace, List<List<Transition>> allTraces) {
+        StringBuilder originalTrace = new StringBuilder();
+
+        for (Transition transition : trace) {
+            originalTrace.append(transition.getGuardCDD());
+        }
+
+        for (List<Transition> t : allTraces) {
+            StringBuilder newTrace = new StringBuilder();
+            for (Transition t1 : t) {
+                newTrace.append(t1.getGuardCDD());
+            }
+            //if original trace is in newTrace then bam.
+            if (newTrace.indexOf(originalTrace.toString()) != -1 && !trace.equals(t)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public boolean isStateReachable(String name, String state) {
