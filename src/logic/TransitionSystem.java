@@ -342,35 +342,10 @@ public abstract class TransitionSystem {
 
         List<SimpleTransitionSystem> systems = getSystems();
         List<Transition> fastestTrace = new ArrayList<>();
-
-
-        /*
-        for (SimpleTransitionSystem ts : systems) {
-            for (Location loc : getAutomaton().getLocations()) {
-                List<Edge> edges = getAutomaton().getEdgesFromLocation(loc);
-                for (Edge e : edges) {
-                    if (!e.getSource().getName().equals(e.getTarget().getName())) {
-                        String s = e.getSource().getName()+ e.getTarget().getName() + "== true";
-                        List<Transition> ft = ts.fastestTraceToStateHelper(e.getTarget().getName(), s);
-                        //List<Transition> st = ts.slowestTraceToStateHelper(e.getTarget().getName(), s);
-                    }
-                }
-            }
-
-        }
-        */
-        /*
-        for (SimpleTransitionSystem ts : systems) {
-            for (Transition t1 :   ts.fastestTraceToStateHelper("L7", "z >= 0")) {
-                System.out.println(t1.getEdges().get(0));
-                System.out.println(t1.getTarget().getInvariant());
-                System.out.println(t1.getGuardCDD());
-                System.out.println(ts.maxClockValue(t1.getGuardCDD(), ts.getClocks().get(getClocks().size()-1)));
-            }
-        }*/
         for (SimpleTransitionSystem ts : systems) {
             HashMap<String, List<Transition>> temp = ts.exploreHelper();
             List<List<Transition>> traces = new ArrayList<>();
+
             for (String key : temp.keySet()) {
                 for (Transition trans : temp.get(key)) {
                      traces.add(ts.createTrace(trans, temp));
@@ -380,10 +355,27 @@ public abstract class TransitionSystem {
             traces = traces.stream().sorted(Comparator.comparingInt(List::size)).collect(Collectors.toList());
 
             List<List<Transition>> finalTraces = traces;
+
             System.out.println(traces.size());
+
             traces = traces.stream().filter(s -> isPrefix(s, finalTraces)).collect(Collectors.toList());
 
             System.out.println(traces.size());
+
+            /*
+            for (List<Transition> tra : traces) {
+                System.out.println("---------\nTransitions:" + tra.size() + "\nLast location:" + tra.get(tra.size()-1).getTarget().getLocation().getName() + "\nglobal clock value at last transition:" + ts.minClockValue(tra.get(tra.size()-1).getTarget().getInvariant(), getClocks().get(getClocks().size()-1)));
+            }
+             */
+
+            for (List<Transition> trace : traces) {
+                System.out.println("---------\nTransitions:" + trace.size() + "\nLast location:" + trace.get(trace.size()-1).getTarget().getLocation().getName() + "\nglobal clock value at last transition:" + ts.minClockValue(trace.get(trace.size()-1).getGuardCDD(), getClocks().get(getClocks().size()-1)));
+                for (Transition t : trace) {
+                    System.out.println(t.getSource().getLocation().getName() + " " + t.getTarget().getLocation().getName());
+                    System.out.println(t.getGuardCDD());
+                    System.out.println(ts.minClockValue(t.getGuardCDD(), getClocks().get(getClocks().size()-1)));
+                }
+            }
         }
 
 
@@ -408,10 +400,10 @@ public abstract class TransitionSystem {
             }
             //if original trace is in newTrace then bam.
             if (newTrace.indexOf(originalTrace.toString()) != -1 && !trace.equals(t)) {
-                return true;
+                return false;
             }
         }
-        return false;
+        return true;
     }
 
     public boolean isStateReachable(String name, String state) {

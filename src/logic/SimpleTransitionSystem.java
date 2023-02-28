@@ -63,6 +63,7 @@ public class SimpleTransitionSystem extends TransitionSystem{
 
         res.putAll(automaton.getMaxBoundsForAllClocks());
         //res.replaceAll(e -> e==0 ? 1 : e);
+        res.put(getClocks().get(getClocks().size()-1), Integer.MAX_VALUE);
         maxBounds = res;
     }
     public HashMap<Clock,Integer> getMaxBounds(){
@@ -1050,7 +1051,7 @@ public class SimpleTransitionSystem extends TransitionSystem{
             State currState = new State(waiting.pop());
             State toStore = new State(currState);
 
-            toStore.extrapolateMaxBounds(this.getMaxBounds(),clocks.getItems());
+            toStore.extrapolateMaxBounds(this.getMaxBounds(),getClocks());
             passed.add(toStore);
 
             for (Channel action : actions) {
@@ -1059,11 +1060,27 @@ public class SimpleTransitionSystem extends TransitionSystem{
                 newTransitions = getNextTransitions(currState, action).stream().
                         filter(s -> !passedContainsState(s.getTarget()) && !waitingContainsState(s.getTarget())).collect(Collectors.toList());
 
+                for (Transition t : newTransitions) {
+                    System.out.println("Before: " + t.getTarget().getInvariant());
+                }
                 newTransitions.forEach(e->e.getTarget().extrapolateMaxBounds(getMaxBounds(),clocks.getItems()));
+
+                for (Transition t : newTransitions) {
+
+                    System.out.println("After: " + t.getTarget().getInvariant());
+                }
 
                 List<State> toAdd = newTransitions.stream().map(Transition::getTarget).collect(Collectors.toList());
 
                 for (Transition t : newTransitions) {
+
+                    if (minClockValue(t.getSource().getInvariant(), getClocks().get(getClocks().size()-1)) > minClockValue(t.getTarget().getInvariant(), getClocks().get(getClocks().size()-1))) {
+                        System.out.println("---");
+                        System.out.println(t.getSource().getInvariant());
+                        System.out.println(t.getEdges().get(0));
+                        System.out.println(t.getGuardCDD());
+                        System.out.println(t.getTarget().getInvariant());
+                    }
 
                     if (!transitionHashMap.containsKey(t.getTarget().getLocation().getName())) {
                         transitionHashMap.put(t.getTarget().getLocation().getName(), new ArrayList<>());
@@ -1130,16 +1147,15 @@ public class SimpleTransitionSystem extends TransitionSystem{
         while (true) {
             if (transitionHashMap.containsKey(trans.getSource().getLocation().getName())) {
                 for (Transition t : transitionHashMap.get(trans.getSource().getLocation().getName())) {
-                    if (t.getTarget().toString().equals(trans.getSource().toString())) {
+                    if (t.getTarget().getInvariant().toString().equals(trans.getSource().getInvariant().toString())) {
                         trans = t;
                         trace.add(trans);
                     }
                 }
-                if (trans.getSource().getLocation().getName().equals(getInitialLocation().getName())) {
-                    if (trans.getSource().toString().equals(getInitialState().toString())) {
-                        break;
-                    }
+                if (trans.getSource().toString().equals(getInitialState().toString())) {
+                    break;
                 }
+
 
             }
             else {

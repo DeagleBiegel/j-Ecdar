@@ -21,8 +21,8 @@ public class Playground {
 
 
         for (var a : automaton) {
-            Clock z = new Clock("z", a.getName());
-            a.getClocks().add(z);
+            //lock z = new Clock("globalClock", a.getName());
+            //a.getClocks().add(z);
 
             /*
             for (Location loc : a.getLocations()) {

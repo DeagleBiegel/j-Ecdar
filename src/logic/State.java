@@ -63,6 +63,7 @@ public class State {
     public void extrapolateMaxBounds(HashMap<Clock,Integer> maxBounds, List<Clock> relevantClocks){
         if (invarCDD.isTrue())
             return;
+
         CDD bcddLeftToAnalyse = new CDD(invarCDD.getPointer());
         CDD resCDD = CDD.cddFalse();
 
