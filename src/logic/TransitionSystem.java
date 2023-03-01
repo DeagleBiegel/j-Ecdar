@@ -343,7 +343,9 @@ public abstract class TransitionSystem {
         List<SimpleTransitionSystem> systems = getSystems();
         List<Transition> fastestTrace = new ArrayList<>();
         for (SimpleTransitionSystem ts : systems) {
+
             HashMap<String, List<Transition>> temp = ts.exploreHelper();
+
             List<List<Transition>> traces = new ArrayList<>();
 
             for (String key : temp.keySet()) {
@@ -353,30 +355,15 @@ public abstract class TransitionSystem {
             }
 
             traces = traces.stream().sorted(Comparator.comparingInt(List::size)).collect(Collectors.toList());
-
+            System.out.println(traces.size());
             List<List<Transition>> finalTraces = traces;
 
-            System.out.println(traces.size());
-
             traces = traces.stream().filter(s -> isPrefix(s, finalTraces)).collect(Collectors.toList());
-
             System.out.println(traces.size());
 
-            /*
-            for (List<Transition> tra : traces) {
-                System.out.println("---------\nTransitions:" + tra.size() + "\nLast location:" + tra.get(tra.size()-1).getTarget().getLocation().getName() + "\nglobal clock value at last transition:" + ts.minClockValue(tra.get(tra.size()-1).getTarget().getInvariant(), getClocks().get(getClocks().size()-1)));
-            }
-             */
 
-            for (List<Transition> trace : traces) {
-                System.out.println("---------\nTransitions:" + trace.size() + "\nLast location:" + trace.get(trace.size()-1).getTarget().getLocation().getName() + "\nglobal clock value at last transition:" + ts.minClockValue(trace.get(trace.size()-1).getGuardCDD(), getClocks().get(getClocks().size()-1)));
-                for (Transition t : trace) {
-                    System.out.println(t.getSource().getLocation().getName() + " " + t.getTarget().getLocation().getName());
-                    System.out.println(t.getGuardCDD());
-                    System.out.println(ts.minClockValue(t.getGuardCDD(), getClocks().get(getClocks().size()-1)));
-                }
-            }
         }
+
 
 
         if (initialisedCdd) {
@@ -387,24 +374,43 @@ public abstract class TransitionSystem {
     }
 
     public boolean isPrefix(List<Transition> trace, List<List<Transition>> allTraces) {
-        StringBuilder originalTrace = new StringBuilder();
-
+        String originalTrace = "";
         for (Transition transition : trace) {
-            originalTrace.append(transition.getGuardCDD());
+            originalTrace += transition.getGuardCDD();
         }
 
         for (List<Transition> t : allTraces) {
-            StringBuilder newTrace = new StringBuilder();
+            String newTrace = "";
             for (Transition t1 : t) {
-                newTrace.append(t1.getGuardCDD());
+                newTrace += t1.getGuardCDD();
             }
             //if original trace is in newTrace then bam.
-            if (newTrace.indexOf(originalTrace.toString()) != -1 && !trace.equals(t)) {
+            if (newTrace.contains(originalTrace) && !trace.equals(t)) {
                 return false;
             }
         }
         return true;
     }
+
+    public boolean isSame(List<Transition> trace, List<List<Transition>> allTraces) {
+        String originalTrace = "";
+        for (Transition transition : trace) {
+            originalTrace += transition.getSource().getLocation().getName() + transition.getTarget().getLocation().getName();
+        }
+
+        for (List<Transition> t : allTraces) {
+            String newTrace = "";
+            for (Transition t1 : t) {
+                newTrace += t1.getSource().getLocation().getName() + t1.getTarget().getLocation().getName();
+            }
+            //if original trace is in newTrace then bam.
+            if (newTrace.equals(originalTrace) && !trace.equals(t)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
 
     public boolean isStateReachable(String name, String state) {
         boolean initialisedCdd = CDD.tryInit(getClocks(), getBVs());

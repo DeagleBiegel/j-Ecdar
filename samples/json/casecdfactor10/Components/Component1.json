@@ -368,14 +368,14 @@
       "nails": [
         {
           "x": 540.0,
-          "y": 660.0,
+          "y": 670.0,
           "propertyType": "GUARD",
           "propertyX": 10.0,
           "propertyY": 0.0
         },
         {
-          "x": 590.0,
-          "y": 660.0,
+          "x": 580.0,
+          "y": 670.0,
           "propertyType": "SYNCHRONIZATION",
           "propertyX": 10.0,
           "propertyY": 0.0
@@ -691,14 +691,21 @@
       "status": "INPUT",
       "select": "",
       "guard": "",
-      "update": "",
+      "update": "g \u003d 0",
       "sync": "unlock",
       "isLocked": false,
       "nails": [
         {
-          "x": 480.0,
-          "y": 110.0,
+          "x": 520.0,
+          "y": 100.0,
           "propertyType": "SYNCHRONIZATION",
+          "propertyX": 10.0,
+          "propertyY": 0.0
+        },
+        {
+          "x": 380.0,
+          "y": 100.0,
+          "propertyType": "UPDATE",
           "propertyX": 10.0,
           "propertyY": 0.0
         }
@@ -839,7 +846,7 @@
     }
   ],
   "description": "",
-  "x": 174.0,
+  "x": 0.0,
   "y": 0.0,
   "width": 1000.0,
   "height": 960.0,

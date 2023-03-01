@@ -21,22 +21,8 @@ public class Playground {
 
 
         for (var a : automaton) {
-            //lock z = new Clock("globalClock", a.getName());
-            //a.getClocks().add(z);
-
-            /*
-            for (Location loc : a.getLocations()) {
-                List<Edge> edges = a.getEdgesFromLocation(loc);
-                for (Edge e : edges) {
-                    if (!e.getSource().getName().equals(e.getTarget().getName())) {
-                        BoolVar bv = new BoolVar(e.getSource().getName() + e.getTarget().getName(), a.getName(), false );
-                        a.getBVs().add(bv);
-                        Update update = new BoolUpdate(bv,true);
-                        e.addToUpdates(update);
-                    }
-                }
-            }
-            */
+            Clock z = new Clock("globalClock", a.getName());
+            a.getClocks().add(z);
 
             SimpleTransitionSystem STS = new SimpleTransitionSystem(a);
 
