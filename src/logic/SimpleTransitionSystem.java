@@ -839,6 +839,7 @@ public class SimpleTransitionSystem extends TransitionSystem{
     public void generateTestCode(List<Transition> trace) {
         // Start the test case by declaring and initialising all clocks
         StringBuilder sb = new StringBuilder("Start point for all clocks\n");
+        sb.append(testCodeInitClocks());
         HashMap<String, Boolean> booleans = new HashMap<>();
 
         //initialise hashmap of boolean variables
@@ -851,7 +852,7 @@ public class SimpleTransitionSystem extends TransitionSystem{
 
         for (Transition tran : trace) {
             sb.append(parseTestCode(new StringBuilder(tran.getSource().getLocation().getExitTestCode()), booleans, tran.getSource().getInvariant()));
-            sb.append("assert clock values here with getGuardCDD");
+
             sb.append(parseTestCode(new StringBuilder(tran.getEdges().get(0).getTestCode()), booleans, tran.getEdges().get(0).getGuardCDD()));
 
             //check the transition for updates
@@ -864,7 +865,7 @@ public class SimpleTransitionSystem extends TransitionSystem{
                     }
                     else if (update instanceof ClockUpdate) {
                         //how to approach resets that are not 0?
-                        sb.append("Update start-point for clock\n");
+                        sb.append(testCodeUpdateClock(((ClockUpdate) update).getClock(), ((ClockUpdate) update).getValue()));
                         //sb.append(new StringBuilder("clock " + ((ClockUpdate) update).getClock().toString() + "is set to " + ((ClockUpdate) update).getValue()) + "\n");
                     }
                 }
@@ -886,6 +887,27 @@ public class SimpleTransitionSystem extends TransitionSystem{
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private String testCodeInitClocks() {
+        String s = "Double timeStamp = time.now();\n";
+        for (Clock c : getClocks()) {
+            s += "Clock " + c.getOriginalName() + " = new Clock(timeStamp);\n";
+        }
+
+        return s;
+    }
+
+    private String testCodeUpdateClock(Clock clock, Integer value) {
+        String s = "";
+        if (value == 0) {
+            s += clock.getOriginalName() + ".time = time.now();\n";
+        }
+        else {
+            s +=  s += clock.getOriginalName() + ".time = time.now() -" + value + ";\n";
+        }
+
+        return s;
     }
 
     private StringBuilder parseTestCode(StringBuilder sb, HashMap<String, Boolean> booleans, CDD cdd) {
