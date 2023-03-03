@@ -355,16 +355,26 @@ public abstract class TransitionSystem {
             }
 
             traces = traces.stream().sorted(Comparator.comparingInt(List::size)).collect(Collectors.toList());
-            System.out.println(traces.size());
             List<List<Transition>> finalTraces = traces;
-
             traces = traces.stream().filter(s -> isPrefix(s, finalTraces)).collect(Collectors.toList());
-            System.out.println(traces.size());
+
+
+            for (List<Transition> trace : traces) {
+                if (trace.get(trace.size()-1).getEdges().get(0).getStatus().equals("INPUT")) {
+                    trace = ts.expandTrace(trace);
+                }
+            }
+
+            for (List<Transition> trace : traces) {
+
+                for (Transition t : trace) {
+                    System.out.print(trace.get(0).getSource().getLocation().getName() + "->" +t.getTarget().getLocation().getName());
+                }
+                System.out.println();
+            }
 
 
         }
-
-
 
         if (initialisedCdd) {
             CDD.done();
@@ -376,16 +386,16 @@ public abstract class TransitionSystem {
     public boolean isPrefix(List<Transition> trace, List<List<Transition>> allTraces) {
         String originalTrace = "";
         for (Transition transition : trace) {
-            originalTrace += transition.getGuardCDD();
+            originalTrace += transition.getSource().getLocation().getName() + transition.getTarget().getLocation().getName();
         }
 
         for (List<Transition> t : allTraces) {
             String newTrace = "";
             for (Transition t1 : t) {
-                newTrace += t1.getGuardCDD();
+                newTrace += t1.getSource().getLocation().getName() + t1.getTarget().getLocation().getName();
             }
             //if original trace is in newTrace then bam.
-            if (newTrace.contains(originalTrace) && !trace.equals(t)) {
+            if (newTrace.contains(originalTrace) && !newTrace.equals(originalTrace)) {
                 return false;
             }
         }

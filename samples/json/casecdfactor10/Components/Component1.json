@@ -1,6 +1,6 @@
 {
   "name": "Component1",
-  "declarations": "clock c, g, e, d, f; broadcast chan open;\nbroadcast chan close;\nbroadcast chan unlock;\nbroadcast chan lock;\nbroadcast chan armedOn;\nbroadcast chan armedOff;\nbroadcast chan soundOn;\nbroadcast chan soundOff;\nbroadcast chan flashOn;\nbroadcast chan flashOff;",
+  "declarations": "clock c, d; broadcast chan open;\nbroadcast chan close;\nbroadcast chan unlock;\nbroadcast chan lock;\nbroadcast chan armedOn;\nbroadcast chan armedOff;\nbroadcast chan soundOn;\nbroadcast chan soundOff;\nbroadcast chan flashOn;\nbroadcast chan flashOff;",
   "locations": [
     {
       "id": "L0",
@@ -75,7 +75,7 @@
     {
       "id": "L5",
       "nickname": "",
-      "invariant": "f\u003c\u003d0",
+      "invariant": "d\u003c\u003d0",
       "type": "NORMAL",
       "urgency": "NORMAL",
       "x": 600.00001,
@@ -117,7 +117,7 @@
     {
       "id": "L8",
       "nickname": "",
-      "invariant": "e\u003c\u003d0",
+      "invariant": "d\u003c\u003d0",
       "type": "NORMAL",
       "urgency": "NORMAL",
       "x": 470.00001,
@@ -131,7 +131,7 @@
     {
       "id": "L9",
       "nickname": "",
-      "invariant": "e\u003c\u003d0",
+      "invariant": "d\u003c\u003d0",
       "type": "NORMAL",
       "urgency": "NORMAL",
       "x": 470.00001,
@@ -145,7 +145,7 @@
     {
       "id": "L10",
       "nickname": "",
-      "invariant": "e\u003c\u003d3",
+      "invariant": "d\u003c\u003d3",
       "type": "NORMAL",
       "urgency": "NORMAL",
       "x": 470.00001,
@@ -159,7 +159,7 @@
     {
       "id": "L11",
       "nickname": "",
-      "invariant": "g\u003c\u003d0",
+      "invariant": "d\u003c\u003d0",
       "type": "NORMAL",
       "urgency": "NORMAL",
       "x": 240.00001,
@@ -173,7 +173,7 @@
     {
       "id": "L12",
       "nickname": "",
-      "invariant": "e\u003c\u003d30 ",
+      "invariant": "d\u003c\u003d30 ",
       "type": "NORMAL",
       "urgency": "NORMAL",
       "x": 680.00001,
@@ -187,7 +187,7 @@
     {
       "id": "L13",
       "nickname": "",
-      "invariant": "e\u003c\u003d30",
+      "invariant": "d\u003c\u003d30",
       "type": "NORMAL",
       "urgency": "NORMAL",
       "x": 680.00001,
@@ -201,7 +201,7 @@
     {
       "id": "L14",
       "nickname": "",
-      "invariant": "g\u003c\u003d0",
+      "invariant": "d\u003c\u003d0",
       "type": "NORMAL",
       "urgency": "NORMAL",
       "x": 240.00001,
@@ -215,7 +215,7 @@
     {
       "id": "L15",
       "nickname": "",
-      "invariant": "e\u003c\u003d0",
+      "invariant": "d\u003c\u003d0",
       "type": "NORMAL",
       "urgency": "NORMAL",
       "x": 470.00001,
@@ -498,6 +498,13 @@
           "propertyType": "SYNCHRONIZATION",
           "propertyX": 50.0,
           "propertyY": -60.00000000000001
+        },
+        {
+          "x": 540.0,
+          "y": 550.0,
+          "propertyType": "UPDATE",
+          "propertyX": 10.0,
+          "propertyY": 0.0
         }
       ]
     },
@@ -530,7 +537,7 @@
       "status": "INPUT",
       "select": "",
       "guard": "",
-      "update": "f\u003d0",
+      "update": "d\u003d0",
       "sync": "close",
       "isLocked": false,
       "nails": [
@@ -579,7 +586,7 @@
       "status": "INPUT",
       "select": "",
       "guard": "",
-      "update": "e \u003d 0",
+      "update": "d \u003d 0",
       "sync": "open",
       "isLocked": false,
       "nails": [
@@ -627,7 +634,7 @@
       "targetLocation": "L12",
       "status": "OUTPUT",
       "select": "",
-      "guard": "e\u003d\u003d3",
+      "guard": "d\u003d\u003d3",
       "update": "",
       "sync": "soundOff",
       "isLocked": false,
@@ -655,8 +662,8 @@
       "targetLocation": "L11",
       "status": "INPUT",
       "select": "",
-      "guard": "e\u003c3",
-      "update": "g \u003d 0",
+      "guard": "d\u003c3",
+      "update": "d \u003d 0",
       "sync": "unlock",
       "isLocked": false,
       "nails": [
@@ -691,7 +698,7 @@
       "status": "INPUT",
       "select": "",
       "guard": "",
-      "update": "g \u003d 0",
+      "update": "d \u003d 0",
       "sync": "unlock",
       "isLocked": false,
       "nails": [
@@ -718,7 +725,7 @@
       "targetLocation": "L13",
       "status": "OUTPUT",
       "select": "",
-      "guard": "e\u003d\u003d30",
+      "guard": "d\u003d\u003d30",
       "update": "",
       "sync": "soundOff",
       "isLocked": false,

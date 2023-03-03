@@ -1083,7 +1083,6 @@ public class SimpleTransitionSystem extends TransitionSystem{
                 waiting.addAll(toAdd);
             }
         }
-
         return transitionHashMap;
 
     }
@@ -1136,22 +1135,15 @@ public class SimpleTransitionSystem extends TransitionSystem{
     public List<Transition> createTrace(Transition trans, HashMap<String, List<Transition>> transitionHashMap) {
         List<Transition> trace = new ArrayList<>();
         trace.add(trans);
-        while (true) {
+
+        while (!trans.getSource().getLocation().getName().equals(getInitialLocation().getName())) {
             if (transitionHashMap.containsKey(trans.getSource().getLocation().getName())) {
                 for (Transition t : transitionHashMap.get(trans.getSource().getLocation().getName())) {
-                    if (t.getTarget().getInvariant().toString().equals(trans.getSource().getInvariant().toString())) {
+                    if (t.getTarget().getInvariant().equals(trans.getSource().getInvariant())) {
                         trans = t;
                         trace.add(trans);
                     }
                 }
-                if (trans.getSource().toString().equals(getInitialState().toString())) {
-                    break;
-                }
-
-
-            }
-            else {
-                break;
             }
         }
 
@@ -1185,5 +1177,77 @@ public class SimpleTransitionSystem extends TransitionSystem{
 
         return min - 1;
 
+    }
+
+    public List<Transition> expandTrace(List<Transition> trace) {
+        Set<Channel> actions = getActions();
+        List<Transition> transitions = new ArrayList<>();
+        waiting = new ArrayDeque<>();
+        passed = new ArrayList<>();
+        Transition startTrans = trace.get(trace.size()-1);
+        State state = new State(trace.get(trace.size()-1).getTarget());
+
+        waiting.add(state);
+        boolean foundOutput = false;
+
+
+
+        while (!waiting.isEmpty()) {
+            State currState = new State(waiting.pop());
+            State toStore = new State(currState);
+
+            toStore.extrapolateMaxBounds(this.getMaxBounds(),getClocks());
+            passed.add(toStore);
+
+            for (Channel action : actions) {
+                List<Transition> newTransitions;
+
+                boolean finalFoundOutput = foundOutput;
+                newTransitions = getNextTransitions(currState, action).stream().
+                        filter(s -> !passedContainsState(s.getTarget()) && !waitingContainsState(s.getTarget()) && !finalFoundOutput).collect(Collectors.toList());
+
+                newTransitions.forEach(e->e.getTarget().extrapolateMaxBounds(getMaxBounds(),clocks.getItems()));
+
+                List<State> toAdd = newTransitions.stream().map(Transition::getTarget).collect(Collectors.toList());
+
+                for (Transition t : newTransitions) {
+
+                    if (t.getEdges().get(0).getStatus().equals("OUTPUT")) {
+                        foundOutput = true;
+                        transitions.add(t);
+                    }
+
+                    if (!foundOutput) {
+                        transitions.add(t);
+                    }
+
+                }
+                if (foundOutput) {
+                    break;
+                }
+                waiting.addAll(toAdd);
+            }
+        }
+
+        Transition temp = transitions.get(transitions.size()-1);
+        List<Transition> tempList = new ArrayList<>();
+        tempList.add(temp);
+
+        for (int i = 0; i < transitions.size(); ++i){
+            if (i == transitions.size()-1 && startTrans.getGuardCDD().equals(temp.getGuardCDD())) {
+                i = 0;
+                break;
+            }
+            if (temp.getSource().getInvariant().equals(transitions.get(i).getTarget().getInvariant())) {
+                temp = transitions.get(i);
+                tempList.add(temp);
+            }
+        }
+
+
+
+        Collections.reverse(tempList);
+        trace.addAll(tempList);
+        return trace;
     }
 }
