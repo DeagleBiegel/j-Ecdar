@@ -354,17 +354,19 @@ public abstract class TransitionSystem {
                 }
             }
 
+            //Sort traces by size and then perform prefix removal.
             traces = traces.stream().sorted(Comparator.comparingInt(List::size)).collect(Collectors.toList());
             List<List<Transition>> finalTraces = traces;
             traces = traces.stream().filter(s -> isPrefix(s, finalTraces)).collect(Collectors.toList());
 
-
+            //Extend traces that end on an INPUT transition
             for (List<Transition> trace : traces) {
                 if (trace.get(trace.size()-1).getEdges().get(0).getStatus().equals("INPUT")) {
                     trace = ts.expandTrace(trace);
                 }
             }
 
+            /*
             for (List<Transition> trace : traces) {
                 for (Transition t : trace) {
                     System.out.print("(" + t.getSource().getLocation().getName() + " - " + ts.minClockValue(t.getGuardCDD(),getClocks().get(getClocks().size()-1)) + " - " +t.getTarget().getLocation().getName() + ")");
@@ -372,6 +374,11 @@ public abstract class TransitionSystem {
                 System.out.println();
             }
 
+             */
+
+            for (List<Transition> trace : traces) {
+                ts.generateTestCode(trace);
+            }
 
         }
 

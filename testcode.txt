@@ -1,24 +1,502 @@
 Start point for all clocks
-Enter L0 
-Exit L0 
+Enter(L0);
+Exit(L0);
 assert clock values here 
-E0 in?
+input(E1);
+Enter(L1);
+Exit(L1);
+assert clock values here 
+input(E7);
+Enter(L0);
+Exit(L1);
+assert clock values here 
+input(E3);
 Update start-point for clock
-Enter L1 
+Enter(L3);
+Exit(L3);
+assert clock values here 
+output(E8);
+Enter(L4);
 
 end of test code
 
 Start point for all clocks
-Enter L0 
-Exit L0 
+Enter(L0);
+Exit(L0);
 assert clock values here 
-E0 in?
+input(E0);
+Enter(L2);
+Exit(L2);
+assert clock values here 
+input(E6);
+Enter(L0);
+Exit(L1);
+assert clock values here 
+input(E3);
 Update start-point for clock
-Enter L1 
-Exit L1 
+Enter(L3);
+Exit(L3);
 assert clock values here 
-E1 out!
-Enter L2 
+output(E8);
+Enter(L4);
+
+end of test code
+
+Start point for all clocks
+Enter(L0);
+Exit(L0);
+assert clock values here 
+input(E0);
+Enter(L2);
+Exit(L2);
+assert clock values here 
+input(E3);
+Update start-point for clock
+Enter(L3);
+Exit(L3);
+assert clock values here 
+output(E8);
+Enter(L4);
+
+end of test code
+
+Start point for all clocks
+Enter(L0);
+Exit(L0);
+assert clock values here 
+input(E1);
+Enter(L1);
+Exit(L1);
+assert clock values here 
+input(E3);
+Update start-point for clock
+Enter(L3);
+Exit(L3);
+assert clock values here 
+input(E5);
+Enter(L2);
+Exit(L2);
+assert clock values here 
+input(E3);
+Update start-point for clock
+Enter(L3);
+Exit(L3);
+assert clock values here 
+output(E8);
+Enter(L4);
+
+end of test code
+
+Start point for all clocks
+Enter(L0);
+Exit(L0);
+assert clock values here 
+input(E1);
+Enter(L1);
+Exit(L1);
+assert clock values here 
+input(E3);
+Update start-point for clock
+Enter(L3);
+Exit(L3);
+assert clock values here 
+input(E4);
+Enter(L1);
+Exit(L1);
+assert clock values here 
+input(E7);
+Enter(L0);
+Exit(L1);
+assert clock values here 
+input(E3);
+Update start-point for clock
+Enter(L3);
+Exit(L3);
+assert clock values here 
+output(E8);
+Enter(L4);
+
+end of test code
+
+Start point for all clocks
+Enter(L0);
+Exit(L0);
+assert clock values here 
+input(E1);
+Enter(L1);
+Exit(L1);
+assert clock values here 
+input(E3);
+Update start-point for clock
+Enter(L3);
+Exit(L3);
+assert clock values here 
+output(E8);
+Enter(L4);
+Exit(L4);
+assert clock values here 
+input(E9);
+Update start-point for clock
+Enter(L6);
+Exit(L6);
+assert clock values here 
+output(E11);
+Enter(L1);
+Exit(L1);
+assert clock values here 
+input(E7);
+Enter(L0);
+Exit(L1);
+assert clock values here 
+input(E3);
+Update start-point for clock
+Enter(L3);
+Exit(L3);
+assert clock values here 
+output(E8);
+Enter(L4);
+
+end of test code
+
+Start point for all clocks
+Enter(L0);
+Exit(L0);
+assert clock values here 
+input(E1);
+Enter(L1);
+Exit(L1);
+assert clock values here 
+input(E3);
+Update start-point for clock
+Enter(L3);
+Exit(L3);
+assert clock values here 
+output(E8);
+Enter(L4);
+Exit(L4);
+assert clock values here 
+input(E9);
+Update start-point for clock
+Enter(L6);
+Exit(L6);
+assert clock values here 
+output(E11);
+Enter(L1);
+Exit(L1);
+assert clock values here 
+input(E3);
+Update start-point for clock
+Enter(L3);
+Exit(L3);
+assert clock values here 
+input(E5);
+Enter(L2);
+Exit(L2);
+assert clock values here 
+input(E3);
+Update start-point for clock
+Enter(L3);
+Exit(L3);
+assert clock values here 
+output(E8);
+Enter(L4);
+
+end of test code
+
+Start point for all clocks
+Enter(L0);
+Exit(L0);
+assert clock values here 
+input(E1);
+Enter(L1);
+Exit(L1);
+assert clock values here 
+input(E3);
+Update start-point for clock
+Enter(L3);
+Exit(L3);
+assert clock values here 
+output(E8);
+Enter(L4);
+Exit(L4);
+assert clock values here 
+input(E9);
+Update start-point for clock
+Enter(L6);
+Exit(L6);
+assert clock values here 
+output(E11);
+Enter(L1);
+Exit(L1);
+assert clock values here 
+input(E3);
+Update start-point for clock
+Enter(L3);
+Exit(L3);
+assert clock values here 
+output(E8);
+Enter(L4);
+
+end of test code
+
+Start point for all clocks
+Enter(L0);
+Exit(L0);
+assert clock values here 
+input(E1);
+Enter(L1);
+Exit(L1);
+assert clock values here 
+input(E3);
+Update start-point for clock
+Enter(L3);
+Exit(L3);
+assert clock values here 
+output(E8);
+Enter(L4);
+Exit(L4);
+assert clock values here 
+input(E9);
+Update start-point for clock
+Enter(L6);
+Exit(L6);
+assert clock values here 
+output(E11);
+Enter(L1);
+Exit(L1);
+assert clock values here 
+input(E3);
+Update start-point for clock
+Enter(L3);
+Exit(L3);
+assert clock values here 
+input(E4);
+Enter(L1);
+Exit(L1);
+assert clock values here 
+input(E7);
+Enter(L0);
+Exit(L1);
+assert clock values here 
+input(E3);
+Update start-point for clock
+Enter(L3);
+Exit(L3);
+assert clock values here 
+output(E8);
+Enter(L4);
+
+end of test code
+
+Start point for all clocks
+Enter(L0);
+Exit(L0);
+assert clock values here 
+input(E1);
+Enter(L1);
+Exit(L1);
+assert clock values here 
+input(E3);
+Update start-point for clock
+Enter(L3);
+Exit(L3);
+assert clock values here 
+output(E8);
+Enter(L4);
+Exit(L4);
+assert clock values here 
+input(E14);
+Update start-point for clock
+Enter(L8);
+Exit(L8);
+assert clock values here 
+output(E15);
+Enter(L9);
+Exit(L9);
+assert clock values here 
+output(E16);
+Enter(L15);
+Exit(L15);
+assert clock values here 
+output(E24);
+Enter(L10);
+Exit(L10);
+assert clock values here 
+output(E17);
+Enter(L12);
+Exit(L12);
+assert clock values here 
+input(E19);
+Update start-point for clock
+Enter(L11);
+Exit(L11);
+assert clock values here 
+output(E22);
+Enter(L14);
+
+end of test code
+
+Start point for all clocks
+Enter(L0);
+Exit(L0);
+assert clock values here 
+input(E1);
+Enter(L1);
+Exit(L1);
+assert clock values here 
+input(E3);
+Update start-point for clock
+Enter(L3);
+Exit(L3);
+assert clock values here 
+output(E8);
+Enter(L4);
+Exit(L4);
+assert clock values here 
+input(E14);
+Update start-point for clock
+Enter(L8);
+Exit(L8);
+assert clock values here 
+output(E15);
+Enter(L9);
+Exit(L9);
+assert clock values here 
+output(E16);
+Enter(L15);
+Exit(L15);
+assert clock values here 
+output(E24);
+Enter(L10);
+Exit(L10);
+assert clock values here 
+input(E18);
+Update start-point for clock
+Enter(L11);
+Exit(L11);
+assert clock values here 
+output(E22);
+Enter(L14);
+Exit(L14);
+assert clock values here 
+output(E23);
+Enter(L0);
+
+end of test code
+
+Start point for all clocks
+Enter(L0);
+Exit(L0);
+assert clock values here 
+input(E1);
+Enter(L1);
+Exit(L1);
+assert clock values here 
+input(E3);
+Update start-point for clock
+Enter(L3);
+Exit(L3);
+assert clock values here 
+output(E8);
+Enter(L4);
+Exit(L4);
+assert clock values here 
+input(E14);
+Update start-point for clock
+Enter(L8);
+Exit(L8);
+assert clock values here 
+output(E15);
+Enter(L9);
+Exit(L9);
+assert clock values here 
+output(E16);
+Enter(L15);
+Exit(L15);
+assert clock values here 
+output(E24);
+Enter(L10);
+Exit(L10);
+assert clock values here 
+output(E17);
+Enter(L12);
+Exit(L12);
+assert clock values here 
+output(E20);
+Enter(L13);
+Exit(L13);
+assert clock values here 
+output(E21);
+Enter(L7);
+Exit(L7);
+assert clock values here 
+input(E13);
+Enter(L0);
+Exit(L1);
+assert clock values here 
+input(E3);
+Update start-point for clock
+Enter(L3);
+Exit(L3);
+assert clock values here 
+output(E8);
+Enter(L4);
+
+end of test code
+
+Start point for all clocks
+Enter(L0);
+Exit(L0);
+assert clock values here 
+input(E1);
+Enter(L1);
+Exit(L1);
+assert clock values here 
+input(E3);
+Update start-point for clock
+Enter(L3);
+Exit(L3);
+assert clock values here 
+output(E8);
+Enter(L4);
+Exit(L4);
+assert clock values here 
+input(E14);
+Update start-point for clock
+Enter(L8);
+Exit(L8);
+assert clock values here 
+output(E15);
+Enter(L9);
+Exit(L9);
+assert clock values here 
+output(E16);
+Enter(L15);
+Exit(L15);
+assert clock values here 
+output(E24);
+Enter(L10);
+Exit(L10);
+assert clock values here 
+output(E17);
+Enter(L12);
+Exit(L12);
+assert clock values here 
+output(E20);
+Enter(L13);
+Exit(L13);
+assert clock values here 
+output(E21);
+Enter(L7);
+Exit(L7);
+assert clock values here 
+input(E12);
+Update start-point for clock
+Enter(L5);
+Exit(L5);
+assert clock values here 
+output(E10);
+Enter(L4);
 
 end of test code
 
