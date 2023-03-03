@@ -366,9 +366,8 @@ public abstract class TransitionSystem {
             }
 
             for (List<Transition> trace : traces) {
-
                 for (Transition t : trace) {
-                    System.out.print(trace.get(0).getSource().getLocation().getName() + "->" +t.getTarget().getLocation().getName());
+                    System.out.print("(" + t.getSource().getLocation().getName() + " - " + ts.minClockValue(t.getGuardCDD(),getClocks().get(getClocks().size()-1)) + " - " +t.getTarget().getLocation().getName() + ")");
                 }
                 System.out.println();
             }

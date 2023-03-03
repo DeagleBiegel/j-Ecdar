@@ -1191,7 +1191,6 @@ public class SimpleTransitionSystem extends TransitionSystem{
         boolean foundOutput = false;
 
 
-
         while (!waiting.isEmpty()) {
             State currState = new State(waiting.pop());
             State toStore = new State(currState);
