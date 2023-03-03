@@ -875,7 +875,7 @@ public class SimpleTransitionSystem extends TransitionSystem{
 
         }
         sb.append("\nend of test code\n");
-
+        sb.append("");
         try {
             //PrintWriter printerWriter = new PrintWriter("testcode.txt");
             //printerWriter.println("");
