@@ -851,7 +851,7 @@ public class SimpleTransitionSystem extends TransitionSystem{
 
         for (Transition tran : trace) {
             sb.append(parseTestCode(new StringBuilder(tran.getSource().getLocation().getExitTestCode()), booleans, tran.getSource().getInvariant()));
-            sb.append("assert clock values here with getGuardCDD")
+            sb.append("assert clock values here with getGuardCDD");
             sb.append(parseTestCode(new StringBuilder(tran.getEdges().get(0).getTestCode()), booleans, tran.getEdges().get(0).getGuardCDD()));
 
             //check the transition for updates

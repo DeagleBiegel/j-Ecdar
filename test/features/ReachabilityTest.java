@@ -1,6 +1,5 @@
 package features;
 
-import javafx.util.Pair;
 import logic.SimpleTransitionSystem;
 import logic.State;
 import logic.Transition;

@@ -15,7 +15,7 @@ public class MinClockValue {
 
     @BeforeClass
     public static void setUpBeforeClass() throws FileNotFoundException {
-        Automaton[] aut1 = JSONParser.parse("samples/json/MinClockTest", false);
+        Automaton[] aut1 = JSONParser.parse("samples/json/minClockTest", false);
         sts1 = new SimpleTransitionSystem(aut1[0]);
         sts2 = new SimpleTransitionSystem(aut1[1]);
     }
