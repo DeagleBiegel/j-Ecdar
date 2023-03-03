@@ -1,4 +1,9 @@
-Start point for all clocks
+Public class Clock {
+ double now;
+ Clock(double now) {
+ this.now = now;
+}
+}
 Double timeStamp = time.now();
 Clock c = new Clock(timeStamp);
 Clock d = new Clock(timeStamp);
@@ -20,7 +25,12 @@ Enter(L4);
 
 end of test code
 
-Start point for all clocks
+Public class Clock {
+ double now;
+ Clock(double now) {
+ this.now = now;
+}
+}
 Double timeStamp = time.now();
 Clock c = new Clock(timeStamp);
 Clock d = new Clock(timeStamp);
@@ -42,7 +52,12 @@ Enter(L4);
 
 end of test code
 
-Start point for all clocks
+Public class Clock {
+ double now;
+ Clock(double now) {
+ this.now = now;
+}
+}
 Double timeStamp = time.now();
 Clock c = new Clock(timeStamp);
 Clock d = new Clock(timeStamp);
@@ -61,7 +76,12 @@ Enter(L4);
 
 end of test code
 
-Start point for all clocks
+Public class Clock {
+ double now;
+ Clock(double now) {
+ this.now = now;
+}
+}
 Double timeStamp = time.now();
 Clock c = new Clock(timeStamp);
 Clock d = new Clock(timeStamp);
@@ -87,7 +107,12 @@ Enter(L4);
 
 end of test code
 
-Start point for all clocks
+Public class Clock {
+ double now;
+ Clock(double now) {
+ this.now = now;
+}
+}
 Double timeStamp = time.now();
 Clock c = new Clock(timeStamp);
 Clock d = new Clock(timeStamp);
@@ -116,7 +141,12 @@ Enter(L4);
 
 end of test code
 
-Start point for all clocks
+Public class Clock {
+ double now;
+ Clock(double now) {
+ this.now = now;
+}
+}
 Double timeStamp = time.now();
 Clock c = new Clock(timeStamp);
 Clock d = new Clock(timeStamp);
@@ -152,7 +182,12 @@ Enter(L4);
 
 end of test code
 
-Start point for all clocks
+Public class Clock {
+ double now;
+ Clock(double now) {
+ this.now = now;
+}
+}
 Double timeStamp = time.now();
 Clock c = new Clock(timeStamp);
 Clock d = new Clock(timeStamp);
@@ -192,7 +227,12 @@ Enter(L4);
 
 end of test code
 
-Start point for all clocks
+Public class Clock {
+ double now;
+ Clock(double now) {
+ this.now = now;
+}
+}
 Double timeStamp = time.now();
 Clock c = new Clock(timeStamp);
 Clock d = new Clock(timeStamp);
@@ -225,7 +265,12 @@ Enter(L4);
 
 end of test code
 
-Start point for all clocks
+Public class Clock {
+ double now;
+ Clock(double now) {
+ this.now = now;
+}
+}
 Double timeStamp = time.now();
 Clock c = new Clock(timeStamp);
 Clock d = new Clock(timeStamp);
@@ -268,7 +313,12 @@ Enter(L4);
 
 end of test code
 
-Start point for all clocks
+Public class Clock {
+ double now;
+ Clock(double now) {
+ this.now = now;
+}
+}
 Double timeStamp = time.now();
 Clock c = new Clock(timeStamp);
 Clock d = new Clock(timeStamp);
@@ -310,7 +360,12 @@ Enter(L14);
 
 end of test code
 
-Start point for all clocks
+Public class Clock {
+ double now;
+ Clock(double now) {
+ this.now = now;
+}
+}
 Double timeStamp = time.now();
 Clock c = new Clock(timeStamp);
 Clock d = new Clock(timeStamp);
@@ -352,7 +407,12 @@ Enter(L0);
 
 end of test code
 
-Start point for all clocks
+Public class Clock {
+ double now;
+ Clock(double now) {
+ this.now = now;
+}
+}
 Double timeStamp = time.now();
 Clock c = new Clock(timeStamp);
 Clock d = new Clock(timeStamp);
@@ -403,7 +463,12 @@ Enter(L4);
 
 end of test code
 
-Start point for all clocks
+Public class Clock {
+ double now;
+ Clock(double now) {
+ this.now = now;
+}
+}
 Double timeStamp = time.now();
 Clock c = new Clock(timeStamp);
 Clock d = new Clock(timeStamp);
