@@ -717,9 +717,10 @@ public class SimpleTransitionSystem extends TransitionSystem{
 
 
         for (Clock c : getClocks()) {
-            s = s.replaceAll("("+c.getOriginalName()+")", "" + c.getOriginalName() + ".value(temp) ");
+            s = s.replaceAll("^(.?(\b" + c.getOriginalName() + "\b)[^$])$" , "" + c.getOriginalName() + ".value(temp) ");
         }
 
+        //\b[A-Z, a-z]\s
         String temp = "temp = System.currentTimeMillis();\n" + "assert("+ s +");\n";
 
         return temp;

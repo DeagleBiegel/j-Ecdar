@@ -15,8 +15,8 @@
       "nicknameY": -10.0,
       "invariantX": -3.552713678800501E-15,
       "invariantY": 20.0,
-      "enterTestCode": "Enter(L0);\n",
-      "exitTestCode": "Exit(L0);\n"
+      "enterTestCode": "Enter(\"L0\");\n",
+      "exitTestCode": "Exit(\"L0\");\n"
     },
     {
       "id": "L1",
@@ -31,8 +31,8 @@
       "nicknameY": -10.0,
       "invariantX": 30.0,
       "invariantY": 10.0,
-      "enterTestCode": "Enter(L1);\n",
-      "exitTestCode": "Exit(L1);\n"
+      "enterTestCode": "Enter(\"L1\");\n",
+      "exitTestCode": "Exit(\"L1\");\n"
     },
     {
       "id": "L2",
@@ -47,8 +47,8 @@
       "nicknameY": -10.0,
       "invariantX": 30.0,
       "invariantY": 10.0,
-      "enterTestCode": "Enter(L2);\n",
-      "exitTestCode": "Exit(L2);\n"
+      "enterTestCode": "Enter(\"L2\");\n",
+      "exitTestCode": "Exit(\"L2\");\n"
     },
     {
       "id": "L3",
@@ -63,8 +63,8 @@
       "nicknameY": -10.0,
       "invariantX": 30.0,
       "invariantY": 10.0,
-      "enterTestCode": "Enter(L3);\n",
-      "exitTestCode": "Exit(L3);\n"
+      "enterTestCode": "Enter(\"L3\");\n",
+      "exitTestCode": "Exit(\"L3\");\n"
     },
     {
       "id": "L4",
@@ -79,8 +79,8 @@
       "nicknameY": -10.0,
       "invariantX": 30.0,
       "invariantY": 10.0,
-      "enterTestCode": "Enter(L4);\n",
-      "exitTestCode": "Exit(L4);\n"
+      "enterTestCode": "Enter(\"L4\");\n",
+      "exitTestCode": "Exit(\"L4\");\n"
     },
     {
       "id": "L5",
@@ -95,8 +95,8 @@
       "nicknameY": -10.0,
       "invariantX": 10.0,
       "invariantY": -40.0,
-      "enterTestCode": "Enter(L5);\n",
-      "exitTestCode": "Exit(L5);\n"
+      "enterTestCode": "Enter(\"L5\");\n",
+      "exitTestCode": "Exit(\"L5\");\n"
     },
     {
       "id": "L6",
@@ -111,8 +111,8 @@
       "nicknameY": -10.0,
       "invariantX": -10.0,
       "invariantY": -40.0,
-      "enterTestCode": "Enter(L6);\n",
-      "exitTestCode": "Exit(L6);\n"
+      "enterTestCode": "Enter(\"L6\");\n",
+      "exitTestCode": "Exit(\"L6\");\n"
     },
     {
       "id": "L7",
@@ -127,8 +127,8 @@
       "nicknameY": -10.0,
       "invariantX": 30.0,
       "invariantY": 10.0,
-      "enterTestCode": "Enter(L7);\n",
-      "exitTestCode": "Exit(L7);\n"
+      "enterTestCode": "Enter(\"L7\");\n",
+      "exitTestCode": "Exit(\"L7\");\n"
     },
     {
       "id": "L8",
@@ -143,8 +143,8 @@
       "nicknameY": -10.0,
       "invariantX": 30.0,
       "invariantY": -10.0,
-      "enterTestCode": "Enter(L8);\n",
-      "exitTestCode": "Exit(L8);\n"
+      "enterTestCode": "Enter(\"L8\");\n",
+      "exitTestCode": "Exit(\"L8\");\n"
     },
     {
       "id": "L9",
@@ -159,8 +159,8 @@
       "nicknameY": -10.0,
       "invariantX": 30.0,
       "invariantY": -10.0,
-      "enterTestCode": "Enter(L9);\n",
-      "exitTestCode": "Exit(L9);\n"
+      "enterTestCode": "Enter(\"L9\");\n",
+      "exitTestCode": "Exit(\"L9\");\n"
     },
     {
       "id": "L10",
@@ -175,8 +175,8 @@
       "nicknameY": -10.0,
       "invariantX": -10.0,
       "invariantY": -40.0,
-      "enterTestCode": "Enter(L10);\n",
-      "exitTestCode": "Exit(L10);\n"
+      "enterTestCode": "Enter(\"L10\");\n",
+      "exitTestCode": "Exit(\"L10\");\n"
     },
     {
       "id": "L11",
@@ -191,8 +191,8 @@
       "nicknameY": -10.0,
       "invariantX": -10.000000000000007,
       "invariantY": -50.0,
-      "enterTestCode": "Enter(L11);\n",
-      "exitTestCode": "Exit(L11);\n"
+      "enterTestCode": "Enter(\"L11\");\n",
+      "exitTestCode": "Exit(\"L11\");\n"
     },
     {
       "id": "L12",
@@ -207,8 +207,8 @@
       "nicknameY": -10.0,
       "invariantX": 30.0,
       "invariantY": 10.0,
-      "enterTestCode": "Enter(L12);\n",
-      "exitTestCode": "Exit(L12);\n"
+      "enterTestCode": "Enter(\"L12\");\n",
+      "exitTestCode": "Exit(\"L12\");\n"
     },
     {
       "id": "L13",
@@ -223,8 +223,8 @@
       "nicknameY": -10.0,
       "invariantX": 30.0,
       "invariantY": 10.0,
-      "enterTestCode": "Enter(L13);\n",
-      "exitTestCode": "Exit(L13);\n"
+      "enterTestCode": "Enter(\"L13\");\n",
+      "exitTestCode": "Exit(\"L13\");\n"
     },
     {
       "id": "L14",
@@ -239,8 +239,8 @@
       "nicknameY": -10.0,
       "invariantX": -50.0,
       "invariantY": -30.0,
-      "enterTestCode": "Enter(L14);\n",
-      "exitTestCode": "Exit(L14);\n"
+      "enterTestCode": "Enter(\"L14\");\n",
+      "exitTestCode": "Exit(\"L14\");\n"
     },
     {
       "id": "L15",
@@ -255,8 +255,8 @@
       "nicknameY": -10.0,
       "invariantX": 30.0,
       "invariantY": -10.0,
-      "enterTestCode": "Enter(L15);\n",
-      "exitTestCode": "Exit(L15);\n"
+      "enterTestCode": "Enter(\"L15\");\n",
+      "exitTestCode": "Exit(\"L15\");\n"
     }
   ],
   "edges": [
@@ -271,7 +271,7 @@
       "update": "",
       "sync": "lock",
       "isLocked": false,
-      "testCode": "input(E0);\n",
+      "testCode": "input(\"E0\");\n",
       "nails": [
         {
           "x": 480.0,
@@ -293,7 +293,7 @@
       "update": "",
       "sync": "close",
       "isLocked": false,
-      "testCode": "input(E1);\n",
+      "testCode": "input(\"E1\");\n",
       "nails": [
         {
           "x": 450.0,
@@ -315,7 +315,7 @@
       "update": "c \u003d 0",
       "sync": "lock",
       "isLocked": false,
-      "testCode": "input(E3);\n",
+      "testCode": "input(\"E3\");\n",
       "nails": [
         {
           "x": 420.0,
@@ -344,7 +344,7 @@
       "update": "c \u003d 0",
       "sync": "close",
       "isLocked": false,
-      "testCode": "input(E3);\n",
+      "testCode": "input(\"E3\");\n",
       "nails": [
         {
           "x": 520.0,
@@ -373,7 +373,7 @@
       "update": "",
       "sync": "unlock",
       "isLocked": false,
-      "testCode": "input(E4);\n",
+      "testCode": "input(\"E4\");\n",
       "nails": [
         {
           "x": 420.0,
@@ -402,7 +402,7 @@
       "update": "",
       "sync": "open",
       "isLocked": false,
-      "testCode": "input(E5);\n",
+      "testCode": "input(\"E5\");\n",
       "nails": [
         {
           "x": 540.0,
@@ -431,7 +431,7 @@
       "update": "",
       "sync": "unlock",
       "isLocked": false,
-      "testCode": "input(E6);\n",
+      "testCode": "input(\"E6\");\n",
       "nails": [
         {
           "x": 570.0,
@@ -453,7 +453,7 @@
       "update": "",
       "sync": "open",
       "isLocked": false,
-      "testCode": "input(E7);\n",
+      "testCode": "input(\"E7\");\n",
       "nails": [
         {
           "x": 360.0,
@@ -475,7 +475,7 @@
       "update": "",
       "sync": "armedOn",
       "isLocked": false,
-      "testCode": "output(E8);\n",
+      "testCode": "output(\"E8\");\n",
       "nails": [
         {
           "x": 470.0,
@@ -504,7 +504,7 @@
       "update": "d \u003d 0",
       "sync": "unlock",
       "isLocked": false,
-      "testCode": "input(E9);\n",
+      "testCode": "input(\"E9\");\n",
       "nails": [
         {
           "x": 410.0,
@@ -533,7 +533,7 @@
       "update": "",
       "sync": "armedOn",
       "isLocked": false,
-      "testCode": "output(E10);\n",
+      "testCode": "output(\"E10\");\n",
       "nails": [
         {
           "x": 510.0,
@@ -562,7 +562,7 @@
       "update": "",
       "sync": "armedOff",
       "isLocked": false,
-      "testCode": "output(E11);\n",
+      "testCode": "output(\"E11\");\n",
       "nails": [
         {
           "x": 300.0,
@@ -584,7 +584,7 @@
       "update": "d\u003d0",
       "sync": "close",
       "isLocked": false,
-      "testCode": "input(E12);\n",
+      "testCode": "input(\"E12\");\n",
       "nails": [
         {
           "x": 640.0,
@@ -613,7 +613,7 @@
       "update": "",
       "sync": "unlock",
       "isLocked": false,
-      "testCode": "input(E13);\n",
+      "testCode": "input(\"E13\");\n",
       "nails": [
         {
           "x": 680.0,
@@ -635,7 +635,7 @@
       "update": "d \u003d 0",
       "sync": "open",
       "isLocked": false,
-      "testCode": "input(E14);\n",
+      "testCode": "input(\"E14\");\n",
       "nails": [
         {
           "x": 470.0,
@@ -664,7 +664,7 @@
       "update": "",
       "sync": "armedOff",
       "isLocked": false,
-      "testCode": "output(E15);\n",
+      "testCode": "output(\"E15\");\n",
       "nails": [
         {
           "x": 470.0,
@@ -686,7 +686,7 @@
       "update": "",
       "sync": "soundOff",
       "isLocked": false,
-      "testCode": "output(E17);\n",
+      "testCode": "output(\"E17\");\n",
       "nails": [
         {
           "x": 530.0,
@@ -715,7 +715,7 @@
       "update": "d \u003d 0",
       "sync": "unlock",
       "isLocked": false,
-      "testCode": "input(E18);\n",
+      "testCode": "input(\"E18\");\n",
       "nails": [
         {
           "x": 410.0,
@@ -751,7 +751,7 @@
       "update": "d \u003d 0",
       "sync": "unlock",
       "isLocked": false,
-      "testCode": "input(E19);\n",
+      "testCode": "input(\"E19\");\n",
       "nails": [
         {
           "x": 520.0,
@@ -780,7 +780,7 @@
       "update": "",
       "sync": "soundOff",
       "isLocked": false,
-      "testCode": "output(E20);\n",
+      "testCode": "output(\"E20\");\n",
       "nails": [
         {
           "x": 680.0,
@@ -809,7 +809,7 @@
       "update": "",
       "sync": "flashOff",
       "isLocked": false,
-      "testCode": "output(E21);\n",
+      "testCode": "output(\"E21\");\n",
       "nails": [
         {
           "x": 680.0,
@@ -831,7 +831,7 @@
       "update": "",
       "sync": "soundOff",
       "isLocked": false,
-      "testCode": "output(E22);\n",
+      "testCode": "output(\"E22\");\n",
       "nails": [
         {
           "x": 240.0,
@@ -853,7 +853,7 @@
       "update": "",
       "sync": "flashOff",
       "isLocked": false,
-      "testCode": "output(E23);\n",
+      "testCode": "output(\"E23\");\n",
       "nails": [
         {
           "x": 240.0,
@@ -875,7 +875,7 @@
       "update": "",
       "sync": "flashOn",
       "isLocked": false,
-      "testCode": "output(E16);\n",
+      "testCode": "output(\"E16\");\n",
       "nails": [
         {
           "x": 470.0,
@@ -897,7 +897,7 @@
       "update": "",
       "sync": "soundOn",
       "isLocked": false,
-      "testCode": "output(E24);\n",
+      "testCode": "output(\"E24\");\n",
       "nails": [
         {
           "x": 470.0,
