@@ -720,27 +720,27 @@ public class SimpleTransitionSystem extends TransitionSystem{
             s = s.replaceAll("("+c.getOriginalName()+")", "" + c.getOriginalName() + ".value(temp) ");
         }
 
-        String temp = "double temp = time.now();\n" + "assert("+ s +");\n";
+        String temp = "temp = System.currentTimeMillis();\n" + "assert("+ s +");\n";
 
         return temp;
     }
 
     private String testCodeInitClocks() {
-        String s = "double timeStamp = time.now();\n";
+        String s = "double timeStamp = System.currentTimeMillis();\n";
         for (Clock c : getClocks()) {
             s += "Clock " + c.getOriginalName() + " = new Clock(timeStamp);\n";
         }
-
+        s += "double temp = System.currentTimeMillis();\n";
         return s;
     }
 
     private String testCodeUpdateClock(Clock clock, Integer value) {
         String s = "";
         if (value == 0) {
-            s += clock.getOriginalName() + ".time = time.now();\n";
+            s += clock.getOriginalName() + ".time = System.currentTimeMillis();\n";
         }
         else {
-            s += clock.getOriginalName() + ".time = time.now() -" + value + ";\n";
+            s += clock.getOriginalName() + ".time = System.currentTimeMillis() -" + value + ";\n";
         }
 
         return s;
