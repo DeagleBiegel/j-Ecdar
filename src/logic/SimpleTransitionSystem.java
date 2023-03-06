@@ -714,10 +714,9 @@ public class SimpleTransitionSystem extends TransitionSystem{
 
         //s += "assert("+ state.getInvariant().toString() + ");\n";
         String s = state.getInvariant().toString();
-
-
+        
         for (Clock c : getClocks()) {
-            s = s.replaceAll("^(.?(\b" + c.getOriginalName() + "\b)[^$])$" , "" + c.getOriginalName() + ".value(temp) ");
+            s = s.replaceAll("(?: " + c.getOriginalName() + ")" , c.getOriginalName() + ".value(temp) ");
         }
 
         //\b[A-Z, a-z]\s
