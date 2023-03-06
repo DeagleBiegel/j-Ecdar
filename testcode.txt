@@ -1,517 +1,987 @@
-Public class Clock {
+class Clock {
  double now;
  Clock(double now) {
  this.now = now;
 }
+ double value(double now) {
+    return this.now - now;
+ }
 }
-Double timeStamp = time.now();
+
+double timeStamp = time.now();
 Clock c = new Clock(timeStamp);
 Clock d = new Clock(timeStamp);
-Clock globalClock = new Clock(timeStamp);
+Clock z = new Clock(timeStamp);
+double temp = time.now();
+assert((d.value(temp) -c.value(temp) <=0 && z.value(temp) -c.value(temp) <=0 && c.value(temp) -d.value(temp) <=0 && z.value(temp) -d.value(temp) <=0 && c.value(temp) -z.value(temp) <=0 && d.value(temp) -z.value(temp) <=0));
 Enter(L0);
 Exit(L0);
+double temp = time.now();
+assert((d.value(temp) -c.value(temp) <=0 && z.value(temp) -c.value(temp) <=0 && c.value(temp) -d.value(temp) <=0 && z.value(temp) -d.value(temp) <=0 && c.value(temp) -z.value(temp) <=0 && d.value(temp) -z.value(temp) <=0));
 input(E1);
+double temp = time.now();
+assert((d.value(temp) -c.value(temp) <=0 && z.value(temp) -c.value(temp) <=0 && c.value(temp) -d.value(temp) <=0 && z.value(temp) -d.value(temp) <=0 && c.value(temp) -z.value(temp) <=0 && d.value(temp) -z.value(temp) <=0));
 Enter(L1);
 Exit(L1);
+double temp = time.now();
+assert((d.value(temp) -c.value(temp) <=0 && z.value(temp) -c.value(temp) <=0 && c.value(temp) -d.value(temp) <=0 && z.value(temp) -d.value(temp) <=0 && c.value(temp) -z.value(temp) <=0 && d.value(temp) -z.value(temp) <=0));
 input(E7);
+double temp = time.now();
+assert((d.value(temp) -c.value(temp) <=0 && z.value(temp) -c.value(temp) <=0 && c.value(temp) -d.value(temp) <=0 && z.value(temp) -d.value(temp) <=0 && c.value(temp) -z.value(temp) <=0 && d.value(temp) -z.value(temp) <=0));
 Enter(L0);
 Exit(L1);
+double temp = time.now();
+assert((d.value(temp) -c.value(temp) <=0 && z.value(temp) -c.value(temp) <=0 && c.value(temp) -d.value(temp) <=0 && z.value(temp) -d.value(temp) <=0 && c.value(temp) -z.value(temp) <=0 && d.value(temp) -z.value(temp) <=0));
 input(E3);
 c.time = time.now();
+double temp = time.now();
+assert((c.value(temp) <=2 && c.value(temp) -d.value(temp) <=0 && z.value(temp) -d.value(temp) <=0 && c.value(temp) -z.value(temp) <=0 && d.value(temp) -z.value(temp) <=0));
 Enter(L3);
 Exit(L3);
+double temp = time.now();
+assert((c.value(temp) <=2 && c.value(temp) -d.value(temp) <=0 && z.value(temp) -d.value(temp) <=0 && c.value(temp) -z.value(temp) <=0 && d.value(temp) -z.value(temp) <=0));
 output(E8);
+double temp = time.now();
+assert((c.value(temp) >=2 && d.value(temp) >=2 && z.value(temp) >=2 && c.value(temp) -d.value(temp) <=0 && z.value(temp) -d.value(temp) <=0 && c.value(temp) -z.value(temp) <=0 && d.value(temp) -z.value(temp) <=0));
 Enter(L4);
 
 end of test code
 
-Public class Clock {
+class Clock {
  double now;
  Clock(double now) {
  this.now = now;
 }
+ double value(double now) {
+    return this.now - now;
+ }
 }
-Double timeStamp = time.now();
+double timeStamp = time.now();
 Clock c = new Clock(timeStamp);
 Clock d = new Clock(timeStamp);
-Clock globalClock = new Clock(timeStamp);
+Clock z = new Clock(timeStamp);
+double temp = time.now();
+assert((d.value(temp) -c.value(temp) <=0 && z.value(temp) -c.value(temp) <=0 && c.value(temp) -d.value(temp) <=0 && z.value(temp) -d.value(temp) <=0 && c.value(temp) -z.value(temp) <=0 && d.value(temp) -z.value(temp) <=0));
 Enter(L0);
 Exit(L0);
+double temp = time.now();
+assert((d.value(temp) -c.value(temp) <=0 && z.value(temp) -c.value(temp) <=0 && c.value(temp) -d.value(temp) <=0 && z.value(temp) -d.value(temp) <=0 && c.value(temp) -z.value(temp) <=0 && d.value(temp) -z.value(temp) <=0));
 input(E0);
+double temp = time.now();
+assert((d.value(temp) -c.value(temp) <=0 && z.value(temp) -c.value(temp) <=0 && c.value(temp) -d.value(temp) <=0 && z.value(temp) -d.value(temp) <=0 && c.value(temp) -z.value(temp) <=0 && d.value(temp) -z.value(temp) <=0));
 Enter(L2);
 Exit(L2);
+double temp = time.now();
+assert((d.value(temp) -c.value(temp) <=0 && z.value(temp) -c.value(temp) <=0 && c.value(temp) -d.value(temp) <=0 && z.value(temp) -d.value(temp) <=0 && c.value(temp) -z.value(temp) <=0 && d.value(temp) -z.value(temp) <=0));
 input(E6);
+double temp = time.now();
+assert((d.value(temp) -c.value(temp) <=0 && z.value(temp) -c.value(temp) <=0 && c.value(temp) -d.value(temp) <=0 && z.value(temp) -d.value(temp) <=0 && c.value(temp) -z.value(temp) <=0 && d.value(temp) -z.value(temp) <=0));
 Enter(L0);
 Exit(L1);
+double temp = time.now();
+assert((d.value(temp) -c.value(temp) <=0 && z.value(temp) -c.value(temp) <=0 && c.value(temp) -d.value(temp) <=0 && z.value(temp) -d.value(temp) <=0 && c.value(temp) -z.value(temp) <=0 && d.value(temp) -z.value(temp) <=0));
 input(E3);
 c.time = time.now();
+double temp = time.now();
+assert((c.value(temp) <=2 && c.value(temp) -d.value(temp) <=0 && z.value(temp) -d.value(temp) <=0 && c.value(temp) -z.value(temp) <=0 && d.value(temp) -z.value(temp) <=0));
 Enter(L3);
 Exit(L3);
+double temp = time.now();
+assert((c.value(temp) <=2 && c.value(temp) -d.value(temp) <=0 && z.value(temp) -d.value(temp) <=0 && c.value(temp) -z.value(temp) <=0 && d.value(temp) -z.value(temp) <=0));
 output(E8);
+double temp = time.now();
+assert((c.value(temp) >=2 && d.value(temp) >=2 && z.value(temp) >=2 && c.value(temp) -d.value(temp) <=0 && z.value(temp) -d.value(temp) <=0 && c.value(temp) -z.value(temp) <=0 && d.value(temp) -z.value(temp) <=0));
 Enter(L4);
 
 end of test code
 
-Public class Clock {
+class Clock {
  double now;
  Clock(double now) {
  this.now = now;
 }
+ double value(double now) {
+    return this.now - now;
+ }
 }
-Double timeStamp = time.now();
+double timeStamp = time.now();
 Clock c = new Clock(timeStamp);
 Clock d = new Clock(timeStamp);
-Clock globalClock = new Clock(timeStamp);
+Clock z = new Clock(timeStamp);
+double temp = time.now();
+assert((d.value(temp) -c.value(temp) <=0 && z.value(temp) -c.value(temp) <=0 && c.value(temp) -d.value(temp) <=0 && z.value(temp) -d.value(temp) <=0 && c.value(temp) -z.value(temp) <=0 && d.value(temp) -z.value(temp) <=0));
 Enter(L0);
 Exit(L0);
+double temp = time.now();
+assert((d.value(temp) -c.value(temp) <=0 && z.value(temp) -c.value(temp) <=0 && c.value(temp) -d.value(temp) <=0 && z.value(temp) -d.value(temp) <=0 && c.value(temp) -z.value(temp) <=0 && d.value(temp) -z.value(temp) <=0));
 input(E0);
+double temp = time.now();
+assert((d.value(temp) -c.value(temp) <=0 && z.value(temp) -c.value(temp) <=0 && c.value(temp) -d.value(temp) <=0 && z.value(temp) -d.value(temp) <=0 && c.value(temp) -z.value(temp) <=0 && d.value(temp) -z.value(temp) <=0));
 Enter(L2);
 Exit(L2);
+double temp = time.now();
+assert((d.value(temp) -c.value(temp) <=0 && z.value(temp) -c.value(temp) <=0 && c.value(temp) -d.value(temp) <=0 && z.value(temp) -d.value(temp) <=0 && c.value(temp) -z.value(temp) <=0 && d.value(temp) -z.value(temp) <=0));
 input(E3);
 c.time = time.now();
+double temp = time.now();
+assert((c.value(temp) <=2 && c.value(temp) -d.value(temp) <=0 && z.value(temp) -d.value(temp) <=0 && c.value(temp) -z.value(temp) <=0 && d.value(temp) -z.value(temp) <=0));
 Enter(L3);
 Exit(L3);
+double temp = time.now();
+assert((c.value(temp) <=2 && c.value(temp) -d.value(temp) <=0 && z.value(temp) -d.value(temp) <=0 && c.value(temp) -z.value(temp) <=0 && d.value(temp) -z.value(temp) <=0));
 output(E8);
+double temp = time.now();
+assert((c.value(temp) >=2 && d.value(temp) >=2 && z.value(temp) >=2 && c.value(temp) -d.value(temp) <=0 && z.value(temp) -d.value(temp) <=0 && c.value(temp) -z.value(temp) <=0 && d.value(temp) -z.value(temp) <=0));
 Enter(L4);
 
 end of test code
 
-Public class Clock {
+class Clock {
  double now;
  Clock(double now) {
  this.now = now;
 }
+ double value(double now) {
+    return this.now - now;
+ }
 }
-Double timeStamp = time.now();
+double timeStamp = time.now();
 Clock c = new Clock(timeStamp);
 Clock d = new Clock(timeStamp);
-Clock globalClock = new Clock(timeStamp);
+Clock z = new Clock(timeStamp);
+double temp = time.now();
+assert((d.value(temp) -c.value(temp) <=0 && z.value(temp) -c.value(temp) <=0 && c.value(temp) -d.value(temp) <=0 && z.value(temp) -d.value(temp) <=0 && c.value(temp) -z.value(temp) <=0 && d.value(temp) -z.value(temp) <=0));
 Enter(L0);
 Exit(L0);
+double temp = time.now();
+assert((d.value(temp) -c.value(temp) <=0 && z.value(temp) -c.value(temp) <=0 && c.value(temp) -d.value(temp) <=0 && z.value(temp) -d.value(temp) <=0 && c.value(temp) -z.value(temp) <=0 && d.value(temp) -z.value(temp) <=0));
 input(E1);
+double temp = time.now();
+assert((d.value(temp) -c.value(temp) <=0 && z.value(temp) -c.value(temp) <=0 && c.value(temp) -d.value(temp) <=0 && z.value(temp) -d.value(temp) <=0 && c.value(temp) -z.value(temp) <=0 && d.value(temp) -z.value(temp) <=0));
 Enter(L1);
 Exit(L1);
+double temp = time.now();
+assert((d.value(temp) -c.value(temp) <=0 && z.value(temp) -c.value(temp) <=0 && c.value(temp) -d.value(temp) <=0 && z.value(temp) -d.value(temp) <=0 && c.value(temp) -z.value(temp) <=0 && d.value(temp) -z.value(temp) <=0));
 input(E3);
 c.time = time.now();
+double temp = time.now();
+assert((c.value(temp) <=2 && c.value(temp) -d.value(temp) <=0 && z.value(temp) -d.value(temp) <=0 && c.value(temp) -z.value(temp) <=0 && d.value(temp) -z.value(temp) <=0));
 Enter(L3);
 Exit(L3);
+double temp = time.now();
+assert((c.value(temp) <=2 && c.value(temp) -d.value(temp) <=0 && z.value(temp) -d.value(temp) <=0 && c.value(temp) -z.value(temp) <=0 && d.value(temp) -z.value(temp) <=0));
 input(E5);
+double temp = time.now();
+assert((c.value(temp) -d.value(temp) <=0 && z.value(temp) -d.value(temp) <=0 && c.value(temp) -z.value(temp) <=0 && d.value(temp) -z.value(temp) <=0));
 Enter(L2);
 Exit(L2);
+double temp = time.now();
+assert((c.value(temp) -d.value(temp) <=0 && z.value(temp) -d.value(temp) <=0 && c.value(temp) -z.value(temp) <=0 && d.value(temp) -z.value(temp) <=0));
 input(E3);
 c.time = time.now();
+double temp = time.now();
+assert((c.value(temp) <=2 && c.value(temp) -d.value(temp) <=0 && z.value(temp) -d.value(temp) <=0 && c.value(temp) -z.value(temp) <=0 && d.value(temp) -z.value(temp) <=0));
 Enter(L3);
 Exit(L3);
+double temp = time.now();
+assert((c.value(temp) <=2 && c.value(temp) -d.value(temp) <=0 && z.value(temp) -d.value(temp) <=0 && c.value(temp) -z.value(temp) <=0 && d.value(temp) -z.value(temp) <=0));
 output(E8);
+double temp = time.now();
+assert((c.value(temp) >=2 && d.value(temp) >=2 && z.value(temp) >=2 && c.value(temp) -d.value(temp) <=0 && z.value(temp) -d.value(temp) <=0 && c.value(temp) -z.value(temp) <=0 && d.value(temp) -z.value(temp) <=0));
 Enter(L4);
 
 end of test code
 
-Public class Clock {
+class Clock {
  double now;
  Clock(double now) {
  this.now = now;
 }
+ double value(double now) {
+    return this.now - now;
+ }
 }
-Double timeStamp = time.now();
+double timeStamp = time.now();
 Clock c = new Clock(timeStamp);
 Clock d = new Clock(timeStamp);
-Clock globalClock = new Clock(timeStamp);
+Clock z = new Clock(timeStamp);
+double temp = time.now();
+assert((d.value(temp) -c.value(temp) <=0 && z.value(temp) -c.value(temp) <=0 && c.value(temp) -d.value(temp) <=0 && z.value(temp) -d.value(temp) <=0 && c.value(temp) -z.value(temp) <=0 && d.value(temp) -z.value(temp) <=0));
 Enter(L0);
 Exit(L0);
+double temp = time.now();
+assert((d.value(temp) -c.value(temp) <=0 && z.value(temp) -c.value(temp) <=0 && c.value(temp) -d.value(temp) <=0 && z.value(temp) -d.value(temp) <=0 && c.value(temp) -z.value(temp) <=0 && d.value(temp) -z.value(temp) <=0));
 input(E1);
+double temp = time.now();
+assert((d.value(temp) -c.value(temp) <=0 && z.value(temp) -c.value(temp) <=0 && c.value(temp) -d.value(temp) <=0 && z.value(temp) -d.value(temp) <=0 && c.value(temp) -z.value(temp) <=0 && d.value(temp) -z.value(temp) <=0));
 Enter(L1);
 Exit(L1);
+double temp = time.now();
+assert((d.value(temp) -c.value(temp) <=0 && z.value(temp) -c.value(temp) <=0 && c.value(temp) -d.value(temp) <=0 && z.value(temp) -d.value(temp) <=0 && c.value(temp) -z.value(temp) <=0 && d.value(temp) -z.value(temp) <=0));
 input(E3);
 c.time = time.now();
+double temp = time.now();
+assert((c.value(temp) <=2 && c.value(temp) -d.value(temp) <=0 && z.value(temp) -d.value(temp) <=0 && c.value(temp) -z.value(temp) <=0 && d.value(temp) -z.value(temp) <=0));
 Enter(L3);
 Exit(L3);
+double temp = time.now();
+assert((c.value(temp) <=2 && c.value(temp) -d.value(temp) <=0 && z.value(temp) -d.value(temp) <=0 && c.value(temp) -z.value(temp) <=0 && d.value(temp) -z.value(temp) <=0));
 input(E4);
+double temp = time.now();
+assert((c.value(temp) -d.value(temp) <=0 && z.value(temp) -d.value(temp) <=0 && c.value(temp) -z.value(temp) <=0 && d.value(temp) -z.value(temp) <=0));
 Enter(L1);
 Exit(L1);
+double temp = time.now();
+assert((c.value(temp) -d.value(temp) <=0 && z.value(temp) -d.value(temp) <=0 && c.value(temp) -z.value(temp) <=0 && d.value(temp) -z.value(temp) <=0));
 input(E7);
+double temp = time.now();
+assert((c.value(temp) -d.value(temp) <=0 && z.value(temp) -d.value(temp) <=0 && c.value(temp) -z.value(temp) <=0 && d.value(temp) -z.value(temp) <=0));
 Enter(L0);
 Exit(L1);
+double temp = time.now();
+assert((c.value(temp) -d.value(temp) <=0 && z.value(temp) -d.value(temp) <=0 && c.value(temp) -z.value(temp) <=0 && d.value(temp) -z.value(temp) <=0));
 input(E3);
 c.time = time.now();
+double temp = time.now();
+assert((c.value(temp) <=2 && c.value(temp) -d.value(temp) <=0 && z.value(temp) -d.value(temp) <=0 && c.value(temp) -z.value(temp) <=0 && d.value(temp) -z.value(temp) <=0));
 Enter(L3);
 Exit(L3);
+double temp = time.now();
+assert((c.value(temp) <=2 && c.value(temp) -d.value(temp) <=0 && z.value(temp) -d.value(temp) <=0 && c.value(temp) -z.value(temp) <=0 && d.value(temp) -z.value(temp) <=0));
 output(E8);
+double temp = time.now();
+assert((c.value(temp) >=2 && d.value(temp) >=2 && z.value(temp) >=2 && c.value(temp) -d.value(temp) <=0 && z.value(temp) -d.value(temp) <=0 && c.value(temp) -z.value(temp) <=0 && d.value(temp) -z.value(temp) <=0));
 Enter(L4);
 
 end of test code
 
-Public class Clock {
+class Clock {
  double now;
  Clock(double now) {
  this.now = now;
 }
+ double value(double now) {
+    return this.now - now;
+ }
 }
-Double timeStamp = time.now();
+double timeStamp = time.now();
 Clock c = new Clock(timeStamp);
 Clock d = new Clock(timeStamp);
-Clock globalClock = new Clock(timeStamp);
+Clock z = new Clock(timeStamp);
+double temp = time.now();
+assert((d.value(temp) -c.value(temp) <=0 && z.value(temp) -c.value(temp) <=0 && c.value(temp) -d.value(temp) <=0 && z.value(temp) -d.value(temp) <=0 && c.value(temp) -z.value(temp) <=0 && d.value(temp) -z.value(temp) <=0));
 Enter(L0);
 Exit(L0);
+double temp = time.now();
+assert((d.value(temp) -c.value(temp) <=0 && z.value(temp) -c.value(temp) <=0 && c.value(temp) -d.value(temp) <=0 && z.value(temp) -d.value(temp) <=0 && c.value(temp) -z.value(temp) <=0 && d.value(temp) -z.value(temp) <=0));
 input(E1);
+double temp = time.now();
+assert((d.value(temp) -c.value(temp) <=0 && z.value(temp) -c.value(temp) <=0 && c.value(temp) -d.value(temp) <=0 && z.value(temp) -d.value(temp) <=0 && c.value(temp) -z.value(temp) <=0 && d.value(temp) -z.value(temp) <=0));
 Enter(L1);
 Exit(L1);
+double temp = time.now();
+assert((d.value(temp) -c.value(temp) <=0 && z.value(temp) -c.value(temp) <=0 && c.value(temp) -d.value(temp) <=0 && z.value(temp) -d.value(temp) <=0 && c.value(temp) -z.value(temp) <=0 && d.value(temp) -z.value(temp) <=0));
 input(E3);
 c.time = time.now();
+double temp = time.now();
+assert((c.value(temp) <=2 && c.value(temp) -d.value(temp) <=0 && z.value(temp) -d.value(temp) <=0 && c.value(temp) -z.value(temp) <=0 && d.value(temp) -z.value(temp) <=0));
 Enter(L3);
 Exit(L3);
+double temp = time.now();
+assert((c.value(temp) <=2 && c.value(temp) -d.value(temp) <=0 && z.value(temp) -d.value(temp) <=0 && c.value(temp) -z.value(temp) <=0 && d.value(temp) -z.value(temp) <=0));
 output(E8);
+double temp = time.now();
+assert((c.value(temp) >=2 && d.value(temp) >=2 && z.value(temp) >=2 && c.value(temp) -d.value(temp) <=0 && z.value(temp) -d.value(temp) <=0 && c.value(temp) -z.value(temp) <=0 && d.value(temp) -z.value(temp) <=0));
 Enter(L4);
 Exit(L4);
+double temp = time.now();
+assert((c.value(temp) >=2 && d.value(temp) >=2 && z.value(temp) >=2 && c.value(temp) -d.value(temp) <=0 && z.value(temp) -d.value(temp) <=0 && c.value(temp) -z.value(temp) <=0 && d.value(temp) -z.value(temp) <=0));
 input(E9);
 d.time = time.now();
+double temp = time.now();
+assert((c.value(temp) >=2 && d.value(temp) ==0 && z.value(temp) >=2 && d.value(temp) -c.value(temp) <=-2 && c.value(temp) -z.value(temp) <=0 && d.value(temp) -z.value(temp) <=-2));
 Enter(L6);
 Exit(L6);
+double temp = time.now();
+assert((c.value(temp) >=2 && d.value(temp) ==0 && z.value(temp) >=2 && d.value(temp) -c.value(temp) <=-2 && c.value(temp) -z.value(temp) <=0 && d.value(temp) -z.value(temp) <=-2));
 output(E11);
+double temp = time.now();
+assert((c.value(temp) >=2 && z.value(temp) >=2 && d.value(temp) -c.value(temp) <=-2 && c.value(temp) -z.value(temp) <=0 && d.value(temp) -z.value(temp) <=-2));
 Enter(L1);
 Exit(L1);
+double temp = time.now();
+assert((c.value(temp) >=2 && z.value(temp) >=2 && d.value(temp) -c.value(temp) <=-2 && c.value(temp) -z.value(temp) <=0 && d.value(temp) -z.value(temp) <=-2));
 input(E7);
+double temp = time.now();
+assert((c.value(temp) >=2 && z.value(temp) >=2 && d.value(temp) -c.value(temp) <=-2 && c.value(temp) -z.value(temp) <=0 && d.value(temp) -z.value(temp) <=-2));
 Enter(L0);
 Exit(L1);
+double temp = time.now();
+assert((c.value(temp) >=2 && z.value(temp) >=2 && d.value(temp) -c.value(temp) <=-2 && c.value(temp) -z.value(temp) <=0 && d.value(temp) -z.value(temp) <=-2));
 input(E3);
 c.time = time.now();
+double temp = time.now();
+assert((c.value(temp) <=2 && z.value(temp) >=2 && c.value(temp) -d.value(temp) <=0 && c.value(temp) -z.value(temp) <=-2 && d.value(temp) -z.value(temp) <=-2));
 Enter(L3);
 Exit(L3);
+double temp = time.now();
+assert((c.value(temp) <=2 && z.value(temp) >=2 && c.value(temp) -d.value(temp) <=0 && c.value(temp) -z.value(temp) <=-2 && d.value(temp) -z.value(temp) <=-2));
 output(E8);
+double temp = time.now();
+assert((c.value(temp) >=2 && d.value(temp) >=2 && z.value(temp) >=4 && c.value(temp) -d.value(temp) <=0 && c.value(temp) -z.value(temp) <=-2 && d.value(temp) -z.value(temp) <=-2));
 Enter(L4);
 
 end of test code
 
-Public class Clock {
+class Clock {
  double now;
  Clock(double now) {
  this.now = now;
 }
+ double value(double now) {
+    return this.now - now;
+ }
 }
-Double timeStamp = time.now();
+double timeStamp = time.now();
 Clock c = new Clock(timeStamp);
 Clock d = new Clock(timeStamp);
-Clock globalClock = new Clock(timeStamp);
+Clock z = new Clock(timeStamp);
+double temp = time.now();
+assert((d.value(temp) -c.value(temp) <=0 && z.value(temp) -c.value(temp) <=0 && c.value(temp) -d.value(temp) <=0 && z.value(temp) -d.value(temp) <=0 && c.value(temp) -z.value(temp) <=0 && d.value(temp) -z.value(temp) <=0));
 Enter(L0);
 Exit(L0);
+double temp = time.now();
+assert((d.value(temp) -c.value(temp) <=0 && z.value(temp) -c.value(temp) <=0 && c.value(temp) -d.value(temp) <=0 && z.value(temp) -d.value(temp) <=0 && c.value(temp) -z.value(temp) <=0 && d.value(temp) -z.value(temp) <=0));
 input(E1);
+double temp = time.now();
+assert((d.value(temp) -c.value(temp) <=0 && z.value(temp) -c.value(temp) <=0 && c.value(temp) -d.value(temp) <=0 && z.value(temp) -d.value(temp) <=0 && c.value(temp) -z.value(temp) <=0 && d.value(temp) -z.value(temp) <=0));
 Enter(L1);
 Exit(L1);
+double temp = time.now();
+assert((d.value(temp) -c.value(temp) <=0 && z.value(temp) -c.value(temp) <=0 && c.value(temp) -d.value(temp) <=0 && z.value(temp) -d.value(temp) <=0 && c.value(temp) -z.value(temp) <=0 && d.value(temp) -z.value(temp) <=0));
 input(E3);
 c.time = time.now();
+double temp = time.now();
+assert((c.value(temp) <=2 && c.value(temp) -d.value(temp) <=0 && z.value(temp) -d.value(temp) <=0 && c.value(temp) -z.value(temp) <=0 && d.value(temp) -z.value(temp) <=0));
 Enter(L3);
 Exit(L3);
+double temp = time.now();
+assert((c.value(temp) <=2 && c.value(temp) -d.value(temp) <=0 && z.value(temp) -d.value(temp) <=0 && c.value(temp) -z.value(temp) <=0 && d.value(temp) -z.value(temp) <=0));
 output(E8);
+double temp = time.now();
+assert((c.value(temp) >=2 && d.value(temp) >=2 && z.value(temp) >=2 && c.value(temp) -d.value(temp) <=0 && z.value(temp) -d.value(temp) <=0 && c.value(temp) -z.value(temp) <=0 && d.value(temp) -z.value(temp) <=0));
 Enter(L4);
 Exit(L4);
+double temp = time.now();
+assert((c.value(temp) >=2 && d.value(temp) >=2 && z.value(temp) >=2 && c.value(temp) -d.value(temp) <=0 && z.value(temp) -d.value(temp) <=0 && c.value(temp) -z.value(temp) <=0 && d.value(temp) -z.value(temp) <=0));
 input(E9);
 d.time = time.now();
+double temp = time.now();
+assert((c.value(temp) >=2 && d.value(temp) ==0 && z.value(temp) >=2 && d.value(temp) -c.value(temp) <=-2 && c.value(temp) -z.value(temp) <=0 && d.value(temp) -z.value(temp) <=-2));
 Enter(L6);
 Exit(L6);
+double temp = time.now();
+assert((c.value(temp) >=2 && d.value(temp) ==0 && z.value(temp) >=2 && d.value(temp) -c.value(temp) <=-2 && c.value(temp) -z.value(temp) <=0 && d.value(temp) -z.value(temp) <=-2));
 output(E11);
+double temp = time.now();
+assert((c.value(temp) >=2 && z.value(temp) >=2 && d.value(temp) -c.value(temp) <=-2 && c.value(temp) -z.value(temp) <=0 && d.value(temp) -z.value(temp) <=-2));
 Enter(L1);
 Exit(L1);
+double temp = time.now();
+assert((c.value(temp) >=2 && z.value(temp) >=2 && d.value(temp) -c.value(temp) <=-2 && c.value(temp) -z.value(temp) <=0 && d.value(temp) -z.value(temp) <=-2));
 input(E3);
 c.time = time.now();
+double temp = time.now();
+assert((c.value(temp) <=2 && z.value(temp) >=2 && c.value(temp) -d.value(temp) <=0 && c.value(temp) -z.value(temp) <=-2 && d.value(temp) -z.value(temp) <=-2));
 Enter(L3);
 Exit(L3);
+double temp = time.now();
+assert((c.value(temp) <=2 && z.value(temp) >=2 && c.value(temp) -d.value(temp) <=0 && c.value(temp) -z.value(temp) <=-2 && d.value(temp) -z.value(temp) <=-2));
 input(E5);
+double temp = time.now();
+assert((z.value(temp) >=2 && c.value(temp) -d.value(temp) <=0 && c.value(temp) -z.value(temp) <=-2 && d.value(temp) -z.value(temp) <=-2));
 Enter(L2);
 Exit(L2);
+double temp = time.now();
+assert((z.value(temp) >=2 && c.value(temp) -d.value(temp) <=0 && c.value(temp) -z.value(temp) <=-2 && d.value(temp) -z.value(temp) <=-2));
 input(E3);
 c.time = time.now();
+double temp = time.now();
+assert((c.value(temp) <=2 && z.value(temp) >=2 && c.value(temp) -d.value(temp) <=0 && c.value(temp) -z.value(temp) <=-2 && d.value(temp) -z.value(temp) <=-2));
 Enter(L3);
 Exit(L3);
+double temp = time.now();
+assert((c.value(temp) <=2 && z.value(temp) >=2 && c.value(temp) -d.value(temp) <=0 && c.value(temp) -z.value(temp) <=-2 && d.value(temp) -z.value(temp) <=-2));
 output(E8);
+double temp = time.now();
+assert((c.value(temp) >=2 && d.value(temp) >=2 && z.value(temp) >=4 && c.value(temp) -d.value(temp) <=0 && c.value(temp) -z.value(temp) <=-2 && d.value(temp) -z.value(temp) <=-2));
 Enter(L4);
 
 end of test code
 
-Public class Clock {
+class Clock {
  double now;
  Clock(double now) {
  this.now = now;
 }
+ double value(double now) {
+    return this.now - now;
+ }
 }
-Double timeStamp = time.now();
+double timeStamp = time.now();
 Clock c = new Clock(timeStamp);
 Clock d = new Clock(timeStamp);
-Clock globalClock = new Clock(timeStamp);
+Clock z = new Clock(timeStamp);
+double temp = time.now();
+assert((d.value(temp) -c.value(temp) <=0 && z.value(temp) -c.value(temp) <=0 && c.value(temp) -d.value(temp) <=0 && z.value(temp) -d.value(temp) <=0 && c.value(temp) -z.value(temp) <=0 && d.value(temp) -z.value(temp) <=0));
 Enter(L0);
 Exit(L0);
+double temp = time.now();
+assert((d.value(temp) -c.value(temp) <=0 && z.value(temp) -c.value(temp) <=0 && c.value(temp) -d.value(temp) <=0 && z.value(temp) -d.value(temp) <=0 && c.value(temp) -z.value(temp) <=0 && d.value(temp) -z.value(temp) <=0));
 input(E1);
+double temp = time.now();
+assert((d.value(temp) -c.value(temp) <=0 && z.value(temp) -c.value(temp) <=0 && c.value(temp) -d.value(temp) <=0 && z.value(temp) -d.value(temp) <=0 && c.value(temp) -z.value(temp) <=0 && d.value(temp) -z.value(temp) <=0));
 Enter(L1);
 Exit(L1);
+double temp = time.now();
+assert((d.value(temp) -c.value(temp) <=0 && z.value(temp) -c.value(temp) <=0 && c.value(temp) -d.value(temp) <=0 && z.value(temp) -d.value(temp) <=0 && c.value(temp) -z.value(temp) <=0 && d.value(temp) -z.value(temp) <=0));
 input(E3);
 c.time = time.now();
+double temp = time.now();
+assert((c.value(temp) <=2 && c.value(temp) -d.value(temp) <=0 && z.value(temp) -d.value(temp) <=0 && c.value(temp) -z.value(temp) <=0 && d.value(temp) -z.value(temp) <=0));
 Enter(L3);
 Exit(L3);
+double temp = time.now();
+assert((c.value(temp) <=2 && c.value(temp) -d.value(temp) <=0 && z.value(temp) -d.value(temp) <=0 && c.value(temp) -z.value(temp) <=0 && d.value(temp) -z.value(temp) <=0));
 output(E8);
+double temp = time.now();
+assert((c.value(temp) >=2 && d.value(temp) >=2 && z.value(temp) >=2 && c.value(temp) -d.value(temp) <=0 && z.value(temp) -d.value(temp) <=0 && c.value(temp) -z.value(temp) <=0 && d.value(temp) -z.value(temp) <=0));
 Enter(L4);
 Exit(L4);
+double temp = time.now();
+assert((c.value(temp) >=2 && d.value(temp) >=2 && z.value(temp) >=2 && c.value(temp) -d.value(temp) <=0 && z.value(temp) -d.value(temp) <=0 && c.value(temp) -z.value(temp) <=0 && d.value(temp) -z.value(temp) <=0));
 input(E9);
 d.time = time.now();
+double temp = time.now();
+assert((c.value(temp) >=2 && d.value(temp) ==0 && z.value(temp) >=2 && d.value(temp) -c.value(temp) <=-2 && c.value(temp) -z.value(temp) <=0 && d.value(temp) -z.value(temp) <=-2));
 Enter(L6);
 Exit(L6);
+double temp = time.now();
+assert((c.value(temp) >=2 && d.value(temp) ==0 && z.value(temp) >=2 && d.value(temp) -c.value(temp) <=-2 && c.value(temp) -z.value(temp) <=0 && d.value(temp) -z.value(temp) <=-2));
 output(E11);
+double temp = time.now();
+assert((c.value(temp) >=2 && z.value(temp) >=2 && d.value(temp) -c.value(temp) <=-2 && c.value(temp) -z.value(temp) <=0 && d.value(temp) -z.value(temp) <=-2));
 Enter(L1);
 Exit(L1);
+double temp = time.now();
+assert((c.value(temp) >=2 && z.value(temp) >=2 && d.value(temp) -c.value(temp) <=-2 && c.value(temp) -z.value(temp) <=0 && d.value(temp) -z.value(temp) <=-2));
 input(E3);
 c.time = time.now();
+double temp = time.now();
+assert((c.value(temp) <=2 && z.value(temp) >=2 && c.value(temp) -d.value(temp) <=0 && c.value(temp) -z.value(temp) <=-2 && d.value(temp) -z.value(temp) <=-2));
 Enter(L3);
 Exit(L3);
+double temp = time.now();
+assert((c.value(temp) <=2 && z.value(temp) >=2 && c.value(temp) -d.value(temp) <=0 && c.value(temp) -z.value(temp) <=-2 && d.value(temp) -z.value(temp) <=-2));
 output(E8);
+double temp = time.now();
+assert((c.value(temp) >=2 && d.value(temp) >=2 && z.value(temp) >=4 && c.value(temp) -d.value(temp) <=0 && c.value(temp) -z.value(temp) <=-2 && d.value(temp) -z.value(temp) <=-2));
 Enter(L4);
 
 end of test code
 
-Public class Clock {
+class Clock {
  double now;
  Clock(double now) {
  this.now = now;
 }
+ double value(double now) {
+    return this.now - now;
+ }
 }
-Double timeStamp = time.now();
+double timeStamp = time.now();
 Clock c = new Clock(timeStamp);
 Clock d = new Clock(timeStamp);
-Clock globalClock = new Clock(timeStamp);
+Clock z = new Clock(timeStamp);
+double temp = time.now();
+assert((d.value(temp) -c.value(temp) <=0 && z.value(temp) -c.value(temp) <=0 && c.value(temp) -d.value(temp) <=0 && z.value(temp) -d.value(temp) <=0 && c.value(temp) -z.value(temp) <=0 && d.value(temp) -z.value(temp) <=0));
 Enter(L0);
 Exit(L0);
+double temp = time.now();
+assert((d.value(temp) -c.value(temp) <=0 && z.value(temp) -c.value(temp) <=0 && c.value(temp) -d.value(temp) <=0 && z.value(temp) -d.value(temp) <=0 && c.value(temp) -z.value(temp) <=0 && d.value(temp) -z.value(temp) <=0));
 input(E1);
+double temp = time.now();
+assert((d.value(temp) -c.value(temp) <=0 && z.value(temp) -c.value(temp) <=0 && c.value(temp) -d.value(temp) <=0 && z.value(temp) -d.value(temp) <=0 && c.value(temp) -z.value(temp) <=0 && d.value(temp) -z.value(temp) <=0));
 Enter(L1);
 Exit(L1);
+double temp = time.now();
+assert((d.value(temp) -c.value(temp) <=0 && z.value(temp) -c.value(temp) <=0 && c.value(temp) -d.value(temp) <=0 && z.value(temp) -d.value(temp) <=0 && c.value(temp) -z.value(temp) <=0 && d.value(temp) -z.value(temp) <=0));
 input(E3);
 c.time = time.now();
+double temp = time.now();
+assert((c.value(temp) <=2 && c.value(temp) -d.value(temp) <=0 && z.value(temp) -d.value(temp) <=0 && c.value(temp) -z.value(temp) <=0 && d.value(temp) -z.value(temp) <=0));
 Enter(L3);
 Exit(L3);
+double temp = time.now();
+assert((c.value(temp) <=2 && c.value(temp) -d.value(temp) <=0 && z.value(temp) -d.value(temp) <=0 && c.value(temp) -z.value(temp) <=0 && d.value(temp) -z.value(temp) <=0));
 output(E8);
+double temp = time.now();
+assert((c.value(temp) >=2 && d.value(temp) >=2 && z.value(temp) >=2 && c.value(temp) -d.value(temp) <=0 && z.value(temp) -d.value(temp) <=0 && c.value(temp) -z.value(temp) <=0 && d.value(temp) -z.value(temp) <=0));
 Enter(L4);
 Exit(L4);
+double temp = time.now();
+assert((c.value(temp) >=2 && d.value(temp) >=2 && z.value(temp) >=2 && c.value(temp) -d.value(temp) <=0 && z.value(temp) -d.value(temp) <=0 && c.value(temp) -z.value(temp) <=0 && d.value(temp) -z.value(temp) <=0));
 input(E9);
 d.time = time.now();
+double temp = time.now();
+assert((c.value(temp) >=2 && d.value(temp) ==0 && z.value(temp) >=2 && d.value(temp) -c.value(temp) <=-2 && c.value(temp) -z.value(temp) <=0 && d.value(temp) -z.value(temp) <=-2));
 Enter(L6);
 Exit(L6);
+double temp = time.now();
+assert((c.value(temp) >=2 && d.value(temp) ==0 && z.value(temp) >=2 && d.value(temp) -c.value(temp) <=-2 && c.value(temp) -z.value(temp) <=0 && d.value(temp) -z.value(temp) <=-2));
 output(E11);
+double temp = time.now();
+assert((c.value(temp) >=2 && z.value(temp) >=2 && d.value(temp) -c.value(temp) <=-2 && c.value(temp) -z.value(temp) <=0 && d.value(temp) -z.value(temp) <=-2));
 Enter(L1);
 Exit(L1);
+double temp = time.now();
+assert((c.value(temp) >=2 && z.value(temp) >=2 && d.value(temp) -c.value(temp) <=-2 && c.value(temp) -z.value(temp) <=0 && d.value(temp) -z.value(temp) <=-2));
 input(E3);
 c.time = time.now();
+double temp = time.now();
+assert((c.value(temp) <=2 && z.value(temp) >=2 && c.value(temp) -d.value(temp) <=0 && c.value(temp) -z.value(temp) <=-2 && d.value(temp) -z.value(temp) <=-2));
 Enter(L3);
 Exit(L3);
+double temp = time.now();
+assert((c.value(temp) <=2 && z.value(temp) >=2 && c.value(temp) -d.value(temp) <=0 && c.value(temp) -z.value(temp) <=-2 && d.value(temp) -z.value(temp) <=-2));
 input(E4);
+double temp = time.now();
+assert((z.value(temp) >=2 && c.value(temp) -d.value(temp) <=0 && c.value(temp) -z.value(temp) <=-2 && d.value(temp) -z.value(temp) <=-2));
 Enter(L1);
 Exit(L1);
+double temp = time.now();
+assert((z.value(temp) >=2 && c.value(temp) -d.value(temp) <=0 && c.value(temp) -z.value(temp) <=-2 && d.value(temp) -z.value(temp) <=-2));
 input(E7);
+double temp = time.now();
+assert((z.value(temp) >=2 && c.value(temp) -d.value(temp) <=0 && c.value(temp) -z.value(temp) <=-2 && d.value(temp) -z.value(temp) <=-2));
 Enter(L0);
 Exit(L1);
+double temp = time.now();
+assert((z.value(temp) >=2 && c.value(temp) -d.value(temp) <=0 && c.value(temp) -z.value(temp) <=-2 && d.value(temp) -z.value(temp) <=-2));
 input(E3);
 c.time = time.now();
+double temp = time.now();
+assert((c.value(temp) <=2 && z.value(temp) >=2 && c.value(temp) -d.value(temp) <=0 && c.value(temp) -z.value(temp) <=-2 && d.value(temp) -z.value(temp) <=-2));
 Enter(L3);
 Exit(L3);
+double temp = time.now();
+assert((c.value(temp) <=2 && z.value(temp) >=2 && c.value(temp) -d.value(temp) <=0 && c.value(temp) -z.value(temp) <=-2 && d.value(temp) -z.value(temp) <=-2));
 output(E8);
+double temp = time.now();
+assert((c.value(temp) >=2 && d.value(temp) >=2 && z.value(temp) >=4 && c.value(temp) -d.value(temp) <=0 && c.value(temp) -z.value(temp) <=-2 && d.value(temp) -z.value(temp) <=-2));
 Enter(L4);
 
 end of test code
 
-Public class Clock {
+class Clock {
  double now;
  Clock(double now) {
  this.now = now;
 }
+ double value(double now) {
+    return this.now - now;
+ }
 }
-Double timeStamp = time.now();
+double timeStamp = time.now();
 Clock c = new Clock(timeStamp);
 Clock d = new Clock(timeStamp);
-Clock globalClock = new Clock(timeStamp);
+Clock z = new Clock(timeStamp);
+double temp = time.now();
+assert((d.value(temp) -c.value(temp) <=0 && z.value(temp) -c.value(temp) <=0 && c.value(temp) -d.value(temp) <=0 && z.value(temp) -d.value(temp) <=0 && c.value(temp) -z.value(temp) <=0 && d.value(temp) -z.value(temp) <=0));
 Enter(L0);
 Exit(L0);
+double temp = time.now();
+assert((d.value(temp) -c.value(temp) <=0 && z.value(temp) -c.value(temp) <=0 && c.value(temp) -d.value(temp) <=0 && z.value(temp) -d.value(temp) <=0 && c.value(temp) -z.value(temp) <=0 && d.value(temp) -z.value(temp) <=0));
 input(E1);
+double temp = time.now();
+assert((d.value(temp) -c.value(temp) <=0 && z.value(temp) -c.value(temp) <=0 && c.value(temp) -d.value(temp) <=0 && z.value(temp) -d.value(temp) <=0 && c.value(temp) -z.value(temp) <=0 && d.value(temp) -z.value(temp) <=0));
 Enter(L1);
 Exit(L1);
+double temp = time.now();
+assert((d.value(temp) -c.value(temp) <=0 && z.value(temp) -c.value(temp) <=0 && c.value(temp) -d.value(temp) <=0 && z.value(temp) -d.value(temp) <=0 && c.value(temp) -z.value(temp) <=0 && d.value(temp) -z.value(temp) <=0));
 input(E3);
 c.time = time.now();
+double temp = time.now();
+assert((c.value(temp) <=2 && c.value(temp) -d.value(temp) <=0 && z.value(temp) -d.value(temp) <=0 && c.value(temp) -z.value(temp) <=0 && d.value(temp) -z.value(temp) <=0));
 Enter(L3);
 Exit(L3);
+double temp = time.now();
+assert((c.value(temp) <=2 && c.value(temp) -d.value(temp) <=0 && z.value(temp) -d.value(temp) <=0 && c.value(temp) -z.value(temp) <=0 && d.value(temp) -z.value(temp) <=0));
 output(E8);
+double temp = time.now();
+assert((c.value(temp) >=2 && d.value(temp) >=2 && z.value(temp) >=2 && c.value(temp) -d.value(temp) <=0 && z.value(temp) -d.value(temp) <=0 && c.value(temp) -z.value(temp) <=0 && d.value(temp) -z.value(temp) <=0));
 Enter(L4);
 Exit(L4);
+double temp = time.now();
+assert((c.value(temp) >=2 && d.value(temp) >=2 && z.value(temp) >=2 && c.value(temp) -d.value(temp) <=0 && z.value(temp) -d.value(temp) <=0 && c.value(temp) -z.value(temp) <=0 && d.value(temp) -z.value(temp) <=0));
 input(E14);
 d.time = time.now();
+double temp = time.now();
+assert((c.value(temp) >=2 && d.value(temp) ==0 && z.value(temp) >=2 && d.value(temp) -c.value(temp) <=-2 && c.value(temp) -z.value(temp) <=0 && d.value(temp) -z.value(temp) <=-2));
 Enter(L8);
 Exit(L8);
+double temp = time.now();
+assert((c.value(temp) >=2 && d.value(temp) ==0 && z.value(temp) >=2 && d.value(temp) -c.value(temp) <=-2 && c.value(temp) -z.value(temp) <=0 && d.value(temp) -z.value(temp) <=-2));
 output(E15);
+double temp = time.now();
+assert((c.value(temp) >=2 && d.value(temp) ==0 && z.value(temp) >=2 && d.value(temp) -c.value(temp) <=-2 && c.value(temp) -z.value(temp) <=0 && d.value(temp) -z.value(temp) <=-2));
 Enter(L9);
 Exit(L9);
+double temp = time.now();
+assert((c.value(temp) >=2 && d.value(temp) ==0 && z.value(temp) >=2 && d.value(temp) -c.value(temp) <=-2 && c.value(temp) -z.value(temp) <=0 && d.value(temp) -z.value(temp) <=-2));
 output(E16);
+double temp = time.now();
+assert((c.value(temp) >=2 && d.value(temp) ==0 && z.value(temp) >=2 && d.value(temp) -c.value(temp) <=-2 && c.value(temp) -z.value(temp) <=0 && d.value(temp) -z.value(temp) <=-2));
 Enter(L15);
 Exit(L15);
+double temp = time.now();
+assert((c.value(temp) >=2 && d.value(temp) ==0 && z.value(temp) >=2 && d.value(temp) -c.value(temp) <=-2 && c.value(temp) -z.value(temp) <=0 && d.value(temp) -z.value(temp) <=-2));
 output(E24);
+double temp = time.now();
+assert((c.value(temp) >=2 && d.value(temp) <=3 && z.value(temp) >=2 && d.value(temp) -c.value(temp) <=-2 && c.value(temp) -z.value(temp) <=0 && d.value(temp) -z.value(temp) <=-2));
 Enter(L10);
 Exit(L10);
+double temp = time.now();
+assert((c.value(temp) >=2 && d.value(temp) <=3 && z.value(temp) >=2 && d.value(temp) -c.value(temp) <=-2 && c.value(temp) -z.value(temp) <=0 && d.value(temp) -z.value(temp) <=-2));
 output(E17);
+double temp = time.now();
+assert((c.value(temp) >=5 && d.value(temp) >=3 && d.value(temp) <=30 && z.value(temp) >=5 && d.value(temp) -c.value(temp) <=-2 && c.value(temp) -z.value(temp) <=0 && d.value(temp) -z.value(temp) <=-2));
 Enter(L12);
 Exit(L12);
+double temp = time.now();
+assert((c.value(temp) >=5 && d.value(temp) >=3 && d.value(temp) <=30 && z.value(temp) >=5 && d.value(temp) -c.value(temp) <=-2 && c.value(temp) -z.value(temp) <=0 && d.value(temp) -z.value(temp) <=-2));
 input(E19);
 d.time = time.now();
+double temp = time.now();
+assert((c.value(temp) >2 && d.value(temp) ==0 && z.value(temp) >=5 && d.value(temp) -c.value(temp) <-2 && c.value(temp) -z.value(temp) <=0 && d.value(temp) -z.value(temp) <=-5));
 Enter(L11);
 Exit(L11);
+double temp = time.now();
+assert((c.value(temp) >2 && d.value(temp) ==0 && z.value(temp) >=5 && d.value(temp) -c.value(temp) <-2 && c.value(temp) -z.value(temp) <=0 && d.value(temp) -z.value(temp) <=-5));
 output(E22);
+double temp = time.now();
+assert((c.value(temp) >2 && d.value(temp) ==0 && z.value(temp) >=5 && d.value(temp) -c.value(temp) <-2 && c.value(temp) -z.value(temp) <=0 && d.value(temp) -z.value(temp) <=-5));
 Enter(L14);
 
 end of test code
 
-Public class Clock {
+class Clock {
  double now;
  Clock(double now) {
  this.now = now;
 }
+ double value(double now) {
+    return this.now - now;
+ }
 }
-Double timeStamp = time.now();
+double timeStamp = time.now();
 Clock c = new Clock(timeStamp);
 Clock d = new Clock(timeStamp);
-Clock globalClock = new Clock(timeStamp);
+Clock z = new Clock(timeStamp);
+double temp = time.now();
+assert((d.value(temp) -c.value(temp) <=0 && z.value(temp) -c.value(temp) <=0 && c.value(temp) -d.value(temp) <=0 && z.value(temp) -d.value(temp) <=0 && c.value(temp) -z.value(temp) <=0 && d.value(temp) -z.value(temp) <=0));
 Enter(L0);
 Exit(L0);
+double temp = time.now();
+assert((d.value(temp) -c.value(temp) <=0 && z.value(temp) -c.value(temp) <=0 && c.value(temp) -d.value(temp) <=0 && z.value(temp) -d.value(temp) <=0 && c.value(temp) -z.value(temp) <=0 && d.value(temp) -z.value(temp) <=0));
 input(E1);
+double temp = time.now();
+assert((d.value(temp) -c.value(temp) <=0 && z.value(temp) -c.value(temp) <=0 && c.value(temp) -d.value(temp) <=0 && z.value(temp) -d.value(temp) <=0 && c.value(temp) -z.value(temp) <=0 && d.value(temp) -z.value(temp) <=0));
 Enter(L1);
 Exit(L1);
+double temp = time.now();
+assert((d.value(temp) -c.value(temp) <=0 && z.value(temp) -c.value(temp) <=0 && c.value(temp) -d.value(temp) <=0 && z.value(temp) -d.value(temp) <=0 && c.value(temp) -z.value(temp) <=0 && d.value(temp) -z.value(temp) <=0));
 input(E3);
 c.time = time.now();
+double temp = time.now();
+assert((c.value(temp) <=2 && c.value(temp) -d.value(temp) <=0 && z.value(temp) -d.value(temp) <=0 && c.value(temp) -z.value(temp) <=0 && d.value(temp) -z.value(temp) <=0));
 Enter(L3);
 Exit(L3);
+double temp = time.now();
+assert((c.value(temp) <=2 && c.value(temp) -d.value(temp) <=0 && z.value(temp) -d.value(temp) <=0 && c.value(temp) -z.value(temp) <=0 && d.value(temp) -z.value(temp) <=0));
 output(E8);
+double temp = time.now();
+assert((c.value(temp) >=2 && d.value(temp) >=2 && z.value(temp) >=2 && c.value(temp) -d.value(temp) <=0 && z.value(temp) -d.value(temp) <=0 && c.value(temp) -z.value(temp) <=0 && d.value(temp) -z.value(temp) <=0));
 Enter(L4);
 Exit(L4);
+double temp = time.now();
+assert((c.value(temp) >=2 && d.value(temp) >=2 && z.value(temp) >=2 && c.value(temp) -d.value(temp) <=0 && z.value(temp) -d.value(temp) <=0 && c.value(temp) -z.value(temp) <=0 && d.value(temp) -z.value(temp) <=0));
 input(E14);
 d.time = time.now();
+double temp = time.now();
+assert((c.value(temp) >=2 && d.value(temp) ==0 && z.value(temp) >=2 && d.value(temp) -c.value(temp) <=-2 && c.value(temp) -z.value(temp) <=0 && d.value(temp) -z.value(temp) <=-2));
 Enter(L8);
 Exit(L8);
+double temp = time.now();
+assert((c.value(temp) >=2 && d.value(temp) ==0 && z.value(temp) >=2 && d.value(temp) -c.value(temp) <=-2 && c.value(temp) -z.value(temp) <=0 && d.value(temp) -z.value(temp) <=-2));
 output(E15);
+double temp = time.now();
+assert((c.value(temp) >=2 && d.value(temp) ==0 && z.value(temp) >=2 && d.value(temp) -c.value(temp) <=-2 && c.value(temp) -z.value(temp) <=0 && d.value(temp) -z.value(temp) <=-2));
 Enter(L9);
 Exit(L9);
+double temp = time.now();
+assert((c.value(temp) >=2 && d.value(temp) ==0 && z.value(temp) >=2 && d.value(temp) -c.value(temp) <=-2 && c.value(temp) -z.value(temp) <=0 && d.value(temp) -z.value(temp) <=-2));
 output(E16);
+double temp = time.now();
+assert((c.value(temp) >=2 && d.value(temp) ==0 && z.value(temp) >=2 && d.value(temp) -c.value(temp) <=-2 && c.value(temp) -z.value(temp) <=0 && d.value(temp) -z.value(temp) <=-2));
 Enter(L15);
 Exit(L15);
+double temp = time.now();
+assert((c.value(temp) >=2 && d.value(temp) ==0 && z.value(temp) >=2 && d.value(temp) -c.value(temp) <=-2 && c.value(temp) -z.value(temp) <=0 && d.value(temp) -z.value(temp) <=-2));
 output(E24);
+double temp = time.now();
+assert((c.value(temp) >=2 && d.value(temp) <=3 && z.value(temp) >=2 && d.value(temp) -c.value(temp) <=-2 && c.value(temp) -z.value(temp) <=0 && d.value(temp) -z.value(temp) <=-2));
 Enter(L10);
 Exit(L10);
+double temp = time.now();
+assert((c.value(temp) >=2 && d.value(temp) <=3 && z.value(temp) >=2 && d.value(temp) -c.value(temp) <=-2 && c.value(temp) -z.value(temp) <=0 && d.value(temp) -z.value(temp) <=-2));
 input(E18);
 d.time = time.now();
+double temp = time.now();
+assert((c.value(temp) >=2 && d.value(temp) ==0 && z.value(temp) >=2 && d.value(temp) -c.value(temp) <=-2 && c.value(temp) -z.value(temp) <=0 && d.value(temp) -z.value(temp) <=-2));
 Enter(L11);
 Exit(L11);
+double temp = time.now();
+assert((c.value(temp) >=2 && d.value(temp) ==0 && z.value(temp) >=2 && d.value(temp) -c.value(temp) <=-2 && c.value(temp) -z.value(temp) <=0 && d.value(temp) -z.value(temp) <=-2));
 output(E22);
+double temp = time.now();
+assert((c.value(temp) >=2 && d.value(temp) ==0 && z.value(temp) >=2 && d.value(temp) -c.value(temp) <=-2 && c.value(temp) -z.value(temp) <=0 && d.value(temp) -z.value(temp) <=-2));
 Enter(L14);
 Exit(L14);
+double temp = time.now();
+assert((c.value(temp) >=2 && d.value(temp) ==0 && z.value(temp) >=2 && d.value(temp) -c.value(temp) <=-2 && c.value(temp) -z.value(temp) <=0 && d.value(temp) -z.value(temp) <=-2));
 output(E23);
+double temp = time.now();
+assert((c.value(temp) >=2 && z.value(temp) >=2 && d.value(temp) -c.value(temp) <=-2 && c.value(temp) -z.value(temp) <=0 && d.value(temp) -z.value(temp) <=-2));
 Enter(L0);
 
 end of test code
 
-Public class Clock {
+class Clock {
  double now;
  Clock(double now) {
  this.now = now;
 }
+ double value(double now) {
+    return this.now - now;
+ }
 }
-Double timeStamp = time.now();
+double timeStamp = time.now();
 Clock c = new Clock(timeStamp);
 Clock d = new Clock(timeStamp);
-Clock globalClock = new Clock(timeStamp);
+Clock z = new Clock(timeStamp);
+double temp = time.now();
+assert((d.value(temp) -c.value(temp) <=0 && z.value(temp) -c.value(temp) <=0 && c.value(temp) -d.value(temp) <=0 && z.value(temp) -d.value(temp) <=0 && c.value(temp) -z.value(temp) <=0 && d.value(temp) -z.value(temp) <=0));
 Enter(L0);
 Exit(L0);
+double temp = time.now();
+assert((d.value(temp) -c.value(temp) <=0 && z.value(temp) -c.value(temp) <=0 && c.value(temp) -d.value(temp) <=0 && z.value(temp) -d.value(temp) <=0 && c.value(temp) -z.value(temp) <=0 && d.value(temp) -z.value(temp) <=0));
 input(E1);
+double temp = time.now();
+assert((d.value(temp) -c.value(temp) <=0 && z.value(temp) -c.value(temp) <=0 && c.value(temp) -d.value(temp) <=0 && z.value(temp) -d.value(temp) <=0 && c.value(temp) -z.value(temp) <=0 && d.value(temp) -z.value(temp) <=0));
 Enter(L1);
 Exit(L1);
+double temp = time.now();
+assert((d.value(temp) -c.value(temp) <=0 && z.value(temp) -c.value(temp) <=0 && c.value(temp) -d.value(temp) <=0 && z.value(temp) -d.value(temp) <=0 && c.value(temp) -z.value(temp) <=0 && d.value(temp) -z.value(temp) <=0));
 input(E3);
 c.time = time.now();
+double temp = time.now();
+assert((c.value(temp) <=2 && c.value(temp) -d.value(temp) <=0 && z.value(temp) -d.value(temp) <=0 && c.value(temp) -z.value(temp) <=0 && d.value(temp) -z.value(temp) <=0));
 Enter(L3);
 Exit(L3);
+double temp = time.now();
+assert((c.value(temp) <=2 && c.value(temp) -d.value(temp) <=0 && z.value(temp) -d.value(temp) <=0 && c.value(temp) -z.value(temp) <=0 && d.value(temp) -z.value(temp) <=0));
 output(E8);
+double temp = time.now();
+assert((c.value(temp) >=2 && d.value(temp) >=2 && z.value(temp) >=2 && c.value(temp) -d.value(temp) <=0 && z.value(temp) -d.value(temp) <=0 && c.value(temp) -z.value(temp) <=0 && d.value(temp) -z.value(temp) <=0));
 Enter(L4);
 Exit(L4);
+double temp = time.now();
+assert((c.value(temp) >=2 && d.value(temp) >=2 && z.value(temp) >=2 && c.value(temp) -d.value(temp) <=0 && z.value(temp) -d.value(temp) <=0 && c.value(temp) -z.value(temp) <=0 && d.value(temp) -z.value(temp) <=0));
 input(E14);
 d.time = time.now();
+double temp = time.now();
+assert((c.value(temp) >=2 && d.value(temp) ==0 && z.value(temp) >=2 && d.value(temp) -c.value(temp) <=-2 && c.value(temp) -z.value(temp) <=0 && d.value(temp) -z.value(temp) <=-2));
 Enter(L8);
 Exit(L8);
+double temp = time.now();
+assert((c.value(temp) >=2 && d.value(temp) ==0 && z.value(temp) >=2 && d.value(temp) -c.value(temp) <=-2 && c.value(temp) -z.value(temp) <=0 && d.value(temp) -z.value(temp) <=-2));
 output(E15);
+double temp = time.now();
+assert((c.value(temp) >=2 && d.value(temp) ==0 && z.value(temp) >=2 && d.value(temp) -c.value(temp) <=-2 && c.value(temp) -z.value(temp) <=0 && d.value(temp) -z.value(temp) <=-2));
 Enter(L9);
 Exit(L9);
+double temp = time.now();
+assert((c.value(temp) >=2 && d.value(temp) ==0 && z.value(temp) >=2 && d.value(temp) -c.value(temp) <=-2 && c.value(temp) -z.value(temp) <=0 && d.value(temp) -z.value(temp) <=-2));
 output(E16);
+double temp = time.now();
+assert((c.value(temp) >=2 && d.value(temp) ==0 && z.value(temp) >=2 && d.value(temp) -c.value(temp) <=-2 && c.value(temp) -z.value(temp) <=0 && d.value(temp) -z.value(temp) <=-2));
 Enter(L15);
 Exit(L15);
+double temp = time.now();
+assert((c.value(temp) >=2 && d.value(temp) ==0 && z.value(temp) >=2 && d.value(temp) -c.value(temp) <=-2 && c.value(temp) -z.value(temp) <=0 && d.value(temp) -z.value(temp) <=-2));
 output(E24);
+double temp = time.now();
+assert((c.value(temp) >=2 && d.value(temp) <=3 && z.value(temp) >=2 && d.value(temp) -c.value(temp) <=-2 && c.value(temp) -z.value(temp) <=0 && d.value(temp) -z.value(temp) <=-2));
 Enter(L10);
 Exit(L10);
+double temp = time.now();
+assert((c.value(temp) >=2 && d.value(temp) <=3 && z.value(temp) >=2 && d.value(temp) -c.value(temp) <=-2 && c.value(temp) -z.value(temp) <=0 && d.value(temp) -z.value(temp) <=-2));
 output(E17);
+double temp = time.now();
+assert((c.value(temp) >=5 && d.value(temp) >=3 && d.value(temp) <=30 && z.value(temp) >=5 && d.value(temp) -c.value(temp) <=-2 && c.value(temp) -z.value(temp) <=0 && d.value(temp) -z.value(temp) <=-2));
 Enter(L12);
 Exit(L12);
+double temp = time.now();
+assert((c.value(temp) >=5 && d.value(temp) >=3 && d.value(temp) <=30 && z.value(temp) >=5 && d.value(temp) -c.value(temp) <=-2 && c.value(temp) -z.value(temp) <=0 && d.value(temp) -z.value(temp) <=-2));
 output(E20);
+double temp = time.now();
+assert((c.value(temp) >=32 && d.value(temp) >=30 && d.value(temp) <=30 && z.value(temp) >=32 && d.value(temp) -c.value(temp) <=-2 && c.value(temp) -z.value(temp) <=0 && d.value(temp) -z.value(temp) <=-2));
 Enter(L13);
 Exit(L13);
+double temp = time.now();
+assert((c.value(temp) >=32 && d.value(temp) >=30 && d.value(temp) <=30 && z.value(temp) >=32 && d.value(temp) -c.value(temp) <=-2 && c.value(temp) -z.value(temp) <=0 && d.value(temp) -z.value(temp) <=-2));
 output(E21);
+double temp = time.now();
+assert((c.value(temp) >=32 && d.value(temp) >=30 && z.value(temp) >=32 && d.value(temp) -c.value(temp) <=-2 && c.value(temp) -z.value(temp) <=0 && d.value(temp) -z.value(temp) <=-2));
 Enter(L7);
 Exit(L7);
+double temp = time.now();
+assert((c.value(temp) >=32 && d.value(temp) >=30 && z.value(temp) >=32 && d.value(temp) -c.value(temp) <=-2 && c.value(temp) -z.value(temp) <=0 && d.value(temp) -z.value(temp) <=-2));
 input(E13);
+double temp = time.now();
+assert((c.value(temp) >=32 && d.value(temp) >=30 && z.value(temp) >=32 && d.value(temp) -c.value(temp) <=-2 && c.value(temp) -z.value(temp) <=0 && d.value(temp) -z.value(temp) <=-2));
 Enter(L0);
 Exit(L1);
+double temp = time.now();
+assert((c.value(temp) >=32 && d.value(temp) >=30 && z.value(temp) >=32 && d.value(temp) -c.value(temp) <=-2 && c.value(temp) -z.value(temp) <=0 && d.value(temp) -z.value(temp) <=-2));
 input(E3);
 c.time = time.now();
+double temp = time.now();
+assert((c.value(temp) <=2 && d.value(temp) >=30 && z.value(temp) >=32 && c.value(temp) -d.value(temp) <=-30 && c.value(temp) -z.value(temp) <=-32 && d.value(temp) -z.value(temp) <=-2));
 Enter(L3);
 Exit(L3);
+double temp = time.now();
+assert((c.value(temp) <=2 && d.value(temp) >=30 && z.value(temp) >=32 && c.value(temp) -d.value(temp) <=-30 && c.value(temp) -z.value(temp) <=-32 && d.value(temp) -z.value(temp) <=-2));
 output(E8);
+double temp = time.now();
+assert((c.value(temp) >=2 && d.value(temp) >=32 && z.value(temp) >=34 && c.value(temp) -d.value(temp) <=-30 && c.value(temp) -z.value(temp) <=-32 && d.value(temp) -z.value(temp) <=-2));
 Enter(L4);
 
 end of test code
 
-Public class Clock {
+class Clock {
  double now;
  Clock(double now) {
  this.now = now;
 }
+ double value(double now) {
+    return this.now - now;
+ }
 }
-Double timeStamp = time.now();
+double timeStamp = time.now();
 Clock c = new Clock(timeStamp);
 Clock d = new Clock(timeStamp);
-Clock globalClock = new Clock(timeStamp);
+Clock z = new Clock(timeStamp);
+double temp = time.now();
+assert((d.value(temp) -c.value(temp) <=0 && z.value(temp) -c.value(temp) <=0 && c.value(temp) -d.value(temp) <=0 && z.value(temp) -d.value(temp) <=0 && c.value(temp) -z.value(temp) <=0 && d.value(temp) -z.value(temp) <=0));
 Enter(L0);
 Exit(L0);
+double temp = time.now();
+assert((d.value(temp) -c.value(temp) <=0 && z.value(temp) -c.value(temp) <=0 && c.value(temp) -d.value(temp) <=0 && z.value(temp) -d.value(temp) <=0 && c.value(temp) -z.value(temp) <=0 && d.value(temp) -z.value(temp) <=0));
 input(E1);
+double temp = time.now();
+assert((d.value(temp) -c.value(temp) <=0 && z.value(temp) -c.value(temp) <=0 && c.value(temp) -d.value(temp) <=0 && z.value(temp) -d.value(temp) <=0 && c.value(temp) -z.value(temp) <=0 && d.value(temp) -z.value(temp) <=0));
 Enter(L1);
 Exit(L1);
+double temp = time.now();
+assert((d.value(temp) -c.value(temp) <=0 && z.value(temp) -c.value(temp) <=0 && c.value(temp) -d.value(temp) <=0 && z.value(temp) -d.value(temp) <=0 && c.value(temp) -z.value(temp) <=0 && d.value(temp) -z.value(temp) <=0));
 input(E3);
 c.time = time.now();
+double temp = time.now();
+assert((c.value(temp) <=2 && c.value(temp) -d.value(temp) <=0 && z.value(temp) -d.value(temp) <=0 && c.value(temp) -z.value(temp) <=0 && d.value(temp) -z.value(temp) <=0));
 Enter(L3);
 Exit(L3);
+double temp = time.now();
+assert((c.value(temp) <=2 && c.value(temp) -d.value(temp) <=0 && z.value(temp) -d.value(temp) <=0 && c.value(temp) -z.value(temp) <=0 && d.value(temp) -z.value(temp) <=0));
 output(E8);
+double temp = time.now();
+assert((c.value(temp) >=2 && d.value(temp) >=2 && z.value(temp) >=2 && c.value(temp) -d.value(temp) <=0 && z.value(temp) -d.value(temp) <=0 && c.value(temp) -z.value(temp) <=0 && d.value(temp) -z.value(temp) <=0));
 Enter(L4);
 Exit(L4);
+double temp = time.now();
+assert((c.value(temp) >=2 && d.value(temp) >=2 && z.value(temp) >=2 && c.value(temp) -d.value(temp) <=0 && z.value(temp) -d.value(temp) <=0 && c.value(temp) -z.value(temp) <=0 && d.value(temp) -z.value(temp) <=0));
 input(E14);
 d.time = time.now();
+double temp = time.now();
+assert((c.value(temp) >=2 && d.value(temp) ==0 && z.value(temp) >=2 && d.value(temp) -c.value(temp) <=-2 && c.value(temp) -z.value(temp) <=0 && d.value(temp) -z.value(temp) <=-2));
 Enter(L8);
 Exit(L8);
+double temp = time.now();
+assert((c.value(temp) >=2 && d.value(temp) ==0 && z.value(temp) >=2 && d.value(temp) -c.value(temp) <=-2 && c.value(temp) -z.value(temp) <=0 && d.value(temp) -z.value(temp) <=-2));
 output(E15);
+double temp = time.now();
+assert((c.value(temp) >=2 && d.value(temp) ==0 && z.value(temp) >=2 && d.value(temp) -c.value(temp) <=-2 && c.value(temp) -z.value(temp) <=0 && d.value(temp) -z.value(temp) <=-2));
 Enter(L9);
 Exit(L9);
+double temp = time.now();
+assert((c.value(temp) >=2 && d.value(temp) ==0 && z.value(temp) >=2 && d.value(temp) -c.value(temp) <=-2 && c.value(temp) -z.value(temp) <=0 && d.value(temp) -z.value(temp) <=-2));
 output(E16);
+double temp = time.now();
+assert((c.value(temp) >=2 && d.value(temp) ==0 && z.value(temp) >=2 && d.value(temp) -c.value(temp) <=-2 && c.value(temp) -z.value(temp) <=0 && d.value(temp) -z.value(temp) <=-2));
 Enter(L15);
 Exit(L15);
+double temp = time.now();
+assert((c.value(temp) >=2 && d.value(temp) ==0 && z.value(temp) >=2 && d.value(temp) -c.value(temp) <=-2 && c.value(temp) -z.value(temp) <=0 && d.value(temp) -z.value(temp) <=-2));
 output(E24);
+double temp = time.now();
+assert((c.value(temp) >=2 && d.value(temp) <=3 && z.value(temp) >=2 && d.value(temp) -c.value(temp) <=-2 && c.value(temp) -z.value(temp) <=0 && d.value(temp) -z.value(temp) <=-2));
 Enter(L10);
 Exit(L10);
+double temp = time.now();
+assert((c.value(temp) >=2 && d.value(temp) <=3 && z.value(temp) >=2 && d.value(temp) -c.value(temp) <=-2 && c.value(temp) -z.value(temp) <=0 && d.value(temp) -z.value(temp) <=-2));
 output(E17);
+double temp = time.now();
+assert((c.value(temp) >=5 && d.value(temp) >=3 && d.value(temp) <=30 && z.value(temp) >=5 && d.value(temp) -c.value(temp) <=-2 && c.value(temp) -z.value(temp) <=0 && d.value(temp) -z.value(temp) <=-2));
 Enter(L12);
 Exit(L12);
+double temp = time.now();
+assert((c.value(temp) >=5 && d.value(temp) >=3 && d.value(temp) <=30 && z.value(temp) >=5 && d.value(temp) -c.value(temp) <=-2 && c.value(temp) -z.value(temp) <=0 && d.value(temp) -z.value(temp) <=-2));
 output(E20);
+double temp = time.now();
+assert((c.value(temp) >=32 && d.value(temp) >=30 && d.value(temp) <=30 && z.value(temp) >=32 && d.value(temp) -c.value(temp) <=-2 && c.value(temp) -z.value(temp) <=0 && d.value(temp) -z.value(temp) <=-2));
 Enter(L13);
 Exit(L13);
+double temp = time.now();
+assert((c.value(temp) >=32 && d.value(temp) >=30 && d.value(temp) <=30 && z.value(temp) >=32 && d.value(temp) -c.value(temp) <=-2 && c.value(temp) -z.value(temp) <=0 && d.value(temp) -z.value(temp) <=-2));
 output(E21);
+double temp = time.now();
+assert((c.value(temp) >=32 && d.value(temp) >=30 && z.value(temp) >=32 && d.value(temp) -c.value(temp) <=-2 && c.value(temp) -z.value(temp) <=0 && d.value(temp) -z.value(temp) <=-2));
 Enter(L7);
 Exit(L7);
+double temp = time.now();
+assert((c.value(temp) >=32 && d.value(temp) >=30 && z.value(temp) >=32 && d.value(temp) -c.value(temp) <=-2 && c.value(temp) -z.value(temp) <=0 && d.value(temp) -z.value(temp) <=-2));
 input(E12);
 d.time = time.now();
+double temp = time.now();
+assert((c.value(temp) >2 && d.value(temp) ==0 && z.value(temp) >=32 && d.value(temp) -c.value(temp) <-2 && c.value(temp) -z.value(temp) <=0 && d.value(temp) -z.value(temp) <=-32));
 Enter(L5);
 Exit(L5);
+double temp = time.now();
+assert((c.value(temp) >2 && d.value(temp) ==0 && z.value(temp) >=32 && d.value(temp) -c.value(temp) <-2 && c.value(temp) -z.value(temp) <=0 && d.value(temp) -z.value(temp) <=-32));
 output(E10);
+double temp = time.now();
+assert((c.value(temp) >2 && z.value(temp) >=32 && d.value(temp) -c.value(temp) <-2 && c.value(temp) -z.value(temp) <=0 && d.value(temp) -z.value(temp) <=-32));
 Enter(L4);
 
 end of test code

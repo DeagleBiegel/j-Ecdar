@@ -21,7 +21,7 @@ public class Playground {
 
 
         for (var a : automaton) {
-            Clock z = new Clock("globalClock", a.getName());
+            Clock z = new Clock("z", a.getName());
             a.getClocks().add(z);
 
             SimpleTransitionSystem STS = new SimpleTransitionSystem(a);
