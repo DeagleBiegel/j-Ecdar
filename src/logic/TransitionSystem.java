@@ -307,7 +307,7 @@ public abstract class TransitionSystem {
         List<Transition> fastestTrace = new ArrayList<>();
 
         for (SimpleTransitionSystem ts : systems) {
-            fastestTrace = ts.fastestTraceHelper(destination);
+            fastestTrace = ts.fastestTraceHelper(destination, "");
         }
 
         if (initialisedCdd) {
@@ -326,7 +326,7 @@ public abstract class TransitionSystem {
 
         for (SimpleTransitionSystem ts : systems) {
             for (Location loc : getAutomaton().getLocations()) {
-                fastestTrace = ts.fastestTraceHelper(loc.getName());
+                fastestTrace = ts.fastestTraceHelper(loc.getName(), "");
             }
         }
 
@@ -337,23 +337,28 @@ public abstract class TransitionSystem {
         return fastestTrace;
     }
 
-    public List<Transition> explore() throws IOException {
-        boolean initialisedCdd = CDD.tryInit(getClocks(), getBVs());
+    public List<List<Transition>> explore() throws IOException {
+        //boolean initialisedCdd = CDD.tryInit(getClocks(), getBVs());
 
         List<SimpleTransitionSystem> systems = getSystems();
-        List<Transition> fastestTrace = new ArrayList<>();
+
+        List<List<Transition>> traces = new ArrayList<>();
+
+
         for (SimpleTransitionSystem ts : systems) {
 
-            HashMap<String, List<Transition>> temp = ts.exploreHelper();
-
-            List<List<Transition>> traces = new ArrayList<>();
-
-            for (String key : temp.keySet()) {
-                for (Transition trans : temp.get(key)) {
-                     traces.add(ts.createTrace(trans, temp));
-                }
+            /*
+            for (Edge e : getAutomaton().getEdges()) {
+                String boolName = e.getSource().getName() + e.getTarget().getName();
+                getBVs().add(new BoolVar(getAutomaton().getName(), boolName, false));
+                traces.add(ts.fastestTraceHelper(e.getTarget().getName(), ""));
+                getBVs().remove(getBVs().size()-1);
             }
+            */
 
+            for (Location a : getAutomaton().getLocations()) {
+                traces.add(ts.fastestTraceHelper(a.getName(), "globalclock >= 0"));
+            }
             //Sort traces by size and then perform prefix removal.
             traces = traces.stream().sorted(Comparator.comparingInt(List::size)).collect(Collectors.toList());
             List<List<Transition>> finalTraces = traces;
@@ -366,27 +371,16 @@ public abstract class TransitionSystem {
                 }
             }
 
-            /*
-            for (List<Transition> trace : traces) {
-                for (Transition t : trace) {
-                    System.out.print("(" + t.getSource().getLocation().getName() + " - " + ts.minClockValue(t.getGuardCDD(),getClocks().get(getClocks().size()-1)) + " - " +t.getTarget().getLocation().getName() + ")");
-                }
-                System.out.println();
-            }
 
-             */
-
-            for (List<Transition> trace : traces) {
-                ts.generateTestCode(trace);
-            }
 
         }
 
+        /*
         if (initialisedCdd) {
             CDD.done();
         }
-
-        return fastestTrace;
+        */
+        return traces;
     }
 
     public boolean isPrefix(List<Transition> trace, List<List<Transition>> allTraces) {
@@ -427,24 +421,6 @@ public abstract class TransitionSystem {
         return true;
     }
 
-
-    public boolean isStateReachable(String name, String state) {
-        boolean initialisedCdd = CDD.tryInit(getClocks(), getBVs());
-        boolean isStateReachable = true;
-        List<SimpleTransitionSystem> systems = getSystems();
-
-        for (SimpleTransitionSystem ts : systems){
-            if (!ts.isStateReachableHelper(name, state)){
-                isStateReachable = false;
-            }
-        }
-
-        if (initialisedCdd){
-            CDD.done();
-        }
-
-        return isStateReachable;
-    }
 
     public List<Location> updateLocations(Set<Location> locations, List<Clock> newClocks, List<Clock> oldClocks, List<BoolVar> newBVs, List<BoolVar> oldBVs) {
         return locations
