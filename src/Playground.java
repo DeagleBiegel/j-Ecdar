@@ -1,6 +1,7 @@
 import logic.*;
 import models.*;
 import parser.JSONParser;
+import testsuite.TestSuite;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -19,7 +20,7 @@ public class Playground {
 
             SimpleTransitionSystem STS = new SimpleTransitionSystem(a);
 
-            TestCodeFactory TC = new TestCodeFactory(STS,
+            TestSuite TS = new TestSuite(STS,
                     "test {\n",
                     "}",
                     "System.currentTimeMillis();\n",
@@ -27,7 +28,7 @@ public class Playground {
                     "assert(",
                     ");");
 
-            TC.createTestSuite();
+            TS.createTestSuite();
             //STS.explore();
             //STS.allFastestPaths();
         }

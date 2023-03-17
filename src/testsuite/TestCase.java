@@ -1,5 +1,7 @@
-package logic;
+package testsuite;
 
+import logic.State;
+import logic.Transition;
 import models.*;
 
 import java.io.FileWriter;
@@ -11,42 +13,32 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
-public class TestCodeFactory {
+public class TestCase {
+    private List<Transition> trace;
+    private StringBuilder testCode;
+    private TestSettings testSettings;
+    private List<Clock> clocks;
 
-    public SimpleTransitionSystem ts;
-    private String prefix;
-    private String postfix;
-    private String clockType;
-    private String timeStampFunc;
-    private String assertPre;
-    private String assertPost;
-    public TestCodeFactory(SimpleTransitionSystem ts, String prefix, String postfix, String timeStampFunc, String clockType, String assertPre, String assertPost) {
-        this.ts = ts;
-        this.prefix = prefix;
-        this.postfix = postfix;
-        this.clockType = clockType;
-        this.timeStampFunc = timeStampFunc;
-        this.assertPre = assertPre;
-        this.assertPost = assertPost;
+    public TestCase(List<Transition> trace, TestSettings testSettings, List<Clock> clocks) {
+        this.trace = trace;
+        this.testSettings = testSettings;
+        this.clocks = clocks;
+        testCode = createTestCode();
     }
 
-    public void createTestSuite() throws IOException {
-        boolean initialisedCdd = CDD.tryInit(ts.getAutomaton().getClocks(), ts.getAutomaton().getBVs());
-
-        List<List<Transition>> traces = ts.explore();
-
-        for (List<Transition> ts : traces) {
-            generateTestCode(ts);
-        }
-
-        if (initialisedCdd) {
-            CDD.done();
-        }
-
+    public StringBuilder getTestCode() {
+        return testCode;
     }
-    public void generateTestCode(List<Transition> trace) {
+
+    private StringBuilder createTestCode() {
+        StringBuilder temp = generateTestCode();
+
+        return temp;
+    }
+
+    public StringBuilder generateTestCode() {
         // Start the test case by declaring and initialising all clocks
-        StringBuilder sb = new StringBuilder(prefix + "\n");
+        StringBuilder sb = new StringBuilder(testSettings.prefix + "\n");
 
         sb.append(testCodeInitClocks());
         HashMap<String, Boolean> booleans = new HashMap<>();
@@ -65,18 +57,13 @@ public class TestCodeFactory {
             sb.append(testCodeAssertClocks(tran.getSource()));
             sb.append(parseTestCode(new StringBuilder(tran.getEdges().get(0).getTestCode()), booleans, tran.getEdges().get(0).getGuardCDD()));
 
-            //check the transition for updates
-            // Clock updates are being considered by adding a "clock reset" to the test code
-            // What do we do with the test code in the edge? pre-update values or post?
             if (tran.getUpdates().size() > 0 ){
                 for (Update update : tran.getUpdates()){
                     if (update instanceof BoolUpdate) {
                         booleans.put(((BoolUpdate)update).getBV().getUniqueName(), ((BoolUpdate)update).getValue());
                     }
                     else if (update instanceof ClockUpdate) {
-                        //how to approach resets that are not 0?
                         sb.append(testCodeUpdateClock(((ClockUpdate) update).getClock(), ((ClockUpdate) update).getValue()));
-                        //sb.append(new StringBuilder("clock " + ((ClockUpdate) update).getClock().toString() + "is set to " + ((ClockUpdate) update).getValue()) + "\n");
                     }
                 }
             }
@@ -84,60 +71,40 @@ public class TestCodeFactory {
             sb.append(parseTestCode(new StringBuilder(tran.getTarget().getLocation().getEnterTestCode()), booleans, tran.getTarget().getInvariant()));
 
         }
-        sb.append(postfix);
-        sb.append("\nend of test code\n");
-        try {
-            //PrintWriter printerWriter = new PrintWriter("testcode.txt");
-            //printerWriter.println("");
-            //printerWriter.close();
-            FileWriter writer = new FileWriter("testcode.txt", true);
-            writer.write(sb.toString());
-            writer.write("\n");
-            writer.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        sb.append(testSettings.postfix);
+
+        return sb;
     }
 
-    private String testCodeEditClocks(State state) {
-
-        return "";
-    }
     private String testCodeAssertClocks(State state) {
-        //String s = "double currentTime = time.now();\n";
-
-        //s += "assert("+ state.getInvariant().toString() + ");\n";
         String s = state.getInvariant().toString();
 
-        for (Clock c : ts.getClocks()) {
+        for (Clock c : clocks) {
             String patternString = "(\\W)" + c.getOriginalName() + "(\\W)";
-            s = s.replaceAll(patternString, "$1" + c.getOriginalName() + ".value(temp)$2");
-            //s = s.replaceAll("(?:( |-|\\()" + c.getOriginalName() + ")" , " " + c.getOriginalName() + ".value(temp) ");
+            s = s.replaceAll(patternString, "$1 "+ c.getOriginalName() + "- timestamp $2");
         }
 
-
-        //\b[A-Z, a-z]\s
-        String temp = "temp = System.currentTimeMillis();\n" + "assert("+ s +");\n";
+        String temp = "temp = " + testSettings.timeStampFunc + "\nassert("+ s +");\n";
 
         return temp;
     }
 
     private String testCodeInitClocks() {
-        String s = clockType + " timeStamp = System.currentTimeMillis();\n";
-        for (Clock c : ts.getClocks()) {
-            s += clockType + " " + c.getOriginalName() + " = " + "timeStamp\n";
+        String s = testSettings.clockType + " timeStamp = System.currentTimeMillis();\n";
+        for (Clock c : clocks) {
+            s += testSettings.clockType + " " + c.getOriginalName() + " = " + "timeStamp\n";
         }
-        s += clockType + " temp =" + timeStampFunc + ";\n";
+        s += testSettings.clockType + " temp =" + testSettings.timeStampFunc + ";\n";
         return s;
     }
-
+    
     private String testCodeUpdateClock(Clock clock, Integer value) {
         String s = "";
         if (value == 0) {
-            s += clock.getOriginalName() + ".time = System.currentTimeMillis();\n";
+            s += clock.getOriginalName() + " = System.currentTimeMillis();\n";
         }
         else {
-            s += clock.getOriginalName() + ".time = System.currentTimeMillis() -" + value + ";\n";
+            s += clock.getOriginalName() + " = System.currentTimeMillis() - " + value + ";\n";
         }
 
         return s;
@@ -162,7 +129,7 @@ public class TestCodeFactory {
                 testCode = booleans.get(key).toString();
             }
 
-            for (Clock c : ts.getMaxBounds().keySet()) {
+            for (Clock c : clocks) {
                 if (sb.subSequence(startIndex+1, endIndex).equals(c.getOriginalName())) {
                     testCode = filterCDD(cdd.toString(), sb.subSequence(startIndex+1, endIndex).toString()).toString();
                 }
@@ -202,6 +169,4 @@ public class TestCodeFactory {
         }
         return false;
     }
-
-
 }
