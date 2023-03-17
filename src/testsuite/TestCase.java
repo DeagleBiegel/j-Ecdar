@@ -23,20 +23,17 @@ public class TestCase {
         this.trace = trace;
         this.testSettings = testSettings;
         this.clocks = clocks;
-        testCode = createTestCode();
     }
 
     public StringBuilder getTestCode() {
         return testCode;
     }
 
-    private StringBuilder createTestCode() {
-        StringBuilder temp = generateTestCode();
-
-        return temp;
+    public List<Transition> getTrace() {
+        return trace;
     }
 
-    public StringBuilder generateTestCode() {
+    public void createTestCode() {
         // Start the test case by declaring and initialising all clocks
         StringBuilder sb = new StringBuilder(testSettings.prefix + "\n");
 
@@ -73,8 +70,9 @@ public class TestCase {
         }
         sb.append(testSettings.postfix);
 
-        return sb;
+        this.testCode = sb;
     }
+
 
     private String testCodeAssertClocks(State state) {
         String s = state.getInvariant().toString();
@@ -84,7 +82,7 @@ public class TestCase {
             s = s.replaceAll(patternString, "$1 "+ c.getOriginalName() + "- timestamp $2");
         }
 
-        String temp = "temp = " + testSettings.timeStampFunc + "\nassert("+ s +");\n";
+        String temp = "timeStamp = " + testSettings.timeStampFunc + "\nassert("+ s +");\n";
 
         return temp;
     }
@@ -92,9 +90,8 @@ public class TestCase {
     private String testCodeInitClocks() {
         String s = testSettings.clockType + " timeStamp = System.currentTimeMillis();\n";
         for (Clock c : clocks) {
-            s += testSettings.clockType + " " + c.getOriginalName() + " = " + "timeStamp\n";
+            s += testSettings.clockType + " " + c.getOriginalName() + " = " + "timeStamp;\n";
         }
-        s += testSettings.clockType + " temp =" + testSettings.timeStampFunc + ";\n";
         return s;
     }
     
@@ -145,6 +142,7 @@ public class TestCase {
         StringBuilder sb = new StringBuilder();
         s  = s.replace("(", "").replace(")", "");
         String[] parts = s.split("&&");
+
         List filteredParts = Arrays.stream(parts).filter(x -> containsClock(x, name) || containsClock(x, "z")).collect(Collectors.toList());
 
         for (int i = 0; i < filteredParts.size(); i++) {

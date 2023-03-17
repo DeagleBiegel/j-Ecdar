@@ -337,90 +337,17 @@ public abstract class TransitionSystem {
         return fastestTrace;
     }
 
-    public List<List<Transition>> explore() throws IOException {
-        //boolean initialisedCdd = CDD.tryInit(getClocks(), getBVs());
-
+    public List<Transition> explore(String destination, String state) throws IOException {
         List<SimpleTransitionSystem> systems = getSystems();
 
-        List<List<Transition>> traces = new ArrayList<>();
-
+        List<Transition> trace = new ArrayList<>();
 
         for (SimpleTransitionSystem ts : systems) {
-
-            /*
-            for (Edge e : getAutomaton().getEdges()) {
-                String boolName = e.getSource().getName() + e.getTarget().getName();
-                getBVs().add(new BoolVar(getAutomaton().getName(), boolName, false));
-                traces.add(ts.fastestTraceHelper(e.getTarget().getName(), ""));
-                getBVs().remove(getBVs().size()-1);
-            }
-            */
-
-            for (Location a : getAutomaton().getLocations()) {
-                traces.add(ts.fastestTraceHelper(a.getName(), "globalclock >= 0"));
-            }
-            //Sort traces by size and then perform prefix removal.
-            traces = traces.stream().sorted(Comparator.comparingInt(List::size)).collect(Collectors.toList());
-            List<List<Transition>> finalTraces = traces;
-            traces = traces.stream().filter(s -> isPrefix(s, finalTraces)).collect(Collectors.toList());
-
-            //Extend traces that end on an INPUT transition
-            for (List<Transition> trace : traces) {
-                if (trace.get(trace.size()-1).getEdges().get(0).getStatus().equals("INPUT")) {
-                    trace = ts.expandTrace(trace);
-                }
-            }
-
-
-
+            trace = ts.fastestTraceHelper(destination, state);
         }
 
-        /*
-        if (initialisedCdd) {
-            CDD.done();
-        }
-        */
-        return traces;
+        return trace;
     }
-
-    public boolean isPrefix(List<Transition> trace, List<List<Transition>> allTraces) {
-        String originalTrace = "";
-        for (Transition transition : trace) {
-            originalTrace += transition.getSource().getLocation().getName() + transition.getTarget().getLocation().getName();
-        }
-
-        for (List<Transition> t : allTraces) {
-            String newTrace = "";
-            for (Transition t1 : t) {
-                newTrace += t1.getSource().getLocation().getName() + t1.getTarget().getLocation().getName();
-            }
-            //if original trace is in newTrace then bam.
-            if (newTrace.contains(originalTrace) && !newTrace.equals(originalTrace)) {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    public boolean isSame(List<Transition> trace, List<List<Transition>> allTraces) {
-        String originalTrace = "";
-        for (Transition transition : trace) {
-            originalTrace += transition.getSource().getLocation().getName() + transition.getTarget().getLocation().getName();
-        }
-
-        for (List<Transition> t : allTraces) {
-            String newTrace = "";
-            for (Transition t1 : t) {
-                newTrace += t1.getSource().getLocation().getName() + t1.getTarget().getLocation().getName();
-            }
-            //if original trace is in newTrace then bam.
-            if (newTrace.equals(originalTrace) && !trace.equals(t)) {
-                return false;
-            }
-        }
-        return true;
-    }
-
 
     public List<Location> updateLocations(Set<Location> locations, List<Clock> newClocks, List<Clock> oldClocks, List<BoolVar> newBVs, List<BoolVar> oldBVs) {
         return locations

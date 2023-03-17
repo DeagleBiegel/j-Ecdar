@@ -16,14 +16,12 @@ public class Playground {
             Clock z = new Clock("globalclock", a.getName());
             a.getClocks().add(z);
 
-            a.getBVs().add(new BoolVar(a.getName(), "coolBool", false));
+            //SimpleTransitionSystem STS = new SimpleTransitionSystem(a);
 
-            SimpleTransitionSystem STS = new SimpleTransitionSystem(a);
-
-            TestSuite TS = new TestSuite(STS,
-                    "test {\n",
+            TestSuite TS = new TestSuite(a,
+                    "test {",
                     "}",
-                    "System.currentTimeMillis();\n",
+                    "System.currentTimeMillis();",
                     "double",
                     "assert(",
                     ");");
