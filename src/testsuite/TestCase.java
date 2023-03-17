@@ -33,6 +33,10 @@ public class TestCase {
         return trace;
     }
 
+    public void setTrace(List<Transition> trace) {
+        this.trace = trace;
+    }
+
     public void createTestCode() {
         // Start the test case by declaring and initialising all clocks
         StringBuilder sb = new StringBuilder(testSettings.prefix + "\n");

@@ -653,7 +653,7 @@ public class SimpleTransitionSystem extends TransitionSystem{
         return trace;
     }
 
-    public List<Transition> expandTrace(List<Transition> trace) {
+    public List<Transition> expandTraceHelper(List<Transition> trace) {
         Set<Channel> actions = getActions();
         List<Transition> transitions = new ArrayList<>();
         waiting = new ArrayDeque<>();

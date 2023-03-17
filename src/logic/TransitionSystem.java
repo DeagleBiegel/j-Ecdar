@@ -130,6 +130,16 @@ public abstract class TransitionSystem {
         return transitions;
     }
 
+    public List<Transition> expandTrace(List<Transition> trace) {
+        List<SimpleTransitionSystem> systems = getSystems();
+
+        for (SimpleTransitionSystem ts : systems) {
+            trace = ts.expandTraceHelper(trace);
+        }
+
+        return trace;
+    }
+
     public boolean isDeterministic() {
 
         boolean initialisedCdd = CDD.tryInit(getClocks(), getBVs());

@@ -36,6 +36,11 @@ public class TestSuite {
 
             boolean initialisedCdd = CDD.tryInit(ts.getAutomaton().getClocks(), ts.getAutomaton().getBVs());
             TestCase tc = new TestCase(ts.explore(e.getTarget().getName(), bv.getOriginalName() + "== true"), testSettings, ts.getClocks());
+
+            if (tc.getTrace().get(tc.getTrace().size()-1).getEdges().get(0).getStatus().equals("INPUT")) {
+                tc.setTrace(ts.expandTrace(tc.getTrace()));
+            }
+
             tc.createTestCode();
             testCases.add(tc);
 
@@ -50,6 +55,8 @@ public class TestSuite {
 
         List<TestCase> finalTraces = testCases;
         testCases = testCases.stream().filter(s -> isPrefix(s, finalTraces)).collect(Collectors.toList());
+
+        //create variants based on location invariants
 
         printToFile();
     }
