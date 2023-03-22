@@ -20,6 +20,7 @@ public class Location {
     private boolean isUniversal;
     private boolean isInconsistent;
 
+
     public Location(String name, Guard invariant, boolean isInitial, boolean isUrgent, boolean isUniversal, boolean isInconsistent, int x, int y) {
         this.name = name;
         this.invariant = invariant;

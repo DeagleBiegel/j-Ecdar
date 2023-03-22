@@ -1,10 +1,12 @@
 package testsuite;
 
+
 import logic.SimpleTransitionSystem;
 import logic.State;
 import logic.Transition;
 import models.*;
 
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.*;
@@ -26,6 +28,7 @@ public class TestSuite {
     }
 
     public void createTestSuite() throws IOException {
+        BVA bva = new BVA(automaton);
 
         for (Edge e : automaton.getEdges()) {
             String boolName = e.getSource().getName() + e.getTarget().getName();
@@ -40,6 +43,8 @@ public class TestSuite {
             if (tc.getTrace().get(tc.getTrace().size()-1).getEdges().get(0).getStatus().equals("INPUT")) {
                 tc.setTrace(ts.expandTrace(tc.getTrace()));
             }
+
+            bva.computeInvariantDelays(tc.getTrace());
 
             tc.createTestCode();
             testCases.add(tc);
@@ -56,9 +61,37 @@ public class TestSuite {
         List<TestCase> finalTraces = testCases;
         testCases = testCases.stream().filter(s -> isPrefix(s, finalTraces)).collect(Collectors.toList());
 
-        //create variants based on location invariants
+        boolean initialisedCdd = CDD.tryInit(ts.getAutomaton().getClocks(), ts.getAutomaton().getBVs());
+
+        for (BoundaryValues boundaryValues : bva.getBoundaryValues()) {
+            TestCase temp =findApplicableTrace(boundaryValues.getLocation());
+            if (temp != null) {
+                for (Integer i : boundaryValues.getValues()) {
+                    TestCase testCase = new TestCase(temp);
+                    testCase.createTestCode(boundaryValues.getLocation(), i);
+                    testCases.add(testCase);
+                }
+
+            }
+        }
+
+        if (initialisedCdd) {
+            CDD.done();
+        }
 
         printToFile();
+
+    }
+
+    private TestCase findApplicableTrace(String location) {
+        for (TestCase tc : testCases) {
+            for (Transition transition : tc.getTrace()) {
+                if (transition.getSource().getLocation().getName().equals(location) && transition.getEdges().get(0).getStatus().equals("INPUT")) {
+                    return tc;
+                }
+            }
+        }
+        return null;
     }
 
     public boolean isPrefix(TestCase testCase, List<TestCase> allTraces) {
@@ -79,11 +112,14 @@ public class TestSuite {
         }
         return true;
     }
+
+
     public void printToFile() {
 
         for (int i = 0; i < testCases.size(); i++) {
             try {
-                FileWriter writer = new FileWriter("testcode" + i + ".txt", true);
+                File file = new File("/home/yann/j-Ecdar/testcases", "testcode" + i + ".txt");
+                FileWriter writer = new FileWriter(file);
                 writer.write(testCases.get(i).getTestCode().toString());
                 writer.write("\n");
                 writer.close();

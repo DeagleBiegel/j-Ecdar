@@ -25,6 +25,20 @@ public class TestCase {
         this.clocks = clocks;
     }
 
+    public TestCase(TestCase testCase) {
+        this.trace = testCase.getTrace();
+        this.testSettings = testCase.getTestSettings();
+        this.clocks = testCase.clocks;
+    }
+
+    public List<Clock> getClocks() {
+        return clocks;
+    }
+
+    public TestSettings getTestSettings() {
+        return testSettings;
+    }
+
     public StringBuilder getTestCode() {
         return testCode;
     }
@@ -54,6 +68,51 @@ public class TestCase {
         sb.append(parseTestCode(new StringBuilder(trace.get(0).getSource().getLocation().getEnterTestCode()), booleans, trace.get(0).getSource().getInvariant()));
 
         for (Transition tran : trace) {
+            sb.append(parseTestCode(new StringBuilder(tran.getSource().getLocation().getExitTestCode()), booleans, tran.getSource().getInvariant()));
+            sb.append(testCodeAssertClocks(tran.getSource()));
+            sb.append(parseTestCode(new StringBuilder(tran.getEdges().get(0).getTestCode()), booleans, tran.getEdges().get(0).getGuardCDD()));
+
+            if (tran.getUpdates().size() > 0 ){
+                for (Update update : tran.getUpdates()){
+                    if (update instanceof BoolUpdate) {
+                        booleans.put(((BoolUpdate)update).getBV().getUniqueName(), ((BoolUpdate)update).getValue());
+                    }
+                    else if (update instanceof ClockUpdate) {
+                        sb.append(testCodeUpdateClock(((ClockUpdate) update).getClock(), ((ClockUpdate) update).getValue()));
+                    }
+                }
+            }
+            sb.append(testCodeAssertClocks(tran.getTarget()));
+            sb.append(parseTestCode(new StringBuilder(tran.getTarget().getLocation().getEnterTestCode()), booleans, tran.getTarget().getInvariant()));
+
+        }
+        sb.append(testSettings.postfix);
+
+        this.testCode = sb;
+    }
+
+    public void createTestCode(String location, int delay) {
+        // Start the test case by declaring and initialising all clocks
+        StringBuilder sb = new StringBuilder(testSettings.prefix + "\n");
+
+        sb.append(testCodeInitClocks());
+        HashMap<String, Boolean> booleans = new HashMap<>();
+
+        //initialise hashmap of boolean variables
+        for (BoolVar bv : CDD.BVs) {
+            booleans.put(bv.getOriginalName(), bv.getInitialValue());
+        }
+
+        //create test code for initial location
+
+        sb.append(testCodeAssertClocks(trace.get(0).getSource()));
+        sb.append(parseTestCode(new StringBuilder(trace.get(0).getSource().getLocation().getEnterTestCode()), booleans, trace.get(0).getSource().getInvariant()));
+
+        for (Transition tran : trace) {
+            if(tran.getSource().getLocation().getName().equals(location) && tran.getEdges().get(0).getStatus().equals("INPUT")) {
+                sb.append("delay(" + delay + ");\n");
+            }
+
             sb.append(parseTestCode(new StringBuilder(tran.getSource().getLocation().getExitTestCode()), booleans, tran.getSource().getInvariant()));
             sb.append(testCodeAssertClocks(tran.getSource()));
             sb.append(parseTestCode(new StringBuilder(tran.getEdges().get(0).getTestCode()), booleans, tran.getEdges().get(0).getGuardCDD()));
