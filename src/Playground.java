@@ -19,12 +19,14 @@ public class Playground {
             //SimpleTransitionSystem STS = new SimpleTransitionSystem(a);
 
             TestSuite TS = new TestSuite(a,
-                    "test {",
-                    "}",
-                    "System.currentTimeMillis();",
+                    "test { \n",
+                    "}\n",
+                    "System.currentTimeMillis();\n",
                     "double",
                     "assert(",
-                    ");");
+                    ");\n",
+                    "delay(",
+                    ");\n");
 
             TS.createTestSuite();
             //STS.explore();

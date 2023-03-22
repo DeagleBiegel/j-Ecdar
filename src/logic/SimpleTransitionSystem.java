@@ -621,7 +621,6 @@ public class SimpleTransitionSystem extends TransitionSystem{
         int min = minClockValue(fastestTrans.getGuardCDD(), getClocks().get(getClocks().size()-1));
         for (Transition t : transitions){
             int temp = minClockValue(t.getTarget().getInvariant(), getClocks().get(getClocks().size()-1));
-            //CDD cdd = helperConjoin(state, t.getTarget().getInvariant());
 
             if (temp <= min) {
                 min = temp;

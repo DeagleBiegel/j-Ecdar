@@ -2,7 +2,6 @@ package testsuite;
 
 
 import logic.SimpleTransitionSystem;
-import logic.State;
 import logic.Transition;
 import models.*;
 
@@ -10,8 +9,6 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.*;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 public class TestSuite {
@@ -22,9 +19,9 @@ public class TestSuite {
     private TestSettings testSettings;
     public List<TestCase> testCases = new ArrayList<>();
 
-    public TestSuite(Automaton automaton, String prefix, String postfix, String timeStampFunc, String clockType, String assertPre, String assertPost) {
+    public TestSuite(Automaton automaton, String prefix, String postfix, String timeStampFunc, String clockType, String assertPre, String assertPost, String delayPre, String delayPost) {
         this.automaton = automaton;
-        this.testSettings = new TestSettings(prefix, postfix, timeStampFunc, clockType,assertPre,assertPost);
+        this.testSettings = new TestSettings(prefix, postfix, timeStampFunc, clockType,assertPre, assertPost, delayPre, delayPost);
     }
 
     public void createTestSuite() throws IOException {
@@ -32,7 +29,7 @@ public class TestSuite {
 
         for (Edge e : automaton.getEdges()) {
             String boolName = e.getSource().getName() + e.getTarget().getName();
-            BoolVar bv = new BoolVar(automaton.getName(), boolName, false);
+            BoolVar bv = new BoolVar(boolName, boolName, false);
             automaton.getBVs().add(bv);
             e.getUpdates().add(new BoolUpdate(bv, true));
             ts = new SimpleTransitionSystem(automaton);
@@ -64,7 +61,7 @@ public class TestSuite {
         boolean initialisedCdd = CDD.tryInit(ts.getAutomaton().getClocks(), ts.getAutomaton().getBVs());
 
         for (BoundaryValues boundaryValues : bva.getBoundaryValues()) {
-            TestCase temp =findApplicableTrace(boundaryValues.getLocation());
+            TestCase temp = findApplicableTrace(boundaryValues.getLocation());
             if (temp != null) {
                 for (Integer i : boundaryValues.getValues()) {
                     TestCase testCase = new TestCase(temp);
@@ -118,7 +115,7 @@ public class TestSuite {
 
         for (int i = 0; i < testCases.size(); i++) {
             try {
-                File file = new File("/home/yann/j-Ecdar/testcases", "testcode" + i + ".txt");
+                File file = new File("testcases", "testcode" + i + ".txt");
                 FileWriter writer = new FileWriter(file);
                 writer.write(testCases.get(i).getTestCode().toString());
                 writer.write("\n");

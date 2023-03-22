@@ -16,8 +16,8 @@ import java.util.stream.Collectors;
 public class TestCase {
     private List<Transition> trace;
     private StringBuilder testCode;
-    private TestSettings testSettings;
-    private List<Clock> clocks;
+    private final TestSettings testSettings;
+    private final List<Clock> clocks;
 
     public TestCase(List<Transition> trace, TestSettings testSettings, List<Clock> clocks) {
         this.trace = trace;
@@ -104,19 +104,19 @@ public class TestCase {
         }
 
         //create test code for initial location
-
         sb.append(testCodeAssertClocks(trace.get(0).getSource()));
         sb.append(parseTestCode(new StringBuilder(trace.get(0).getSource().getLocation().getEnterTestCode()), booleans, trace.get(0).getSource().getInvariant()));
 
         for (Transition tran : trace) {
             if(tran.getSource().getLocation().getName().equals(location) && tran.getEdges().get(0).getStatus().equals("INPUT")) {
-                sb.append("delay(" + delay + ");\n");
+                sb.append(testSettings.delayPre + delay + testSettings.delayPost);
             }
 
             sb.append(parseTestCode(new StringBuilder(tran.getSource().getLocation().getExitTestCode()), booleans, tran.getSource().getInvariant()));
             sb.append(testCodeAssertClocks(tran.getSource()));
             sb.append(parseTestCode(new StringBuilder(tran.getEdges().get(0).getTestCode()), booleans, tran.getEdges().get(0).getGuardCDD()));
 
+            // If there are updates in the edge it is added to the test code (only for clocks right now)
             if (tran.getUpdates().size() > 0 ){
                 for (Update update : tran.getUpdates()){
                     if (update instanceof BoolUpdate) {
@@ -127,6 +127,7 @@ public class TestCase {
                     }
                 }
             }
+
             sb.append(testCodeAssertClocks(tran.getTarget()));
             sb.append(parseTestCode(new StringBuilder(tran.getTarget().getLocation().getEnterTestCode()), booleans, tran.getTarget().getInvariant()));
 
@@ -141,30 +142,30 @@ public class TestCase {
         String s = state.getInvariant().toString();
 
         for (Clock c : clocks) {
-            String patternString = "(\\W)" + c.getOriginalName() + "(\\W)";
-            s = s.replaceAll(patternString, "$1 "+ c.getOriginalName() + "- timestamp $2");
+            s = s.replaceAll("(\\W)" + c.getOriginalName() + "(\\W)", "$1 "+ c.getOriginalName() + "-timestamp $2");
         }
 
-        String temp = "timeStamp = " + testSettings.timeStampFunc + "\nassert("+ s +");\n";
-
-        return temp;
+        return "timeStamp = " + testSettings.timeStampFunc + testSettings.assertPre + s + testSettings.assertPost;
     }
 
     private String testCodeInitClocks() {
-        String s = testSettings.clockType + " timeStamp = System.currentTimeMillis();\n";
+        String s = testSettings.clockType + " timeStamp = " + testSettings.timeStampFunc;
+
         for (Clock c : clocks) {
             s += testSettings.clockType + " " + c.getOriginalName() + " = " + "timeStamp;\n";
         }
+
         return s;
     }
     
     private String testCodeUpdateClock(Clock clock, Integer value) {
         String s = "";
+
         if (value == 0) {
-            s += clock.getOriginalName() + " = System.currentTimeMillis();\n";
+            s += clock.getOriginalName() + " = " + testSettings.timeStampFunc;
         }
         else {
-            s += clock.getOriginalName() + " = System.currentTimeMillis() - " + value + ";\n";
+            s += clock.getOriginalName() + " = " + testSettings.timeStampFunc;
         }
 
         return s;
@@ -224,10 +225,6 @@ public class TestCase {
         Pattern pattern = Pattern.compile("([^A-Za-z0-9_]*" + name + "[<>-]+)");
         Matcher m = pattern.matcher(s);
 
-        while (m.find()){
-
-            return true;
-        }
-        return false;
+        return m.find();
     }
 }

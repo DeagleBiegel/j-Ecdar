@@ -6,8 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BoundaryValues {
-    private String location;
-    private int delay;
+    private final String location;
+    private final int delay;
     private List<Integer> values = new ArrayList<>();
 
     public BoundaryValues(String location, int delay) {
@@ -17,11 +17,6 @@ public class BoundaryValues {
     }
 
     private void computeBoundaryValues() {
-        //0 = no delay before input!
-        //delay = maximum allowed delay before input
-        //delay + 1 = not allowed
-        //it is not possible to send and input before 0
-
         if (delay == 0) {
             values.add(delay);
             values.add(delay+1);
