@@ -35,7 +35,7 @@ public class TestSuite {
             ts = new SimpleTransitionSystem(automaton);
 
             boolean initialisedCdd = CDD.tryInit(ts.getAutomaton().getClocks(), ts.getAutomaton().getBVs());
-            TestCase tc = new TestCase(ts.explore(e.getTarget().getName(), bv.getOriginalName() + "== true"), testSettings, ts.getClocks());
+            TestCase tc = new TestCase(ts.explore(e.getTarget().getName(), bv.getOriginalName() + "== true"), testSettings, ts.getClocks(), ts.getBVs());
 
             if (tc.getTrace().get(tc.getTrace().size()-1).getEdges().get(0).getStatus().equals("INPUT")) {
                 tc.setTrace(ts.expandTrace(tc.getTrace()));

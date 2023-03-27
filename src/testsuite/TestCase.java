@@ -3,6 +3,7 @@ package testsuite;
 import logic.State;
 import logic.Transition;
 import models.*;
+import parser.GuardParser;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -18,17 +19,22 @@ public class TestCase {
     private StringBuilder testCode;
     private final TestSettings testSettings;
     private final List<Clock> clocks;
+    private final List<BoolVar> BVs;
 
-    public TestCase(List<Transition> trace, TestSettings testSettings, List<Clock> clocks) {
+
+
+    public TestCase(List<Transition> trace, TestSettings testSettings, List<Clock> clocks, List<BoolVar> BVs) {
         this.trace = trace;
         this.testSettings = testSettings;
         this.clocks = clocks;
+        this.BVs = BVs;
     }
 
     public TestCase(TestCase testCase) {
         this.trace = testCase.getTrace();
         this.testSettings = testCase.getTestSettings();
-        this.clocks = testCase.clocks;
+        this.clocks = testCase.getClocks();
+        this.BVs = testCase.getBVs();
     }
 
     public List<Clock> getClocks() {
@@ -55,7 +61,7 @@ public class TestCase {
         // Start the test case by declaring and initialising all clocks
         StringBuilder sb = new StringBuilder(testSettings.prefix + "\n");
 
-        sb.append(testCodeInitClocks());
+        //sb.append(testCodeInitClocks());
         HashMap<String, Boolean> booleans = new HashMap<>();
 
         //initialise hashmap of boolean variables
@@ -70,6 +76,11 @@ public class TestCase {
         for (Transition tran : trace) {
             sb.append(parseTestCode(new StringBuilder(tran.getSource().getLocation().getExitTestCode()), booleans, tran.getSource().getInvariant()));
             sb.append(testCodeAssertClocks(tran.getSource()));
+
+            if (tran.getEdges().get(0).getStatus().equals("OUTPUT")) {
+                sb.append("cas.wait(" + minClockValue(tran.getGuardCDD(), getClocks().get(getClocks().size()-1)) + ");\n");
+            }
+
             sb.append(parseTestCode(new StringBuilder(tran.getEdges().get(0).getTestCode()), booleans, tran.getEdges().get(0).getGuardCDD()));
 
             if (tran.getUpdates().size() > 0 ){
@@ -109,9 +120,10 @@ public class TestCase {
 
         for (Transition tran : trace) {
             if(tran.getSource().getLocation().getName().equals(location) && tran.getEdges().get(0).getStatus().equals("INPUT")) {
-                sb.append(testSettings.delayPre + delay + testSettings.delayPost);
+                sb.append("cas.wait(" + delay + ");\n");
+            } else if (tran.getEdges().get(0).getStatus().equals("OUTPUT")) {
+                sb.append("cas.wait(" + 0 + ");\n");
             }
-
             sb.append(parseTestCode(new StringBuilder(tran.getSource().getLocation().getExitTestCode()), booleans, tran.getSource().getInvariant()));
             sb.append(testCodeAssertClocks(tran.getSource()));
             sb.append(parseTestCode(new StringBuilder(tran.getEdges().get(0).getTestCode()), booleans, tran.getEdges().get(0).getGuardCDD()));
@@ -141,11 +153,13 @@ public class TestCase {
     private String testCodeAssertClocks(State state) {
         String s = state.getInvariant().toString();
 
+
         for (Clock c : clocks) {
-            s = s.replaceAll("(\\W)" + c.getOriginalName() + "(\\W)", "$1 "+ c.getOriginalName() + "-timestamp $2");
+            s = s.replaceAll("(\\W)" + c.getOriginalName() + "(\\W)", "$1 cas."+ c.getOriginalName() + "$2");
         }
 
-        return "timeStamp = " + testSettings.timeStampFunc + testSettings.assertPre + s + testSettings.assertPost;
+        return testSettings.assertPre + s + testSettings.assertPost;
+        //return testSettings.assertPre + s + testSettings.assertPost;
     }
 
     private String testCodeInitClocks() {
@@ -161,12 +175,7 @@ public class TestCase {
     private String testCodeUpdateClock(Clock clock, Integer value) {
         String s = "";
 
-        if (value == 0) {
-            s += clock.getOriginalName() + " = " + testSettings.timeStampFunc;
-        }
-        else {
-            s += clock.getOriginalName() + " = " + testSettings.timeStampFunc;
-        }
+        s += clock.getOriginalName() + " = " + value + ";\n";
 
         return s;
     }
@@ -226,5 +235,30 @@ public class TestCase {
         Matcher m = pattern.matcher(s);
 
         return m.find();
+    }
+
+    public CDD helperConjoin(String guardString, CDD orgCDD) {
+        Guard g = GuardParser.parse(guardString, getClocks(), getBVs());
+        CDD cdd = orgCDD.conjunction(new CDD(g));
+
+        return cdd;
+    }
+    public int minClockValue(CDD orgCDD, Clock clock){
+
+        String guardTemplate = clock.getOriginalName() + " == ";
+        int min = 0;
+        while (true) {
+            CDD cdd = helperConjoin(guardTemplate + min, orgCDD);
+            if (cdd.isNotFalse()) {
+                break;
+            }
+            min++;
+        }
+        return min;
+
+    }
+
+    public List<BoolVar> getBVs() {
+        return BVs;
     }
 }

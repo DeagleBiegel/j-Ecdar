@@ -13,7 +13,7 @@ public class Playground {
         Automaton[] automaton = JSONParser.parse("samples/json/casecdfactor10", false);
 
         for (var a : automaton) {
-            Clock z = new Clock("globalclock", a.getName());
+            Clock z = new Clock("g", a.getName());
             a.getClocks().add(z);
 
             //SimpleTransitionSystem STS = new SimpleTransitionSystem(a);
