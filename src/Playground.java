@@ -19,7 +19,7 @@ public class Playground {
             //SimpleTransitionSystem STS = new SimpleTransitionSystem(a);
 
             TestSuite TS = new TestSuite(a,
-                    "test { \n",
+                    "@Test \npublic void test",
                     "}\n",
                     "System.currentTimeMillis();\n",
                     "double",

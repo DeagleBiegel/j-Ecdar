@@ -50,6 +50,27 @@ public class TestSuite {
             e.getUpdates().remove(e.getUpdates().size()-1);
             automaton.getBVs().remove(automaton.getBVs().size()-1);
 
+            List<BoundaryValues> remove_list = new ArrayList<>();
+            for (BoundaryValues boundaryValues : bva.getBoundaryValues()) {
+                TestCase temp = findApplicableTrace(boundaryValues.getLocation());
+                if (temp != null) {
+                    for (Integer i : boundaryValues.getValues()) {
+                        TestCase testCase = new TestCase(temp);
+                        if (testCase.getTrace().get(testCase.getTrace().size()-1).getEdges().get(0).getStatus().equals("INPUT")) {
+                            tc.setTrace(ts.expandTrace(tc.getTrace()));
+                        }
+                        testCase.createTestCode(boundaryValues.getLocation(), i);
+                        testCase.getTestCode().append("\n//failing test maybe\n");
+                        testCases.add(testCase);
+                    }
+                    remove_list.add(boundaryValues);
+                }
+            }
+
+            for (BoundaryValues boundaryValues : remove_list) {
+                bva.getBoundaryValues().remove(boundaryValues);
+            }
+
             if (initialisedCdd) {
                 CDD.done();
             }
@@ -59,18 +80,6 @@ public class TestSuite {
         testCases = testCases.stream().filter(s -> isPrefix(s, finalTraces)).collect(Collectors.toList());
 
         boolean initialisedCdd = CDD.tryInit(ts.getAutomaton().getClocks(), ts.getAutomaton().getBVs());
-
-        for (BoundaryValues boundaryValues : bva.getBoundaryValues()) {
-            TestCase temp = findApplicableTrace(boundaryValues.getLocation());
-            if (temp != null) {
-                for (Integer i : boundaryValues.getValues()) {
-                    TestCase testCase = new TestCase(temp);
-                    testCase.createTestCode(boundaryValues.getLocation(), i);
-                    testCases.add(testCase);
-                }
-
-            }
-        }
 
         if (initialisedCdd) {
             CDD.done();
@@ -112,18 +121,20 @@ public class TestSuite {
 
 
     public void printToFile() {
-
+        StringBuilder sb = new StringBuilder();
         for (int i = 0; i < testCases.size(); i++) {
+            sb.append(testSettings.prefix + i + "() {\n");
+            sb.append(testCases.get(i).getTestCode());
+        }
+
             try {
-                File file = new File("testcases", "testcode" + i + ".txt");
-                FileWriter writer = new FileWriter(file);
-                writer.write(testCases.get(i).getTestCode().toString());
-                writer.write("\n");
-                writer.close();
+                FileWriter myWriter = new FileWriter("testcodes.txt");
+                myWriter.write(sb.toString());
+                myWriter.close();
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        }
+
 
     }
 

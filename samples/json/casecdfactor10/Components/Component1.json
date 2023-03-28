@@ -584,7 +584,7 @@
       "update": "d\u003d0",
       "sync": "close",
       "isLocked": false,
-      "testCode": "cas.closed();\n",
+      "testCode": "cas.close();\n",
       "nails": [
         {
           "x": 640.0,
@@ -635,7 +635,7 @@
       "update": "d \u003d 0",
       "sync": "open",
       "isLocked": false,
-      "testCode": "open();\n",
+      "testCode": "cas.open();\n",
       "nails": [
         {
           "x": 470.0,

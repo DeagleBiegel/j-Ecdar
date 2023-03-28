@@ -36,7 +36,6 @@ public class BVA {
                         invariantDelays.put(key, max-min);
                         invariants.put(key, true);
                         boundaryValues.add(new BoundaryValues(key, invariantDelays.get(key)));
-
                     }
                 }
             }
