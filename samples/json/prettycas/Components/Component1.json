@@ -14,9 +14,7 @@
       "nicknameX": 30.0,
       "nicknameY": -10.0,
       "invariantX": -3.552713678800501E-15,
-      "invariantY": 20.0,
-      "enterTestCode": "assert(!cas.armed && !cas.locked && !cas.closed && !cas.sound && !cas.flash);\n",
-      "exitTestCode": ""
+      "invariantY": 20.0
     },
     {
       "id": "L1",
@@ -30,9 +28,7 @@
       "nicknameX": 30.0,
       "nicknameY": -10.0,
       "invariantX": 30.0,
-      "invariantY": 10.0,
-      "enterTestCode": "assert(!cas.armed && !cas.locked && cas.closed && !cas.sound && !cas.flash);\n",
-      "exitTestCode": ""
+      "invariantY": 10.0
     },
     {
       "id": "L2",
@@ -46,9 +42,7 @@
       "nicknameX": 30.0,
       "nicknameY": -10.0,
       "invariantX": 30.0,
-      "invariantY": 10.0,
-      "enterTestCode": "assert(!cas.armed && cas.locked && !cas.closed && !cas.sound && !cas.flash);\n",
-      "exitTestCode": ""
+      "invariantY": 10.0
     },
     {
       "id": "L3",
@@ -62,9 +56,7 @@
       "nicknameX": 30.0,
       "nicknameY": -10.0,
       "invariantX": 30.0,
-      "invariantY": 10.0,
-      "enterTestCode": "assert(!cas.armed && cas.locked && cas.closed && !cas.sound && !cas.flash);\n",
-      "exitTestCode": ""
+      "invariantY": 10.0
     },
     {
       "id": "L4",
@@ -78,9 +70,7 @@
       "nicknameX": 30.0,
       "nicknameY": -10.0,
       "invariantX": 30.0,
-      "invariantY": 10.0,
-      "enterTestCode": "assert(cas.armed && cas.locked && cas.closed && !cas.sound && !cas.flash);\n",
-      "exitTestCode": ""
+      "invariantY": 10.0
     },
     {
       "id": "L5",
@@ -94,9 +84,7 @@
       "nicknameX": 30.0,
       "nicknameY": -10.0,
       "invariantX": 10.0,
-      "invariantY": -40.0,
-      "enterTestCode": "assert(!cas.armed && cas.locked && cas.closed && !cas.sound && !cas.flash);\n",
-      "exitTestCode": ""
+      "invariantY": -40.0
     },
     {
       "id": "L6",
@@ -110,9 +98,7 @@
       "nicknameX": 30.0,
       "nicknameY": -10.0,
       "invariantX": -10.0,
-      "invariantY": -40.0,
-      "enterTestCode": "assert(cas.armed && !cas.locked && cas.closed && !cas.sound && !cas.flash);\n",
-      "exitTestCode": ""
+      "invariantY": -40.0
     },
     {
       "id": "L7",
@@ -126,9 +112,7 @@
       "nicknameX": 30.0,
       "nicknameY": -10.0,
       "invariantX": 30.0,
-      "invariantY": 10.0,
-      "enterTestCode": "assert(!cas.armed && cas.locked && !cas.closed && !cas.sound && !cas.flash);\n",
-      "exitTestCode": ""
+      "invariantY": 10.0
     },
     {
       "id": "L8",
@@ -142,9 +126,7 @@
       "nicknameX": 30.0,
       "nicknameY": -10.0,
       "invariantX": 30.0,
-      "invariantY": -10.0,
-      "enterTestCode": "assert(cas.armed && cas.locked && !cas.closed && !cas.sound && !cas.flash);\n",
-      "exitTestCode": ""
+      "invariantY": -10.0
     },
     {
       "id": "L9",
@@ -158,9 +140,7 @@
       "nicknameX": 30.0,
       "nicknameY": -10.0,
       "invariantX": 30.0,
-      "invariantY": -10.0,
-      "enterTestCode": "assert(!cas.armed && cas.locked && !cas.closed && !cas.sound && !cas.flash);\n",
-      "exitTestCode": ""
+      "invariantY": -10.0
     },
     {
       "id": "L10",
@@ -174,9 +154,7 @@
       "nicknameX": 30.0,
       "nicknameY": -10.0,
       "invariantX": -10.0,
-      "invariantY": -40.0,
-      "enterTestCode": "assert(!cas.armed && cas.locked && !cas.closed && cas.sound && cas.flash);\n",
-      "exitTestCode": ""
+      "invariantY": -40.0
     },
     {
       "id": "L11",
@@ -190,9 +168,7 @@
       "nicknameX": 30.0,
       "nicknameY": -10.0,
       "invariantX": -10.000000000000007,
-      "invariantY": -50.0,
-      "enterTestCode": "assert(!cas.armed && !cas.locked && !cas.closed && !cas.sound && cas.flash);\n",
-      "exitTestCode": ""
+      "invariantY": -50.0
     },
     {
       "id": "L12",
@@ -206,9 +182,7 @@
       "nicknameX": 30.0,
       "nicknameY": -10.0,
       "invariantX": 30.0,
-      "invariantY": 10.0,
-      "enterTestCode": "assert(!cas.armed && cas.locked && !cas.closed && !cas.sound && cas.flash);\n",
-      "exitTestCode": ""
+      "invariantY": 10.0
     },
     {
       "id": "L13",
@@ -222,9 +196,7 @@
       "nicknameX": 30.0,
       "nicknameY": -10.0,
       "invariantX": 30.0,
-      "invariantY": 10.0,
-      "enterTestCode": "assert(!cas.armed && cas.locked && !cas.closed && !cas.sound && cas.flash);\n",
-      "exitTestCode": ""
+      "invariantY": 10.0
     },
     {
       "id": "L14",
@@ -238,9 +210,7 @@
       "nicknameX": 30.0,
       "nicknameY": -10.0,
       "invariantX": -50.0,
-      "invariantY": -30.0,
-      "enterTestCode": "",
-      "exitTestCode": "assert(!cas.armed && !cas.locked && !cas.closed && !cas.sound && cas.flash);\n"
+      "invariantY": -30.0
     },
     {
       "id": "L15",
@@ -254,25 +224,21 @@
       "nicknameX": 30.0,
       "nicknameY": -10.0,
       "invariantX": 30.0,
-      "invariantY": -10.0,
-      "enterTestCode": "assert(!cas.armed && cas.locked && !cas.closed && !cas.sound && cas.flash);\n",
-      "exitTestCode": ""
+      "invariantY": -10.0
     },
     {
       "id": "L16",
       "nickname": "",
-      "invariant": "d<=0",
+      "invariant": "d\u003c\u003d0",
       "type": "NORMAL",
       "urgency": "NORMAL",
-      "x": 465.0,
-      "y": 860.0,
+      "x": 315.0,
+      "y": 140.0,
       "color": "2",
       "nicknameX": 30.0,
       "nicknameY": -10.0,
-      "invariantX": -3.552713678800501E-15,
-      "invariantY": 20.0,
-      "enterTestCode": "assert(!cas.armed && !cas.locked && !cas.closed && cas.sound && cas.flash);\n",
-      "exitTestCode": ""
+      "invariantX": -10.000000000000004,
+      "invariantY": 40.0
     }
   ],
   "edges": [
@@ -287,7 +253,6 @@
       "update": "",
       "sync": "lock",
       "isLocked": false,
-      "testCode": "cas.lock();\n",
       "nails": [
         {
           "x": 480.0,
@@ -309,7 +274,6 @@
       "update": "",
       "sync": "close",
       "isLocked": false,
-      "testCode": "cas.close();\n",
       "nails": [
         {
           "x": 450.0,
@@ -331,7 +295,6 @@
       "update": "c \u003d 0",
       "sync": "lock",
       "isLocked": false,
-      "testCode": "cas.lock();\n",
       "nails": [
         {
           "x": 420.0,
@@ -360,7 +323,6 @@
       "update": "c \u003d 0",
       "sync": "close",
       "isLocked": false,
-      "testCode": "cas.close();\n",
       "nails": [
         {
           "x": 520.0,
@@ -389,7 +351,6 @@
       "update": "",
       "sync": "unlock",
       "isLocked": false,
-      "testCode": "cas.unlock();\n",
       "nails": [
         {
           "x": 420.0,
@@ -418,7 +379,6 @@
       "update": "",
       "sync": "open",
       "isLocked": false,
-      "testCode": "cas.open();\n",
       "nails": [
         {
           "x": 540.0,
@@ -447,7 +407,6 @@
       "update": "",
       "sync": "unlock",
       "isLocked": false,
-      "testCode": "cas.unlock();\n",
       "nails": [
         {
           "x": 570.0,
@@ -469,7 +428,6 @@
       "update": "",
       "sync": "open",
       "isLocked": false,
-      "testCode": "cas.open();\n",
       "nails": [
         {
           "x": 360.0,
@@ -491,7 +449,6 @@
       "update": "",
       "sync": "armedOn",
       "isLocked": false,
-      "testCode": "",
       "nails": [
         {
           "x": 470.0,
@@ -520,7 +477,6 @@
       "update": "d \u003d 0",
       "sync": "unlock",
       "isLocked": false,
-      "testCode": "cas.unlock();\n",
       "nails": [
         {
           "x": 410.0,
@@ -549,7 +505,6 @@
       "update": "",
       "sync": "armedOn",
       "isLocked": false,
-      "testCode": "",
       "nails": [
         {
           "x": 510.0,
@@ -578,7 +533,6 @@
       "update": "",
       "sync": "armedOff",
       "isLocked": false,
-      "testCode": "",
       "nails": [
         {
           "x": 300.0,
@@ -600,7 +554,6 @@
       "update": "d\u003d0",
       "sync": "close",
       "isLocked": false,
-      "testCode": "cas.close();\n",
       "nails": [
         {
           "x": 640.0,
@@ -629,7 +582,6 @@
       "update": "",
       "sync": "unlock",
       "isLocked": false,
-      "testCode": "cas.unlock();\n",
       "nails": [
         {
           "x": 680.0,
@@ -651,7 +603,6 @@
       "update": "d \u003d 0",
       "sync": "open",
       "isLocked": false,
-      "testCode": "cas.open();\n",
       "nails": [
         {
           "x": 470.0,
@@ -680,7 +631,6 @@
       "update": "",
       "sync": "armedOff",
       "isLocked": false,
-      "testCode": "",
       "nails": [
         {
           "x": 470.0,
@@ -702,7 +652,6 @@
       "update": "",
       "sync": "soundOff",
       "isLocked": false,
-      "testCode": "",
       "nails": [
         {
           "x": 530.0,
@@ -731,28 +680,27 @@
       "update": "d \u003d 0",
       "sync": "unlock",
       "isLocked": false,
-      "testCode": "cas.unlock();\n",
       "nails": [
         {
-          "x": 410.0,
+          "x": 420.0,
           "y": 180.0,
           "propertyType": "GUARD",
-          "propertyX": 10.0,
-          "propertyY": 0.0
+          "propertyX": 0.0,
+          "propertyY": 20.000000000000004
         },
         {
-          "x": 370.0,
-          "y": 160.0,
+          "x": 390.0,
+          "y": 170.0,
           "propertyType": "SYNCHRONIZATION",
-          "propertyX": -20.000000000000004,
-          "propertyY": 20.0
+          "propertyX": -10.000000000000004,
+          "propertyY": 29.999999999999993
         },
         {
-          "x": 330.0,
-          "y": 140.0,
+          "x": 360.0,
+          "y": 160.0,
           "propertyType": "UPDATE",
-          "propertyX": -20.000000000000004,
-          "propertyY": 20.0
+          "propertyX": -10.000000000000004,
+          "propertyY": 30.0
         }
       ]
     },
@@ -767,7 +715,6 @@
       "update": "d \u003d 0",
       "sync": "unlock",
       "isLocked": false,
-      "testCode": "cas.unlock();\n",
       "nails": [
         {
           "x": 520.0,
@@ -796,7 +743,6 @@
       "update": "",
       "sync": "soundOff",
       "isLocked": false,
-      "testCode": "",
       "nails": [
         {
           "x": 680.0,
@@ -825,7 +771,6 @@
       "update": "",
       "sync": "flashOff",
       "isLocked": false,
-      "testCode": "",
       "nails": [
         {
           "x": 680.0,
@@ -847,7 +792,6 @@
       "update": "",
       "sync": "soundOff",
       "isLocked": false,
-      "testCode": "",
       "nails": [
         {
           "x": 240.0,
@@ -869,7 +813,6 @@
       "update": "",
       "sync": "flashOff",
       "isLocked": false,
-      "testCode": "",
       "nails": [
         {
           "x": 240.0,
@@ -891,7 +834,6 @@
       "update": "",
       "sync": "flashOn",
       "isLocked": false,
-      "testCode": "",
       "nails": [
         {
           "x": 470.0,
@@ -913,7 +855,6 @@
       "update": "",
       "sync": "soundOn",
       "isLocked": false,
-      "testCode": "",
       "nails": [
         {
           "x": 470.0,
@@ -935,20 +876,19 @@
       "update": "",
       "sync": "soundOff",
       "isLocked": false,
-      "testCode": "cas.soundOff();\n",
       "nails": [
         {
-          "x": 480.0,
-          "y": 790.0,
+          "x": 280.0,
+          "y": 130.0,
           "propertyType": "SYNCHRONIZATION",
-          "propertyX": 20.0,
-          "propertyY": 10.0
+          "propertyX": -30.0,
+          "propertyY": 30.0
         }
       ]
     }
   ],
   "description": "",
-  "x": 0.0,
+  "x": 174.0,
   "y": 0.0,
   "width": 1000.0,
   "height": 960.0,
