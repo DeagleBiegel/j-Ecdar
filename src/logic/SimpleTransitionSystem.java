@@ -654,15 +654,19 @@ public class SimpleTransitionSystem extends TransitionSystem{
 
     public List<Transition> expandTraceHelper(List<Transition> trace) {
         Set<Channel> actions = getActions();
-        List<Transition> transitions = new ArrayList<>();
+        HashMap<String, List<Transition>> transitionHashMap = new HashMap<>();
         waiting = new ArrayDeque<>();
         passed = new ArrayList<>();
+        List<Transition> traceToOutput = new ArrayList<>();
         Transition startTrans = trace.get(trace.size()-1);
         State state = new State(trace.get(trace.size()-1).getTarget());
+        transitionHashMap.put(startTrans.getTarget().getLocation().getName(), new ArrayList<>());
+        transitionHashMap.get(startTrans.getTarget().getLocation().getName()).add(startTrans);
 
         waiting.add(state);
         boolean foundOutput = false;
 
+        Transition lastTrans = startTrans;
 
         while (!waiting.isEmpty()) {
             State currState = new State(waiting.pop());
@@ -686,12 +690,13 @@ public class SimpleTransitionSystem extends TransitionSystem{
 
                     if (t.getEdges().get(0).getStatus().equals("OUTPUT")) {
                         foundOutput = true;
-                        transitions.add(t);
+                        lastTrans = t;
                     }
 
-                    if (!foundOutput) {
-                        transitions.add(t);
+                    if (!transitionHashMap.containsKey(t.getTarget().getLocation().getName())) {
+                        transitionHashMap.put(t.getTarget().getLocation().getName(), new ArrayList<>());
                     }
+                    transitionHashMap.get(t.getTarget().getLocation().getName()).add(t);
 
                 }
                 if (foundOutput) {
@@ -701,25 +706,26 @@ public class SimpleTransitionSystem extends TransitionSystem{
             }
         }
 
-        Transition temp = transitions.get(transitions.size()-1);
-        List<Transition> tempList = new ArrayList<>();
-        tempList.add(temp);
-
-        for (int i = 0; i < transitions.size(); ++i){
-            if (i == transitions.size()-1 && startTrans.getGuardCDD().equals(temp.getGuardCDD())) {
-                i = 0;
-                break;
-            }
-            if (temp.getSource().getInvariant().equals(transitions.get(i).getTarget().getInvariant())) {
-                temp = transitions.get(i);
-                tempList.add(temp);
+        traceToOutput.add(lastTrans);
+        while (!lastTrans.equals(startTrans)) {
+            if (transitionHashMap.containsKey(lastTrans.getSource().getLocation().getName())) {
+                for (Transition t : transitionHashMap.get(lastTrans.getSource().getLocation().getName())) {
+                    if (t.getTarget().getInvariant().equals(lastTrans.getSource().getInvariant())) {
+                        lastTrans = t;
+                        traceToOutput.add(lastTrans);
+                    }
+                }
             }
         }
 
-
-
-        Collections.reverse(tempList);
-        trace.addAll(tempList);
+        Collections.reverse(traceToOutput);
+        traceToOutput.remove(0);
+        System.out.println("new trace");
+        System.out.println(startTrans.getSource().getLocation().getName() + "->" + startTrans.getTarget().getLocation().getName());
+        for (Transition t : traceToOutput) {
+            System.out.println(t.getSource().getLocation().getName() + "->" + t.getTarget().getLocation().getName());
+        }
+        trace.addAll(traceToOutput);
         return trace;
     }
 }
