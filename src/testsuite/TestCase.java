@@ -70,17 +70,21 @@ public class TestCase {
         }
 
         //create test code for initial location
+        //assert clocks then get the test code from enter location
         sb.append(testCodeAssertClocks(trace.get(0).getSource()));
-        sb.append(parseTestCode(new StringBuilder(trace.get(0).getSource().getLocation().getEnterTestCode()), booleans, trace.get(0).getSource().getInvariant()));
+        sb.append(trace.get(0).getSource().getLocation().getEnterTestCode());
 
         for (Transition tran : trace) {
-            sb.append(parseTestCode(new StringBuilder(tran.getSource().getLocation().getExitTestCode()), booleans, tran.getSource().getInvariant()));
-            sb.append(testCodeAssertClocks(tran.getSource()));
-
+            //wait for x time units, based on the maximum delay for a location. If there is not max the delay is 0.
             int x = (minClockValue(tran.getTarget().getInvariant(), getClocks().get(getClocks().size()-1)) - minClockValue(tran.getSource().getInvariant(), getClocks().get(getClocks().size()-1)));
             sb.append("cas.wait(" + x + ");\n");
 
-            sb.append(parseTestCode(new StringBuilder(tran.getEdges().get(0).getTestCode()), booleans, tran.getEdges().get(0).getGuardCDD()));
+            //get exit test code
+            sb.append(tran.getSource().getLocation().getExitTestCode());
+            sb.append(testCodeAssertClocks(tran.getSource()));
+
+            //get test code for edge
+            sb.append(tran.getEdges().get(0).getTestCode());
 
             if (tran.getUpdates().size() > 0 ){
                 for (Update update : tran.getUpdates()){
@@ -92,8 +96,9 @@ public class TestCase {
                     }
                 }
             }
+
             sb.append(testCodeAssertClocks(tran.getTarget()));
-            sb.append(parseTestCode(new StringBuilder(tran.getTarget().getLocation().getEnterTestCode()), booleans, tran.getTarget().getInvariant()));
+            sb.append(tran.getTarget().getLocation().getEnterTestCode()); // .conjunction(tran.getTarget().getInvariant()
 
         }
         sb.append(testSettings.postfix);
@@ -114,10 +119,12 @@ public class TestCase {
         }
 
         //create test code for initial location
+        //assert clocks then get the test code from enter location
         sb.append(testCodeAssertClocks(trace.get(0).getSource()));
-        sb.append(parseTestCode(new StringBuilder(trace.get(0).getSource().getLocation().getEnterTestCode()), booleans, trace.get(0).getSource().getInvariant()));
+        sb.append(trace.get(0).getSource().getLocation().getEnterTestCode());
 
         for (Transition tran : trace) {
+            //wait for x time units, based on the maximum delay for a location. If there is not max the delay is 0.
             if(tran.getSource().getLocation().getName().equals(location) && tran.getEdges().get(0).getStatus().equals("INPUT")) {
                 sb.append("cas.wait(" + delay + ");\n");
             }
@@ -125,11 +132,14 @@ public class TestCase {
                 int x = (minClockValue(tran.getTarget().getInvariant(), getClocks().get(getClocks().size()-1)) - minClockValue(tran.getSource().getInvariant(), getClocks().get(getClocks().size()-1)));
                 sb.append("cas.wait(" + x + ");\n");
             }
-            sb.append(parseTestCode(new StringBuilder(tran.getSource().getLocation().getExitTestCode()), booleans, tran.getSource().getInvariant()));
-            sb.append(testCodeAssertClocks(tran.getSource()));
-            sb.append(parseTestCode(new StringBuilder(tran.getEdges().get(0).getTestCode()), booleans, tran.getEdges().get(0).getGuardCDD()));
 
-            // If there are updates in the edge it is added to the test code (only for clocks right now)
+            //get exit test code
+            sb.append(tran.getSource().getLocation().getExitTestCode());
+            sb.append(testCodeAssertClocks(tran.getSource()));
+
+            //get test code for edge
+            sb.append(tran.getEdges().get(0).getTestCode());
+
             if (tran.getUpdates().size() > 0 ){
                 for (Update update : tran.getUpdates()){
                     if (update instanceof BoolUpdate) {
@@ -142,14 +152,13 @@ public class TestCase {
             }
 
             sb.append(testCodeAssertClocks(tran.getTarget()));
-            sb.append(parseTestCode(new StringBuilder(tran.getTarget().getLocation().getEnterTestCode()), booleans, tran.getTarget().getInvariant()));
+            sb.append(tran.getTarget().getLocation().getEnterTestCode()); // .conjunction(tran.getTarget().getInvariant()
 
         }
         sb.append(testSettings.postfix);
 
         this.testCode = sb;
     }
-
 
     private String testCodeAssertClocks(State state) {
         String s = filterCDD(state.getInvariant().toString());
@@ -162,53 +171,12 @@ public class TestCase {
         //return testSettings.assertPre + s + testSettings.assertPost;
     }
 
-    private String testCodeInitClocks() {
-        String s = testSettings.clockType + " timeStamp = " + testSettings.timeStampFunc;
-
-        for (Clock c : clocks) {
-            s += testSettings.clockType + " " + c.getOriginalName() + " = " + "timeStamp;\n";
-        }
-
-        return s;
-    }
-    
     private String testCodeUpdateClock(Clock clock, Integer value) {
         String s = "";
 
         s += "cas." + clock.getOriginalName() + " = " + value + ";\n";
 
         return s;
-    }
-
-    private StringBuilder parseTestCode(StringBuilder sb, HashMap<String, Boolean> booleans, CDD cdd) {
-        String testCode = "";
-
-        //If checks if there is a variable to be "replaced", denoted by $
-        if (sb.indexOf("$") != -1) {
-            int startIndex = sb.indexOf("$");
-            int endIndex = 0;
-
-            Pattern pattern = Pattern.compile("\\$[a-z,A-Z,0-9]+");
-            Matcher m = pattern.matcher(sb.toString());
-            while (m.find()){
-                endIndex = m.end();
-            }
-            String key = sb.subSequence(startIndex+1, endIndex).toString();
-
-            if (booleans.containsKey(key)) {
-                testCode = booleans.get(key).toString();
-            }
-
-            for (Clock c : clocks) {
-                if (sb.subSequence(startIndex+1, endIndex).equals(c.getOriginalName())) {
-                    testCode = filterCDD(cdd.toString());
-                }
-            }
-
-            sb.replace(startIndex, endIndex, testCode);
-            return parseTestCode(sb, booleans, cdd);
-        }
-        return sb;
     }
 
     private String filterCDD (String s) {

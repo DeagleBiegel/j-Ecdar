@@ -239,8 +239,8 @@
       "nicknameY": -10.0,
       "invariantX": -50.0,
       "invariantY": -30.0,
-      "enterTestCode": "",
-      "exitTestCode": "assert(!cas.armed && !cas.locked && !cas.closed && !cas.sound && cas.flash);\n"
+      "enterTestCode": "assert(!cas.armed && !cas.locked && !cas.closed && !cas.sound && cas.flash);\n",
+      "exitTestCode": ""
     },
     {
       "id": "L15",
@@ -728,7 +728,7 @@
       "status": "INPUT",
       "select": "",
       "guard": "d\u003c3",
-      "update": "d \u003d 0",
+      "update": "d = 0",
       "sync": "unlock",
       "isLocked": false,
       "testCode": "cas.unlock();\n",
@@ -935,7 +935,7 @@
       "update": "",
       "sync": "soundOff",
       "isLocked": false,
-      "testCode": "cas.soundOff();\n",
+      "testCode": "",
       "nails": [
         {
           "x": 480.0,
