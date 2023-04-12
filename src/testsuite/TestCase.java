@@ -164,9 +164,10 @@ public class TestCase {
         String s = filterCDD(state.getInvariant().toString());
 
         for (Clock c : clocks) {
-            s = s.replaceAll("(\\W)" + c.getOriginalName() + "(\\W)", "$1 cas."+ c.getOriginalName() + "$2");
+            s = s.replaceAll("(\\W)" + c.getOriginalName() + "(\\W)", "$1" + "cas."+ c.getOriginalName() + "$2");
         }
 
+        s = s.replaceFirst(" ", "");
         return testSettings.assertPre + s + testSettings.assertPost;
         //return testSettings.assertPre + s + testSettings.assertPost;
     }
@@ -185,7 +186,7 @@ public class TestCase {
         String[] parts = s.split("&&");
 
 
-        List filteredParts = Arrays.stream(parts).filter(x -> containsClock(x)).collect(Collectors.toList());
+        List filteredParts = Arrays.stream(parts).filter(this::containsClock).collect(Collectors.toList());
 
         for (int i = 0; i < filteredParts.size(); i++) {
             if (i == filteredParts.size()-1) {

@@ -23,7 +23,7 @@ public class Playground {
                     "}\n",
                     "System.currentTimeMillis();\n",
                     "double",
-                    "assert(",
+                    "assertTrue(",
                     ");\n",
                     "delay(",
                     ");\n");
