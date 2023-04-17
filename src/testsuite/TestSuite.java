@@ -81,12 +81,30 @@ public class TestSuite {
 
         boolean initialisedCdd = CDD.tryInit(ts.getAutomaton().getClocks(), ts.getAutomaton().getBVs());
 
+        findTransition("L6", "L1", testCases);
         if (initialisedCdd) {
             CDD.done();
         }
 
         printToFile();
 
+    }
+
+    private void findTransition(String source, String Target, List<TestCase> testCases) {
+        for (TestCase c : testCases) {
+            for (Transition t : c.getTrace()) {
+                if (t.getSource().getLocation().getName().equals(source) && t.getTarget().getLocation().getName().equals(Target)) {
+                    printTransition(c.getTrace());
+                }
+            }
+        }
+    }
+
+    private void printTransition(List<Transition> trans) {
+        for (Transition t : trans) {
+            System.out.println(t.getSource().getLocation().getName() + " " + t.getTarget().getLocation().getName());
+        }
+        System.out.println();
     }
 
     private TestCase findApplicableTrace(String location) {

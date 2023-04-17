@@ -720,11 +720,6 @@ public class SimpleTransitionSystem extends TransitionSystem{
 
         Collections.reverse(traceToOutput);
         traceToOutput.remove(0);
-        System.out.println("new trace");
-        System.out.println(startTrans.getSource().getLocation().getName() + "->" + startTrans.getTarget().getLocation().getName());
-        for (Transition t : traceToOutput) {
-            System.out.println(t.getSource().getLocation().getName() + "->" + t.getTarget().getLocation().getName());
-        }
         trace.addAll(traceToOutput);
         return trace;
     }
