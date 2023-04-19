@@ -35,7 +35,7 @@
       "exitTestCode": ""
     },
     {
-      "id": "L2",
+      "id": "L2||L1",
       "nickname": "",
       "invariant": "",
       "type": "NORMAL",
@@ -727,7 +727,7 @@
       "targetLocation": "L16",
       "status": "INPUT",
       "select": "",
-      "guard": "d\u003c30",
+      "guard": "d\u003c30 && d >= 0",
       "update": "d = 0",
       "sync": "unlock",
       "isLocked": false,
@@ -764,7 +764,7 @@
       "status": "INPUT",
       "select": "",
       "guard": "",
-      "update": "d \u003d 0",
+      "update": "d \u003d 0 ",
       "sync": "unlock",
       "isLocked": false,
       "testCode": "cas.unlock();\n",
@@ -936,28 +936,6 @@
       "sync": "soundOff",
       "isLocked": false,
       "testCode": "",
-      "nails": [
-        {
-          "x": 480.0,
-          "y": 790.0,
-          "propertyType": "SYNCHRONIZATION",
-          "propertyX": 20.0,
-          "propertyY": 10.0
-        }
-      ]
-    },
-    {
-      "id": "E26",
-      "group": "",
-      "sourceLocation": "L4",
-      "targetLocation": "L4",
-      "status": "OUTPUT",
-      "select": "",
-      "guard": "d <= 10",
-      "update": "",
-      "sync": "ping",
-      "isLocked": false,
-      "testCode": "cas.ping();",
       "nails": [
         {
           "x": 480.0,

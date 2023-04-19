@@ -437,6 +437,7 @@ public class SimpleTransitionSystem extends TransitionSystem{
     }
 
     public CDD helperConjoin(String guardString, CDD orgCDD) {
+        System.out.println(guardString);
         Guard g = GuardParser.parse(guardString, getClocks(), getBVs());
         CDD cdd = orgCDD.conjunction(new CDD(g));
 

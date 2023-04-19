@@ -1,0 +1,3130 @@
+{
+  "name": "Temp",
+  "declarations": "clock y, x, z;",
+  "locations": [
+    {
+      "id": "L0||L5||L6",
+      "nickname": "",
+      "invariant": "",
+      "type": "INITIAL",
+      "urgency": "NORMAL",
+      "x": 705.5055,
+      "y": 838.95917,
+      "color": "7",
+      "nicknameX": 30.0,
+      "nicknameY": -10.0,
+      "invariantX": 30.0,
+      "invariantY": 10.0
+    },
+    {
+      "id": "L1||L5||L6",
+      "nickname": "",
+      "invariant": "z\u003c\u003d2",
+      "type": "NORMAL",
+      "urgency": "NORMAL",
+      "x": 614.931,
+      "y": 484.2193,
+      "color": "7",
+      "nicknameX": 30.0,
+      "nicknameY": -10.0,
+      "invariantX": 30.0,
+      "invariantY": 10.0
+    },
+    {
+      "id": "L1||L5||L7",
+      "nickname": "",
+      "invariant": "z\u003c\u003d2 \u0026\u0026 x\u003c\u003d8",
+      "type": "NORMAL",
+      "urgency": "NORMAL",
+      "x": 816.8949,
+      "y": 635.77435,
+      "color": "7",
+      "nicknameX": 30.0,
+      "nicknameY": -10.0,
+      "invariantX": 30.0,
+      "invariantY": 10.0
+    },
+    {
+      "id": "L2||L4||L7",
+      "nickname": "",
+      "invariant": "y\u003c\u003d6 \u0026\u0026 x\u003c\u003d8",
+      "type": "NORMAL",
+      "urgency": "NORMAL",
+      "x": 578.0767,
+      "y": 926.2209,
+      "color": "7",
+      "nicknameX": 30.0,
+      "nicknameY": -10.0,
+      "invariantX": 30.0,
+      "invariantY": 10.0
+    },
+    {
+      "id": "L2||L5||L7",
+      "nickname": "",
+      "invariant": "x\u003c\u003d8",
+      "type": "NORMAL",
+      "urgency": "NORMAL",
+      "x": 356.8403,
+      "y": 901.21063,
+      "color": "7",
+      "nicknameX": 30.0,
+      "nicknameY": -10.0,
+      "invariantX": 30.0,
+      "invariantY": 10.0
+    },
+    {
+      "id": "L3||L5||L6",
+      "nickname": "",
+      "invariant": "z\u003c\u003d2",
+      "type": "NORMAL",
+      "urgency": "NORMAL",
+      "x": 429.9035,
+      "y": 872.42365,
+      "color": "7",
+      "nicknameX": 30.0,
+      "nicknameY": -10.0,
+      "invariantX": 30.0,
+      "invariantY": 10.0
+    },
+    {
+      "id": "L3||L5||L7",
+      "nickname": "",
+      "invariant": "z\u003c\u003d2 \u0026\u0026 x\u003c\u003d8",
+      "type": "NORMAL",
+      "urgency": "NORMAL",
+      "x": 515.30286,
+      "y": 799.03827,
+      "color": "7",
+      "nicknameX": 30.0,
+      "nicknameY": -10.0,
+      "invariantX": 30.0,
+      "invariantY": 10.0
+    },
+    {
+      "id": "L0||L5||L7",
+      "nickname": "",
+      "invariant": "x\u003c\u003d8",
+      "type": "NORMAL",
+      "urgency": "NORMAL",
+      "x": 781.65796,
+      "y": 809.3563,
+      "color": "7",
+      "nicknameX": 30.0,
+      "nicknameY": -10.0,
+      "invariantX": 30.0,
+      "invariantY": 10.0
+    },
+    {
+      "id": "L3||L5||U0",
+      "nickname": "",
+      "invariant": "z\u003c\u003d2",
+      "type": "NORMAL",
+      "urgency": "NORMAL",
+      "x": 602.69604,
+      "y": 533.099,
+      "color": "7",
+      "nicknameX": 30.0,
+      "nicknameY": -10.0,
+      "invariantX": 30.0,
+      "invariantY": 10.0
+    },
+    {
+      "id": "L0||L5||U0",
+      "nickname": "",
+      "invariant": "",
+      "type": "NORMAL",
+      "urgency": "NORMAL",
+      "x": 701.36523,
+      "y": 619.9902,
+      "color": "7",
+      "nicknameX": 30.0,
+      "nicknameY": -10.0,
+      "invariantX": 30.0,
+      "invariantY": 10.0
+    },
+    {
+      "id": "L1||L5||U0",
+      "nickname": "",
+      "invariant": "z\u003c\u003d2",
+      "type": "NORMAL",
+      "urgency": "NORMAL",
+      "x": 630.78265,
+      "y": 272.045,
+      "color": "7",
+      "nicknameX": 30.0,
+      "nicknameY": -10.0,
+      "invariantX": 30.0,
+      "invariantY": 10.0
+    },
+    {
+      "id": "L2||L4||U0",
+      "nickname": "",
+      "invariant": "y\u003c\u003d6",
+      "type": "NORMAL",
+      "urgency": "NORMAL",
+      "x": 509.11307,
+      "y": 165.50677,
+      "color": "7",
+      "nicknameX": 30.0,
+      "nicknameY": -10.0,
+      "invariantX": 30.0,
+      "invariantY": 10.0
+    },
+    {
+      "id": "L2||L5||U0",
+      "nickname": "",
+      "invariant": "",
+      "type": "NORMAL",
+      "urgency": "NORMAL",
+      "x": 363.73096,
+      "y": 254.34587,
+      "color": "7",
+      "nicknameX": 30.0,
+      "nicknameY": -10.0,
+      "invariantX": 30.0,
+      "invariantY": 10.0
+    },
+    {
+      "id": "L3||L4||U0",
+      "nickname": "",
+      "invariant": "z\u003c\u003d2 \u0026\u0026 y\u003c\u003d6",
+      "type": "NORMAL",
+      "urgency": "NORMAL",
+      "x": 686.6614,
+      "y": 318.7188,
+      "color": "7",
+      "nicknameX": 30.0,
+      "nicknameY": -10.0,
+      "invariantX": 30.0,
+      "invariantY": 10.0
+    },
+    {
+      "id": "L0||L4||U0",
+      "nickname": "",
+      "invariant": "y\u003c\u003d6",
+      "type": "NORMAL",
+      "urgency": "NORMAL",
+      "x": 586.3389,
+      "y": 478.54236,
+      "color": "7",
+      "nicknameX": 30.0,
+      "nicknameY": -10.0,
+      "invariantX": 30.0,
+      "invariantY": 10.0
+    },
+    {
+      "id": "L1||L4||U0",
+      "nickname": "",
+      "invariant": "z\u003c\u003d2 \u0026\u0026 y\u003c\u003d6",
+      "type": "NORMAL",
+      "urgency": "NORMAL",
+      "x": 498.01968,
+      "y": 283.1283,
+      "color": "7",
+      "nicknameX": 30.0,
+      "nicknameY": -10.0,
+      "invariantX": 30.0,
+      "invariantY": 10.0
+    },
+    {
+      "id": "L3||L4||L6",
+      "nickname": "",
+      "invariant": "z\u003c\u003d2 \u0026\u0026 y\u003c\u003d6",
+      "type": "NORMAL",
+      "urgency": "NORMAL",
+      "x": 443.53574,
+      "y": 804.56604,
+      "color": "7",
+      "nicknameX": 30.0,
+      "nicknameY": -10.0,
+      "invariantX": 30.0,
+      "invariantY": 10.0
+    },
+    {
+      "id": "L3||L5||L9",
+      "nickname": "",
+      "invariant": "z\u003c\u003d2 \u0026\u0026 x\u003c\u003d4",
+      "type": "NORMAL",
+      "urgency": "NORMAL",
+      "x": 368.5879,
+      "y": 998.4535,
+      "color": "7",
+      "nicknameX": 30.0,
+      "nicknameY": -10.0,
+      "invariantX": 30.0,
+      "invariantY": 10.0
+    },
+    {
+      "id": "L0||L5||L9",
+      "nickname": "",
+      "invariant": "x\u003c\u003d4",
+      "type": "NORMAL",
+      "urgency": "NORMAL",
+      "x": 549.90375,
+      "y": 832.2305,
+      "color": "7",
+      "nicknameX": 30.0,
+      "nicknameY": -10.0,
+      "invariantX": 30.0,
+      "invariantY": 10.0
+    },
+    {
+      "id": "L1||L5||L9",
+      "nickname": "",
+      "invariant": "z\u003c\u003d2 \u0026\u0026 x\u003c\u003d4",
+      "type": "NORMAL",
+      "urgency": "NORMAL",
+      "x": 396.1829,
+      "y": 491.33878,
+      "color": "7",
+      "nicknameX": 30.0,
+      "nicknameY": -10.0,
+      "invariantX": 30.0,
+      "invariantY": 10.0
+    },
+    {
+      "id": "L2||L4||L9",
+      "nickname": "",
+      "invariant": "y\u003c\u003d6 \u0026\u0026 x\u003c\u003d4",
+      "type": "NORMAL",
+      "urgency": "NORMAL",
+      "x": 213.89507,
+      "y": 600.11505,
+      "color": "7",
+      "nicknameX": 30.0,
+      "nicknameY": -10.0,
+      "invariantX": 30.0,
+      "invariantY": 10.0
+    },
+    {
+      "id": "L2||L5||L9",
+      "nickname": "",
+      "invariant": "x\u003c\u003d4",
+      "type": "NORMAL",
+      "urgency": "NORMAL",
+      "x": 154.94571,
+      "y": 665.9884,
+      "color": "7",
+      "nicknameX": 30.0,
+      "nicknameY": -10.0,
+      "invariantX": 30.0,
+      "invariantY": 10.0
+    },
+    {
+      "id": "L0||L4||L6",
+      "nickname": "",
+      "invariant": "y\u003c\u003d6",
+      "type": "NORMAL",
+      "urgency": "NORMAL",
+      "x": 637.7924,
+      "y": 756.8646,
+      "color": "7",
+      "nicknameX": 30.0,
+      "nicknameY": -10.0,
+      "invariantX": 30.0,
+      "invariantY": 10.0
+    },
+    {
+      "id": "L1||L4||L6",
+      "nickname": "",
+      "invariant": "z\u003c\u003d2 \u0026\u0026 y\u003c\u003d6",
+      "type": "NORMAL",
+      "urgency": "NORMAL",
+      "x": 559.21533,
+      "y": 505.18115,
+      "color": "7",
+      "nicknameX": 30.0,
+      "nicknameY": -10.0,
+      "invariantX": 30.0,
+      "invariantY": 10.0
+    },
+    {
+      "id": "L2||L4||L6",
+      "nickname": "",
+      "invariant": "y\u003c\u003d6",
+      "type": "NORMAL",
+      "urgency": "NORMAL",
+      "x": 341.95126,
+      "y": 552.43945,
+      "color": "7",
+      "nicknameX": 30.0,
+      "nicknameY": -10.0,
+      "invariantX": 30.0,
+      "invariantY": 10.0
+    }
+  ],
+  "edges": [
+    {
+      "id": "E7",
+      "group": "",
+      "sourceLocation": "L0||L5||L6",
+      "targetLocation": "L1||L5||L6",
+      "status": "INPUT",
+      "select": "",
+      "guard": "",
+      "update": "z\u003d0",
+      "sync": "grant",
+      "isLocked": false,
+      "nails": [
+        {
+          "x": 683.65814,
+          "y": 718.6511,
+          "propertyType": "UPDATE",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        },
+        {
+          "x": 662.2244,
+          "y": 616.55554,
+          "propertyType": "SYNCHRONIZATION",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        }
+      ]
+    },
+    {
+      "id": "E7",
+      "group": "",
+      "sourceLocation": "L0||L5||L6",
+      "targetLocation": "L0||L5||L7",
+      "status": "OUTPUT",
+      "select": "",
+      "guard": "y>=2 && x<=15",
+      "update": "x\u003d0",
+      "sync": "tea",
+      "isLocked": false,
+      "nails": [
+        {
+          "x": 798.601,
+          "y": 969.8697,
+          "propertyType": "GUARD",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        },
+        {
+          "x": 855.7443,
+          "y": 1008.5617,
+          "propertyType": "UPDATE",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        },
+        {
+          "x": 852.2235,
+          "y": 947.7054,
+          "propertyType": "SYNCHRONIZATION",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        }
+      ]
+    },
+    {
+      "id": "E7",
+      "group": "",
+      "sourceLocation": "L0||L5||L6",
+      "targetLocation": "L0||L5||U0",
+      "status": "OUTPUT",
+      "select": "",
+      "guard": "y\u003e\u003d2 \u0026\u0026 x\u003e15",
+      "update": "",
+      "sync": "tea",
+      "isLocked": false,
+      "nails": [
+        {
+          "x": 765.12573,
+          "y": 850.6285,
+          "propertyType": "GUARD",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        },
+        {
+          "x": 761.4025,
+          "y": 752.8782,
+          "propertyType": "SYNCHRONIZATION",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        }
+      ]
+    },
+    {
+      "id": "E7",
+      "group": "",
+      "sourceLocation": "L1||L5||L6",
+      "targetLocation": "L1||L5||L6",
+      "status": "INPUT",
+      "select": "",
+      "guard": "",
+      "update": "",
+      "sync": "grant",
+      "isLocked": false,
+      "nails": [
+        {
+          "x": 585.2114,
+          "y": 431.64722,
+          "propertyType": "SYNCHRONIZATION",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        },
+        {
+          "x": 613.8171,
+          "y": 418.4624,
+          "propertyType": "NONE",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        }
+      ]
+    },
+    {
+      "id": "E7",
+      "group": "",
+      "sourceLocation": "L1||L5||L6",
+      "targetLocation": "L1||L5||L7",
+      "status": "OUTPUT",
+      "select": "",
+      "guard": "y\u003e\u003d2 \u0026\u0026 x\u003c\u003d15",
+      "update": "x\u003d0",
+      "sync": "tea",
+      "isLocked": false,
+      "nails": [
+        {
+          "x": 757.07086,
+          "y": 473.66077,
+          "propertyType": "GUARD",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        },
+        {
+          "x": 831.7043,
+          "y": 502.04294,
+          "propertyType": "UPDATE",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        },
+        {
+          "x": 850.5132,
+          "y": 563.3822,
+          "propertyType": "SYNCHRONIZATION",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        }
+      ]
+    },
+    {
+      "id": "E7",
+      "group": "",
+      "sourceLocation": "L1||L5||L6",
+      "targetLocation": "L1||L5||U0",
+      "status": "OUTPUT",
+      "select": "",
+      "guard": "y\u003e\u003d2 \u0026\u0026 x\u003e15",
+      "update": "",
+      "sync": "tea",
+      "isLocked": false,
+      "nails": [
+        {
+          "x": 648.9473,
+          "y": 347.21405,
+          "propertyType": "GUARD",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        },
+        {
+          "x": 668.4328,
+          "y": 279.83197,
+          "propertyType": "SYNCHRONIZATION",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        }
+      ]
+    },
+    {
+      "id": "E7",
+      "group": "",
+      "sourceLocation": "L1||L5||L6",
+      "targetLocation": "L2||L4||L6",
+      "status": "OUTPUT",
+      "select": "",
+      "guard": "",
+      "update": "y\u003d0",
+      "sync": "coin",
+      "isLocked": false,
+      "nails": [
+        {
+          "x": 463.10324,
+          "y": 501.39505,
+          "propertyType": "UPDATE",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        },
+        {
+          "x": 377.997,
+          "y": 526.6218,
+          "propertyType": "SYNCHRONIZATION",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        }
+      ]
+    },
+    {
+      "id": "E7",
+      "group": "",
+      "sourceLocation": "L1||L5||L7",
+      "targetLocation": "L1||L5||L7",
+      "status": "INPUT",
+      "select": "",
+      "guard": "",
+      "update": "",
+      "sync": "grant",
+      "isLocked": false,
+      "nails": [
+        {
+          "x": 869.29034,
+          "y": 650.7487,
+          "propertyType": "SYNCHRONIZATION",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        },
+        {
+          "x": 901.3003,
+          "y": 646.6034,
+          "propertyType": "NONE",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        }
+      ]
+    },
+    {
+      "id": "E7",
+      "group": "",
+      "sourceLocation": "L1||L5||L7",
+      "targetLocation": "L1||L5||L7",
+      "status": "OUTPUT",
+      "select": "",
+      "guard": "y\u003e\u003d2",
+      "update": "",
+      "sync": "tea",
+      "isLocked": false,
+      "nails": [
+        {
+          "x": 904.78516,
+          "y": 594.4988,
+          "propertyType": "GUARD",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        },
+        {
+          "x": 937.1116,
+          "y": 609.05176,
+          "propertyType": "SYNCHRONIZATION",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        }
+      ]
+    },
+    {
+      "id": "E7",
+      "group": "",
+      "sourceLocation": "L1||L5||L7",
+      "targetLocation": "L2||L4||L7",
+      "status": "OUTPUT",
+      "select": "",
+      "guard": "",
+      "update": "y\u003d0",
+      "sync": "coin",
+      "isLocked": false,
+      "nails": [
+        {
+          "x": 812.0929,
+          "y": 740.4981,
+          "propertyType": "UPDATE",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        },
+        {
+          "x": 728.81445,
+          "y": 857.89655,
+          "propertyType": "SYNCHRONIZATION",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        }
+      ]
+    },
+    {
+      "id": "E7",
+      "group": "",
+      "sourceLocation": "L1||L5||L7",
+      "targetLocation": "L1||L5||L6",
+      "status": "OUTPUT",
+      "select": "",
+      "guard": "x\u003e\u003d4",
+      "update": "x\u003d0",
+      "sync": "pub",
+      "isLocked": false,
+      "nails": [
+        {
+          "x": 924.15405,
+          "y": 524.26715,
+          "propertyType": "GUARD",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        },
+        {
+          "x": 915.2638,
+          "y": 446.70346,
+          "propertyType": "UPDATE",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        },
+        {
+          "x": 807.52875,
+          "y": 429.912,
+          "propertyType": "SYNCHRONIZATION",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        }
+      ]
+    },
+    {
+      "id": "E7",
+      "group": "",
+      "sourceLocation": "L2||L4||L7",
+      "targetLocation": "L2||L4||L7",
+      "status": "INPUT",
+      "select": "",
+      "guard": "",
+      "update": "",
+      "sync": "grant",
+      "isLocked": false,
+      "nails": [
+        {
+          "x": 607.3587,
+          "y": 1020.8595,
+          "propertyType": "SYNCHRONIZATION",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        },
+        {
+          "x": 637.49054,
+          "y": 1037.9215,
+          "propertyType": "NONE",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        }
+      ]
+    },
+    {
+      "id": "E7",
+      "group": "",
+      "sourceLocation": "L2||L4||L7",
+      "targetLocation": "L2||L5||L7",
+      "status": "OUTPUT",
+      "select": "",
+      "guard": "y\u003e\u003d4",
+      "update": "",
+      "sync": "cof",
+      "isLocked": false,
+      "nails": [
+        {
+          "x": 538.50256,
+          "y": 980.9876,
+          "propertyType": "GUARD",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        },
+        {
+          "x": 450.29416,
+          "y": 966.4988,
+          "propertyType": "SYNCHRONIZATION",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        }
+      ]
+    },
+    {
+      "id": "E7",
+      "group": "",
+      "sourceLocation": "L2||L4||L7",
+      "targetLocation": "L2||L5||L7",
+      "status": "OUTPUT",
+      "select": "",
+      "guard": "",
+      "update": "",
+      "sync": "tea",
+      "isLocked": false,
+      "nails": [
+        {
+          "x": 489.7841,
+          "y": 947.51807,
+          "propertyType": "SYNCHRONIZATION",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        }
+      ]
+    },
+    {
+      "id": "E7",
+      "group": "",
+      "sourceLocation": "L2||L4||L7",
+      "targetLocation": "L3||L4||L6",
+      "status": "OUTPUT",
+      "select": "",
+      "guard": "x\u003e\u003d4",
+      "update": "z\u003d0, x\u003d0",
+      "sync": "pub",
+      "isLocked": false,
+      "nails": [
+        {
+          "x": 572.40576,
+          "y": 1063.248,
+          "propertyType": "GUARD",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        },
+        {
+          "x": 542.3085,
+          "y": 1101.5669,
+          "propertyType": "UPDATE",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        },
+        {
+          "x": 510.0002,
+          "y": 1015.8861,
+          "propertyType": "SYNCHRONIZATION",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        }
+      ]
+    },
+    {
+      "id": "E7",
+      "group": "",
+      "sourceLocation": "L2||L5||L7",
+      "targetLocation": "L2||L5||L7",
+      "status": "INPUT",
+      "select": "",
+      "guard": "",
+      "update": "",
+      "sync": "grant",
+      "isLocked": false,
+      "nails": [
+        {
+          "x": 280.07065,
+          "y": 918.9834,
+          "propertyType": "SYNCHRONIZATION",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        },
+        {
+          "x": 292.119,
+          "y": 887.6674,
+          "propertyType": "NONE",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        }
+      ]
+    },
+    {
+      "id": "E7",
+      "group": "",
+      "sourceLocation": "L2||L5||L7",
+      "targetLocation": "L2||L5||L7",
+      "status": "OUTPUT",
+      "select": "",
+      "guard": "y\u003e\u003d2",
+      "update": "",
+      "sync": "tea",
+      "isLocked": false,
+      "nails": [
+        {
+          "x": 240.19073,
+          "y": 943.6489,
+          "propertyType": "GUARD",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        },
+        {
+          "x": 269.37628,
+          "y": 967.44434,
+          "propertyType": "SYNCHRONIZATION",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        }
+      ]
+    },
+    {
+      "id": "E7",
+      "group": "",
+      "sourceLocation": "L2||L5||L7",
+      "targetLocation": "L3||L5||L6",
+      "status": "OUTPUT",
+      "select": "",
+      "guard": "x\u003e\u003d4",
+      "update": "z\u003d0, x\u003d0",
+      "sync": "pub",
+      "isLocked": false,
+      "nails": [
+        {
+          "x": 382.3637,
+          "y": 1041.6152,
+          "propertyType": "GUARD",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        },
+        {
+          "x": 431.6005,
+          "y": 1111.1627,
+          "propertyType": "UPDATE",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        },
+        {
+          "x": 440.33148,
+          "y": 1046.4635,
+          "propertyType": "SYNCHRONIZATION",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        }
+      ]
+    },
+    {
+      "id": "E7",
+      "group": "",
+      "sourceLocation": "L3||L5||L6",
+      "targetLocation": "L3||L5||L6",
+      "status": "INPUT",
+      "select": "",
+      "guard": "",
+      "update": "",
+      "sync": "grant",
+      "isLocked": false,
+      "nails": [
+        {
+          "x": 384.84467,
+          "y": 940.4803,
+          "propertyType": "SYNCHRONIZATION",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        },
+        {
+          "x": 402.4939,
+          "y": 911.2599,
+          "propertyType": "NONE",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        }
+      ]
+    },
+    {
+      "id": "E7",
+      "group": "",
+      "sourceLocation": "L3||L5||L6",
+      "targetLocation": "L0||L5||L6",
+      "status": "OUTPUT",
+      "select": "",
+      "guard": "",
+      "update": "",
+      "sync": "patent",
+      "isLocked": false,
+      "nails": [
+        {
+          "x": 555.478,
+          "y": 889.50024,
+          "propertyType": "SYNCHRONIZATION",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        }
+      ]
+    },
+    {
+      "id": "E7",
+      "group": "",
+      "sourceLocation": "L3||L5||L6",
+      "targetLocation": "L3||L5||L7",
+      "status": "OUTPUT",
+      "select": "",
+      "guard": "y\u003e\u003d2 \u0026\u0026 x\u003c\u003d15",
+      "update": "x\u003d0",
+      "sync": "tea",
+      "isLocked": false,
+      "nails": [
+        {
+          "x": 349.6102,
+          "y": 853.4394,
+          "propertyType": "GUARD",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        },
+        {
+          "x": 340.61142,
+          "y": 806.6748,
+          "propertyType": "UPDATE",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        },
+        {
+          "x": 406.7751,
+          "y": 778.35846,
+          "propertyType": "SYNCHRONIZATION",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        }
+      ]
+    },
+    {
+      "id": "E7",
+      "group": "",
+      "sourceLocation": "L3||L5||L6",
+      "targetLocation": "L3||L5||U0",
+      "status": "OUTPUT",
+      "select": "",
+      "guard": "y\u003e\u003d2 \u0026\u0026 x\u003e15",
+      "update": "",
+      "sync": "tea",
+      "isLocked": false,
+      "nails": [
+        {
+          "x": 483.94824,
+          "y": 824.256,
+          "propertyType": "GUARD",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        },
+        {
+          "x": 546.24097,
+          "y": 681.34094,
+          "propertyType": "SYNCHRONIZATION",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        }
+      ]
+    },
+    {
+      "id": "E7",
+      "group": "",
+      "sourceLocation": "L3||L5||L7",
+      "targetLocation": "L3||L5||L7",
+      "status": "INPUT",
+      "select": "",
+      "guard": "",
+      "update": "",
+      "sync": "grant",
+      "isLocked": false,
+      "nails": [
+        {
+          "x": 481.2098,
+          "y": 779.2392,
+          "propertyType": "SYNCHRONIZATION",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        },
+        {
+          "x": 467.5601,
+          "y": 748.5359,
+          "propertyType": "NONE",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        }
+      ]
+    },
+    {
+      "id": "E7",
+      "group": "",
+      "sourceLocation": "L3||L5||L7",
+      "targetLocation": "L0||L5||L7",
+      "status": "OUTPUT",
+      "select": "",
+      "guard": "",
+      "update": "",
+      "sync": "patent",
+      "isLocked": false,
+      "nails": [
+        {
+          "x": 654.9617,
+          "y": 822.81244,
+          "propertyType": "SYNCHRONIZATION",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        }
+      ]
+    },
+    {
+      "id": "E7",
+      "group": "",
+      "sourceLocation": "L3||L5||L7",
+      "targetLocation": "L3||L5||L7",
+      "status": "OUTPUT",
+      "select": "",
+      "guard": "y\u003e\u003d2",
+      "update": "",
+      "sync": "tea",
+      "isLocked": false,
+      "nails": [
+        {
+          "x": 543.6854,
+          "y": 761.01886,
+          "propertyType": "GUARD",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        },
+        {
+          "x": 517.00354,
+          "y": 745.32886,
+          "propertyType": "SYNCHRONIZATION",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        }
+      ]
+    },
+    {
+      "id": "E7",
+      "group": "",
+      "sourceLocation": "L3||L5||L7",
+      "targetLocation": "L3||L5||L6",
+      "status": "OUTPUT",
+      "select": "",
+      "guard": "x\u003e\u003d4",
+      "update": "x\u003d0",
+      "sync": "pub",
+      "isLocked": false,
+      "nails": [
+        {
+          "x": 502.0191,
+          "y": 905.20184,
+          "propertyType": "GUARD",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        },
+        {
+          "x": 470.73087,
+          "y": 1003.6693,
+          "propertyType": "UPDATE",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        },
+        {
+          "x": 422.08563,
+          "y": 984.52295,
+          "propertyType": "SYNCHRONIZATION",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        }
+      ]
+    },
+    {
+      "id": "E7",
+      "group": "",
+      "sourceLocation": "L0||L5||L7",
+      "targetLocation": "L1||L5||L7",
+      "status": "INPUT",
+      "select": "",
+      "guard": "",
+      "update": "z\u003d0",
+      "sync": "grant",
+      "isLocked": false,
+      "nails": [
+        {
+          "x": 898.6413,
+          "y": 753.5003,
+          "propertyType": "UPDATE",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        },
+        {
+          "x": 913.18823,
+          "y": 700.77185,
+          "propertyType": "SYNCHRONIZATION",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        }
+      ]
+    },
+    {
+      "id": "E7",
+      "group": "",
+      "sourceLocation": "L0||L5||L7",
+      "targetLocation": "L0||L5||L7",
+      "status": "OUTPUT",
+      "select": "",
+      "guard": "y\u003e\u003d2",
+      "update": "",
+      "sync": "tea",
+      "isLocked": false,
+      "nails": [
+        {
+          "x": 878.16547,
+          "y": 802.2205,
+          "propertyType": "GUARD",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        },
+        {
+          "x": 845.7469,
+          "y": 799.377,
+          "propertyType": "SYNCHRONIZATION",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        }
+      ]
+    },
+    {
+      "id": "E7",
+      "group": "",
+      "sourceLocation": "L0||L5||L7",
+      "targetLocation": "L0||L5||L6",
+      "status": "OUTPUT",
+      "select": "",
+      "guard": "x\u003e\u003d4",
+      "update": "x\u003d0",
+      "sync": "pub",
+      "isLocked": false,
+      "nails": [
+        {
+          "x": 888.13257,
+          "y": 901.6379,
+          "propertyType": "GUARD",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        },
+        {
+          "x": 909.5633,
+          "y": 945.7175,
+          "propertyType": "UPDATE",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        },
+        {
+          "x": 822.06,
+          "y": 912.47687,
+          "propertyType": "SYNCHRONIZATION",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        }
+      ]
+    },
+    {
+      "id": "E7",
+      "group": "",
+      "sourceLocation": "L3||L5||U0",
+      "targetLocation": "L3||L5||U0",
+      "status": "INPUT",
+      "select": "",
+      "guard": "",
+      "update": "",
+      "sync": "grant",
+      "isLocked": false,
+      "nails": [
+        {
+          "x": 655.9065,
+          "y": 550.81006,
+          "propertyType": "SYNCHRONIZATION",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        },
+        {
+          "x": 631.6975,
+          "y": 533.814,
+          "propertyType": "NONE",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        }
+      ]
+    },
+    {
+      "id": "E7",
+      "group": "",
+      "sourceLocation": "L3||L5||U0",
+      "targetLocation": "L0||L5||U0",
+      "status": "OUTPUT",
+      "select": "",
+      "guard": "",
+      "update": "",
+      "sync": "patent",
+      "isLocked": false,
+      "nails": [
+        {
+          "x": 700.4563,
+          "y": 575.84174,
+          "propertyType": "SYNCHRONIZATION",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        }
+      ]
+    },
+    {
+      "id": "E7",
+      "group": "",
+      "sourceLocation": "L3||L5||U0",
+      "targetLocation": "L3||L5||U0",
+      "status": "OUTPUT",
+      "select": "",
+      "guard": "y\u003e\u003d2",
+      "update": "",
+      "sync": "tea",
+      "isLocked": false,
+      "nails": [
+        {
+          "x": 673.63666,
+          "y": 481.69403,
+          "propertyType": "GUARD",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        },
+        {
+          "x": 647.6533,
+          "y": 468.91806,
+          "propertyType": "SYNCHRONIZATION",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        }
+      ]
+    },
+    {
+      "id": "E7",
+      "group": "",
+      "sourceLocation": "L3||L5||U0",
+      "targetLocation": "L3||L5||U0",
+      "status": "OUTPUT",
+      "select": "",
+      "guard": "",
+      "update": "",
+      "sync": "pub",
+      "isLocked": false,
+      "nails": [
+        {
+          "x": 684.20795,
+          "y": 527.02765,
+          "propertyType": "SYNCHRONIZATION",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        },
+        {
+          "x": 709.98987,
+          "y": 511.29245,
+          "propertyType": "NONE",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        }
+      ]
+    },
+    {
+      "id": "E7",
+      "group": "",
+      "sourceLocation": "L0||L5||U0",
+      "targetLocation": "L1||L5||U0",
+      "status": "INPUT",
+      "select": "",
+      "guard": "",
+      "update": "z\u003d0",
+      "sync": "grant",
+      "isLocked": false,
+      "nails": [
+        {
+          "x": 764.64594,
+          "y": 512.8154,
+          "propertyType": "UPDATE",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        },
+        {
+          "x": 728.5241,
+          "y": 371.86734,
+          "propertyType": "SYNCHRONIZATION",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        }
+      ]
+    },
+    {
+      "id": "E7",
+      "group": "",
+      "sourceLocation": "L0||L5||U0",
+      "targetLocation": "L0||L5||U0",
+      "status": "OUTPUT",
+      "select": "",
+      "guard": "y\u003e\u003d2",
+      "update": "",
+      "sync": "tea",
+      "isLocked": false,
+      "nails": [
+        {
+          "x": 764.8376,
+          "y": 676.78485,
+          "propertyType": "GUARD",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        },
+        {
+          "x": 735.19135,
+          "y": 659.87933,
+          "propertyType": "SYNCHRONIZATION",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        }
+      ]
+    },
+    {
+      "id": "E7",
+      "group": "",
+      "sourceLocation": "L0||L5||U0",
+      "targetLocation": "L0||L5||U0",
+      "status": "OUTPUT",
+      "select": "",
+      "guard": "",
+      "update": "",
+      "sync": "pub",
+      "isLocked": false,
+      "nails": [
+        {
+          "x": 764.8809,
+          "y": 597.7102,
+          "propertyType": "SYNCHRONIZATION",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        },
+        {
+          "x": 775.5716,
+          "y": 630.2779,
+          "propertyType": "NONE",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        }
+      ]
+    },
+    {
+      "id": "E7",
+      "group": "",
+      "sourceLocation": "L1||L5||U0",
+      "targetLocation": "L1||L5||U0",
+      "status": "INPUT",
+      "select": "",
+      "guard": "",
+      "update": "",
+      "sync": "grant",
+      "isLocked": false,
+      "nails": [
+        {
+          "x": 688.8698,
+          "y": 134.13245,
+          "propertyType": "SYNCHRONIZATION",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        },
+        {
+          "x": 656.4388,
+          "y": 136.90746,
+          "propertyType": "NONE",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        }
+      ]
+    },
+    {
+      "id": "E7",
+      "group": "",
+      "sourceLocation": "L1||L5||U0",
+      "targetLocation": "L1||L5||U0",
+      "status": "OUTPUT",
+      "select": "",
+      "guard": "y\u003e\u003d2",
+      "update": "",
+      "sync": "tea",
+      "isLocked": false,
+      "nails": [
+        {
+          "x": 657.528,
+          "y": 224.32695,
+          "propertyType": "GUARD",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        },
+        {
+          "x": 659.2952,
+          "y": 189.56815,
+          "propertyType": "SYNCHRONIZATION",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        }
+      ]
+    },
+    {
+      "id": "E7",
+      "group": "",
+      "sourceLocation": "L1||L5||U0",
+      "targetLocation": "L2||L4||U0",
+      "status": "OUTPUT",
+      "select": "",
+      "guard": "",
+      "update": "y\u003d0",
+      "sync": "coin",
+      "isLocked": false,
+      "nails": [
+        {
+          "x": 605.78973,
+          "y": 117.0178,
+          "propertyType": "UPDATE",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        },
+        {
+          "x": 560.3202,
+          "y": 78.86003,
+          "propertyType": "SYNCHRONIZATION",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        }
+      ]
+    },
+    {
+      "id": "E7",
+      "group": "",
+      "sourceLocation": "L1||L5||U0",
+      "targetLocation": "L1||L5||U0",
+      "status": "OUTPUT",
+      "select": "",
+      "guard": "",
+      "update": "",
+      "sync": "pub",
+      "isLocked": false,
+      "nails": [
+        {
+          "x": 723.0449,
+          "y": 174.16022,
+          "propertyType": "SYNCHRONIZATION",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        },
+        {
+          "x": 705.1974,
+          "y": 205.51952,
+          "propertyType": "NONE",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        }
+      ]
+    },
+    {
+      "id": "E7",
+      "group": "",
+      "sourceLocation": "L2||L4||U0",
+      "targetLocation": "L2||L4||U0",
+      "status": "INPUT",
+      "select": "",
+      "guard": "",
+      "update": "",
+      "sync": "grant",
+      "isLocked": false,
+      "nails": [
+        {
+          "x": 489.94336,
+          "y": 50.0,
+          "propertyType": "SYNCHRONIZATION",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        },
+        {
+          "x": 491.9737,
+          "y": 86.79956,
+          "propertyType": "NONE",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        }
+      ]
+    },
+    {
+      "id": "E7",
+      "group": "",
+      "sourceLocation": "L2||L4||U0",
+      "targetLocation": "L2||L5||U0",
+      "status": "OUTPUT",
+      "select": "",
+      "guard": "y\u003e\u003d4",
+      "update": "",
+      "sync": "cof",
+      "isLocked": false,
+      "nails": [
+        {
+          "x": 423.58044,
+          "y": 96.855934,
+          "propertyType": "GUARD",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        },
+        {
+          "x": 369.407,
+          "y": 127.14042,
+          "propertyType": "SYNCHRONIZATION",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        }
+      ]
+    },
+    {
+      "id": "E7",
+      "group": "",
+      "sourceLocation": "L2||L4||U0",
+      "targetLocation": "L2||L5||U0",
+      "status": "OUTPUT",
+      "select": "",
+      "guard": "",
+      "update": "",
+      "sync": "tea",
+      "isLocked": false,
+      "nails": [
+        {
+          "x": 413.6377,
+          "y": 168.39833,
+          "propertyType": "SYNCHRONIZATION",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        }
+      ]
+    },
+    {
+      "id": "E7",
+      "group": "",
+      "sourceLocation": "L2||L4||U0",
+      "targetLocation": "L3||L4||U0",
+      "status": "OUTPUT",
+      "select": "",
+      "guard": "",
+      "update": "z\u003d0",
+      "sync": "pub",
+      "isLocked": false,
+      "nails": [
+        {
+          "x": 558.56287,
+          "y": 136.06427,
+          "propertyType": "UPDATE",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        },
+        {
+          "x": 615.9083,
+          "y": 186.07675,
+          "propertyType": "SYNCHRONIZATION",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        }
+      ]
+    },
+    {
+      "id": "E7",
+      "group": "",
+      "sourceLocation": "L2||L5||U0",
+      "targetLocation": "L2||L5||U0",
+      "status": "INPUT",
+      "select": "",
+      "guard": "",
+      "update": "",
+      "sync": "grant",
+      "isLocked": false,
+      "nails": [
+        {
+          "x": 302.9653,
+          "y": 229.00966,
+          "propertyType": "SYNCHRONIZATION",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        },
+        {
+          "x": 270.2616,
+          "y": 221.0535,
+          "propertyType": "NONE",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        }
+      ]
+    },
+    {
+      "id": "E7",
+      "group": "",
+      "sourceLocation": "L2||L5||U0",
+      "targetLocation": "L2||L5||U0",
+      "status": "OUTPUT",
+      "select": "",
+      "guard": "y\u003e\u003d2",
+      "update": "",
+      "sync": "tea",
+      "isLocked": false,
+      "nails": [
+        {
+          "x": 290.1977,
+          "y": 160.9017,
+          "propertyType": "GUARD",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        },
+        {
+          "x": 322.36966,
+          "y": 172.60077,
+          "propertyType": "SYNCHRONIZATION",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        }
+      ]
+    },
+    {
+      "id": "E7",
+      "group": "",
+      "sourceLocation": "L2||L5||U0",
+      "targetLocation": "L3||L5||U0",
+      "status": "OUTPUT",
+      "select": "",
+      "guard": "",
+      "update": "z\u003d0",
+      "sync": "pub",
+      "isLocked": false,
+      "nails": [
+        {
+          "x": 450.39197,
+          "y": 256.03937,
+          "propertyType": "UPDATE",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        },
+        {
+          "x": 524.43774,
+          "y": 365.8432,
+          "propertyType": "SYNCHRONIZATION",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        }
+      ]
+    },
+    {
+      "id": "E7",
+      "group": "",
+      "sourceLocation": "L3||L4||U0",
+      "targetLocation": "L3||L4||U0",
+      "status": "INPUT",
+      "select": "",
+      "guard": "",
+      "update": "",
+      "sync": "grant",
+      "isLocked": false,
+      "nails": [
+        {
+          "x": 797.6253,
+          "y": 244.71771,
+          "propertyType": "SYNCHRONIZATION",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        },
+        {
+          "x": 797.57526,
+          "y": 283.75537,
+          "propertyType": "NONE",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        }
+      ]
+    },
+    {
+      "id": "E7",
+      "group": "",
+      "sourceLocation": "L3||L4||U0",
+      "targetLocation": "L3||L5||U0",
+      "status": "OUTPUT",
+      "select": "",
+      "guard": "y\u003e\u003d4",
+      "update": "",
+      "sync": "cof",
+      "isLocked": false,
+      "nails": [
+        {
+          "x": 754.1132,
+          "y": 342.2208,
+          "propertyType": "GUARD",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        },
+        {
+          "x": 710.7495,
+          "y": 427.53394,
+          "propertyType": "SYNCHRONIZATION",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        }
+      ]
+    },
+    {
+      "id": "E7",
+      "group": "",
+      "sourceLocation": "L3||L4||U0",
+      "targetLocation": "L0||L4||U0",
+      "status": "OUTPUT",
+      "select": "",
+      "guard": "",
+      "update": "",
+      "sync": "patent",
+      "isLocked": false,
+      "nails": [
+        {
+          "x": 644.18585,
+          "y": 385.4552,
+          "propertyType": "SYNCHRONIZATION",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        }
+      ]
+    },
+    {
+      "id": "E7",
+      "group": "",
+      "sourceLocation": "L3||L4||U0",
+      "targetLocation": "L3||L5||U0",
+      "status": "OUTPUT",
+      "select": "",
+      "guard": "",
+      "update": "",
+      "sync": "tea",
+      "isLocked": false,
+      "nails": [
+        {
+          "x": 678.5646,
+          "y": 401.84354,
+          "propertyType": "SYNCHRONIZATION",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        }
+      ]
+    },
+    {
+      "id": "E7",
+      "group": "",
+      "sourceLocation": "L3||L4||U0",
+      "targetLocation": "L3||L4||U0",
+      "status": "OUTPUT",
+      "select": "",
+      "guard": "",
+      "update": "",
+      "sync": "pub",
+      "isLocked": false,
+      "nails": [
+        {
+          "x": 742.22845,
+          "y": 277.04803,
+          "propertyType": "SYNCHRONIZATION",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        },
+        {
+          "x": 750.57086,
+          "y": 241.20076,
+          "propertyType": "NONE",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        }
+      ]
+    },
+    {
+      "id": "E7",
+      "group": "",
+      "sourceLocation": "L0||L4||U0",
+      "targetLocation": "L1||L4||U0",
+      "status": "INPUT",
+      "select": "",
+      "guard": "",
+      "update": "z\u003d0",
+      "sync": "grant",
+      "isLocked": false,
+      "nails": [
+        {
+          "x": 492.45035,
+          "y": 442.60916,
+          "propertyType": "UPDATE",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        },
+        {
+          "x": 478.04587,
+          "y": 366.84967,
+          "propertyType": "SYNCHRONIZATION",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        }
+      ]
+    },
+    {
+      "id": "E7",
+      "group": "",
+      "sourceLocation": "L0||L4||U0",
+      "targetLocation": "L0||L5||U0",
+      "status": "OUTPUT",
+      "select": "",
+      "guard": "y\u003e\u003d4",
+      "update": "",
+      "sync": "cof",
+      "isLocked": false,
+      "nails": [
+        {
+          "x": 616.1013,
+          "y": 613.5831,
+          "propertyType": "GUARD",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        },
+        {
+          "x": 661.9124,
+          "y": 659.75574,
+          "propertyType": "SYNCHRONIZATION",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        }
+      ]
+    },
+    {
+      "id": "E7",
+      "group": "",
+      "sourceLocation": "L0||L4||U0",
+      "targetLocation": "L0||L5||U0",
+      "status": "OUTPUT",
+      "select": "",
+      "guard": "",
+      "update": "",
+      "sync": "tea",
+      "isLocked": false,
+      "nails": [
+        {
+          "x": 636.26764,
+          "y": 580.08636,
+          "propertyType": "SYNCHRONIZATION",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        }
+      ]
+    },
+    {
+      "id": "E7",
+      "group": "",
+      "sourceLocation": "L0||L4||U0",
+      "targetLocation": "L0||L4||U0",
+      "status": "OUTPUT",
+      "select": "",
+      "guard": "",
+      "update": "",
+      "sync": "pub",
+      "isLocked": false,
+      "nails": [
+        {
+          "x": 516.01154,
+          "y": 556.37427,
+          "propertyType": "SYNCHRONIZATION",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        },
+        {
+          "x": 537.4466,
+          "y": 532.86255,
+          "propertyType": "NONE",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        }
+      ]
+    },
+    {
+      "id": "E7",
+      "group": "",
+      "sourceLocation": "L1||L4||U0",
+      "targetLocation": "L1||L4||U0",
+      "status": "INPUT",
+      "select": "",
+      "guard": "",
+      "update": "",
+      "sync": "grant",
+      "isLocked": false,
+      "nails": [
+        {
+          "x": 406.7848,
+          "y": 319.33304,
+          "propertyType": "SYNCHRONIZATION",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        },
+        {
+          "x": 387.57025,
+          "y": 296.80695,
+          "propertyType": "NONE",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        }
+      ]
+    },
+    {
+      "id": "E7",
+      "group": "",
+      "sourceLocation": "L1||L4||U0",
+      "targetLocation": "L1||L5||U0",
+      "status": "OUTPUT",
+      "select": "",
+      "guard": "y\u003e\u003d4",
+      "update": "",
+      "sync": "cof",
+      "isLocked": false,
+      "nails": [
+        {
+          "x": 535.93085,
+          "y": 224.10466,
+          "propertyType": "GUARD",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        },
+        {
+          "x": 580.1114,
+          "y": 215.23613,
+          "propertyType": "SYNCHRONIZATION",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        }
+      ]
+    },
+    {
+      "id": "E7",
+      "group": "",
+      "sourceLocation": "L1||L4||U0",
+      "targetLocation": "L1||L5||U0",
+      "status": "OUTPUT",
+      "select": "",
+      "guard": "",
+      "update": "",
+      "sync": "tea",
+      "isLocked": false,
+      "nails": [
+        {
+          "x": 567.5674,
+          "y": 270.4367,
+          "propertyType": "SYNCHRONIZATION",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        }
+      ]
+    },
+    {
+      "id": "E7",
+      "group": "",
+      "sourceLocation": "L1||L4||U0",
+      "targetLocation": "L2||L4||U0",
+      "status": "OUTPUT",
+      "select": "",
+      "guard": "",
+      "update": "",
+      "sync": "coin",
+      "isLocked": false,
+      "nails": [
+        {
+          "x": 490.89496,
+          "y": 198.58992,
+          "propertyType": "SYNCHRONIZATION",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        }
+      ]
+    },
+    {
+      "id": "E7",
+      "group": "",
+      "sourceLocation": "L1||L4||U0",
+      "targetLocation": "L1||L4||U0",
+      "status": "OUTPUT",
+      "select": "",
+      "guard": "",
+      "update": "",
+      "sync": "pub",
+      "isLocked": false,
+      "nails": [
+        {
+          "x": 461.8964,
+          "y": 297.7026,
+          "propertyType": "SYNCHRONIZATION",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        },
+        {
+          "x": 435.53152,
+          "y": 278.39127,
+          "propertyType": "NONE",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        }
+      ]
+    },
+    {
+      "id": "E7",
+      "group": "",
+      "sourceLocation": "L3||L4||L6",
+      "targetLocation": "L3||L4||L6",
+      "status": "INPUT",
+      "select": "",
+      "guard": "",
+      "update": "",
+      "sync": "grant",
+      "isLocked": false,
+      "nails": [
+        {
+          "x": 383.93814,
+          "y": 814.5812,
+          "propertyType": "SYNCHRONIZATION",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        },
+        {
+          "x": 409.55847,
+          "y": 833.8885,
+          "propertyType": "NONE",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        }
+      ]
+    },
+    {
+      "id": "E7",
+      "group": "",
+      "sourceLocation": "L3||L4||L6",
+      "targetLocation": "L3||L5||L9",
+      "status": "OUTPUT",
+      "select": "",
+      "guard": "y\u003e\u003d4",
+      "update": "x\u003d0",
+      "sync": "cof",
+      "isLocked": false,
+      "nails": [
+        {
+          "x": 318.6585,
+          "y": 944.6762,
+          "propertyType": "GUARD",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        },
+        {
+          "x": 229.67847,
+          "y": 1017.2197,
+          "propertyType": "UPDATE",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        },
+        {
+          "x": 261.6163,
+          "y": 1044.5193,
+          "propertyType": "SYNCHRONIZATION",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        }
+      ]
+    },
+    {
+      "id": "E7",
+      "group": "",
+      "sourceLocation": "L3||L4||L6",
+      "targetLocation": "L0||L4||L6",
+      "status": "OUTPUT",
+      "select": "",
+      "guard": "",
+      "update": "",
+      "sync": "patent",
+      "isLocked": false,
+      "nails": [
+        {
+          "x": 573.1237,
+          "y": 785.747,
+          "propertyType": "SYNCHRONIZATION",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        }
+      ]
+    },
+    {
+      "id": "E7",
+      "group": "",
+      "sourceLocation": "L3||L4||L6",
+      "targetLocation": "L3||L5||L7",
+      "status": "OUTPUT",
+      "select": "",
+      "guard": "x\u003c\u003d15",
+      "update": "x\u003d0",
+      "sync": "tea",
+      "isLocked": false,
+      "nails": [
+        {
+          "x": 365.75854,
+          "y": 742.0172,
+          "propertyType": "GUARD",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        },
+        {
+          "x": 357.24738,
+          "y": 697.7076,
+          "propertyType": "UPDATE",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        },
+        {
+          "x": 415.00366,
+          "y": 721.6058,
+          "propertyType": "SYNCHRONIZATION",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        }
+      ]
+    },
+    {
+      "id": "E7",
+      "group": "",
+      "sourceLocation": "L3||L4||L6",
+      "targetLocation": "L3||L5||U0",
+      "status": "OUTPUT",
+      "select": "",
+      "guard": "x\u003e15",
+      "update": "",
+      "sync": "tea",
+      "isLocked": false,
+      "nails": [
+        {
+          "x": 487.35007,
+          "y": 693.23956,
+          "propertyType": "GUARD",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        },
+        {
+          "x": 529.629,
+          "y": 628.6739,
+          "propertyType": "SYNCHRONIZATION",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        }
+      ]
+    },
+    {
+      "id": "E7",
+      "group": "",
+      "sourceLocation": "L3||L5||L9",
+      "targetLocation": "L3||L5||L9",
+      "status": "INPUT",
+      "select": "",
+      "guard": "",
+      "update": "",
+      "sync": "grant",
+      "isLocked": false,
+      "nails": [
+        {
+          "x": 334.66,
+          "y": 1071.023,
+          "propertyType": "SYNCHRONIZATION",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        },
+        {
+          "x": 315.57114,
+          "y": 1040.7518,
+          "propertyType": "NONE",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        }
+      ]
+    },
+    {
+      "id": "E7",
+      "group": "",
+      "sourceLocation": "L3||L5||L9",
+      "targetLocation": "L0||L5||L9",
+      "status": "OUTPUT",
+      "select": "",
+      "guard": "",
+      "update": "",
+      "sync": "patent",
+      "isLocked": false,
+      "nails": [
+        {
+          "x": 454.0715,
+          "y": 920.89984,
+          "propertyType": "SYNCHRONIZATION",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        }
+      ]
+    },
+    {
+      "id": "E7",
+      "group": "",
+      "sourceLocation": "L3||L5||L9",
+      "targetLocation": "L3||L5||L9",
+      "status": "OUTPUT",
+      "select": "",
+      "guard": "y\u003e\u003d2",
+      "update": "",
+      "sync": "tea",
+      "isLocked": false,
+      "nails": [
+        {
+          "x": 309.47836,
+          "y": 1119.6488,
+          "propertyType": "GUARD",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        },
+        {
+          "x": 282.17438,
+          "y": 1098.867,
+          "propertyType": "SYNCHRONIZATION",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        }
+      ]
+    },
+    {
+      "id": "E7",
+      "group": "",
+      "sourceLocation": "L3||L5||L9",
+      "targetLocation": "L3||L5||L6",
+      "status": "OUTPUT",
+      "select": "",
+      "guard": "x\u003e\u003d2",
+      "update": "x\u003d0",
+      "sync": "pub",
+      "isLocked": false,
+      "nails": [
+        {
+          "x": 361.5628,
+          "y": 1136.7147,
+          "propertyType": "GUARD",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        },
+        {
+          "x": 381.9079,
+          "y": 1177.254,
+          "propertyType": "UPDATE",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        },
+        {
+          "x": 399.4695,
+          "y": 1081.819,
+          "propertyType": "SYNCHRONIZATION",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        }
+      ]
+    },
+    {
+      "id": "E7",
+      "group": "",
+      "sourceLocation": "L0||L5||L9",
+      "targetLocation": "L1||L5||L9",
+      "status": "INPUT",
+      "select": "",
+      "guard": "",
+      "update": "z\u003d0",
+      "sync": "grant",
+      "isLocked": false,
+      "nails": [
+        {
+          "x": 449.79782,
+          "y": 674.6865,
+          "propertyType": "UPDATE",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        },
+        {
+          "x": 400.81622,
+          "y": 589.86163,
+          "propertyType": "SYNCHRONIZATION",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        }
+      ]
+    },
+    {
+      "id": "E7",
+      "group": "",
+      "sourceLocation": "L0||L5||L9",
+      "targetLocation": "L0||L5||L9",
+      "status": "OUTPUT",
+      "select": "",
+      "guard": "y\u003e\u003d2",
+      "update": "",
+      "sync": "tea",
+      "isLocked": false,
+      "nails": [
+        {
+          "x": 581.45966,
+          "y": 858.313,
+          "propertyType": "GUARD",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        },
+        {
+          "x": 610.28815,
+          "y": 863.55804,
+          "propertyType": "SYNCHRONIZATION",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        }
+      ]
+    },
+    {
+      "id": "E7",
+      "group": "",
+      "sourceLocation": "L0||L5||L9",
+      "targetLocation": "L0||L5||L6",
+      "status": "OUTPUT",
+      "select": "",
+      "guard": "x\u003e\u003d2",
+      "update": "x\u003d0",
+      "sync": "pub",
+      "isLocked": false,
+      "nails": [
+        {
+          "x": 679.79224,
+          "y": 951.06824,
+          "propertyType": "GUARD",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        },
+        {
+          "x": 729.6152,
+          "y": 1012.2989,
+          "propertyType": "UPDATE",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        },
+        {
+          "x": 739.4779,
+          "y": 957.4384,
+          "propertyType": "SYNCHRONIZATION",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        }
+      ]
+    },
+    {
+      "id": "E7",
+      "group": "",
+      "sourceLocation": "L1||L5||L9",
+      "targetLocation": "L1||L5||L9",
+      "status": "INPUT",
+      "select": "",
+      "guard": "",
+      "update": "",
+      "sync": "grant",
+      "isLocked": false,
+      "nails": [
+        {
+          "x": 312.46082,
+          "y": 427.85553,
+          "propertyType": "SYNCHRONIZATION",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        },
+        {
+          "x": 326.67413,
+          "y": 468.13394,
+          "propertyType": "NONE",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        }
+      ]
+    },
+    {
+      "id": "E7",
+      "group": "",
+      "sourceLocation": "L1||L5||L9",
+      "targetLocation": "L1||L5||L9",
+      "status": "OUTPUT",
+      "select": "",
+      "guard": "y\u003e\u003d2",
+      "update": "",
+      "sync": "tea",
+      "isLocked": false,
+      "nails": [
+        {
+          "x": 359.68683,
+          "y": 444.42596,
+          "propertyType": "GUARD",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        },
+        {
+          "x": 352.07178,
+          "y": 406.38153,
+          "propertyType": "SYNCHRONIZATION",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        }
+      ]
+    },
+    {
+      "id": "E7",
+      "group": "",
+      "sourceLocation": "L1||L5||L9",
+      "targetLocation": "L2||L4||L9",
+      "status": "OUTPUT",
+      "select": "",
+      "guard": "",
+      "update": "y\u003d0",
+      "sync": "coin",
+      "isLocked": false,
+      "nails": [
+        {
+          "x": 274.7356,
+          "y": 478.5831,
+          "propertyType": "UPDATE",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        },
+        {
+          "x": 223.7597,
+          "y": 510.60635,
+          "propertyType": "SYNCHRONIZATION",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        }
+      ]
+    },
+    {
+      "id": "E7",
+      "group": "",
+      "sourceLocation": "L1||L5||L9",
+      "targetLocation": "L1||L5||L6",
+      "status": "OUTPUT",
+      "select": "",
+      "guard": "x\u003e\u003d2",
+      "update": "x\u003d0",
+      "sync": "pub",
+      "isLocked": false,
+      "nails": [
+        {
+          "x": 394.4475,
+          "y": 271.1139,
+          "propertyType": "GUARD",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        },
+        {
+          "x": 442.60162,
+          "y": 219.82336,
+          "propertyType": "UPDATE",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        },
+        {
+          "x": 527.8849,
+          "y": 317.4154,
+          "propertyType": "SYNCHRONIZATION",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        }
+      ]
+    },
+    {
+      "id": "E7",
+      "group": "",
+      "sourceLocation": "L2||L4||L9",
+      "targetLocation": "L2||L4||L9",
+      "status": "INPUT",
+      "select": "",
+      "guard": "",
+      "update": "",
+      "sync": "grant",
+      "isLocked": false,
+      "nails": [
+        {
+          "x": 154.90005,
+          "y": 498.49838,
+          "propertyType": "SYNCHRONIZATION",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        },
+        {
+          "x": 128.4582,
+          "y": 519.0112,
+          "propertyType": "NONE",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        }
+      ]
+    },
+    {
+      "id": "E7",
+      "group": "",
+      "sourceLocation": "L2||L4||L9",
+      "targetLocation": "L2||L5||L9",
+      "status": "OUTPUT",
+      "select": "",
+      "guard": "y\u003e\u003d4",
+      "update": "",
+      "sync": "cof",
+      "isLocked": false,
+      "nails": [
+        {
+          "x": 131.27881,
+          "y": 582.63654,
+          "propertyType": "GUARD",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        },
+        {
+          "x": 103.866104,
+          "y": 618.12695,
+          "propertyType": "SYNCHRONIZATION",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        }
+      ]
+    },
+    {
+      "id": "E7",
+      "group": "",
+      "sourceLocation": "L2||L4||L9",
+      "targetLocation": "L2||L5||L9",
+      "status": "OUTPUT",
+      "select": "",
+      "guard": "",
+      "update": "",
+      "sync": "tea",
+      "isLocked": false,
+      "nails": [
+        {
+          "x": 167.54085,
+          "y": 621.09937,
+          "propertyType": "SYNCHRONIZATION",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        }
+      ]
+    },
+    {
+      "id": "E7",
+      "group": "",
+      "sourceLocation": "L2||L4||L9",
+      "targetLocation": "L3||L4||L6",
+      "status": "OUTPUT",
+      "select": "",
+      "guard": "x\u003e\u003d2",
+      "update": "z\u003d0, x\u003d0",
+      "sync": "pub",
+      "isLocked": false,
+      "nails": [
+        {
+          "x": 146.0079,
+          "y": 721.84924,
+          "propertyType": "GUARD",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        },
+        {
+          "x": 162.39816,
+          "y": 792.56396,
+          "propertyType": "UPDATE",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        },
+        {
+          "x": 265.9088,
+          "y": 806.6944,
+          "propertyType": "SYNCHRONIZATION",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        }
+      ]
+    },
+    {
+      "id": "E7",
+      "group": "",
+      "sourceLocation": "L2||L5||L9",
+      "targetLocation": "L2||L5||L9",
+      "status": "INPUT",
+      "select": "",
+      "guard": "",
+      "update": "",
+      "sync": "grant",
+      "isLocked": false,
+      "nails": [
+        {
+          "x": 82.49661,
+          "y": 669.72375,
+          "propertyType": "SYNCHRONIZATION",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        },
+        {
+          "x": 50.0,
+          "y": 655.8889,
+          "propertyType": "NONE",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        }
+      ]
+    },
+    {
+      "id": "E7",
+      "group": "",
+      "sourceLocation": "L2||L5||L9",
+      "targetLocation": "L2||L5||L9",
+      "status": "OUTPUT",
+      "select": "",
+      "guard": "y\u003e\u003d2",
+      "update": "",
+      "sync": "tea",
+      "isLocked": false,
+      "nails": [
+        {
+          "x": 82.44445,
+          "y": 730.6941,
+          "propertyType": "GUARD",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        },
+        {
+          "x": 50.59029,
+          "y": 717.41187,
+          "propertyType": "SYNCHRONIZATION",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        }
+      ]
+    },
+    {
+      "id": "E7",
+      "group": "",
+      "sourceLocation": "L2||L5||L9",
+      "targetLocation": "L3||L5||L6",
+      "status": "OUTPUT",
+      "select": "",
+      "guard": "x\u003e\u003d2",
+      "update": "z\u003d0, x\u003d0",
+      "sync": "pub",
+      "isLocked": false,
+      "nails": [
+        {
+          "x": 183.75127,
+          "y": 703.86273,
+          "propertyType": "GUARD",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        },
+        {
+          "x": 229.56854,
+          "y": 734.443,
+          "propertyType": "UPDATE",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        },
+        {
+          "x": 301.25363,
+          "y": 783.8705,
+          "propertyType": "SYNCHRONIZATION",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        }
+      ]
+    },
+    {
+      "id": "E7",
+      "group": "",
+      "sourceLocation": "L0||L4||L6",
+      "targetLocation": "L1||L4||L6",
+      "status": "INPUT",
+      "select": "",
+      "guard": "",
+      "update": "z\u003d0",
+      "sync": "grant",
+      "isLocked": false,
+      "nails": [
+        {
+          "x": 607.38556,
+          "y": 692.6788,
+          "propertyType": "UPDATE",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        },
+        {
+          "x": 570.8455,
+          "y": 602.45966,
+          "propertyType": "SYNCHRONIZATION",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        }
+      ]
+    },
+    {
+      "id": "E7",
+      "group": "",
+      "sourceLocation": "L0||L4||L6",
+      "targetLocation": "L0||L5||L9",
+      "status": "OUTPUT",
+      "select": "",
+      "guard": "y\u003e\u003d4",
+      "update": "x\u003d0",
+      "sync": "cof",
+      "isLocked": false,
+      "nails": [
+        {
+          "x": 664.645,
+          "y": 890.5626,
+          "propertyType": "GUARD",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        },
+        {
+          "x": 650.13367,
+          "y": 969.60516,
+          "propertyType": "UPDATE",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        },
+        {
+          "x": 616.28723,
+          "y": 938.06226,
+          "propertyType": "SYNCHRONIZATION",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        }
+      ]
+    },
+    {
+      "id": "E7",
+      "group": "",
+      "sourceLocation": "L0||L4||L6",
+      "targetLocation": "L0||L5||L7",
+      "status": "OUTPUT",
+      "select": "",
+      "guard": "x\u003c\u003d15",
+      "update": "x\u003d0",
+      "sync": "tea",
+      "isLocked": false,
+      "nails": [
+        {
+          "x": 810.467,
+          "y": 836.8585,
+          "propertyType": "GUARD",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        },
+        {
+          "x": 911.7482,
+          "y": 853.2854,
+          "propertyType": "UPDATE",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        },
+        {
+          "x": 871.5211,
+          "y": 852.33954,
+          "propertyType": "SYNCHRONIZATION",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        }
+      ]
+    },
+    {
+      "id": "E7",
+      "group": "",
+      "sourceLocation": "L0||L4||L6",
+      "targetLocation": "L0||L5||U0",
+      "status": "OUTPUT",
+      "select": "",
+      "guard": "x\u003e15",
+      "update": "",
+      "sync": "tea",
+      "isLocked": false,
+      "nails": [
+        {
+          "x": 688.3981,
+          "y": 769.6601,
+          "propertyType": "GUARD",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        },
+        {
+          "x": 722.7286,
+          "y": 724.6298,
+          "propertyType": "SYNCHRONIZATION",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        }
+      ]
+    },
+    {
+      "id": "E7",
+      "group": "",
+      "sourceLocation": "L1||L4||L6",
+      "targetLocation": "L1||L4||L6",
+      "status": "INPUT",
+      "select": "",
+      "guard": "",
+      "update": "",
+      "sync": "grant",
+      "isLocked": false,
+      "nails": [
+        {
+          "x": 533.8219,
+          "y": 467.6996,
+          "propertyType": "SYNCHRONIZATION",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        },
+        {
+          "x": 509.45602,
+          "y": 494.35544,
+          "propertyType": "NONE",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        }
+      ]
+    },
+    {
+      "id": "E7",
+      "group": "",
+      "sourceLocation": "L1||L4||L6",
+      "targetLocation": "L1||L5||L9",
+      "status": "OUTPUT",
+      "select": "",
+      "guard": "y\u003e\u003d4",
+      "update": "x\u003d0",
+      "sync": "cof",
+      "isLocked": false,
+      "nails": [
+        {
+          "x": 503.8451,
+          "y": 414.45786,
+          "propertyType": "GUARD",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        },
+        {
+          "x": 429.5828,
+          "y": 391.98785,
+          "propertyType": "UPDATE",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        },
+        {
+          "x": 406.37448,
+          "y": 425.81543,
+          "propertyType": "SYNCHRONIZATION",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        }
+      ]
+    },
+    {
+      "id": "E7",
+      "group": "",
+      "sourceLocation": "L1||L4||L6",
+      "targetLocation": "L1||L5||L7",
+      "status": "OUTPUT",
+      "select": "",
+      "guard": "x\u003c\u003d15",
+      "update": "x\u003d0",
+      "sync": "tea",
+      "isLocked": false,
+      "nails": [
+        {
+          "x": 754.56604,
+          "y": 432.15814,
+          "propertyType": "GUARD",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        },
+        {
+          "x": 859.1533,
+          "y": 435.56216,
+          "propertyType": "UPDATE",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        },
+        {
+          "x": 878.78796,
+          "y": 512.6856,
+          "propertyType": "SYNCHRONIZATION",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        }
+      ]
+    },
+    {
+      "id": "E7",
+      "group": "",
+      "sourceLocation": "L1||L4||L6",
+      "targetLocation": "L1||L5||U0",
+      "status": "OUTPUT",
+      "select": "",
+      "guard": "x\u003e15",
+      "update": "",
+      "sync": "tea",
+      "isLocked": false,
+      "nails": [
+        {
+          "x": 576.8482,
+          "y": 375.4662,
+          "propertyType": "GUARD",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        },
+        {
+          "x": 605.57007,
+          "y": 310.30533,
+          "propertyType": "SYNCHRONIZATION",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        }
+      ]
+    },
+    {
+      "id": "E7",
+      "group": "",
+      "sourceLocation": "L1||L4||L6",
+      "targetLocation": "L2||L4||L6",
+      "status": "OUTPUT",
+      "select": "",
+      "guard": "",
+      "update": "",
+      "sync": "coin",
+      "isLocked": false,
+      "nails": [
+        {
+          "x": 443.07944,
+          "y": 549.63074,
+          "propertyType": "SYNCHRONIZATION",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        }
+      ]
+    },
+    {
+      "id": "E7",
+      "group": "",
+      "sourceLocation": "L2||L4||L6",
+      "targetLocation": "L2||L4||L6",
+      "status": "INPUT",
+      "select": "",
+      "guard": "",
+      "update": "",
+      "sync": "grant",
+      "isLocked": false,
+      "nails": [
+        {
+          "x": 285.68506,
+          "y": 539.3192,
+          "propertyType": "SYNCHRONIZATION",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        },
+        {
+          "x": 289.7901,
+          "y": 576.1732,
+          "propertyType": "NONE",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        }
+      ]
+    },
+    {
+      "id": "E7",
+      "group": "",
+      "sourceLocation": "L2||L4||L6",
+      "targetLocation": "L2||L5||L9",
+      "status": "OUTPUT",
+      "select": "",
+      "guard": "y\u003e\u003d4",
+      "update": "x\u003d0",
+      "sync": "cof",
+      "isLocked": false,
+      "nails": [
+        {
+          "x": 186.0095,
+          "y": 533.0939,
+          "propertyType": "GUARD",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        },
+        {
+          "x": 75.24407,
+          "y": 525.94763,
+          "propertyType": "UPDATE",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        },
+        {
+          "x": 59.40826,
+          "y": 581.6726,
+          "propertyType": "SYNCHRONIZATION",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        }
+      ]
+    },
+    {
+      "id": "E7",
+      "group": "",
+      "sourceLocation": "L2||L4||L6",
+      "targetLocation": "L2||L5||L7",
+      "status": "OUTPUT",
+      "select": "",
+      "guard": "x\u003c\u003d15",
+      "update": "x\u003d0",
+      "sync": "tea",
+      "isLocked": false,
+      "nails": [
+        {
+          "x": 263.41455,
+          "y": 664.061,
+          "propertyType": "GUARD",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        },
+        {
+          "x": 215.19545,
+          "y": 780.043,
+          "propertyType": "UPDATE",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        },
+        {
+          "x": 236.33168,
+          "y": 857.02234,
+          "propertyType": "SYNCHRONIZATION",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        }
+      ]
+    },
+    {
+      "id": "E7",
+      "group": "",
+      "sourceLocation": "L2||L4||L6",
+      "targetLocation": "L2||L5||U0",
+      "status": "OUTPUT",
+      "select": "",
+      "guard": "x\u003e15",
+      "update": "",
+      "sync": "tea",
+      "isLocked": false,
+      "nails": [
+        {
+          "x": 208.47668,
+          "y": 413.46655,
+          "propertyType": "GUARD",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        },
+        {
+          "x": 221.41492,
+          "y": 332.6125,
+          "propertyType": "SYNCHRONIZATION",
+          "propertyX": 10.0,
+          "propertyY": -10.0
+        }
+      ]
+    }
+  ],
+  "description": "",
+  "x": 0.0,
+  "y": 0.0,
+  "width": 987.1116,
+  "height": 1227.254,
+  "color": "7",
+  "includeInPeriodicCheck": false
+}

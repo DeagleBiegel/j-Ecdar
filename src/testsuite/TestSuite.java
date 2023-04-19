@@ -24,11 +24,15 @@ public class TestSuite {
         this.testSettings = new TestSettings(prefix, postfix, timeStampFunc, clockType,assertPre, assertPost, delayPre, delayPost);
     }
 
+    public void testMethod() {
+        ts = new SimpleTransitionSystem(automaton);
+        ts.isDeterministic();
+    }
     public void createTestSuite() throws IOException {
         BVA bva = new BVA(automaton);
 
         for (Edge e : automaton.getEdges()) {
-            String boolName = e.getSource().getName() + e.getTarget().getName();
+            String boolName = "xD";
             BoolVar bv = new BoolVar(boolName, boolName, false);
             automaton.getBVs().add(bv);
             e.getUpdates().add(new BoolUpdate(bv, true));
@@ -37,9 +41,8 @@ public class TestSuite {
             boolean initialisedCdd = CDD.tryInit(ts.getAutomaton().getClocks(), ts.getAutomaton().getBVs());
             TestCase tc = new TestCase(ts.explore(e.getTarget().getName(), bv.getOriginalName() + "== true"), testSettings, ts.getClocks(), ts.getBVs());
 
-            if (tc.getTrace().get(tc.getTrace().size()-1).getEdges().get(0).getStatus().equals("INPUT")) {
-                tc.setTrace(ts.expandTrace(tc.getTrace()));
-            }
+            tc.setTrace(ts.expandTrace(tc.getTrace()));
+
 
             bva.computeInvariantDelays(tc.getTrace());
 
@@ -56,11 +59,11 @@ public class TestSuite {
                 if (temp != null) {
                     for (Integer i : boundaryValues.getValues()) {
                         TestCase testCase = new TestCase(temp);
-                        if (testCase.getTrace().get(testCase.getTrace().size()-1).getEdges().get(0).getStatus().equals("INPUT")) {
-                            tc.setTrace(ts.expandTrace(tc.getTrace()));
-                        }
+
+                        tc.setTrace(ts.expandTrace(tc.getTrace()));
+
                         testCase.createTestCode(boundaryValues.getLocation(), i);
-                        testCase.getTestCode().append("\n//failing test maybe\n");
+
                         testCases.add(testCase);
                     }
                     remove_list.add(boundaryValues);
@@ -75,18 +78,9 @@ public class TestSuite {
                 CDD.done();
             }
         }
-
-        List<TestCase> finalTraces = testCases;
-        testCases = testCases.stream().filter(s -> isPrefix(s, finalTraces)).collect(Collectors.toList());
-
-        boolean initialisedCdd = CDD.tryInit(ts.getAutomaton().getClocks(), ts.getAutomaton().getBVs());
-
-        findTransition("L6", "L1", testCases);
-        if (initialisedCdd) {
-            CDD.done();
-        }
-
-        printToFile();
+        testCases.clear();
+        //List<TestCase> finalTraces = testCases;
+        //testCases = testCases.stream().filter(s -> isPrefix(s, finalTraces)).collect(Collectors.toList());
 
     }
 
@@ -140,13 +134,14 @@ public class TestSuite {
 
     public void printToFile() {
         StringBuilder sb = new StringBuilder();
+
         for (int i = 0; i < testCases.size(); i++) {
             sb.append(testSettings.prefix + i + "() {\n");
             sb.append(testCases.get(i).getTestCode());
         }
 
             try {
-                FileWriter myWriter = new FileWriter("testcodes.txt");
+                FileWriter myWriter = new FileWriter("testcodes.txt", true);
                 myWriter.write(sb.toString());
                 myWriter.close();
             } catch (IOException e) {

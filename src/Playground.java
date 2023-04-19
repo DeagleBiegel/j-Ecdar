@@ -10,7 +10,7 @@ public class Playground {
 
     public static void main(String[] args) throws IOException, FileNotFoundException {
 
-        Automaton[] automaton = JSONParser.parse("samples/json/casecdfactor10", false);
+        Automaton[] automaton = JSONParser.parse("samples/json/A", false);
 
         for (var a : automaton) {
             Clock z = new Clock("g", a.getName());
@@ -28,7 +28,8 @@ public class Playground {
                     "delay(",
                     ");\n");
 
-            TS.createTestSuite();
+            TS.testMethod();
+            //TS.createTestSuite();
             //STS.explore();
             //STS.allFastestPaths();
         }
