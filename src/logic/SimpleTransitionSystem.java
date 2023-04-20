@@ -524,9 +524,6 @@ public class SimpleTransitionSystem extends TransitionSystem{
         HashMap<String, List<Transition>> transitionHashMap = new HashMap<>();
         waiting = new ArrayDeque<>();
         passed = new ArrayList<>();
-        boolean destinationFound = false;
-        int minClockValue = Integer.MAX_VALUE;
-        List<Transition> fastestTrace = new ArrayList<>();
 
         waiting.add(getInitialState());
 

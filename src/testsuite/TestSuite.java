@@ -24,10 +24,33 @@ public class TestSuite {
         this.testSettings = new TestSettings(prefix, postfix, timeStampFunc, clockType,assertPre, assertPost, delayPre, delayPost);
     }
 
-    public void testMethod() {
+
+
+    public void createTestSuiteIterative() throws IOException{
+        int i = 0;
+        BVA bva = new BVA(automaton);
+
+        String boolName = "find";
+        BoolVar bv = new BoolVar(boolName, boolName, false);
+        automaton.getBVs().add(bv);
         ts = new SimpleTransitionSystem(automaton);
-        ts.isDeterministic();
-    }
+
+        for (Edge e : automaton.getEdges()) {
+
+                e.getUpdates().add(new BoolUpdate(bv, true));
+                boolean initialisedCdd = CDD.tryInit(ts.getAutomaton().getClocks(), ts.getAutomaton().getBVs());
+                TestCase tc = new TestCase(ts.explore(e.getTarget().getName(), bv.getOriginalName() + " == true"), testSettings, ts.getClocks(), ts.getBVs());
+                //tc.setTrace(ts.expandTrace(tc.getTrace()));
+                printSingleToFile(tc, i);
+                e.getUpdates().remove(e.getUpdates().size()-1);
+                if (initialisedCdd) {
+                    CDD.done();
+                }
+                i++;
+            }
+
+        }
+
     public void createTestSuite() throws IOException {
         BVA bva = new BVA(automaton);
 
@@ -42,7 +65,6 @@ public class TestSuite {
             TestCase tc = new TestCase(ts.explore(e.getTarget().getName(), bv.getOriginalName() + "== true"), testSettings, ts.getClocks(), ts.getBVs());
 
             tc.setTrace(ts.expandTrace(tc.getTrace()));
-
 
             bva.computeInvariantDelays(tc.getTrace());
 
@@ -78,10 +100,10 @@ public class TestSuite {
                 CDD.done();
             }
         }
-        testCases.clear();
-        //List<TestCase> finalTraces = testCases;
-        //testCases = testCases.stream().filter(s -> isPrefix(s, finalTraces)).collect(Collectors.toList());
 
+        List<TestCase> finalTraces = testCases;
+        testCases = testCases.stream().filter(s -> isPrefix(s, finalTraces)).collect(Collectors.toList());
+        printAllToFile();
     }
 
     private void findTransition(String source, String Target, List<TestCase> testCases) {
@@ -131,8 +153,22 @@ public class TestSuite {
         return true;
     }
 
+    public void printSingleToFile(TestCase tc, Integer number) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(testSettings.prefix + number + "() {\n");
+        sb.append(tc.getTestCode());
+        System.out.println(tc.getTrace().size());
+        try {
+            FileWriter myWriter = new FileWriter("testcodes.txt", true);
+            myWriter.write(sb.toString());
+            myWriter.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
-    public void printToFile() {
+
+    }
+    public void printAllToFile() {
         StringBuilder sb = new StringBuilder();
 
         for (int i = 0; i < testCases.size(); i++) {
