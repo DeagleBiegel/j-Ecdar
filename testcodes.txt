@@ -1,186 +1,186 @@
 @Test 
 public void test0() {
-assertTrue(cas.g-cas.x<=0 && cas.x-cas.g<=0);
-nullcas.wait(0);
-nullassertTrue(cas.g-cas.x<=0 && cas.x-cas.g<=0);
-cas.x = 0;
-assertTrue(cas.x<=4 && cas.x-cas.g<=0);
-nullcas.wait(0);
-nullassertTrue(cas.x<=4 && cas.x-cas.g<=0);
-assertTrue(cas.x<=4 && cas.x-cas.g<=0);
-nullcas.wait(2);
-nullassertTrue(cas.x<=4 && cas.x-cas.g<=0);
-cas.x = 0;
-assertTrue(cas.g>=2 && cas.x-cas.g<=-2);
+assertTrue(researcher.g-researcher.x<=0 && researcher.x-researcher.g<=0);
+nullresearcher.wait(0);
+nullassertTrue(researcher.g-researcher.x<=0 && researcher.x-researcher.g<=0);
+researcher.x = 0;
+assertTrue(researcher.x<=4 && researcher.x-researcher.g<=0);
+nullresearcher.wait(0);
+nullassertTrue(researcher.x<=4 && researcher.x-researcher.g<=0);
+assertTrue(researcher.x<=4 && researcher.x-researcher.g<=0);
+nullresearcher.wait(2);
+nullassertTrue(researcher.x<=4 && researcher.x-researcher.g<=0);
+researcher.x = 0;
+assertTrue(researcher.g>=2 && researcher.x-researcher.g<=-2);
 null}
 @Test 
 public void test1() {
-assertTrue(cas.g-cas.x<=0 && cas.x-cas.g<=0);
-nullcas.wait(0);
-nullassertTrue(cas.g-cas.x<=0 && cas.x-cas.g<=0);
-cas.x = 0;
-assertTrue(cas.x<=4 && cas.x-cas.g<=0);
-nullcas.wait(0);
-nullassertTrue(cas.x<=4 && cas.x-cas.g<=0);
-assertTrue(cas.x<=4 && cas.x-cas.g<=0);
-nullcas.wait(2);
-nullassertTrue(cas.x<=4 && cas.x-cas.g<=0);
-cas.x = 0;
-assertTrue(cas.g>=2 && cas.x-cas.g<=-2);
+assertTrue(researcher.g-researcher.x<=0 && researcher.x-researcher.g<=0);
+nullresearcher.wait(0);
+nullassertTrue(researcher.g-researcher.x<=0 && researcher.x-researcher.g<=0);
+researcher.x = 0;
+assertTrue(researcher.x<=4 && researcher.x-researcher.g<=0);
+nullresearcher.wait(0);
+nullassertTrue(researcher.x<=4 && researcher.x-researcher.g<=0);
+assertTrue(researcher.x<=4 && researcher.x-researcher.g<=0);
+nullresearcher.wait(2);
+nullassertTrue(researcher.x<=4 && researcher.x-researcher.g<=0);
+researcher.x = 0;
+assertTrue(researcher.g>=2 && researcher.x-researcher.g<=-2);
 null}
 @Test 
 public void test2() {
-assertTrue(cas.g-cas.x<=0 && cas.x-cas.g<=0);
-nullcas.wait(0);
-nullassertTrue(cas.g-cas.x<=0 && cas.x-cas.g<=0);
-cas.x = 0;
-assertTrue(cas.x<=4 && cas.x-cas.g<=0);
-nullcas.wait(4);
-nullassertTrue(cas.x<=4 && cas.x-cas.g<=0);
-assertTrue(cas.x<=4 && cas.x-cas.g<=0);
-nullcas.wait(2);
-nullassertTrue(cas.x<=4 && cas.x-cas.g<=0);
-cas.x = 0;
-assertTrue(cas.g>=2 && cas.x-cas.g<=-2);
+assertTrue(researcher.g-researcher.x<=0 && researcher.x-researcher.g<=0);
+nullresearcher.wait(0);
+nullassertTrue(researcher.g-researcher.x<=0 && researcher.x-researcher.g<=0);
+researcher.x = 0;
+assertTrue(researcher.x<=4 && researcher.x-researcher.g<=0);
+nullresearcher.wait(4);
+nullassertTrue(researcher.x<=4 && researcher.x-researcher.g<=0);
+assertTrue(researcher.x<=4 && researcher.x-researcher.g<=0);
+nullresearcher.wait(2);
+nullassertTrue(researcher.x<=4 && researcher.x-researcher.g<=0);
+researcher.x = 0;
+assertTrue(researcher.g>=2 && researcher.x-researcher.g<=-2);
 null}
 @Test 
 public void test3() {
-assertTrue(cas.g-cas.x<=0 && cas.x-cas.g<=0);
-nullcas.wait(0);
-nullassertTrue(cas.g-cas.x<=0 && cas.x-cas.g<=0);
-cas.x = 0;
-assertTrue(cas.x<=4 && cas.x-cas.g<=0);
-nullcas.wait(5);
-nullassertTrue(cas.x<=4 && cas.x-cas.g<=0);
-assertTrue(cas.x<=4 && cas.x-cas.g<=0);
-nullcas.wait(2);
-nullassertTrue(cas.x<=4 && cas.x-cas.g<=0);
-cas.x = 0;
-assertTrue(cas.g>=2 && cas.x-cas.g<=-2);
+assertTrue(researcher.g-researcher.x<=0 && researcher.x-researcher.g<=0);
+nullresearcher.wait(0);
+nullassertTrue(researcher.g-researcher.x<=0 && researcher.x-researcher.g<=0);
+researcher.x = 0;
+assertTrue(researcher.x<=4 && researcher.x-researcher.g<=0);
+nullresearcher.wait(5);
+nullassertTrue(researcher.x<=4 && researcher.x-researcher.g<=0);
+assertTrue(researcher.x<=4 && researcher.x-researcher.g<=0);
+nullresearcher.wait(2);
+nullassertTrue(researcher.x<=4 && researcher.x-researcher.g<=0);
+researcher.x = 0;
+assertTrue(researcher.g>=2 && researcher.x-researcher.g<=-2);
 null}
 @Test 
 public void test4() {
-assertTrue(cas.g-cas.x<=0 && cas.x-cas.g<=0);
-nullcas.wait(0);
-nullassertTrue(cas.g-cas.x<=0 && cas.x-cas.g<=0);
-cas.x = 0;
-assertTrue(cas.x<=4 && cas.x-cas.g<=0);
-nullcas.wait(0);
-nullassertTrue(cas.x<=4 && cas.x-cas.g<=0);
-assertTrue(cas.x<=4 && cas.x-cas.g<=0);
-nullcas.wait(2);
-nullassertTrue(cas.x<=4 && cas.x-cas.g<=0);
-cas.x = 0;
-assertTrue(cas.g>=2 && cas.x-cas.g<=-2);
+assertTrue(researcher.g-researcher.x<=0 && researcher.x-researcher.g<=0);
+nullresearcher.wait(0);
+nullassertTrue(researcher.g-researcher.x<=0 && researcher.x-researcher.g<=0);
+researcher.x = 0;
+assertTrue(researcher.x<=4 && researcher.x-researcher.g<=0);
+nullresearcher.wait(0);
+nullassertTrue(researcher.x<=4 && researcher.x-researcher.g<=0);
+assertTrue(researcher.x<=4 && researcher.x-researcher.g<=0);
+nullresearcher.wait(2);
+nullassertTrue(researcher.x<=4 && researcher.x-researcher.g<=0);
+researcher.x = 0;
+assertTrue(researcher.g>=2 && researcher.x-researcher.g<=-2);
 null}
 @Test 
 public void test5() {
-assertTrue(cas.g-cas.x<=0 && cas.x-cas.g<=0);
-nullcas.wait(0);
-nullassertTrue(cas.g-cas.x<=0 && cas.x-cas.g<=0);
-cas.x = 0;
-assertTrue(cas.x<=8 && cas.g<=23 && cas.g-cas.x<=15 && cas.x-cas.g<=0);
-nullcas.wait(0);
-nullassertTrue(cas.x<=8 && cas.g<=23 && cas.g-cas.x<=15 && cas.x-cas.g<=0);
-assertTrue(cas.x<=8 && cas.g<=23 && cas.g-cas.x<=15 && cas.x-cas.g<=0);
-nullcas.wait(4);
-nullassertTrue(cas.x<=8 && cas.g<=23 && cas.g-cas.x<=15 && cas.x-cas.g<=0);
-cas.x = 0;
-assertTrue(cas.g>=4 && cas.g-cas.x<=23 && cas.x-cas.g<=-4);
+assertTrue(researcher.g-researcher.x<=0 && researcher.x-researcher.g<=0);
+nullresearcher.wait(0);
+nullassertTrue(researcher.g-researcher.x<=0 && researcher.x-researcher.g<=0);
+researcher.x = 0;
+assertTrue(researcher.x<=8 && researcher.g<=23 && researcher.g-researcher.x<=15 && researcher.x-researcher.g<=0);
+nullresearcher.wait(0);
+nullassertTrue(researcher.x<=8 && researcher.g<=23 && researcher.g-researcher.x<=15 && researcher.x-researcher.g<=0);
+assertTrue(researcher.x<=8 && researcher.g<=23 && researcher.g-researcher.x<=15 && researcher.x-researcher.g<=0);
+nullresearcher.wait(4);
+nullassertTrue(researcher.x<=8 && researcher.g<=23 && researcher.g-researcher.x<=15 && researcher.x-researcher.g<=0);
+researcher.x = 0;
+assertTrue(researcher.g>=4 && researcher.g-researcher.x<=23 && researcher.x-researcher.g<=-4);
 null}
 @Test 
 public void test6() {
-assertTrue(cas.g-cas.x<=0 && cas.x-cas.g<=0);
-nullcas.wait(0);
-nullassertTrue(cas.g-cas.x<=0 && cas.x-cas.g<=0);
-cas.x = 0;
-assertTrue(cas.x<=8 && cas.g<=23 && cas.g-cas.x<=15 && cas.x-cas.g<=0);
-nullcas.wait(0);
-nullassertTrue(cas.x<=8 && cas.g<=23 && cas.g-cas.x<=15 && cas.x-cas.g<=0);
-assertTrue(cas.x<=8 && cas.g<=23 && cas.g-cas.x<=15 && cas.x-cas.g<=0);
-nullcas.wait(4);
-nullassertTrue(cas.x<=8 && cas.g<=23 && cas.g-cas.x<=15 && cas.x-cas.g<=0);
-cas.x = 0;
-assertTrue(cas.g>=4 && cas.g-cas.x<=23 && cas.x-cas.g<=-4);
-nullcas.wait(0);
-nullassertTrue(cas.g>=4 && cas.g-cas.x<=23 && cas.x-cas.g<=-4);
-cas.x = 0;
-assertTrue(cas.x<=4 && cas.g>=4 && cas.x-cas.g<=-4);
-nullcas.wait(2);
-nullassertTrue(cas.x<=4 && cas.g>=4 && cas.x-cas.g<=-4);
-cas.x = 0;
-assertTrue(cas.g>=6 && cas.x-cas.g<=-6);
+assertTrue(researcher.g-researcher.x<=0 && researcher.x-researcher.g<=0);
+nullresearcher.wait(0);
+nullassertTrue(researcher.g-researcher.x<=0 && researcher.x-researcher.g<=0);
+researcher.x = 0;
+assertTrue(researcher.x<=8 && researcher.g<=23 && researcher.g-researcher.x<=15 && researcher.x-researcher.g<=0);
+nullresearcher.wait(0);
+nullassertTrue(researcher.x<=8 && researcher.g<=23 && researcher.g-researcher.x<=15 && researcher.x-researcher.g<=0);
+assertTrue(researcher.x<=8 && researcher.g<=23 && researcher.g-researcher.x<=15 && researcher.x-researcher.g<=0);
+nullresearcher.wait(4);
+nullassertTrue(researcher.x<=8 && researcher.g<=23 && researcher.g-researcher.x<=15 && researcher.x-researcher.g<=0);
+researcher.x = 0;
+assertTrue(researcher.g>=4 && researcher.g-researcher.x<=23 && researcher.x-researcher.g<=-4);
+nullresearcher.wait(0);
+nullassertTrue(researcher.g>=4 && researcher.g-researcher.x<=23 && researcher.x-researcher.g<=-4);
+researcher.x = 0;
+assertTrue(researcher.x<=4 && researcher.g>=4 && researcher.x-researcher.g<=-4);
+nullresearcher.wait(2);
+nullassertTrue(researcher.x<=4 && researcher.g>=4 && researcher.x-researcher.g<=-4);
+researcher.x = 0;
+assertTrue(researcher.g>=6 && researcher.x-researcher.g<=-6);
 null}
 @Test 
 public void test7() {
-assertTrue(cas.g-cas.x<=0 && cas.x-cas.g<=0);
-nullcas.wait(0);
-nullassertTrue(cas.g-cas.x<=0 && cas.x-cas.g<=0);
-cas.x = 0;
-assertTrue(cas.x<=8 && cas.g<=23 && cas.g-cas.x<=15 && cas.x-cas.g<=0);
-nullcas.wait(8);
-nullassertTrue(cas.x<=8 && cas.g<=23 && cas.g-cas.x<=15 && cas.x-cas.g<=0);
-assertTrue(cas.x<=8 && cas.g<=23 && cas.g-cas.x<=15 && cas.x-cas.g<=0);
-nullcas.wait(4);
-nullassertTrue(cas.x<=8 && cas.g<=23 && cas.g-cas.x<=15 && cas.x-cas.g<=0);
-cas.x = 0;
-assertTrue(cas.g>=4 && cas.g-cas.x<=23 && cas.x-cas.g<=-4);
-nullcas.wait(0);
-nullassertTrue(cas.g>=4 && cas.g-cas.x<=23 && cas.x-cas.g<=-4);
-cas.x = 0;
-assertTrue(cas.x<=4 && cas.g>=4 && cas.x-cas.g<=-4);
-nullcas.wait(2);
-nullassertTrue(cas.x<=4 && cas.g>=4 && cas.x-cas.g<=-4);
-cas.x = 0;
-assertTrue(cas.g>=6 && cas.x-cas.g<=-6);
+assertTrue(researcher.g-researcher.x<=0 && researcher.x-researcher.g<=0);
+nullresearcher.wait(0);
+nullassertTrue(researcher.g-researcher.x<=0 && researcher.x-researcher.g<=0);
+researcher.x = 0;
+assertTrue(researcher.x<=8 && researcher.g<=23 && researcher.g-researcher.x<=15 && researcher.x-researcher.g<=0);
+nullresearcher.wait(8);
+nullassertTrue(researcher.x<=8 && researcher.g<=23 && researcher.g-researcher.x<=15 && researcher.x-researcher.g<=0);
+assertTrue(researcher.x<=8 && researcher.g<=23 && researcher.g-researcher.x<=15 && researcher.x-researcher.g<=0);
+nullresearcher.wait(4);
+nullassertTrue(researcher.x<=8 && researcher.g<=23 && researcher.g-researcher.x<=15 && researcher.x-researcher.g<=0);
+researcher.x = 0;
+assertTrue(researcher.g>=4 && researcher.g-researcher.x<=23 && researcher.x-researcher.g<=-4);
+nullresearcher.wait(0);
+nullassertTrue(researcher.g>=4 && researcher.g-researcher.x<=23 && researcher.x-researcher.g<=-4);
+researcher.x = 0;
+assertTrue(researcher.x<=4 && researcher.g>=4 && researcher.x-researcher.g<=-4);
+nullresearcher.wait(2);
+nullassertTrue(researcher.x<=4 && researcher.g>=4 && researcher.x-researcher.g<=-4);
+researcher.x = 0;
+assertTrue(researcher.g>=6 && researcher.x-researcher.g<=-6);
 null}
 @Test 
 public void test8() {
-assertTrue(cas.g-cas.x<=0 && cas.x-cas.g<=0);
-nullcas.wait(0);
-nullassertTrue(cas.g-cas.x<=0 && cas.x-cas.g<=0);
-cas.x = 0;
-assertTrue(cas.x<=8 && cas.g<=23 && cas.g-cas.x<=15 && cas.x-cas.g<=0);
-nullcas.wait(9);
-nullassertTrue(cas.x<=8 && cas.g<=23 && cas.g-cas.x<=15 && cas.x-cas.g<=0);
-assertTrue(cas.x<=8 && cas.g<=23 && cas.g-cas.x<=15 && cas.x-cas.g<=0);
-nullcas.wait(4);
-nullassertTrue(cas.x<=8 && cas.g<=23 && cas.g-cas.x<=15 && cas.x-cas.g<=0);
-cas.x = 0;
-assertTrue(cas.g>=4 && cas.g-cas.x<=23 && cas.x-cas.g<=-4);
-nullcas.wait(0);
-nullassertTrue(cas.g>=4 && cas.g-cas.x<=23 && cas.x-cas.g<=-4);
-cas.x = 0;
-assertTrue(cas.x<=4 && cas.g>=4 && cas.x-cas.g<=-4);
-nullcas.wait(2);
-nullassertTrue(cas.x<=4 && cas.g>=4 && cas.x-cas.g<=-4);
-cas.x = 0;
-assertTrue(cas.g>=6 && cas.x-cas.g<=-6);
+assertTrue(researcher.g-researcher.x<=0 && researcher.x-researcher.g<=0);
+nullresearcher.wait(0);
+nullassertTrue(researcher.g-researcher.x<=0 && researcher.x-researcher.g<=0);
+researcher.x = 0;
+assertTrue(researcher.x<=8 && researcher.g<=23 && researcher.g-researcher.x<=15 && researcher.x-researcher.g<=0);
+nullresearcher.wait(9);
+nullassertTrue(researcher.x<=8 && researcher.g<=23 && researcher.g-researcher.x<=15 && researcher.x-researcher.g<=0);
+assertTrue(researcher.x<=8 && researcher.g<=23 && researcher.g-researcher.x<=15 && researcher.x-researcher.g<=0);
+nullresearcher.wait(4);
+nullassertTrue(researcher.x<=8 && researcher.g<=23 && researcher.g-researcher.x<=15 && researcher.x-researcher.g<=0);
+researcher.x = 0;
+assertTrue(researcher.g>=4 && researcher.g-researcher.x<=23 && researcher.x-researcher.g<=-4);
+nullresearcher.wait(0);
+nullassertTrue(researcher.g>=4 && researcher.g-researcher.x<=23 && researcher.x-researcher.g<=-4);
+researcher.x = 0;
+assertTrue(researcher.x<=4 && researcher.g>=4 && researcher.x-researcher.g<=-4);
+nullresearcher.wait(2);
+nullassertTrue(researcher.x<=4 && researcher.g>=4 && researcher.x-researcher.g<=-4);
+researcher.x = 0;
+assertTrue(researcher.g>=6 && researcher.x-researcher.g<=-6);
 null}
 @Test 
 public void test9() {
-assertTrue(cas.g-cas.x<=0 && cas.x-cas.g<=0);
-nullcas.wait(0);
-nullassertTrue(cas.g-cas.x<=0 && cas.x-cas.g<=0);
-cas.x = 0;
-assertTrue(cas.x<=8 && cas.g<=23 && cas.g-cas.x<=15 && cas.x-cas.g<=0);
-nullcas.wait(4);
-nullassertTrue(cas.x<=8 && cas.g<=23 && cas.g-cas.x<=15 && cas.x-cas.g<=0);
-cas.x = 0;
-assertTrue(cas.g>=4 && cas.g-cas.x<=23 && cas.x-cas.g<=-4);
-nullcas.wait(0);
-nullassertTrue(cas.g>=4 && cas.g-cas.x<=23 && cas.x-cas.g<=-4);
-cas.x = 0;
-assertTrue(cas.x<=4 && cas.g>=4 && cas.x-cas.g<=-4);
-nullcas.wait(2);
-nullassertTrue(cas.x<=4 && cas.g>=4 && cas.x-cas.g<=-4);
-cas.x = 0;
-assertTrue(cas.g>=6 && cas.x-cas.g<=-6);
+assertTrue(researcher.g-researcher.x<=0 && researcher.x-researcher.g<=0);
+nullresearcher.wait(0);
+nullassertTrue(researcher.g-researcher.x<=0 && researcher.x-researcher.g<=0);
+researcher.x = 0;
+assertTrue(researcher.x<=8 && researcher.g<=23 && researcher.g-researcher.x<=15 && researcher.x-researcher.g<=0);
+nullresearcher.wait(4);
+nullassertTrue(researcher.x<=8 && researcher.g<=23 && researcher.g-researcher.x<=15 && researcher.x-researcher.g<=0);
+researcher.x = 0;
+assertTrue(researcher.g>=4 && researcher.g-researcher.x<=23 && researcher.x-researcher.g<=-4);
+nullresearcher.wait(0);
+nullassertTrue(researcher.g>=4 && researcher.g-researcher.x<=23 && researcher.x-researcher.g<=-4);
+researcher.x = 0;
+assertTrue(researcher.x<=4 && researcher.g>=4 && researcher.x-researcher.g<=-4);
+nullresearcher.wait(2);
+nullassertTrue(researcher.x<=4 && researcher.g>=4 && researcher.x-researcher.g<=-4);
+researcher.x = 0;
+assertTrue(researcher.g>=6 && researcher.x-researcher.g<=-6);
 null}
 @Test 
 public void test10() {
-assertTrue(cas.g-cas.x<=0 && cas.x-cas.g<=0);
-nullcas.wait(16);
-nullassertTrue(cas.g-cas.x<=0 && cas.x-cas.g<=0);
-assertTrue(cas.x>15 && cas.g>15 && cas.g-cas.x<=0 && cas.x-cas.g<=0);
+assertTrue(researcher.g-researcher.x<=0 && researcher.x-researcher.g<=0);
+nullresearcher.wait(16);
+nullassertTrue(researcher.g-researcher.x<=0 && researcher.x-researcher.g<=0);
+assertTrue(researcher.x>15 && researcher.g>15 && researcher.g-researcher.x<=0 && researcher.x-researcher.g<=0);
 null}

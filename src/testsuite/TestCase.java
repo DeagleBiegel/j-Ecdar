@@ -77,7 +77,7 @@ public class TestCase {
         for (Transition tran : trace) {
             //wait for x time units, based on the maximum delay for a location. If there is not max the delay is 0.
             int x = (minClockValue(tran.getTarget().getInvariant(), getClocks().get(getClocks().size()-1)) - minClockValue(tran.getSource().getInvariant(), getClocks().get(getClocks().size()-1)));
-            sb.append("cas.wait(" + x + ");\n");
+            sb.append("researcher.wait(" + x + ");\n");
 
             //get exit test code
             sb.append(tran.getSource().getLocation().getExitTestCode());
@@ -126,11 +126,11 @@ public class TestCase {
         for (Transition tran : trace) {
             //wait for x time units, based on the maximum delay for a location. If there is not max the delay is 0.
             if(tran.getSource().getLocation().getName().equals(location) && tran.getEdges().get(0).getStatus().equals("INPUT")) {
-                sb.append("cas.wait(" + delay + ");\n");
+                sb.append("researcher.wait(" + delay + ");\n");
             }
             else {
                 int x = (minClockValue(tran.getTarget().getInvariant(), getClocks().get(getClocks().size()-1)) - minClockValue(tran.getSource().getInvariant(), getClocks().get(getClocks().size()-1)));
-                sb.append("cas.wait(" + x + ");\n");
+                sb.append("researcher.wait(" + x + ");\n");
             }
 
             //get exit test code
@@ -164,7 +164,7 @@ public class TestCase {
         String s = filterCDD(state.getInvariant().toString());
 
         for (Clock c : clocks) {
-            s = s.replaceAll("(\\W)" + c.getOriginalName() + "(\\W)", "$1" + "cas."+ c.getOriginalName() + "$2");
+            s = s.replaceAll("(\\W)" + c.getOriginalName() + "(\\W)", "$1" + "researcher."+ c.getOriginalName() + "$2");
         }
 
         s = s.replaceFirst(" ", "");
@@ -175,7 +175,7 @@ public class TestCase {
     private String testCodeUpdateClock(Clock clock, Integer value) {
         String s = "";
 
-        s += "cas." + clock.getOriginalName() + " = " + value + ";\n";
+        s += "researcher." + clock.getOriginalName() + " = " + value + ";\n";
 
         return s;
     }

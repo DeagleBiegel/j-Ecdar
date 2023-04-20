@@ -21,8 +21,6 @@ public class Playground {
             TestSuite TS = new TestSuite(a,
                     "@Test \npublic void test",
                     "}\n",
-                    "System.currentTimeMillis();\n",
-                    "double",
                     "assertTrue(",
                     ");\n",
                     "delay(",

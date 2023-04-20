@@ -19,9 +19,9 @@ public class TestSuite {
     private TestSettings testSettings;
     public List<TestCase> testCases = new ArrayList<>();
 
-    public TestSuite(Automaton automaton, String prefix, String postfix, String timeStampFunc, String clockType, String assertPre, String assertPost, String delayPre, String delayPost) {
+    public TestSuite(Automaton automaton, String prefix, String postfix, String assertPre, String assertPost, String delayPre, String delayPost) {
         this.automaton = automaton;
-        this.testSettings = new TestSettings(prefix, postfix, timeStampFunc, clockType,assertPre, assertPost, delayPre, delayPost);
+        this.testSettings = new TestSettings(prefix, postfix,assertPre, assertPost, delayPre, delayPost);
     }
 
 
