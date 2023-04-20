@@ -14,7 +14,9 @@
       "nicknameX": 30.0,
       "nicknameY": -10.0,
       "invariantX": -20.0,
-      "invariantY": 30.0
+      "invariantY": 30.0,
+      "enterTestCode": "assert(!cas.armed && !cas.locked && !cas.closed && !cas.sound && !cas.flash);\n",
+      "exitTestCode": ""
     },
     {
       "id": "L9",
@@ -28,7 +30,9 @@
       "nicknameX": 30.0,
       "nicknameY": -10.0,
       "invariantX": 10.0,
-      "invariantY": 20.0
+      "invariantY": 20.0,
+      "enterTestCode": "assert(!cas.armed && !cas.locked && !cas.closed && !cas.sound && !cas.flash);\n",
+      "exitTestCode": ""
     },
     {
       "id": "L6",
@@ -42,7 +46,9 @@
       "nicknameX": 30.0,
       "nicknameY": -10.0,
       "invariantX": 30.0,
-      "invariantY": 10.0
+      "invariantY": 10.0,
+      "enterTestCode": "assert(!cas.armed && !cas.locked && !cas.closed && !cas.sound && !cas.flash);\n",
+      "exitTestCode": ""
     },
     {
       "id": "U0",
@@ -56,7 +62,9 @@
       "nicknameX": 30.0,
       "nicknameY": -10.0,
       "invariantX": 30.0,
-      "invariantY": 10.0
+      "invariantY": 10.0,
+      "enterTestCode": "assert(!cas.armed && !cas.locked && !cas.closed && !cas.sound && !cas.flash);\n",
+      "exitTestCode": ""
     }
   ],
   "edges": [
@@ -69,6 +77,7 @@
       "update": "",
       "sync": "cof",
       "isLocked": false,
+      "testCode" : "researcher.tea();\n",
       "nails": [
         {
           "x": 70.0,
@@ -95,6 +104,7 @@
       "update": "",
       "sync": "tea",
       "isLocked": false,
+      "testCode" : "researcher.cof();\n",
       "nails": [
         {
           "x": 90.0,
@@ -121,6 +131,7 @@
       "update": "",
       "sync": "cof",
       "isLocked": false,
+      "testCode" : "researcher.tea();\n",
       "nails": [
         {
           "x": 270.0,
@@ -147,6 +158,7 @@
       "update": "",
       "sync": "tea",
       "isLocked": false,
+      "testCode" : "researcher.cof();\n",
       "nails": [
         {
           "x": 350.0,
@@ -173,6 +185,7 @@
       "update": "x\u003d0",
       "sync": "cof",
       "isLocked": false,
+      "testCode" : "researcher.cof();\n",
       "nails": [
         {
           "x": 240.0,
@@ -199,6 +212,7 @@
       "update": "x\u003d0",
       "sync": "tea",
       "isLocked": false,
+      "testCode" : "researcher.tea();\n",
       "nails": [
         {
           "x": 290.0,
@@ -232,6 +246,7 @@
       "update": "x\u003d0",
       "sync": "pub",
       "isLocked": false,
+      "testCode" : "",
       "nails": [
         {
           "x": 170.0,
@@ -265,6 +280,7 @@
       "update": "x\u003d0",
       "sync": "pub",
       "isLocked": false,
+      "testCode" : "",
       "nails": [
         {
           "x": 340.0,
@@ -298,6 +314,7 @@
       "update": "",
       "sync": "*",
       "isLocked": true,
+      "testCode" : "",
       "nails": [
         {
           "x": 410.0,
@@ -331,6 +348,7 @@
       "update": "",
       "sync": "*",
       "isLocked": true,
+      "testCode" : "",
       "nails": [
         {
           "x": 490.0,
@@ -364,6 +382,7 @@
       "update": "",
       "sync": "tea",
       "isLocked": false,
+      "testCode" : "researcher.tea();\n",
       "nails": [
         {
           "x": 350.0,
