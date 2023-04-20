@@ -61,8 +61,6 @@
   ],
   "edges": [
     {
-      "id": "E1",
-      "group": "",
       "sourceLocation": "L9",
       "targetLocation": "L9",
       "status": "INPUT",
@@ -89,8 +87,6 @@
       ]
     },
     {
-      "id": "E1",
-      "group": "",
       "sourceLocation": "L9",
       "targetLocation": "L9",
       "status": "INPUT",
@@ -117,8 +113,6 @@
       ]
     },
     {
-      "id": "E1",
-      "group": "",
       "sourceLocation": "L7",
       "targetLocation": "L7",
       "status": "INPUT",
@@ -145,8 +139,6 @@
       ]
     },
     {
-      "id": "E1",
-      "group": "",
       "sourceLocation": "L7",
       "targetLocation": "L7",
       "status": "INPUT",
@@ -173,8 +165,6 @@
       ]
     },
     {
-      "id": "E1",
-      "group": "",
       "sourceLocation": "L6",
       "targetLocation": "L9",
       "status": "INPUT",
@@ -201,8 +191,6 @@
       ]
     },
     {
-      "id": "E1",
-      "group": "",
       "sourceLocation": "L6",
       "targetLocation": "L7",
       "status": "INPUT",
@@ -236,8 +224,6 @@
       ]
     },
     {
-      "id": "E1",
-      "group": "",
       "sourceLocation": "L9",
       "targetLocation": "L6",
       "status": "OUTPUT",
@@ -271,8 +257,6 @@
       ]
     },
     {
-      "id": "E1",
-      "group": "",
       "sourceLocation": "L7",
       "targetLocation": "L6",
       "status": "OUTPUT",
@@ -306,8 +290,6 @@
       ]
     },
     {
-      "id": "E1",
-      "group": "",
       "sourceLocation": "U0",
       "targetLocation": "U0",
       "status": "INPUT",
@@ -341,8 +323,6 @@
       ]
     },
     {
-      "id": "E1",
-      "group": "",
       "sourceLocation": "U0",
       "targetLocation": "U0",
       "status": "OUTPUT",
@@ -376,8 +356,6 @@
       ]
     },
     {
-      "id": "E1",
-      "group": "",
       "sourceLocation": "L6",
       "targetLocation": "U0",
       "status": "INPUT",
