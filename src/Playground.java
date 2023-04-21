@@ -23,7 +23,7 @@ public class Playground {
                     "}\n",
                     "assertTrue(",
                     ");\n",
-                    "delay(",
+                    "wait(",
                     ");\n");
 
             //TS.createTestSuiteIterative();

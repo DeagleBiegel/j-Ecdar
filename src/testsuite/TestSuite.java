@@ -54,6 +54,7 @@ public class TestSuite {
     public void createTestSuite() throws IOException {
         BVA bva = new BVA(automaton);
 
+
         for (Edge e : automaton.getEdges()) {
             String boolName = "xD";
             BoolVar bv = new BoolVar(boolName, boolName, false);
@@ -102,7 +103,7 @@ public class TestSuite {
         }
 
         List<TestCase> finalTraces = testCases;
-        testCases = testCases.stream().filter(s -> isPrefix(s, finalTraces)).collect(Collectors.toList());
+        //testCases = testCases.stream().filter(s -> isPrefix(s, finalTraces)).collect(Collectors.toList());
         printAllToFile();
     }
 
@@ -157,7 +158,6 @@ public class TestSuite {
         StringBuilder sb = new StringBuilder();
         sb.append(testSettings.prefix + number + "() {\n");
         sb.append(tc.getTestCode());
-        System.out.println(tc.getTrace().size());
         try {
             FileWriter myWriter = new FileWriter("testcodes.txt", true);
             myWriter.write(sb.toString());
@@ -177,7 +177,7 @@ public class TestSuite {
         }
 
             try {
-                FileWriter myWriter = new FileWriter("testcodes.txt", true);
+                FileWriter myWriter = new FileWriter("testcodes.txt", false);
                 myWriter.write(sb.toString());
                 myWriter.close();
             } catch (IOException e) {

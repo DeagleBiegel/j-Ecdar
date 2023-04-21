@@ -76,9 +76,15 @@ public class TestCase {
 
         for (Transition tran : trace) {
             //wait for x time units, based on the maximum delay for a location. If there is not max the delay is 0.
-            int x = (minClockValue(tran.getTarget().getInvariant(), getClocks().get(getClocks().size()-1)) - minClockValue(tran.getSource().getInvariant(), getClocks().get(getClocks().size()-1)));
-            sb.append("researcher.wait(" + x + ");\n");
+            int x;
+            if (tran.getSource().getLocation().getInvariant().isNotTrue()) {
+                x = maxClockValue(tran.getSource().getInvariant(), getClocks().get(getClocks().size()-2)) - minClockValue(tran.getSource().getInvariant(), getClocks().get(getClocks().size()-2));
+            }
+            else {
+                x = (minClockValue(tran.getTarget().getInvariant(), getClocks().get(getClocks().size() - 1)) - minClockValue(tran.getSource().getInvariant(), getClocks().get(getClocks().size() - 1)));
+            }
 
+            sb.append("researcher.wait(" + x + ");\n");
             //get exit test code
             sb.append(tran.getSource().getLocation().getExitTestCode());
             sb.append(testCodeAssertClocks(tran.getSource()));
@@ -227,6 +233,21 @@ public class TestCase {
                 break;
             }
             min++;
+        }
+        return min;
+
+    }
+
+    public int  maxClockValue(CDD orgCDD, Clock clock){
+
+        String guardTemplate = clock.getOriginalName() + " == ";
+        int min = 1000;
+        while (true) {
+            CDD cdd = helperConjoin(guardTemplate + min, orgCDD);
+            if (cdd.isNotFalse()) {
+                break;
+            }
+            min--;
         }
         return min;
 

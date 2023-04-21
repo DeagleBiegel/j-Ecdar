@@ -15,7 +15,7 @@
       "nicknameY": -10.0,
       "invariantX": -20.0,
       "invariantY": 30.0,
-      "enterTestCode": "assert(!researcher.cof && researcher.tea);\n",
+      "enterTestCode": "assertTrue(!researcher.cof && researcher.tea);\n",
       "exitTestCode": ""
     },
     {
@@ -31,7 +31,7 @@
       "nicknameY": -10.0,
       "invariantX": 10.0,
       "invariantY": 20.0,
-      "enterTestCode": "assert(researcher.cof && !researcher.tea);\n",
+      "enterTestCode": "assertTrue(researcher.cof && !researcher.tea);\n",
       "exitTestCode": ""
     },
     {
@@ -47,7 +47,7 @@
       "nicknameY": -10.0,
       "invariantX": 30.0,
       "invariantY": 10.0,
-      "enterTestCode": "assert((!researcher.cof && !researcher.tea) && ((researcher.old == 0 && researcher.new == 0) || (researcher.new > researcher.old))) \n",
+      "enterTestCode": "assertTrue(!researcher.cof && !researcher.tea && researcher.current == researcher.old + 1); \n",
       "exitTestCode": ""
     },
     {
@@ -63,7 +63,7 @@
       "nicknameY": -10.0,
       "invariantX": 30.0,
       "invariantY": 10.0,
-      "enterTestCode": "assert(researcher.tea);\n",
+      "enterTestCode": "assertTrue(researcher.tea);\n",
       "exitTestCode": ""
     }
   ],
