@@ -31,7 +31,7 @@
       "nicknameY": -10.0,
       "invariantX": 10.0,
       "invariantY": 20.0,
-      "enterTestCode": "assertTrue(researcher.cof && !researcher.tea);\n",
+      "enterTestCode": "assertTrue(researcher.cof && !researcher.tea) ;\n here",
       "exitTestCode": ""
     },
     {
