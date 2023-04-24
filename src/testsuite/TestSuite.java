@@ -54,16 +54,15 @@ public class TestSuite {
     public void createTestSuite() throws IOException {
         BVA bva = new BVA(automaton);
 
-
         for (Edge e : automaton.getEdges()) {
-            String boolName = "xD";
+            String boolName = "xd";
             BoolVar bv = new BoolVar(boolName, boolName, false);
             automaton.getBVs().add(bv);
             e.getUpdates().add(new BoolUpdate(bv, true));
             ts = new SimpleTransitionSystem(automaton);
 
             boolean initialisedCdd = CDD.tryInit(ts.getAutomaton().getClocks(), ts.getAutomaton().getBVs());
-            TestCase tc = new TestCase(ts.explore(e.getTarget().getName(), bv.getOriginalName() + "== true"), testSettings, ts.getClocks(), ts.getBVs());
+            TestCase tc = new TestCase(ts.explore(e.getTarget().getName(), bv.getOriginalName() + " == true"), testSettings, ts.getClocks(), ts.getBVs());
 
             tc.setTrace(ts.expandTrace(tc.getTrace()));
 
@@ -77,16 +76,14 @@ public class TestSuite {
             automaton.getBVs().remove(automaton.getBVs().size()-1);
 
             List<BoundaryValues> remove_list = new ArrayList<>();
+
             for (BoundaryValues boundaryValues : bva.getBoundaryValues()) {
                 TestCase temp = findApplicableTrace(boundaryValues.getLocation());
-                if (temp != null) {
+                if (temp != null && temp.getTrace() != null) {
                     for (Integer i : boundaryValues.getValues()) {
                         TestCase testCase = new TestCase(temp);
-
                         tc.setTrace(ts.expandTrace(tc.getTrace()));
-
                         testCase.createTestCode(boundaryValues.getLocation(), i);
-
                         testCases.add(testCase);
                     }
                     remove_list.add(boundaryValues);
@@ -103,7 +100,7 @@ public class TestSuite {
         }
 
         List<TestCase> finalTraces = testCases;
-        //testCases = testCases.stream().filter(s -> isPrefix(s, finalTraces)).collect(Collectors.toList());
+        testCases = testCases.stream().filter(s -> isPrefix(s, finalTraces)).collect(Collectors.toList());
         printAllToFile();
     }
 

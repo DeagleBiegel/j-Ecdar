@@ -76,15 +76,18 @@ public class TestCase {
 
         for (Transition tran : trace) {
             //wait for x time units, based on the maximum delay for a location. If there is not max the delay is 0.
-            int x;
-            if (tran.getSource().getLocation().getInvariant().isNotTrue()) {
-                x = maxClockValue(tran.getSource().getInvariant(), getClocks().get(getClocks().size()-2)) - minClockValue(tran.getSource().getInvariant(), getClocks().get(getClocks().size()-2));
+            int x  = (minClockValue(tran.getTarget().getInvariant(), getClocks().get(getClocks().size() - 1)) - minClockValue(tran.getSource().getInvariant(), getClocks().get(getClocks().size() - 1)));
+            /*if (tran.getSource().getLocation().getInvariant().isNotTrue()) {
+                //min clock value for the target vs the source
+                //x = maxClockValue(tran.getSource().getInvariant(), LocInvariantClock(tran.getSource().getLocation().getInvariant().toString())) - minClockValue(tran.getSource().getInvariant(), LocInvariantClock(tran.getSource().getLocation().getInvariant().toString()));
+                x = (minClockValue(tran.getTarget().getInvariant(), getClocks().get(getClocks().size() - 1)) - minClockValue(tran.getSource().getInvariant(), getClocks().get(getClocks().size() - 1)));
             }
             else {
                 x = (minClockValue(tran.getTarget().getInvariant(), getClocks().get(getClocks().size() - 1)) - minClockValue(tran.getSource().getInvariant(), getClocks().get(getClocks().size() - 1)));
             }
+             */
 
-            sb.append("researcher.wait(" + x + ");\n");
+            sb.append("cas.wait(" + x + ");\n");
             //get exit test code
             sb.append(tran.getSource().getLocation().getExitTestCode());
             sb.append(testCodeAssertClocks(tran.getSource()));
@@ -132,11 +135,11 @@ public class TestCase {
         for (Transition tran : trace) {
             //wait for x time units, based on the maximum delay for a location. If there is not max the delay is 0.
             if(tran.getSource().getLocation().getName().equals(location) && tran.getEdges().get(0).getStatus().equals("INPUT")) {
-                sb.append("researcher.wait(" + delay + ");\n");
+                sb.append("cas.wait(" + delay + ");\n");
             }
             else {
                 int x = (minClockValue(tran.getTarget().getInvariant(), getClocks().get(getClocks().size()-1)) - minClockValue(tran.getSource().getInvariant(), getClocks().get(getClocks().size()-1)));
-                sb.append("researcher.wait(" + x + ");\n");
+                sb.append("cas.wait(" + x + ");\n");
             }
 
             //get exit test code
@@ -162,6 +165,7 @@ public class TestCase {
 
         }
         sb.append(testSettings.postfix);
+        sb.append("//FAILING (MAYBE)\n");
 
         this.testCode = sb;
     }
@@ -170,7 +174,7 @@ public class TestCase {
         String s = filterCDD(state.getInvariant().toString());
 
         for (Clock c : clocks) {
-            s = s.replaceAll("(\\W)" + c.getOriginalName() + "(\\W)", "$1" + "researcher."+ c.getOriginalName() + "$2");
+            s = s.replaceAll("(\\W)" + c.getOriginalName() + "(\\W)", "$1" + "cas."+ c.getOriginalName() + "$2");
         }
 
         s = s.replaceFirst(" ", "");
@@ -181,7 +185,7 @@ public class TestCase {
     private String testCodeUpdateClock(Clock clock, Integer value) {
         String s = "";
 
-        s += "researcher." + clock.getOriginalName() + " = " + value + ";\n";
+        s += "cas." + clock.getOriginalName() + " = " + value + ";\n";
 
         return s;
     }
@@ -215,6 +219,17 @@ public class TestCase {
             }
         }
         return false;
+    }
+
+    private Clock LocInvariantClock(String part) {
+        for (Clock c : getClocks()) {
+            Pattern pattern = Pattern.compile("([^A-Za-z0-9_]*" + c.getOriginalName() + "[<>-]+)");
+            Matcher m = pattern.matcher(part);
+            if (m.find()) {
+                return c;
+            }
+        }
+        return null;
     }
 
     public CDD helperConjoin(String guardString, CDD orgCDD) {
