@@ -32,7 +32,7 @@ public class BVA {
                 for (Transition t : trace) {
                     if (t.getSource().getLocation().getName().equals(key) && !invariants.get(key)) {
                         int min = minClockValue(t.getSource().getInvariant(), getClock(t.getSource().getLocationInvariant()));
-                        int max = maxClockValue(t.getSource().getLocationInvariant(), getClock(t.getSource().getLocationInvariant()));
+                        int max = maxClockValue(t.getSource().getInvariant(), getClock(t.getSource().getLocationInvariant()));
                         invariantDelays.put(key, max-min);
                         invariants.put(key, true);
                         boundaryValues.add(new BoundaryValues(key, invariantDelays.get(key)));
@@ -82,31 +82,23 @@ public class BVA {
         return min;
 
     }
-    private int maxClockValue(CDD orgCDD, Clock clock){
+
+
+
+    public int  maxClockValue(CDD orgCDD, Clock clock){
 
         String guardTemplate = clock.getOriginalName() + " == ";
-        int min = 0;
-
+        int min = 1000;
         while (true) {
             CDD cdd = helperConjoin(guardTemplate + min, orgCDD);
-            if (!cdd.toString().equals("false") || min == 100) {
+            if (cdd.isNotFalse()) {
                 break;
             }
-            min++;
+            min--;
         }
-
-        while (true) {
-            CDD cdd = helperConjoin(guardTemplate + min, orgCDD);
-            if (cdd.toString().equals("false") || min == 33) {
-                break;
-            }
-            min++;
-        }
-
-        return min-1;
+        return min;
 
     }
-
     public HashMap<String, Integer> getInvariantDelays() {
         return invariantDelays;
     }

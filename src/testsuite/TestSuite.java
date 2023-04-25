@@ -27,7 +27,7 @@ public class TestSuite {
 
     public void createTestSuite() throws IOException {
         BVA bva = new BVA(automaton);
-
+        List<TestCase> bvaVariants = new ArrayList<>();
         for (Edge e : automaton.getEdges()) {
             String boolName = "xd";
             BoolVar bv = new BoolVar(boolName, boolName, false);
@@ -48,8 +48,6 @@ public class TestSuite {
             e.getUpdates().remove(e.getUpdates().size()-1);
             automaton.getBVs().remove(automaton.getBVs().size()-1);
 
-
-            //testCases = testCases.stream().sorted(Comparator.comparingInt(List::size)).collect(Collectors.toList());
             List<BoundaryValues> remove_list = new ArrayList<>();
 
             for (BoundaryValues boundaryValues : bva.getBoundaryValues()) {
@@ -58,7 +56,7 @@ public class TestSuite {
                     for (Integer i : boundaryValues.getValues()) {
                         TestCase testCase = new TestCase(temp);
                         testCase.createTestCode(boundaryValues.getLocation(), i);
-                        testCases.add(testCase);
+                        bvaVariants.add(testCase);
                     }
                     remove_list.add(boundaryValues);
                 }
@@ -75,6 +73,7 @@ public class TestSuite {
 
         List<TestCase> finalTraces = testCases;
         testCases = testCases.stream().filter(s -> isPrefix(s, finalTraces)).collect(Collectors.toList());
+        testCases.addAll(bvaVariants);
         printAllToFile();
     }
 
@@ -118,8 +117,8 @@ public class TestSuite {
             if (t.getTrace().size() > testCase.getTrace().size()) {
                 boolean prefix = true;
                 for (int i = 0; i < testCase.getTrace().size(); i++) {
-                    String org = testCase.getTestCode().toString();//testCase.getTrace().get(i).getSource().getLocation().getName() + testCase.getTrace().get(i).getTarget().getLocation().getName();
-                    String borg = t.getTestCode().toString();//t.getTrace().get(i).getSource().getLocation().getName() + t.getTrace().get(i).getTarget().getLocation().getName();
+                    String org = testCase.getTrace().get(i).getSource().getLocation().getName() + testCase.getTrace().get(i).getTarget().getLocation().getName();
+                    String borg = t.getTrace().get(i).getSource().getLocation().getName() + t.getTrace().get(i).getTarget().getLocation().getName();
 
                     if (!org.equals(borg)) {
                             prefix = false;
