@@ -504,7 +504,7 @@
       "update": "d \u003d 0",
       "sync": "unlock",
       "isLocked": false,
-      "testCode": "//L16\ncas.unlock(); \n assertTrue(!cas.locked && cas.armed && cas.closed && !cas.sound && !cas.flash); \n",
+      "testCode": "//L6\ncas.unlock(); \n assertTrue(!cas.locked && cas.armed && cas.closed && !cas.sound && !cas.flash); \n",
       "nails": [
         {
           "x": 410.0,

@@ -25,32 +25,6 @@ public class TestSuite {
     }
 
 
-
-    public void createTestSuiteIterative() throws IOException{
-        int i = 0;
-        BVA bva = new BVA(automaton);
-
-        String boolName = "find";
-        BoolVar bv = new BoolVar(boolName, boolName, false);
-        automaton.getBVs().add(bv);
-        ts = new SimpleTransitionSystem(automaton);
-
-        for (Edge e : automaton.getEdges()) {
-
-                e.getUpdates().add(new BoolUpdate(bv, true));
-                boolean initialisedCdd = CDD.tryInit(ts.getAutomaton().getClocks(), ts.getAutomaton().getBVs());
-                TestCase tc = new TestCase(ts.explore(e.getTarget().getName(), bv.getOriginalName() + " == true"), testSettings, ts.getClocks(), ts.getBVs());
-                //tc.setTrace(ts.expandTrace(tc.getTrace()));
-                printSingleToFile(tc, i);
-                e.getUpdates().remove(e.getUpdates().size()-1);
-                if (initialisedCdd) {
-                    CDD.done();
-                }
-                i++;
-            }
-
-        }
-
     public void createTestSuite() throws IOException {
         BVA bva = new BVA(automaton);
 
@@ -71,10 +45,11 @@ public class TestSuite {
             tc.createTestCode();
             testCases.add(tc);
 
-            //testCases = testCases.stream().sorted(Comparator.comparingInt(List::size)).collect(Collectors.toList());
             e.getUpdates().remove(e.getUpdates().size()-1);
             automaton.getBVs().remove(automaton.getBVs().size()-1);
 
+
+            //testCases = testCases.stream().sorted(Comparator.comparingInt(List::size)).collect(Collectors.toList());
             List<BoundaryValues> remove_list = new ArrayList<>();
 
             for (BoundaryValues boundaryValues : bva.getBoundaryValues()) {
@@ -82,7 +57,6 @@ public class TestSuite {
                 if (temp != null && temp.getTrace() != null) {
                     for (Integer i : boundaryValues.getValues()) {
                         TestCase testCase = new TestCase(temp);
-                        tc.setTrace(ts.expandTrace(tc.getTrace()));
                         testCase.createTestCode(boundaryValues.getLocation(), i);
                         testCases.add(testCase);
                     }
@@ -133,19 +107,27 @@ public class TestSuite {
     }
 
     public boolean isPrefix(TestCase testCase, List<TestCase> allTraces) {
-        String originalTrace = "";
+        /*
+        StringBuilder originalTrace = new StringBuilder();
         for (Transition transition : testCase.getTrace()) {
-            originalTrace += transition.getSource().getLocation().getName() + transition.getTarget().getLocation().getName();
+            originalTrace.append(transition.getSource().getLocation().getName()).append(transition.getTarget().getLocation().getName());
         }
+         */
 
         for (TestCase t : allTraces) {
-            String newTrace = "";
-            for (Transition t1 : t.getTrace()) {
-                newTrace += t1.getSource().getLocation().getName() + t1.getTarget().getLocation().getName();
-            }
-            //if original trace is in newTrace then bam.
-            if (newTrace.contains(originalTrace) && !newTrace.equals(originalTrace)) {
-                return false;
+            if (t.getTrace().size() > testCase.getTrace().size()) {
+                boolean prefix = true;
+                for (int i = 0; i < testCase.getTrace().size(); i++) {
+                    String org = testCase.getTestCode().toString();//testCase.getTrace().get(i).getSource().getLocation().getName() + testCase.getTrace().get(i).getTarget().getLocation().getName();
+                    String borg = t.getTestCode().toString();//t.getTrace().get(i).getSource().getLocation().getName() + t.getTrace().get(i).getTarget().getLocation().getName();
+
+                    if (!org.equals(borg)) {
+                            prefix = false;
+                    }
+                }
+                if (prefix) {
+                    return false;
+                }
             }
         }
         return true;
@@ -162,7 +144,6 @@ public class TestSuite {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
 
     }
     public void printAllToFile() {
