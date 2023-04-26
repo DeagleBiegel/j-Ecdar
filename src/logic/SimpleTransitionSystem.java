@@ -564,7 +564,6 @@ public class SimpleTransitionSystem extends TransitionSystem{
         return null;
     }
 
-
     public HashMap<String, List<Transition>> exploreHelper() throws IOException {
         Set<Channel> actions = getActions();
         HashMap<String, List<Transition>> transitionHashMap = new HashMap<>();

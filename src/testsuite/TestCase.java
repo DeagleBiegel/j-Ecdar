@@ -1,12 +1,8 @@
 package testsuite;
 
-import logic.State;
-import logic.Transition;
+import logic.*;
 import models.*;
 import parser.GuardParser;
-
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -18,27 +14,27 @@ public class TestCase {
     private List<Transition> trace;
     private StringBuilder testCode;
     private final TestSettings testSettings;
-    private final List<Clock> clocks;
-    private final List<BoolVar> BVs;
 
+    private SimpleTransitionSystem STS;
 
-
-    public TestCase(List<Transition> trace, TestSettings testSettings, List<Clock> clocks, List<BoolVar> BVs) {
+    public TestCase(List<Transition> trace, TestSettings testSettings, SimpleTransitionSystem STS) {
         this.trace = trace;
         this.testSettings = testSettings;
-        this.clocks = clocks;
-        this.BVs = BVs;
+        this.STS = STS;
     }
 
     public TestCase(TestCase testCase) {
         this.trace = testCase.getTrace();
         this.testSettings = testCase.getTestSettings();
-        this.clocks = testCase.getClocks();
-        this.BVs = testCase.getBVs();
+        this.STS = testCase.getSTS();
+    }
+
+    public SimpleTransitionSystem getSTS() {
+        return STS;
     }
 
     public List<Clock> getClocks() {
-        return clocks;
+        return STS.getClocks();
     }
 
     public TestSettings getTestSettings() {
@@ -75,18 +71,7 @@ public class TestCase {
         sb.append(trace.get(0).getSource().getLocation().getEnterTestCode());
 
         for (Transition tran : trace) {
-            //wait for x time units, based on the maximum delay for a location. If there is not max the delay is 0.
             int x  = (minClockValue(tran.getTarget().getInvariant(), getClocks().get(getClocks().size() - 1)) - minClockValue(tran.getSource().getInvariant(), getClocks().get(getClocks().size() - 1)));
-            /*if (tran.getSource().getLocation().getInvariant().isNotTrue()) {
-                //min clock value for the target vs the source
-                //x = maxClockValue(tran.getSource().getInvariant(), LocInvariantClock(tran.getSource().getLocation().getInvariant().toString())) - minClockValue(tran.getSource().getInvariant(), LocInvariantClock(tran.getSource().getLocation().getInvariant().toString()));
-                x = (minClockValue(tran.getTarget().getInvariant(), getClocks().get(getClocks().size() - 1)) - minClockValue(tran.getSource().getInvariant(), getClocks().get(getClocks().size() - 1)));
-            }
-            else {
-                x = (minClockValue(tran.getTarget().getInvariant(), getClocks().get(getClocks().size() - 1)) - minClockValue(tran.getSource().getInvariant(), getClocks().get(getClocks().size() - 1)));
-            }
-             */
-
             sb.append("cas.wait(" + x + ");\n");
             //get exit test code
             sb.append(tran.getSource().getLocation().getExitTestCode());
@@ -116,10 +101,9 @@ public class TestCase {
     }
 
     public void createTestCode(String location, int delay) {
-        // Start the test case by declaring and initialising all clocks
-        StringBuilder sb = new StringBuilder();
+        boolean initialisedCdd = CDD.tryInit(STS.getClocks(), STS.getBVs());
 
-        //sb.append(testCodeInitClocks());
+        StringBuilder sb = new StringBuilder();
         HashMap<String, Boolean> booleans = new HashMap<>();
 
         //initialise hashmap of boolean variables
@@ -134,7 +118,7 @@ public class TestCase {
 
         for (Transition tran : trace) {
             //wait for x time units, based on the maximum delay for a location. If there is not max the delay is 0.
-            if(tran.getSource().getLocation().getName().equals(location) && tran.getEdges().get(0).getStatus().equals("INPUT")) {
+            if(tran.getSource().getLocation().getName().equals(location) /*&& tran.getEdges().get(0).getStatus().equals("INPUT")*/) {
                 sb.append("cas.wait(" + delay + ");\n");
             }
             else {
@@ -165,31 +149,33 @@ public class TestCase {
 
         }
         sb.append(testSettings.postfix);
-        sb.append("//FAILING (MAYBE)\n");
+        sb.append("//BVA Variant\n");
+
+        if (initialisedCdd) {
+            CDD.done();
+        }
 
         this.testCode = sb;
     }
 
+    //creates test code for clock assertions
     private String testCodeAssertClocks(State state) {
         String s = filterCDD(state.getInvariant().toString());
 
-        for (Clock c : clocks) {
+        for (Clock c : getClocks()) {
             s = s.replaceAll("(\\W)" + c.getOriginalName() + "(\\W)", "$1" + "cas."+ c.getOriginalName() + "$2");
         }
 
         s = s.replaceFirst(" ", "");
         return testSettings.assertPre + s + testSettings.assertPost;
-        //return testSettings.assertPre + s + testSettings.assertPost;
     }
 
+    //creates test code for clock assignments
     private String testCodeUpdateClock(Clock clock, Integer value) {
-        String s = "";
-
-        s += "cas." + clock.getOriginalName() + " = " + value + ";\n";
-
-        return s;
+        return "cas." + clock.getOriginalName() + " = " + value + ";\n";
     }
 
+    //Filters out boolean variables from a CDD string
     private String filterCDD (String s) {
         StringBuilder sb = new StringBuilder();
         s  = s.replace("(", "").replace(")", "");
@@ -210,6 +196,7 @@ public class TestCase {
         return sb.toString();
     }
 
+    //Returns true if the string contains a clock variable. Used to filter out subexpression from a CDD that contain boolean variables
     private boolean containsClock(String part) {
         for (Clock c : getClocks()) {
             Pattern pattern = Pattern.compile("([^A-Za-z0-9_]*" + c.getOriginalName() + "[<>-]+)");
@@ -220,6 +207,7 @@ public class TestCase {
         }
         return false;
     }
+
 
     private Clock LocInvariantClock(String part) {
         for (Clock c : getClocks()) {
@@ -232,12 +220,15 @@ public class TestCase {
         return null;
     }
 
+    //conjoins 2 CDD's
     public CDD helperConjoin(String guardString, CDD orgCDD) {
         Guard g = GuardParser.parse(guardString, getClocks(), getBVs());
         CDD cdd = orgCDD.conjunction(new CDD(g));
 
         return cdd;
     }
+
+    //Finds the smallest clock value for a given state and clock
     public int minClockValue(CDD orgCDD, Clock clock){
 
         String guardTemplate = clock.getOriginalName() + " == ";
@@ -253,22 +244,10 @@ public class TestCase {
 
     }
 
-    public int  maxClockValue(CDD orgCDD, Clock clock){
-
-        String guardTemplate = clock.getOriginalName() + " == ";
-        int min = 1000;
-        while (true) {
-            CDD cdd = helperConjoin(guardTemplate + min, orgCDD);
-            if (cdd.isNotFalse()) {
-                break;
-            }
-            min--;
-        }
-        return min;
-
+    public int getTraceSize() {
+        return getTrace().size();
     }
-
     public List<BoolVar> getBVs() {
-        return BVs;
+        return STS.getBVs();
     }
 }

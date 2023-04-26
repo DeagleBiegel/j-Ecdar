@@ -130,16 +130,6 @@ public abstract class TransitionSystem {
         return transitions;
     }
 
-    public List<Transition> expandTrace(List<Transition> trace) {
-        List<SimpleTransitionSystem> systems = getSystems();
-
-        for (SimpleTransitionSystem ts : systems) {
-            trace = ts.expandTraceHelper(trace);
-        }
-
-        return trace;
-    }
-
     public boolean isDeterministic() {
 
         boolean initialisedCdd = CDD.tryInit(getClocks(), getBVs());
@@ -347,7 +337,7 @@ public abstract class TransitionSystem {
         return fastestTrace;
     }
 
-    public List<Transition> explore(String destination, String state) throws IOException {
+    public List<Transition> createCoverEdgeTrace(String destination, String state) throws IOException {
         List<SimpleTransitionSystem> systems = getSystems();
 
         List<Transition> trace = new ArrayList<>();
@@ -359,6 +349,15 @@ public abstract class TransitionSystem {
         return trace;
     }
 
+    public List<Transition> expandTrace(List<Transition> trace) {
+        List<SimpleTransitionSystem> systems = getSystems();
+
+        for (SimpleTransitionSystem ts : systems) {
+            trace = ts.expandTraceHelper(trace);
+        }
+
+        return trace;
+    }
     public List<Location> updateLocations(Set<Location> locations, List<Clock> newClocks, List<Clock> oldClocks, List<BoolVar> newBVs, List<BoolVar> oldBVs) {
         return locations
                 .stream()

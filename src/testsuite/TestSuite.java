@@ -1,11 +1,8 @@
 package testsuite;
 
-
 import logic.SimpleTransitionSystem;
 import logic.Transition;
-import models.*;
-
-import java.io.File;
+import models.*;;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.*;
@@ -13,11 +10,10 @@ import java.util.stream.Collectors;
 
 public class TestSuite {
 
-    public SimpleTransitionSystem ts;
-
-    public Automaton automaton;
+    private SimpleTransitionSystem ts;
+    private Automaton automaton;
     private TestSettings testSettings;
-    public List<TestCase> testCases = new ArrayList<>();
+    private List<TestCase> testCases = new ArrayList<>();
 
     public TestSuite(Automaton automaton, String prefix, String postfix, String assertPre, String assertPost, String delayPre, String delayPost) {
         this.automaton = automaton;
@@ -27,53 +23,51 @@ public class TestSuite {
 
     public void createTestSuite() throws IOException {
         BVA bva = new BVA(automaton);
-        List<TestCase> bvaVariants = new ArrayList<>();
+        String boolName = "edgeBoolean";
+        BoolVar bv = new BoolVar(boolName, boolName, false);
+        automaton.getBVs().add(bv);
         for (Edge e : automaton.getEdges()) {
-            String boolName = "xd";
-            BoolVar bv = new BoolVar(boolName, boolName, false);
-            automaton.getBVs().add(bv);
+            //add bool assignment to the edge
             e.getUpdates().add(new BoolUpdate(bv, true));
+
+            //Initialise a STS so that it contains the new bool assignment
             ts = new SimpleTransitionSystem(automaton);
+            boolean initialisedCdd = CDD.tryInit(ts.getClocks(), ts.getBVs());
 
-            boolean initialisedCdd = CDD.tryInit(ts.getAutomaton().getClocks(), ts.getAutomaton().getBVs());
-            TestCase tc = new TestCase(ts.explore(e.getTarget().getName(), bv.getOriginalName() + " == true"), testSettings, ts.getClocks(), ts.getBVs());
-
+            //Explore the state space and create a trace to the target of the edge
+            //Expand the trace to next output edge and create test code
+            TestCase tc = new TestCase(ts.createCoverEdgeTrace(e.getTarget().getName(), bv.getOriginalName() + " == true"), testSettings, ts);
             tc.setTrace(ts.expandTrace(tc.getTrace()));
-
-            bva.computeInvariantDelays(tc.getTrace());
-
             tc.createTestCode();
             testCases.add(tc);
 
+            //check if there are any transitions in the trace that can be used to compute possible delays for BVA
+            bva.computeInvariantDelays(tc.getTrace());
+
+            //remove the bool assignment from the edge
             e.getUpdates().remove(e.getUpdates().size()-1);
-            automaton.getBVs().remove(automaton.getBVs().size()-1);
-
-            List<BoundaryValues> remove_list = new ArrayList<>();
-
-            for (BoundaryValues boundaryValues : bva.getBoundaryValues()) {
-                TestCase temp = findApplicableTrace(boundaryValues.getLocation());
-                if (temp != null && temp.getTrace() != null) {
-                    for (Integer i : boundaryValues.getValues()) {
-                        TestCase testCase = new TestCase(temp);
-                        testCase.createTestCode(boundaryValues.getLocation(), i);
-                        bvaVariants.add(testCase);
-                    }
-                    remove_list.add(boundaryValues);
-                }
-            }
-
-            for (BoundaryValues boundaryValues : remove_list) {
-                bva.getBoundaryValues().remove(boundaryValues);
-            }
 
             if (initialisedCdd) {
                 CDD.done();
             }
         }
 
+        //Remove traces that are a prefix of another trace
         List<TestCase> finalTraces = testCases;
         testCases = testCases.stream().filter(s -> isPrefix(s, finalTraces)).collect(Collectors.toList());
-        testCases.addAll(bvaVariants);
+
+        //Create BVA variants of existing traces
+
+        for (BoundaryValues boundaryValues : bva.getBoundaryValues()) {
+            TestCase temp = findApplicableTrace(boundaryValues.getLocation());
+            if (temp != null) {
+                for (Integer i : boundaryValues.getValues()) {
+                    TestCase testCase = new TestCase(temp);
+                    testCase.createTestCode(boundaryValues.getLocation(), i);
+                    testCases.add(testCase);
+                }
+            }
+        }
         printAllToFile();
     }
 
@@ -106,13 +100,6 @@ public class TestSuite {
     }
 
     public boolean isPrefix(TestCase testCase, List<TestCase> allTraces) {
-        /*
-        StringBuilder originalTrace = new StringBuilder();
-        for (Transition transition : testCase.getTrace()) {
-            originalTrace.append(transition.getSource().getLocation().getName()).append(transition.getTarget().getLocation().getName());
-        }
-         */
-
         for (TestCase t : allTraces) {
             if (t.getTrace().size() > testCase.getTrace().size()) {
                 boolean prefix = true;
@@ -132,19 +119,6 @@ public class TestSuite {
         return true;
     }
 
-    public void printSingleToFile(TestCase tc, Integer number) {
-        StringBuilder sb = new StringBuilder();
-        sb.append(testSettings.prefix + number + "() {\n");
-        sb.append(tc.getTestCode());
-        try {
-            FileWriter myWriter = new FileWriter("testcodes.txt", true);
-            myWriter.write(sb.toString());
-            myWriter.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-    }
     public void printAllToFile() {
         StringBuilder sb = new StringBuilder();
 

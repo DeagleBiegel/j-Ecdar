@@ -16,8 +16,6 @@ public class Playground {
             Clock z = new Clock("g", a.getName());
             a.getClocks().add(z);
 
-            //SimpleTransitionSystem STS = new SimpleTransitionSystem(a);
-            //STS.isDeterministic();
             TestSuite TS = new TestSuite(a,
                     "@Test \npublic void test",
                     "}\n",
@@ -26,10 +24,8 @@ public class Playground {
                     "wait(",
                     ");\n");
 
-            //TS.createTestSuiteIterative();
             TS.createTestSuite();
-            //STS.explore();
-            //STS.allFastestPaths();
+
         }
 }
 

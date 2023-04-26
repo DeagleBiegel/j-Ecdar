@@ -561,13 +561,13 @@ cas.lock();
  assertTrue(cas.locked && !cas.armed && cas.closed && !cas.sound && !cas.flash); 
 cas.c = 0;
 assertTrue(cas.c<=20 && cas.c-cas.d<=0 && cas.g-cas.d<=0 && cas.c-cas.g<=0 && cas.d-cas.g<=0);
-cas.wait(20);
+cas.wait(0);
 assertTrue(cas.c<=20 && cas.c-cas.d<=0 && cas.g-cas.d<=0 && cas.c-cas.g<=0 && cas.d-cas.g<=0);
 //L4
 assertTrue(cas.locked && cas.armed && cas.closed && !cas.sound && !cas.flash); 
 assertTrue(cas.c>=20 && cas.d>=20 && cas.g>=20 && cas.c-cas.d<=0 && cas.g-cas.d<=0 && cas.c-cas.g<=0 && cas.d-cas.g<=0);
 }
-//FAILING (MAYBE)
+//BVA Variant
 @Test 
 public void test12() {
 assertTrue(cas.d-cas.c<=0 && cas.g-cas.c<=0 && cas.c-cas.d<=0 && cas.g-cas.d<=0 && cas.c-cas.g<=0 && cas.d-cas.g<=0);
@@ -603,7 +603,7 @@ assertTrue(cas.c<=20 && cas.c-cas.d<=0 && cas.g-cas.d<=0 && cas.c-cas.g<=0 && ca
 assertTrue(cas.locked && cas.armed && cas.closed && !cas.sound && !cas.flash); 
 assertTrue(cas.c>=20 && cas.d>=20 && cas.g>=20 && cas.c-cas.d<=0 && cas.g-cas.d<=0 && cas.c-cas.g<=0 && cas.d-cas.g<=0);
 }
-//FAILING (MAYBE)
+//BVA Variant
 @Test 
 public void test13() {
 assertTrue(cas.d-cas.c<=0 && cas.g-cas.c<=0 && cas.c-cas.d<=0 && cas.g-cas.d<=0 && cas.c-cas.g<=0 && cas.d-cas.g<=0);
@@ -633,15 +633,255 @@ cas.lock();
  assertTrue(cas.locked && !cas.armed && cas.closed && !cas.sound && !cas.flash); 
 cas.c = 0;
 assertTrue(cas.c<=20 && cas.c-cas.d<=0 && cas.g-cas.d<=0 && cas.c-cas.g<=0 && cas.d-cas.g<=0);
-cas.wait(20);
+cas.wait(21);
 assertTrue(cas.c<=20 && cas.c-cas.d<=0 && cas.g-cas.d<=0 && cas.c-cas.g<=0 && cas.d-cas.g<=0);
 //L4
 assertTrue(cas.locked && cas.armed && cas.closed && !cas.sound && !cas.flash); 
 assertTrue(cas.c>=20 && cas.d>=20 && cas.g>=20 && cas.c-cas.d<=0 && cas.g-cas.d<=0 && cas.c-cas.g<=0 && cas.d-cas.g<=0);
 }
-//FAILING (MAYBE)
+//BVA Variant
 @Test 
 public void test14() {
+assertTrue(cas.d-cas.c<=0 && cas.g-cas.c<=0 && cas.c-cas.d<=0 && cas.g-cas.d<=0 && cas.c-cas.g<=0 && cas.d-cas.g<=0);
+cas.wait(0);
+assertTrue(cas.d-cas.c<=0 && cas.g-cas.c<=0 && cas.c-cas.d<=0 && cas.g-cas.d<=0 && cas.c-cas.g<=0 && cas.d-cas.g<=0);
+//L1
+cas.close(); 
+ assertTrue(!cas.locked && !cas.armed && cas.closed && !cas.sound && !cas.flash); 
+assertTrue(cas.d-cas.c<=0 && cas.g-cas.c<=0 && cas.c-cas.d<=0 && cas.g-cas.d<=0 && cas.c-cas.g<=0 && cas.d-cas.g<=0);
+cas.wait(0);
+assertTrue(cas.d-cas.c<=0 && cas.g-cas.c<=0 && cas.c-cas.d<=0 && cas.g-cas.d<=0 && cas.c-cas.g<=0 && cas.d-cas.g<=0);
+//L3
+cas.lock(); 
+ assertTrue(cas.locked && !cas.armed && cas.closed && !cas.sound && !cas.flash); 
+cas.c = 0;
+assertTrue(cas.c<=20 && cas.c-cas.d<=0 && cas.g-cas.d<=0 && cas.c-cas.g<=0 && cas.d-cas.g<=0);
+cas.wait(20);
+assertTrue(cas.c<=20 && cas.c-cas.d<=0 && cas.g-cas.d<=0 && cas.c-cas.g<=0 && cas.d-cas.g<=0);
+//L4
+assertTrue(cas.locked && cas.armed && cas.closed && !cas.sound && !cas.flash); 
+assertTrue(cas.c>=20 && cas.d>=20 && cas.g>=20 && cas.c-cas.d<=0 && cas.g-cas.d<=0 && cas.c-cas.g<=0 && cas.d-cas.g<=0);
+cas.wait(0);
+assertTrue(cas.c>=20 && cas.d>=20 && cas.g>=20 && cas.c-cas.d<=0 && cas.g-cas.d<=0 && cas.c-cas.g<=0 && cas.d-cas.g<=0);
+//L8
+cas.open(); 
+ assertTrue(cas.locked && cas.armed && !cas.closed && !cas.sound && !cas.flash); 
+cas.d = 0;
+assertTrue(cas.c>=20 && cas.g>=20 && cas.d-cas.c<=-20 && cas.c-cas.g<=0 && cas.d-cas.g<=-20);
+cas.wait(0);
+assertTrue(cas.c>=20 && cas.g>=20 && cas.d-cas.c<=-20 && cas.c-cas.g<=0 && cas.d-cas.g<=-20);
+//L9
+assertTrue(cas.locked && !cas.armed && !cas.closed && !cas.sound && !cas.flash); 
+assertTrue(cas.c>=20 && cas.g>=20 && cas.d-cas.c<=-20 && cas.c-cas.g<=0 && cas.d-cas.g<=-20);
+cas.wait(0);
+assertTrue(cas.c>=20 && cas.g>=20 && cas.d-cas.c<=-20 && cas.c-cas.g<=0 && cas.d-cas.g<=-20);
+//L15
+assertTrue(cas.locked && !cas.armed && !cas.closed && !cas.sound && cas.flash); 
+assertTrue(cas.c>=20 && cas.g>=20 && cas.d-cas.c<=-20 && cas.c-cas.g<=0 && cas.d-cas.g<=-20);
+cas.wait(0);
+assertTrue(cas.c>=20 && cas.g>=20 && cas.d-cas.c<=-20 && cas.c-cas.g<=0 && cas.d-cas.g<=-20);
+//L10
+assertTrue(cas.locked && !cas.armed && !cas.closed && cas.sound && cas.flash); 
+assertTrue(cas.c>=20 && cas.d<=30 && cas.g>=20 && cas.d-cas.c<=-20 && cas.c-cas.g<=0 && cas.d-cas.g<=-20);
+cas.wait(0);
+assertTrue(cas.c>=20 && cas.d<=30 && cas.g>=20 && cas.d-cas.c<=-20 && cas.c-cas.g<=0 && cas.d-cas.g<=-20);
+//L11
+cas.unlock(); 
+assertTrue(!cas.locked && !cas.armed && !cas.closed && cas.sound && cas.flash);
+cas.d = 0;
+assertTrue(cas.c>=20 && cas.g>=20 && cas.d-cas.c<=-20 && cas.c-cas.g<=0 && cas.d-cas.g<=-20);
+cas.wait(0);
+assertTrue(cas.c>=20 && cas.g>=20 && cas.d-cas.c<=-20 && cas.c-cas.g<=0 && cas.d-cas.g<=-20);
+//L14
+assertTrue(!cas.locked && !cas.armed && !cas.closed && !cas.sound && cas.flash); 
+assertTrue(cas.c>=20 && cas.g>=20 && cas.d-cas.c<=-20 && cas.c-cas.g<=0 && cas.d-cas.g<=-20);
+cas.wait(0);
+assertTrue(cas.c>=20 && cas.g>=20 && cas.d-cas.c<=-20 && cas.c-cas.g<=0 && cas.d-cas.g<=-20);
+//L0
+assertTrue(!cas.locked && !cas.armed && !cas.closed && !cas.sound && !cas.flash); 
+assertTrue(cas.c>=20 && cas.g>=20 && cas.d-cas.c<=-20 && cas.c-cas.g<=0 && cas.d-cas.g<=-20);
+cas.wait(0);
+assertTrue(cas.c>=20 && cas.g>=20 && cas.d-cas.c<=-20 && cas.c-cas.g<=0 && cas.d-cas.g<=-20);
+//L1
+cas.close(); 
+ assertTrue(!cas.locked && !cas.armed && cas.closed && !cas.sound && !cas.flash); 
+assertTrue(cas.c>=20 && cas.g>=20 && cas.d-cas.c<=-20 && cas.c-cas.g<=0 && cas.d-cas.g<=-20);
+cas.wait(0);
+assertTrue(cas.c>=20 && cas.g>=20 && cas.d-cas.c<=-20 && cas.c-cas.g<=0 && cas.d-cas.g<=-20);
+//L3
+cas.lock(); 
+ assertTrue(cas.locked && !cas.armed && cas.closed && !cas.sound && !cas.flash); 
+cas.c = 0;
+assertTrue(cas.c<=20 && cas.g>=20 && cas.c-cas.d<=0 && cas.c-cas.g<=-20 && cas.d-cas.g<=-20);
+cas.wait(20);
+assertTrue(cas.c<=20 && cas.g>=20 && cas.c-cas.d<=0 && cas.c-cas.g<=-20 && cas.d-cas.g<=-20);
+//L4
+assertTrue(cas.locked && cas.armed && cas.closed && !cas.sound && !cas.flash); 
+assertTrue(cas.c>=20 && cas.d>=20 && cas.g>=40 && cas.c-cas.d<=0 && cas.c-cas.g<=-20 && cas.d-cas.g<=-20);
+}
+//BVA Variant
+@Test 
+public void test15() {
+assertTrue(cas.d-cas.c<=0 && cas.g-cas.c<=0 && cas.c-cas.d<=0 && cas.g-cas.d<=0 && cas.c-cas.g<=0 && cas.d-cas.g<=0);
+cas.wait(0);
+assertTrue(cas.d-cas.c<=0 && cas.g-cas.c<=0 && cas.c-cas.d<=0 && cas.g-cas.d<=0 && cas.c-cas.g<=0 && cas.d-cas.g<=0);
+//L1
+cas.close(); 
+ assertTrue(!cas.locked && !cas.armed && cas.closed && !cas.sound && !cas.flash); 
+assertTrue(cas.d-cas.c<=0 && cas.g-cas.c<=0 && cas.c-cas.d<=0 && cas.g-cas.d<=0 && cas.c-cas.g<=0 && cas.d-cas.g<=0);
+cas.wait(0);
+assertTrue(cas.d-cas.c<=0 && cas.g-cas.c<=0 && cas.c-cas.d<=0 && cas.g-cas.d<=0 && cas.c-cas.g<=0 && cas.d-cas.g<=0);
+//L3
+cas.lock(); 
+ assertTrue(cas.locked && !cas.armed && cas.closed && !cas.sound && !cas.flash); 
+cas.c = 0;
+assertTrue(cas.c<=20 && cas.c-cas.d<=0 && cas.g-cas.d<=0 && cas.c-cas.g<=0 && cas.d-cas.g<=0);
+cas.wait(20);
+assertTrue(cas.c<=20 && cas.c-cas.d<=0 && cas.g-cas.d<=0 && cas.c-cas.g<=0 && cas.d-cas.g<=0);
+//L4
+assertTrue(cas.locked && cas.armed && cas.closed && !cas.sound && !cas.flash); 
+assertTrue(cas.c>=20 && cas.d>=20 && cas.g>=20 && cas.c-cas.d<=0 && cas.g-cas.d<=0 && cas.c-cas.g<=0 && cas.d-cas.g<=0);
+cas.wait(0);
+assertTrue(cas.c>=20 && cas.d>=20 && cas.g>=20 && cas.c-cas.d<=0 && cas.g-cas.d<=0 && cas.c-cas.g<=0 && cas.d-cas.g<=0);
+//L8
+cas.open(); 
+ assertTrue(cas.locked && cas.armed && !cas.closed && !cas.sound && !cas.flash); 
+cas.d = 0;
+assertTrue(cas.c>=20 && cas.g>=20 && cas.d-cas.c<=-20 && cas.c-cas.g<=0 && cas.d-cas.g<=-20);
+cas.wait(0);
+assertTrue(cas.c>=20 && cas.g>=20 && cas.d-cas.c<=-20 && cas.c-cas.g<=0 && cas.d-cas.g<=-20);
+//L9
+assertTrue(cas.locked && !cas.armed && !cas.closed && !cas.sound && !cas.flash); 
+assertTrue(cas.c>=20 && cas.g>=20 && cas.d-cas.c<=-20 && cas.c-cas.g<=0 && cas.d-cas.g<=-20);
+cas.wait(0);
+assertTrue(cas.c>=20 && cas.g>=20 && cas.d-cas.c<=-20 && cas.c-cas.g<=0 && cas.d-cas.g<=-20);
+//L15
+assertTrue(cas.locked && !cas.armed && !cas.closed && !cas.sound && cas.flash); 
+assertTrue(cas.c>=20 && cas.g>=20 && cas.d-cas.c<=-20 && cas.c-cas.g<=0 && cas.d-cas.g<=-20);
+cas.wait(0);
+assertTrue(cas.c>=20 && cas.g>=20 && cas.d-cas.c<=-20 && cas.c-cas.g<=0 && cas.d-cas.g<=-20);
+//L10
+assertTrue(cas.locked && !cas.armed && !cas.closed && cas.sound && cas.flash); 
+assertTrue(cas.c>=20 && cas.d<=30 && cas.g>=20 && cas.d-cas.c<=-20 && cas.c-cas.g<=0 && cas.d-cas.g<=-20);
+cas.wait(30);
+assertTrue(cas.c>=20 && cas.d<=30 && cas.g>=20 && cas.d-cas.c<=-20 && cas.c-cas.g<=0 && cas.d-cas.g<=-20);
+//L11
+cas.unlock(); 
+assertTrue(!cas.locked && !cas.armed && !cas.closed && cas.sound && cas.flash);
+cas.d = 0;
+assertTrue(cas.c>=20 && cas.g>=20 && cas.d-cas.c<=-20 && cas.c-cas.g<=0 && cas.d-cas.g<=-20);
+cas.wait(0);
+assertTrue(cas.c>=20 && cas.g>=20 && cas.d-cas.c<=-20 && cas.c-cas.g<=0 && cas.d-cas.g<=-20);
+//L14
+assertTrue(!cas.locked && !cas.armed && !cas.closed && !cas.sound && cas.flash); 
+assertTrue(cas.c>=20 && cas.g>=20 && cas.d-cas.c<=-20 && cas.c-cas.g<=0 && cas.d-cas.g<=-20);
+cas.wait(0);
+assertTrue(cas.c>=20 && cas.g>=20 && cas.d-cas.c<=-20 && cas.c-cas.g<=0 && cas.d-cas.g<=-20);
+//L0
+assertTrue(!cas.locked && !cas.armed && !cas.closed && !cas.sound && !cas.flash); 
+assertTrue(cas.c>=20 && cas.g>=20 && cas.d-cas.c<=-20 && cas.c-cas.g<=0 && cas.d-cas.g<=-20);
+cas.wait(0);
+assertTrue(cas.c>=20 && cas.g>=20 && cas.d-cas.c<=-20 && cas.c-cas.g<=0 && cas.d-cas.g<=-20);
+//L1
+cas.close(); 
+ assertTrue(!cas.locked && !cas.armed && cas.closed && !cas.sound && !cas.flash); 
+assertTrue(cas.c>=20 && cas.g>=20 && cas.d-cas.c<=-20 && cas.c-cas.g<=0 && cas.d-cas.g<=-20);
+cas.wait(0);
+assertTrue(cas.c>=20 && cas.g>=20 && cas.d-cas.c<=-20 && cas.c-cas.g<=0 && cas.d-cas.g<=-20);
+//L3
+cas.lock(); 
+ assertTrue(cas.locked && !cas.armed && cas.closed && !cas.sound && !cas.flash); 
+cas.c = 0;
+assertTrue(cas.c<=20 && cas.g>=20 && cas.c-cas.d<=0 && cas.c-cas.g<=-20 && cas.d-cas.g<=-20);
+cas.wait(20);
+assertTrue(cas.c<=20 && cas.g>=20 && cas.c-cas.d<=0 && cas.c-cas.g<=-20 && cas.d-cas.g<=-20);
+//L4
+assertTrue(cas.locked && cas.armed && cas.closed && !cas.sound && !cas.flash); 
+assertTrue(cas.c>=20 && cas.d>=20 && cas.g>=40 && cas.c-cas.d<=0 && cas.c-cas.g<=-20 && cas.d-cas.g<=-20);
+}
+//BVA Variant
+@Test 
+public void test16() {
+assertTrue(cas.d-cas.c<=0 && cas.g-cas.c<=0 && cas.c-cas.d<=0 && cas.g-cas.d<=0 && cas.c-cas.g<=0 && cas.d-cas.g<=0);
+cas.wait(0);
+assertTrue(cas.d-cas.c<=0 && cas.g-cas.c<=0 && cas.c-cas.d<=0 && cas.g-cas.d<=0 && cas.c-cas.g<=0 && cas.d-cas.g<=0);
+//L1
+cas.close(); 
+ assertTrue(!cas.locked && !cas.armed && cas.closed && !cas.sound && !cas.flash); 
+assertTrue(cas.d-cas.c<=0 && cas.g-cas.c<=0 && cas.c-cas.d<=0 && cas.g-cas.d<=0 && cas.c-cas.g<=0 && cas.d-cas.g<=0);
+cas.wait(0);
+assertTrue(cas.d-cas.c<=0 && cas.g-cas.c<=0 && cas.c-cas.d<=0 && cas.g-cas.d<=0 && cas.c-cas.g<=0 && cas.d-cas.g<=0);
+//L3
+cas.lock(); 
+ assertTrue(cas.locked && !cas.armed && cas.closed && !cas.sound && !cas.flash); 
+cas.c = 0;
+assertTrue(cas.c<=20 && cas.c-cas.d<=0 && cas.g-cas.d<=0 && cas.c-cas.g<=0 && cas.d-cas.g<=0);
+cas.wait(20);
+assertTrue(cas.c<=20 && cas.c-cas.d<=0 && cas.g-cas.d<=0 && cas.c-cas.g<=0 && cas.d-cas.g<=0);
+//L4
+assertTrue(cas.locked && cas.armed && cas.closed && !cas.sound && !cas.flash); 
+assertTrue(cas.c>=20 && cas.d>=20 && cas.g>=20 && cas.c-cas.d<=0 && cas.g-cas.d<=0 && cas.c-cas.g<=0 && cas.d-cas.g<=0);
+cas.wait(0);
+assertTrue(cas.c>=20 && cas.d>=20 && cas.g>=20 && cas.c-cas.d<=0 && cas.g-cas.d<=0 && cas.c-cas.g<=0 && cas.d-cas.g<=0);
+//L8
+cas.open(); 
+ assertTrue(cas.locked && cas.armed && !cas.closed && !cas.sound && !cas.flash); 
+cas.d = 0;
+assertTrue(cas.c>=20 && cas.g>=20 && cas.d-cas.c<=-20 && cas.c-cas.g<=0 && cas.d-cas.g<=-20);
+cas.wait(0);
+assertTrue(cas.c>=20 && cas.g>=20 && cas.d-cas.c<=-20 && cas.c-cas.g<=0 && cas.d-cas.g<=-20);
+//L9
+assertTrue(cas.locked && !cas.armed && !cas.closed && !cas.sound && !cas.flash); 
+assertTrue(cas.c>=20 && cas.g>=20 && cas.d-cas.c<=-20 && cas.c-cas.g<=0 && cas.d-cas.g<=-20);
+cas.wait(0);
+assertTrue(cas.c>=20 && cas.g>=20 && cas.d-cas.c<=-20 && cas.c-cas.g<=0 && cas.d-cas.g<=-20);
+//L15
+assertTrue(cas.locked && !cas.armed && !cas.closed && !cas.sound && cas.flash); 
+assertTrue(cas.c>=20 && cas.g>=20 && cas.d-cas.c<=-20 && cas.c-cas.g<=0 && cas.d-cas.g<=-20);
+cas.wait(0);
+assertTrue(cas.c>=20 && cas.g>=20 && cas.d-cas.c<=-20 && cas.c-cas.g<=0 && cas.d-cas.g<=-20);
+//L10
+assertTrue(cas.locked && !cas.armed && !cas.closed && cas.sound && cas.flash); 
+assertTrue(cas.c>=20 && cas.d<=30 && cas.g>=20 && cas.d-cas.c<=-20 && cas.c-cas.g<=0 && cas.d-cas.g<=-20);
+cas.wait(31);
+assertTrue(cas.c>=20 && cas.d<=30 && cas.g>=20 && cas.d-cas.c<=-20 && cas.c-cas.g<=0 && cas.d-cas.g<=-20);
+//L11
+cas.unlock(); 
+assertTrue(!cas.locked && !cas.armed && !cas.closed && cas.sound && cas.flash);
+cas.d = 0;
+assertTrue(cas.c>=20 && cas.g>=20 && cas.d-cas.c<=-20 && cas.c-cas.g<=0 && cas.d-cas.g<=-20);
+cas.wait(0);
+assertTrue(cas.c>=20 && cas.g>=20 && cas.d-cas.c<=-20 && cas.c-cas.g<=0 && cas.d-cas.g<=-20);
+//L14
+assertTrue(!cas.locked && !cas.armed && !cas.closed && !cas.sound && cas.flash); 
+assertTrue(cas.c>=20 && cas.g>=20 && cas.d-cas.c<=-20 && cas.c-cas.g<=0 && cas.d-cas.g<=-20);
+cas.wait(0);
+assertTrue(cas.c>=20 && cas.g>=20 && cas.d-cas.c<=-20 && cas.c-cas.g<=0 && cas.d-cas.g<=-20);
+//L0
+assertTrue(!cas.locked && !cas.armed && !cas.closed && !cas.sound && !cas.flash); 
+assertTrue(cas.c>=20 && cas.g>=20 && cas.d-cas.c<=-20 && cas.c-cas.g<=0 && cas.d-cas.g<=-20);
+cas.wait(0);
+assertTrue(cas.c>=20 && cas.g>=20 && cas.d-cas.c<=-20 && cas.c-cas.g<=0 && cas.d-cas.g<=-20);
+//L1
+cas.close(); 
+ assertTrue(!cas.locked && !cas.armed && cas.closed && !cas.sound && !cas.flash); 
+assertTrue(cas.c>=20 && cas.g>=20 && cas.d-cas.c<=-20 && cas.c-cas.g<=0 && cas.d-cas.g<=-20);
+cas.wait(0);
+assertTrue(cas.c>=20 && cas.g>=20 && cas.d-cas.c<=-20 && cas.c-cas.g<=0 && cas.d-cas.g<=-20);
+//L3
+cas.lock(); 
+ assertTrue(cas.locked && !cas.armed && cas.closed && !cas.sound && !cas.flash); 
+cas.c = 0;
+assertTrue(cas.c<=20 && cas.g>=20 && cas.c-cas.d<=0 && cas.c-cas.g<=-20 && cas.d-cas.g<=-20);
+cas.wait(20);
+assertTrue(cas.c<=20 && cas.g>=20 && cas.c-cas.d<=0 && cas.c-cas.g<=-20 && cas.d-cas.g<=-20);
+//L4
+assertTrue(cas.locked && cas.armed && cas.closed && !cas.sound && !cas.flash); 
+assertTrue(cas.c>=20 && cas.d>=20 && cas.g>=40 && cas.c-cas.d<=0 && cas.c-cas.g<=-20 && cas.d-cas.g<=-20);
+}
+//BVA Variant
+@Test 
+public void test17() {
 assertTrue(cas.d-cas.c<=0 && cas.g-cas.c<=0 && cas.c-cas.d<=0 && cas.g-cas.d<=0 && cas.c-cas.g<=0 && cas.d-cas.g<=0);
 cas.wait(0);
 assertTrue(cas.d-cas.c<=0 && cas.g-cas.c<=0 && cas.c-cas.d<=0 && cas.g-cas.d<=0 && cas.c-cas.g<=0 && cas.d-cas.g<=0);
@@ -701,9 +941,9 @@ assertTrue(cas.c>20 && cas.g>=50 && cas.d-cas.c<-20 && cas.c-cas.g<=0 && cas.d-c
 assertTrue(!cas.locked && !cas.armed && !cas.closed && !cas.sound && cas.flash); 
 assertTrue(cas.c>20 && cas.g>=50 && cas.d-cas.c<-20 && cas.c-cas.g<=0 && cas.d-cas.g<=-50);
 }
-//FAILING (MAYBE)
+//BVA Variant
 @Test 
-public void test15() {
+public void test18() {
 assertTrue(cas.d-cas.c<=0 && cas.g-cas.c<=0 && cas.c-cas.d<=0 && cas.g-cas.d<=0 && cas.c-cas.g<=0 && cas.d-cas.g<=0);
 cas.wait(0);
 assertTrue(cas.d-cas.c<=0 && cas.g-cas.c<=0 && cas.c-cas.d<=0 && cas.g-cas.d<=0 && cas.c-cas.g<=0 && cas.d-cas.g<=0);
@@ -763,9 +1003,9 @@ assertTrue(cas.c>20 && cas.g>=50 && cas.d-cas.c<-20 && cas.c-cas.g<=0 && cas.d-c
 assertTrue(!cas.locked && !cas.armed && !cas.closed && !cas.sound && cas.flash); 
 assertTrue(cas.c>20 && cas.g>=50 && cas.d-cas.c<-20 && cas.c-cas.g<=0 && cas.d-cas.g<=-50);
 }
-//FAILING (MAYBE)
+//BVA Variant
 @Test 
-public void test16() {
+public void test19() {
 assertTrue(cas.d-cas.c<=0 && cas.g-cas.c<=0 && cas.c-cas.d<=0 && cas.g-cas.d<=0 && cas.c-cas.g<=0 && cas.d-cas.g<=0);
 cas.wait(0);
 assertTrue(cas.d-cas.c<=0 && cas.g-cas.c<=0 && cas.c-cas.d<=0 && cas.g-cas.d<=0 && cas.c-cas.g<=0 && cas.d-cas.g<=0);
@@ -825,190 +1065,4 @@ assertTrue(cas.c>20 && cas.g>=50 && cas.d-cas.c<-20 && cas.c-cas.g<=0 && cas.d-c
 assertTrue(!cas.locked && !cas.armed && !cas.closed && !cas.sound && cas.flash); 
 assertTrue(cas.c>20 && cas.g>=50 && cas.d-cas.c<-20 && cas.c-cas.g<=0 && cas.d-cas.g<=-50);
 }
-//FAILING (MAYBE)
-@Test 
-public void test17() {
-assertTrue(cas.d-cas.c<=0 && cas.g-cas.c<=0 && cas.c-cas.d<=0 && cas.g-cas.d<=0 && cas.c-cas.g<=0 && cas.d-cas.g<=0);
-cas.wait(0);
-assertTrue(cas.d-cas.c<=0 && cas.g-cas.c<=0 && cas.c-cas.d<=0 && cas.g-cas.d<=0 && cas.c-cas.g<=0 && cas.d-cas.g<=0);
-//L1
-cas.close(); 
- assertTrue(!cas.locked && !cas.armed && cas.closed && !cas.sound && !cas.flash); 
-assertTrue(cas.d-cas.c<=0 && cas.g-cas.c<=0 && cas.c-cas.d<=0 && cas.g-cas.d<=0 && cas.c-cas.g<=0 && cas.d-cas.g<=0);
-cas.wait(0);
-assertTrue(cas.d-cas.c<=0 && cas.g-cas.c<=0 && cas.c-cas.d<=0 && cas.g-cas.d<=0 && cas.c-cas.g<=0 && cas.d-cas.g<=0);
-//L3
-cas.lock(); 
- assertTrue(cas.locked && !cas.armed && cas.closed && !cas.sound && !cas.flash); 
-cas.c = 0;
-assertTrue(cas.c<=20 && cas.c-cas.d<=0 && cas.g-cas.d<=0 && cas.c-cas.g<=0 && cas.d-cas.g<=0);
-cas.wait(20);
-assertTrue(cas.c<=20 && cas.c-cas.d<=0 && cas.g-cas.d<=0 && cas.c-cas.g<=0 && cas.d-cas.g<=0);
-//L4
-assertTrue(cas.locked && cas.armed && cas.closed && !cas.sound && !cas.flash); 
-assertTrue(cas.c>=20 && cas.d>=20 && cas.g>=20 && cas.c-cas.d<=0 && cas.g-cas.d<=0 && cas.c-cas.g<=0 && cas.d-cas.g<=0);
-cas.wait(0);
-assertTrue(cas.c>=20 && cas.d>=20 && cas.g>=20 && cas.c-cas.d<=0 && cas.g-cas.d<=0 && cas.c-cas.g<=0 && cas.d-cas.g<=0);
-//L8
-cas.open(); 
- assertTrue(cas.locked && cas.armed && !cas.closed && !cas.sound && !cas.flash); 
-cas.d = 0;
-assertTrue(cas.c>=20 && cas.g>=20 && cas.d-cas.c<=-20 && cas.c-cas.g<=0 && cas.d-cas.g<=-20);
-cas.wait(0);
-assertTrue(cas.c>=20 && cas.g>=20 && cas.d-cas.c<=-20 && cas.c-cas.g<=0 && cas.d-cas.g<=-20);
-//L9
-assertTrue(cas.locked && !cas.armed && !cas.closed && !cas.sound && !cas.flash); 
-assertTrue(cas.c>=20 && cas.g>=20 && cas.d-cas.c<=-20 && cas.c-cas.g<=0 && cas.d-cas.g<=-20);
-cas.wait(0);
-assertTrue(cas.c>=20 && cas.g>=20 && cas.d-cas.c<=-20 && cas.c-cas.g<=0 && cas.d-cas.g<=-20);
-//L15
-assertTrue(cas.locked && !cas.armed && !cas.closed && !cas.sound && cas.flash); 
-assertTrue(cas.c>=20 && cas.g>=20 && cas.d-cas.c<=-20 && cas.c-cas.g<=0 && cas.d-cas.g<=-20);
-cas.wait(0);
-assertTrue(cas.c>=20 && cas.g>=20 && cas.d-cas.c<=-20 && cas.c-cas.g<=0 && cas.d-cas.g<=-20);
-//L10
-assertTrue(cas.locked && !cas.armed && !cas.closed && cas.sound && cas.flash); 
-assertTrue(cas.c>=20 && cas.d<=30 && cas.g>=20 && cas.d-cas.c<=-20 && cas.c-cas.g<=0 && cas.d-cas.g<=-20);
-cas.wait(0);
-assertTrue(cas.c>=20 && cas.d<=30 && cas.g>=20 && cas.d-cas.c<=-20 && cas.c-cas.g<=0 && cas.d-cas.g<=-20);
-//L11
-cas.unlock(); 
-assertTrue(!cas.locked && !cas.armed && !cas.closed && cas.sound && cas.flash);
-cas.d = 0;
-assertTrue(cas.c>=20 && cas.g>=20 && cas.d-cas.c<=-20 && cas.c-cas.g<=0 && cas.d-cas.g<=-20);
-cas.wait(0);
-assertTrue(cas.c>=20 && cas.g>=20 && cas.d-cas.c<=-20 && cas.c-cas.g<=0 && cas.d-cas.g<=-20);
-//L14
-assertTrue(!cas.locked && !cas.armed && !cas.closed && !cas.sound && cas.flash); 
-assertTrue(cas.c>=20 && cas.g>=20 && cas.d-cas.c<=-20 && cas.c-cas.g<=0 && cas.d-cas.g<=-20);
-cas.wait(0);
-assertTrue(cas.c>=20 && cas.g>=20 && cas.d-cas.c<=-20 && cas.c-cas.g<=0 && cas.d-cas.g<=-20);
-//L0
-assertTrue(!cas.locked && !cas.armed && !cas.closed && !cas.sound && !cas.flash); 
-assertTrue(cas.c>=20 && cas.g>=20 && cas.d-cas.c<=-20 && cas.c-cas.g<=0 && cas.d-cas.g<=-20);
-}
-//FAILING (MAYBE)
-@Test 
-public void test18() {
-assertTrue(cas.d-cas.c<=0 && cas.g-cas.c<=0 && cas.c-cas.d<=0 && cas.g-cas.d<=0 && cas.c-cas.g<=0 && cas.d-cas.g<=0);
-cas.wait(0);
-assertTrue(cas.d-cas.c<=0 && cas.g-cas.c<=0 && cas.c-cas.d<=0 && cas.g-cas.d<=0 && cas.c-cas.g<=0 && cas.d-cas.g<=0);
-//L1
-cas.close(); 
- assertTrue(!cas.locked && !cas.armed && cas.closed && !cas.sound && !cas.flash); 
-assertTrue(cas.d-cas.c<=0 && cas.g-cas.c<=0 && cas.c-cas.d<=0 && cas.g-cas.d<=0 && cas.c-cas.g<=0 && cas.d-cas.g<=0);
-cas.wait(0);
-assertTrue(cas.d-cas.c<=0 && cas.g-cas.c<=0 && cas.c-cas.d<=0 && cas.g-cas.d<=0 && cas.c-cas.g<=0 && cas.d-cas.g<=0);
-//L3
-cas.lock(); 
- assertTrue(cas.locked && !cas.armed && cas.closed && !cas.sound && !cas.flash); 
-cas.c = 0;
-assertTrue(cas.c<=20 && cas.c-cas.d<=0 && cas.g-cas.d<=0 && cas.c-cas.g<=0 && cas.d-cas.g<=0);
-cas.wait(20);
-assertTrue(cas.c<=20 && cas.c-cas.d<=0 && cas.g-cas.d<=0 && cas.c-cas.g<=0 && cas.d-cas.g<=0);
-//L4
-assertTrue(cas.locked && cas.armed && cas.closed && !cas.sound && !cas.flash); 
-assertTrue(cas.c>=20 && cas.d>=20 && cas.g>=20 && cas.c-cas.d<=0 && cas.g-cas.d<=0 && cas.c-cas.g<=0 && cas.d-cas.g<=0);
-cas.wait(0);
-assertTrue(cas.c>=20 && cas.d>=20 && cas.g>=20 && cas.c-cas.d<=0 && cas.g-cas.d<=0 && cas.c-cas.g<=0 && cas.d-cas.g<=0);
-//L8
-cas.open(); 
- assertTrue(cas.locked && cas.armed && !cas.closed && !cas.sound && !cas.flash); 
-cas.d = 0;
-assertTrue(cas.c>=20 && cas.g>=20 && cas.d-cas.c<=-20 && cas.c-cas.g<=0 && cas.d-cas.g<=-20);
-cas.wait(0);
-assertTrue(cas.c>=20 && cas.g>=20 && cas.d-cas.c<=-20 && cas.c-cas.g<=0 && cas.d-cas.g<=-20);
-//L9
-assertTrue(cas.locked && !cas.armed && !cas.closed && !cas.sound && !cas.flash); 
-assertTrue(cas.c>=20 && cas.g>=20 && cas.d-cas.c<=-20 && cas.c-cas.g<=0 && cas.d-cas.g<=-20);
-cas.wait(0);
-assertTrue(cas.c>=20 && cas.g>=20 && cas.d-cas.c<=-20 && cas.c-cas.g<=0 && cas.d-cas.g<=-20);
-//L15
-assertTrue(cas.locked && !cas.armed && !cas.closed && !cas.sound && cas.flash); 
-assertTrue(cas.c>=20 && cas.g>=20 && cas.d-cas.c<=-20 && cas.c-cas.g<=0 && cas.d-cas.g<=-20);
-cas.wait(0);
-assertTrue(cas.c>=20 && cas.g>=20 && cas.d-cas.c<=-20 && cas.c-cas.g<=0 && cas.d-cas.g<=-20);
-//L10
-assertTrue(cas.locked && !cas.armed && !cas.closed && cas.sound && cas.flash); 
-assertTrue(cas.c>=20 && cas.d<=30 && cas.g>=20 && cas.d-cas.c<=-20 && cas.c-cas.g<=0 && cas.d-cas.g<=-20);
-cas.wait(30);
-assertTrue(cas.c>=20 && cas.d<=30 && cas.g>=20 && cas.d-cas.c<=-20 && cas.c-cas.g<=0 && cas.d-cas.g<=-20);
-//L11
-cas.unlock(); 
-assertTrue(!cas.locked && !cas.armed && !cas.closed && cas.sound && cas.flash);
-cas.d = 0;
-assertTrue(cas.c>=20 && cas.g>=20 && cas.d-cas.c<=-20 && cas.c-cas.g<=0 && cas.d-cas.g<=-20);
-cas.wait(0);
-assertTrue(cas.c>=20 && cas.g>=20 && cas.d-cas.c<=-20 && cas.c-cas.g<=0 && cas.d-cas.g<=-20);
-//L14
-assertTrue(!cas.locked && !cas.armed && !cas.closed && !cas.sound && cas.flash); 
-assertTrue(cas.c>=20 && cas.g>=20 && cas.d-cas.c<=-20 && cas.c-cas.g<=0 && cas.d-cas.g<=-20);
-cas.wait(0);
-assertTrue(cas.c>=20 && cas.g>=20 && cas.d-cas.c<=-20 && cas.c-cas.g<=0 && cas.d-cas.g<=-20);
-//L0
-assertTrue(!cas.locked && !cas.armed && !cas.closed && !cas.sound && !cas.flash); 
-assertTrue(cas.c>=20 && cas.g>=20 && cas.d-cas.c<=-20 && cas.c-cas.g<=0 && cas.d-cas.g<=-20);
-}
-//FAILING (MAYBE)
-@Test 
-public void test19() {
-assertTrue(cas.d-cas.c<=0 && cas.g-cas.c<=0 && cas.c-cas.d<=0 && cas.g-cas.d<=0 && cas.c-cas.g<=0 && cas.d-cas.g<=0);
-cas.wait(0);
-assertTrue(cas.d-cas.c<=0 && cas.g-cas.c<=0 && cas.c-cas.d<=0 && cas.g-cas.d<=0 && cas.c-cas.g<=0 && cas.d-cas.g<=0);
-//L1
-cas.close(); 
- assertTrue(!cas.locked && !cas.armed && cas.closed && !cas.sound && !cas.flash); 
-assertTrue(cas.d-cas.c<=0 && cas.g-cas.c<=0 && cas.c-cas.d<=0 && cas.g-cas.d<=0 && cas.c-cas.g<=0 && cas.d-cas.g<=0);
-cas.wait(0);
-assertTrue(cas.d-cas.c<=0 && cas.g-cas.c<=0 && cas.c-cas.d<=0 && cas.g-cas.d<=0 && cas.c-cas.g<=0 && cas.d-cas.g<=0);
-//L3
-cas.lock(); 
- assertTrue(cas.locked && !cas.armed && cas.closed && !cas.sound && !cas.flash); 
-cas.c = 0;
-assertTrue(cas.c<=20 && cas.c-cas.d<=0 && cas.g-cas.d<=0 && cas.c-cas.g<=0 && cas.d-cas.g<=0);
-cas.wait(20);
-assertTrue(cas.c<=20 && cas.c-cas.d<=0 && cas.g-cas.d<=0 && cas.c-cas.g<=0 && cas.d-cas.g<=0);
-//L4
-assertTrue(cas.locked && cas.armed && cas.closed && !cas.sound && !cas.flash); 
-assertTrue(cas.c>=20 && cas.d>=20 && cas.g>=20 && cas.c-cas.d<=0 && cas.g-cas.d<=0 && cas.c-cas.g<=0 && cas.d-cas.g<=0);
-cas.wait(0);
-assertTrue(cas.c>=20 && cas.d>=20 && cas.g>=20 && cas.c-cas.d<=0 && cas.g-cas.d<=0 && cas.c-cas.g<=0 && cas.d-cas.g<=0);
-//L8
-cas.open(); 
- assertTrue(cas.locked && cas.armed && !cas.closed && !cas.sound && !cas.flash); 
-cas.d = 0;
-assertTrue(cas.c>=20 && cas.g>=20 && cas.d-cas.c<=-20 && cas.c-cas.g<=0 && cas.d-cas.g<=-20);
-cas.wait(0);
-assertTrue(cas.c>=20 && cas.g>=20 && cas.d-cas.c<=-20 && cas.c-cas.g<=0 && cas.d-cas.g<=-20);
-//L9
-assertTrue(cas.locked && !cas.armed && !cas.closed && !cas.sound && !cas.flash); 
-assertTrue(cas.c>=20 && cas.g>=20 && cas.d-cas.c<=-20 && cas.c-cas.g<=0 && cas.d-cas.g<=-20);
-cas.wait(0);
-assertTrue(cas.c>=20 && cas.g>=20 && cas.d-cas.c<=-20 && cas.c-cas.g<=0 && cas.d-cas.g<=-20);
-//L15
-assertTrue(cas.locked && !cas.armed && !cas.closed && !cas.sound && cas.flash); 
-assertTrue(cas.c>=20 && cas.g>=20 && cas.d-cas.c<=-20 && cas.c-cas.g<=0 && cas.d-cas.g<=-20);
-cas.wait(0);
-assertTrue(cas.c>=20 && cas.g>=20 && cas.d-cas.c<=-20 && cas.c-cas.g<=0 && cas.d-cas.g<=-20);
-//L10
-assertTrue(cas.locked && !cas.armed && !cas.closed && cas.sound && cas.flash); 
-assertTrue(cas.c>=20 && cas.d<=30 && cas.g>=20 && cas.d-cas.c<=-20 && cas.c-cas.g<=0 && cas.d-cas.g<=-20);
-cas.wait(31);
-assertTrue(cas.c>=20 && cas.d<=30 && cas.g>=20 && cas.d-cas.c<=-20 && cas.c-cas.g<=0 && cas.d-cas.g<=-20);
-//L11
-cas.unlock(); 
-assertTrue(!cas.locked && !cas.armed && !cas.closed && cas.sound && cas.flash);
-cas.d = 0;
-assertTrue(cas.c>=20 && cas.g>=20 && cas.d-cas.c<=-20 && cas.c-cas.g<=0 && cas.d-cas.g<=-20);
-cas.wait(0);
-assertTrue(cas.c>=20 && cas.g>=20 && cas.d-cas.c<=-20 && cas.c-cas.g<=0 && cas.d-cas.g<=-20);
-//L14
-assertTrue(!cas.locked && !cas.armed && !cas.closed && !cas.sound && cas.flash); 
-assertTrue(cas.c>=20 && cas.g>=20 && cas.d-cas.c<=-20 && cas.c-cas.g<=0 && cas.d-cas.g<=-20);
-cas.wait(0);
-assertTrue(cas.c>=20 && cas.g>=20 && cas.d-cas.c<=-20 && cas.c-cas.g<=0 && cas.d-cas.g<=-20);
-//L0
-assertTrue(!cas.locked && !cas.armed && !cas.closed && !cas.sound && !cas.flash); 
-assertTrue(cas.c>=20 && cas.g>=20 && cas.d-cas.c<=-20 && cas.c-cas.g<=0 && cas.d-cas.g<=-20);
-}
-//FAILING (MAYBE)
+//BVA Variant

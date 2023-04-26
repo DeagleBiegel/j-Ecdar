@@ -83,8 +83,6 @@ public class BVA {
 
     }
 
-
-
     public int  maxClockValue(CDD orgCDD, Clock clock){
 
         String guardTemplate = clock.getOriginalName() + " == ";
