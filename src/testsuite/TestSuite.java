@@ -57,7 +57,6 @@ public class TestSuite {
         testCases = testCases.stream().filter(s -> isPrefix(s, finalTraces)).collect(Collectors.toList());
 
         //Create BVA variants of existing traces
-
         for (BoundaryValues boundaryValues : bva.getBoundaryValues()) {
             TestCase temp = findApplicableTrace(boundaryValues.getLocation());
             if (temp != null) {
@@ -92,6 +91,11 @@ public class TestSuite {
         for (TestCase tc : testCases) {
             for (Transition transition : tc.getTrace()) {
                 if (transition.getSource().getLocation().getName().equals(location) && transition.getEdges().get(0).getStatus().equals("INPUT")) {
+                    return tc;
+                }
+            }
+            for (Transition transition : tc.getTrace()) {
+                if (transition.getSource().getLocation().getName().equals(location)) {
                     return tc;
                 }
             }
