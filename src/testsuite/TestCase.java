@@ -66,7 +66,7 @@ public class TestCase {
 
         //create test code for initial location
         //assert clocks then get the test code from enter location
-        sb.append(testCodeAssertClocks(trace.get(0).getSource()));
+        sb.append(testCodeAssertClocks(trace.get(0).getSource().getInvariant()));
         sb.append(trace.get(0).getSource().getLocation().getEnterTestCode());
 
         for (Transition tran : trace) {
@@ -74,7 +74,7 @@ public class TestCase {
             sb.append("cas.wait(" + x + ");\n");
             //get exit test code
             sb.append(tran.getSource().getLocation().getExitTestCode());
-            sb.append(testCodeAssertClocks(tran.getSource()));
+            sb.append(testCodeAssertClocks(tran.getSource().getInvariant()));
 
             //get test code for edge
             sb.append(tran.getEdges().get(0).getTestCode());
@@ -90,7 +90,7 @@ public class TestCase {
                 }
             }
 
-            sb.append(testCodeAssertClocks(tran.getTarget()));
+            sb.append(testCodeAssertClocks(tran.getTarget().getInvariant()));
             sb.append(tran.getTarget().getLocation().getEnterTestCode()); // .conjunction(tran.getTarget().getInvariant()
 
         }
@@ -112,7 +112,7 @@ public class TestCase {
 
         //create test code for initial location
         //assert clocks then get the test code from enter location
-        sb.append(testCodeAssertClocks(trace.get(0).getSource()));
+        sb.append(testCodeAssertClocks(trace.get(0).getSource().getInvariant()));
         sb.append(trace.get(0).getSource().getLocation().getEnterTestCode());
 
         for (Transition tran : trace) {
@@ -127,8 +127,12 @@ public class TestCase {
 
             //get exit test code
             sb.append(tran.getSource().getLocation().getExitTestCode());
-            sb.append(testCodeAssertClocks(tran.getSource()));
-
+            sb.append(testCodeAssertClocks(tran.getSource().getInvariant().conjunction(tran.getTarget().getInvariant())));
+            if(tran.getSource().getInvariant().conjunction(tran.getTarget().getInvariant()).toString().equals("false")) {
+                System.out.println(tran.getSource().getInvariant());
+                System.out.println(tran.getTarget().getInvariant());
+                System.out.println("_---------------_");
+            }
             //get test code for edge
             sb.append(tran.getEdges().get(0).getTestCode());
 
@@ -143,9 +147,8 @@ public class TestCase {
                 }
             }
 
-            sb.append(testCodeAssertClocks(tran.getTarget()));
-            sb.append(tran.getTarget().getLocation().getEnterTestCode()); // .conjunction(tran.getTarget().getInvariant()
-
+            sb.append(testCodeAssertClocks(tran.getTarget().getInvariant()));
+            sb.append(tran.getTarget().getLocation().getEnterTestCode());
         }
         sb.append(testSettings.postfix);
         sb.append("//BVA Variant\n");
@@ -157,8 +160,20 @@ public class TestCase {
     }
 
     //creates test code for clock assertions
-    private String testCodeAssertClocks(State state) {
-        String s = filterCDD(state.getInvariant().toString());
+    private String testCodeAssertClocks(CDD state) {
+
+        String s = filterCDD(state.toString());
+
+        for (Clock c : getClocks()) {
+            s = s.replaceAll("(\\W)" + c.getOriginalName() + "(\\W)", "$1" + "cas."+ c.getOriginalName() + "$2");
+        }
+
+        s = s.replaceFirst(" ", "");
+        return testSettings.assertPre + s + testSettings.assertPost;
+    }
+
+    private String testCodeAssertClocks1(String state) {
+        String s = filterCDD(state);
 
         for (Clock c : getClocks()) {
             s = s.replaceAll("(\\W)" + c.getOriginalName() + "(\\W)", "$1" + "cas."+ c.getOriginalName() + "$2");
