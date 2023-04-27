@@ -26,13 +26,14 @@ public class TestSuite {
         String boolName = "edgeBoolean";
         BoolVar bv = new BoolVar(boolName, boolName, false);
         automaton.getBVs().add(bv);
+        boolean initialisedCdd = CDD.tryInit(automaton.getClocks(),automaton.getBVs());
+
         for (Edge e : automaton.getEdges()) {
             //add bool assignment to the edge
             e.getUpdates().add(new BoolUpdate(bv, true));
 
             //Initialise a STS so that it contains the new bool assignment
             ts = new SimpleTransitionSystem(automaton);
-            boolean initialisedCdd = CDD.tryInit(ts.getClocks(), ts.getBVs());
 
             //Explore the state space and create a trace to the target of the edge
             //Expand the trace to next output edge and create test code
@@ -47,25 +48,26 @@ public class TestSuite {
             //remove the bool assignment from the edge
             e.getUpdates().remove(e.getUpdates().size()-1);
 
-            if (initialisedCdd) {
-                CDD.done();
-            }
+
         }
 
         //Remove traces that are a prefix of another trace
         List<TestCase> finalTraces = testCases;
-        testCases = testCases.stream().filter(s -> isPrefix(s, finalTraces)).collect(Collectors.toList());
+        //testCases = testCases.stream().filter(s -> isPrefix(s, finalTraces)).collect(Collectors.toList());
 
         //Create BVA variants of existing traces
         for (BoundaryValues boundaryValues : bva.getBoundaryValues()) {
             TestCase temp = findApplicableTrace(boundaryValues.getLocation());
-            if (temp != null) {
-                for (Integer i : boundaryValues.getValues()) {
-                    TestCase testCase = new TestCase(temp);
-                    testCase.createTestCode(boundaryValues.getLocation(), i);
-                    testCases.add(testCase);
-                }
+            for (Integer i : boundaryValues.getValues()) {
+                TestCase testCase = new TestCase(temp);
+                testCase.createTestCode(boundaryValues.getLocation(), i);
+                testCases.add(testCase);
             }
+
+        }
+
+        if (initialisedCdd) {
+            CDD.done();
         }
         printAllToFile();
     }

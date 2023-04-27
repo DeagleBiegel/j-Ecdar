@@ -14,7 +14,6 @@ public class TestCase {
     private List<Transition> trace;
     private StringBuilder testCode;
     private final TestSettings testSettings;
-
     private SimpleTransitionSystem STS;
 
     public TestCase(List<Transition> trace, TestSettings testSettings, SimpleTransitionSystem STS) {
@@ -101,7 +100,7 @@ public class TestCase {
     }
 
     public void createTestCode(String location, int delay) {
-        boolean initialisedCdd = CDD.tryInit(STS.getClocks(), STS.getBVs());
+        //boolean initialisedCdd = CDD.tryInit(STS.getClocks(), STS.getBVs());
 
         StringBuilder sb = new StringBuilder();
         HashMap<String, Boolean> booleans = new HashMap<>();
@@ -151,9 +150,8 @@ public class TestCase {
         sb.append(testSettings.postfix);
         sb.append("//BVA Variant\n");
 
-        if (initialisedCdd) {
-            CDD.done();
-        }
+
+
 
         this.testCode = sb;
     }
