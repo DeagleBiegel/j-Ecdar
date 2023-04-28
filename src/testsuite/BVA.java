@@ -14,7 +14,6 @@ public class BVA {
     Automaton automaton;
     private HashMap<String, Boolean> invariants = new HashMap<>();
     private HashMap<String, Integer> invariantDelays = new HashMap<>();
-
     private List<BoundaryValues> boundaryValues = new ArrayList<>();
 
     public BVA(Automaton automaton) {
@@ -31,6 +30,7 @@ public class BVA {
             if (!invariants.get(key)) {
                 for (Transition t : trace) {
                     if (t.getSource().getLocation().getName().equals(key) && !invariants.get(key)) {
+                        //compute the max and min value the clock in the invariant can have, subtract min from max and you have the max delay for that location
                         int min = minClockValue(t.getSource().getInvariant(), getClock(t.getSource().getLocationInvariant()));
                         int max = maxClockValue(t.getSource().getInvariant(), getClock(t.getSource().getLocationInvariant()));
                         invariantDelays.put(key, max-min);
@@ -47,7 +47,6 @@ public class BVA {
     }
 
     private Clock getClock(CDD locInvar) {
-
         Pattern pattern = Pattern.compile("([A-Za-z])");
         Matcher m = pattern.matcher(locInvar.toString());
 
@@ -69,7 +68,6 @@ public class BVA {
         return cdd;
     }
     private int minClockValue(CDD orgCDD, Clock clock){
-
         String guardTemplate = clock.getOriginalName() + " == ";
         int min = 0;
         while (true) {
@@ -84,7 +82,6 @@ public class BVA {
     }
 
     public int  maxClockValue(CDD orgCDD, Clock clock){
-
         String guardTemplate = clock.getOriginalName() + " == ";
         int min = 1000;
         while (true) {

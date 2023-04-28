@@ -55,15 +55,6 @@ public class TestCase {
     public void createTestCode() {
         // Start the test case by declaring and initialising all clocks
         StringBuilder sb = new StringBuilder();
-
-        //sb.append(testCodeInitClocks());
-        HashMap<String, Boolean> booleans = new HashMap<>();
-
-        //initialise hashmap of boolean variables
-        for (BoolVar bv : CDD.BVs) {
-            booleans.put(bv.getOriginalName(), bv.getInitialValue());
-        }
-
         //create test code for initial location
         //assert clocks then get the test code from enter location
         sb.append(testCodeAssertClocks(trace.get(0).getSource().getInvariant()));
@@ -81,10 +72,7 @@ public class TestCase {
 
             if (tran.getUpdates().size() > 0 ){
                 for (Update update : tran.getUpdates()){
-                    if (update instanceof BoolUpdate) {
-                        booleans.put(((BoolUpdate)update).getBV().getUniqueName(), ((BoolUpdate)update).getValue());
-                    }
-                    else if (update instanceof ClockUpdate) {
+                    if (update instanceof ClockUpdate) {
                         sb.append(testCodeUpdateClock(((ClockUpdate) update).getClock(), ((ClockUpdate) update).getValue()));
                     }
                 }
@@ -100,15 +88,7 @@ public class TestCase {
     }
 
     public void createTestCode(String location, int delay) {
-        //boolean initialisedCdd = CDD.tryInit(STS.getClocks(), STS.getBVs());
-
         StringBuilder sb = new StringBuilder();
-        HashMap<String, Boolean> booleans = new HashMap<>();
-
-        //initialise hashmap of boolean variables
-        for (BoolVar bv : CDD.BVs) {
-            booleans.put(bv.getOriginalName(), bv.getInitialValue());
-        }
 
         //create test code for initial location
         //assert clocks then get the test code from enter location
@@ -117,7 +97,7 @@ public class TestCase {
 
         for (Transition tran : trace) {
             //wait for x time units, based on the maximum delay for a location. If there is not max the delay is 0.
-            if(tran.getSource().getLocation().getName().equals(location) /*&& tran.getEdges().get(0).getStatus().equals("INPUT")*/) {
+            if(tran.getSource().getLocation().getName().equals(location) && tran.getEdges().get(0).getStatus().equals("INPUT")) {
                 sb.append("cas.wait(" + delay + ");\n");
             }
             else {
@@ -127,21 +107,14 @@ public class TestCase {
 
             //get exit test code
             sb.append(tran.getSource().getLocation().getExitTestCode());
-            sb.append(testCodeAssertClocks(tran.getSource().getInvariant().conjunction(tran.getTarget().getInvariant())));
-            if(tran.getSource().getInvariant().conjunction(tran.getTarget().getInvariant()).toString().equals("false")) {
-                System.out.println(tran.getSource().getInvariant());
-                System.out.println(tran.getTarget().getInvariant());
-                System.out.println("_---------------_");
-            }
+            sb.append(testCodeAssertClocks(tran.getSource().getInvariant()));
+
             //get test code for edge
             sb.append(tran.getEdges().get(0).getTestCode());
 
             if (tran.getUpdates().size() > 0 ){
                 for (Update update : tran.getUpdates()){
-                    if (update instanceof BoolUpdate) {
-                        booleans.put(((BoolUpdate)update).getBV().getUniqueName(), ((BoolUpdate)update).getValue());
-                    }
-                    else if (update instanceof ClockUpdate) {
+                    if (update instanceof ClockUpdate) {
                         sb.append(testCodeUpdateClock(((ClockUpdate) update).getClock(), ((ClockUpdate) update).getValue()));
                     }
                 }
@@ -153,27 +126,12 @@ public class TestCase {
         sb.append(testSettings.postfix);
         sb.append("//BVA Variant\n");
 
-
-
-
         this.testCode = sb;
     }
 
     //creates test code for clock assertions
     private String testCodeAssertClocks(CDD state) {
-
         String s = filterCDD(state.toString());
-
-        for (Clock c : getClocks()) {
-            s = s.replaceAll("(\\W)" + c.getOriginalName() + "(\\W)", "$1" + "cas."+ c.getOriginalName() + "$2");
-        }
-
-        s = s.replaceFirst(" ", "");
-        return testSettings.assertPre + s + testSettings.assertPost;
-    }
-
-    private String testCodeAssertClocks1(String state) {
-        String s = filterCDD(state);
 
         for (Clock c : getClocks()) {
             s = s.replaceAll("(\\W)" + c.getOriginalName() + "(\\W)", "$1" + "cas."+ c.getOriginalName() + "$2");

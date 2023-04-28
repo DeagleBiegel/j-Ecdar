@@ -24,7 +24,7 @@ public class Playground {
                     "wait(",
                     ");\n");
 
-            TS.createTestSuite();
+            TS.createTestSuite(true, true, true);
 
         }
 }

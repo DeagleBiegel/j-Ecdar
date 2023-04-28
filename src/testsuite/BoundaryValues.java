@@ -3,12 +3,15 @@ package testsuite;
 import models.Location;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class BoundaryValues {
     private final String location;
     private final int delay;
     private List<Integer> values = new ArrayList<>();
+
+    public HashMap<>
 
     public BoundaryValues(String location, int delay) {
         this.location = location;

@@ -21,7 +21,7 @@ public class TestSuite {
     }
 
 
-    public void createTestSuite() throws IOException {
+    public void createTestSuite(boolean prefix, boolean extend, boolean bound) throws IOException {
         BVA bva = new BVA(automaton);
         String boolName = "edgeBoolean";
         BoolVar bv = new BoolVar(boolName, boolName, false);
@@ -38,32 +38,39 @@ public class TestSuite {
             //Explore the state space and create a trace to the target of the edge
             //Expand the trace to next output edge and create test code
             TestCase tc = new TestCase(ts.createCoverEdgeTrace(e.getTarget().getName(), bv.getOriginalName() + " == true"), testSettings, ts);
-            tc.setTrace(ts.expandTrace(tc.getTrace()));
+            if (extend) {
+                tc.setTrace(ts.expandTrace(tc.getTrace()));
+            }
             tc.createTestCode();
             testCases.add(tc);
 
             //check if there are any transitions in the trace that can be used to compute possible delays for BVA
-            bva.computeInvariantDelays(tc.getTrace());
+            if (bound) {
+                bva.computeInvariantDelays(tc.getTrace());
+            }
 
             //remove the bool assignment from the edge
             e.getUpdates().remove(e.getUpdates().size()-1);
-
-
         }
 
         //Remove traces that are a prefix of another trace
-        List<TestCase> finalTraces = testCases;
-        //testCases = testCases.stream().filter(s -> isPrefix(s, finalTraces)).collect(Collectors.toList());
+        if (prefix) {
+            List<TestCase> finalTraces = testCases;
+            testCases = testCases.stream().filter(s -> isPrefix(s, finalTraces)).collect(Collectors.toList());
+        }
 
         //Create BVA variants of existing traces
-        for (BoundaryValues boundaryValues : bva.getBoundaryValues()) {
-            TestCase temp = findApplicableTrace(boundaryValues.getLocation());
-            for (Integer i : boundaryValues.getValues()) {
-                TestCase testCase = new TestCase(temp);
-                testCase.createTestCode(boundaryValues.getLocation(), i);
-                testCases.add(testCase);
+        if (bound) {
+            for (BoundaryValues boundaryValues : bva.getBoundaryValues()) {
+                TestCase temp = findApplicableTrace(boundaryValues.getLocation());
+                if (temp != null) {
+                    for (Integer i : boundaryValues.getValues()) {
+                        TestCase testCase = new TestCase(temp);
+                        testCase.createTestCode(boundaryValues.getLocation(), i);
+                        testCases.add(testCase);
+                    }
+                }
             }
-
         }
 
         if (initialisedCdd) {
@@ -93,11 +100,6 @@ public class TestSuite {
         for (TestCase tc : testCases) {
             for (Transition transition : tc.getTrace()) {
                 if (transition.getSource().getLocation().getName().equals(location) && transition.getEdges().get(0).getStatus().equals("INPUT")) {
-                    return tc;
-                }
-            }
-            for (Transition transition : tc.getTrace()) {
-                if (transition.getSource().getLocation().getName().equals(location)) {
                     return tc;
                 }
             }
