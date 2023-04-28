@@ -14,7 +14,9 @@
       "nicknameX": 30.0,
       "nicknameY": -10.0,
       "invariantX": 30.0,
-      "invariantY": 10.0
+      "invariantY": 10.0,
+      "enterTestCode": "",
+      "exitTestCode": ""
     },
     {
       "id": "L1",
@@ -28,7 +30,9 @@
       "nicknameX": 30.0,
       "nicknameY": -10.0,
       "invariantX": 30.0,
-      "invariantY": 10.0
+      "invariantY": 10.0,
+      "enterTestCode": "",
+      "exitTestCode": ""
     },
     {
       "id": "L2",
@@ -42,7 +46,9 @@
       "nicknameX": 30.0,
       "nicknameY": -10.0,
       "invariantX": 30.0,
-      "invariantY": 10.0
+      "invariantY": 10.0,
+      "enterTestCode": "",
+      "exitTestCode": ""
     },
     {
       "id": "L3",
@@ -56,7 +62,9 @@
       "nicknameX": 30.0,
       "nicknameY": -10.0,
       "invariantX": 30.0,
-      "invariantY": 10.0
+      "invariantY": 10.0,
+      "enterTestCode": "",
+      "exitTestCode": ""
     },
     {
       "id": "L4",
@@ -70,7 +78,9 @@
       "nicknameX": 30.0,
       "nicknameY": -10.0,
       "invariantX": 30.0,
-      "invariantY": 10.0
+      "invariantY": 10.0,
+      "enterTestCode": "",
+      "exitTestCode": ""
     }
   ],
   "edges": [
@@ -85,6 +95,7 @@
       "update": "",
       "sync": "button",
       "isLocked": false,
+      "testCode": "//L1 \n coffemachine.button(); \n assertTrue(coffemachine.button); \n",
       "nails": [
         {
           "x": 49.99999999999994,
@@ -113,6 +124,7 @@
       "update": "y \u003d 0",
       "sync": "grinding",
       "isLocked": false,
+      "testCode": "//L2 \n assertTrue(coffeemachine.button);\n",
       "nails": [
         {
           "x": 160.0,
@@ -148,6 +160,7 @@
       "update": "",
       "sync": "brewing",
       "isLocked": false,
+      "testCode": "//L3 \n assertTrue(coffeemachine.button);\n",
       "nails": [
         {
           "x": 279.99999999999994,
@@ -176,6 +189,7 @@
       "update": "",
       "sync": "coffee",
       "isLocked": false,
+      "testCode": "//L4 \n assertTrue(coffeemachine.button);\n",
       "nails": [
         {
           "x": 449.99999999999994,
