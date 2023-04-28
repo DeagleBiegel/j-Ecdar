@@ -64,9 +64,14 @@ public class TestSuite {
             for (BoundaryValues boundaryValues : bva.getBoundaryValues()) {
                 TestCase temp = findApplicableTrace(boundaryValues.getLocation());
                 if (temp != null) {
-                    for (Integer i : boundaryValues.getValues()) {
+                    for (int i = 0; i < boundaryValues.getValues().size(); i++) {
                         TestCase testCase = new TestCase(temp);
-                        testCase.createTestCode(boundaryValues.getLocation(), i);
+                        if (i == 1 || i == 2) {
+                            testCase.createTestCode(boundaryValues.getLocation(), boundaryValues.getValues().get(i), true);
+                        }
+                        else {
+                            testCase.createTestCode(boundaryValues.getLocation(), boundaryValues.getValues().get(i), false);
+                        }
                         testCases.add(testCase);
                     }
                 }

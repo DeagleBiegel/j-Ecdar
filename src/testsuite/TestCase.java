@@ -87,7 +87,7 @@ public class TestCase {
         this.testCode = sb;
     }
 
-    public void createTestCode(String location, int delay) {
+    public void createTestCode(String location, int delay, boolean fail) {
         StringBuilder sb = new StringBuilder();
 
         //create test code for initial location
@@ -98,7 +98,18 @@ public class TestCase {
         for (Transition tran : trace) {
             //wait for x time units, based on the maximum delay for a location. If there is not max the delay is 0.
             if(tran.getSource().getLocation().getName().equals(location) && tran.getEdges().get(0).getStatus().equals("INPUT")) {
-                sb.append("cas.wait(" + delay + ");\n");
+                if (fail) {
+                    sb.append("cas.wait(" + delay + ");\n");
+                    sb.append(testCodeAssertClocks(tran.getSource().getInvariant()));
+                    sb.append(tran.getEdges().get(0).getTestCode().replace("True", "False"));
+                    sb.append(testSettings.postfix);
+                    sb.append("\n//FAILING CASE\n");
+                    this.testCode = sb;
+                    return;
+                }
+                else {
+                    sb.append("cas.wait(" + delay + ");\n");
+                }
             }
             else {
                 int x = (minClockValue(tran.getTarget().getInvariant(), getClocks().get(getClocks().size()-1)) - minClockValue(tran.getSource().getInvariant(), getClocks().get(getClocks().size()-1)));
