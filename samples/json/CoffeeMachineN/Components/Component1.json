@@ -95,7 +95,7 @@
       "update": "",
       "sync": "button",
       "isLocked": false,
-      "testCode": "//L1 \n coffemachine.button(); \n assertTrue(coffemachine.button); \n",
+      "testCode": "//L1 \n coffemachine.button(); \n assertTrue(coffemachine.button && !coffemachine.grinding && !coffeemachine.brewing && !coffeemachine.coffee); \n",
       "nails": [
         {
           "x": 49.99999999999994,
@@ -124,7 +124,7 @@
       "update": "y \u003d 0",
       "sync": "grinding",
       "isLocked": false,
-      "testCode": "//L2 \n assertTrue(coffeemachine.button);\n",
+      "testCode": "//L2 \n assertTrue(coffeemachine.button coffemachine.grinding && !coffeemachine.brewing && !coffeemachine.coffee);\n",
       "nails": [
         {
           "x": 160.0,
@@ -160,7 +160,7 @@
       "update": "",
       "sync": "brewing",
       "isLocked": false,
-      "testCode": "//L3 \n assertTrue(coffeemachine.button);\n",
+      "testCode": "//L3 \n assertTrue(coffeemachine.button && coffemachine.grinding && coffeemachine.brewing && !coffeemachine.coffee);\n",
       "nails": [
         {
           "x": 279.99999999999994,
@@ -189,7 +189,7 @@
       "update": "",
       "sync": "coffee",
       "isLocked": false,
-      "testCode": "//L4 \n assertTrue(coffeemachine.button);\n",
+      "testCode": "//L4 \n assertTrue(coffeemachine.button && coffemachine.grinding && coffeemachine.brewing && coffeemachine.coffee);\n",
       "nails": [
         {
           "x": 449.99999999999994,
