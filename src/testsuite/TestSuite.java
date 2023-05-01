@@ -64,6 +64,7 @@ public class TestSuite {
             for (BoundaryValues boundaryValues : bva.getBoundaryValues()) {
                 TestCase temp = findApplicableTrace(boundaryValues.getLocation());
                 if (temp != null) {
+                    //this only works for invariant+expect input case
                     for (int i = 0; i < boundaryValues.getValues().size(); i++) {
                         TestCase testCase = new TestCase(temp);
                         if (i == 1 || i == 2) {

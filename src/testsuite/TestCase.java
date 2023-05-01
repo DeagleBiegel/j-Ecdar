@@ -62,7 +62,7 @@ public class TestCase {
 
         for (Transition tran : trace) {
             int x  = (minClockValue(tran.getTarget().getInvariant(), getClocks().get(getClocks().size() - 1)) - minClockValue(tran.getSource().getInvariant(), getClocks().get(getClocks().size() - 1)));
-            sb.append("cas.wait(" + x + ");\n");
+            sb.append("coffeemachine.wait(" + x + ");\n");
             //get exit test code
             sb.append(tran.getSource().getLocation().getExitTestCode());
             sb.append(testCodeAssertClocks(tran.getSource().getInvariant()));
@@ -99,7 +99,7 @@ public class TestCase {
             //wait for x time units, based on the maximum delay for a location. If there is not max the delay is 0.
             if(tran.getSource().getLocation().getName().equals(location) && tran.getEdges().get(0).getStatus().equals("INPUT")) {
                 if (fail) {
-                    sb.append("cas.wait(" + delay + ");\n");
+                    sb.append("coffeemachine.wait(" + delay + ");\n");
                     sb.append(testCodeAssertClocks(tran.getSource().getInvariant()));
                     sb.append(tran.getEdges().get(0).getTestCode().replace("True", "False"));
                     sb.append(testSettings.postfix);
@@ -108,12 +108,12 @@ public class TestCase {
                     return;
                 }
                 else {
-                    sb.append("cas.wait(" + delay + ");\n");
+                    sb.append("coffeemachine.wait(" + delay + ");\n");
                 }
             }
             else {
                 int x = (minClockValue(tran.getTarget().getInvariant(), getClocks().get(getClocks().size()-1)) - minClockValue(tran.getSource().getInvariant(), getClocks().get(getClocks().size()-1)));
-                sb.append("cas.wait(" + x + ");\n");
+                sb.append("coffeemachine.wait(" + x + ");\n");
             }
 
             //get exit test code
@@ -145,7 +145,7 @@ public class TestCase {
         String s = filterCDD(state.toString());
 
         for (Clock c : getClocks()) {
-            s = s.replaceAll("(\\W)" + c.getOriginalName() + "(\\W)", "$1" + "cas."+ c.getOriginalName() + "$2");
+            s = s.replaceAll("(\\W)" + c.getOriginalName() + "(\\W)", "$1" + "coffeemachine."+ c.getOriginalName() + "$2");
         }
 
         s = s.replaceFirst(" ", "");
@@ -154,7 +154,7 @@ public class TestCase {
 
     //creates test code for clock assignments
     private String testCodeUpdateClock(Clock clock, Integer value) {
-        return "cas." + clock.getOriginalName() + " = " + value + ";\n";
+        return "coffeemachine." + clock.getOriginalName() + " = " + value + ";\n";
     }
 
     //Filters out boolean variables from a CDD string
