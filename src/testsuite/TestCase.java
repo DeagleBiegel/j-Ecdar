@@ -57,15 +57,17 @@ public class TestCase {
         StringBuilder sb = new StringBuilder();
         //create test code for initial location
         //assert clocks then get the test code from enter location
-        sb.append(testCodeAssertClocks(trace.get(0).getSource().getInvariant()));
         sb.append(trace.get(0).getSource().getLocation().getEnterTestCode());
+        sb.append(testCodeAssertClocks(trace.get(0).getSource().getInvariant()));
 
         for (Transition tran : trace) {
-            int x  = (minClockValue(tran.getTarget().getInvariant(), getClocks().get(getClocks().size() - 1)) - minClockValue(tran.getSource().getInvariant(), getClocks().get(getClocks().size() - 1)));
-            sb.append("coffeemachine.wait(" + x + ");\n");
+            //int x  = (minClockValue(tran.getTarget().getInvariant(), getClocks().get(getClocks().size() - 1)) - minClockValue(tran.getSource().getInvariant(), getClocks().get(getClocks().size() - 1)));
+            int x = maxClockValue(tran.getGuardCDD(), getClocks().get(0));
+
+            sb.append("cof.wait(" + x + ");\n");
             //get exit test code
-            sb.append(tran.getSource().getLocation().getExitTestCode());
             sb.append(testCodeAssertClocks(tran.getSource().getInvariant()));
+            sb.append(tran.getSource().getLocation().getExitTestCode());
 
             //get test code for edge
             sb.append(tran.getEdges().get(0).getTestCode());
@@ -78,9 +80,8 @@ public class TestCase {
                 }
             }
 
-            sb.append(testCodeAssertClocks(tran.getTarget().getInvariant()));
             sb.append(tran.getTarget().getLocation().getEnterTestCode()); // .conjunction(tran.getTarget().getInvariant()
-
+            sb.append(testCodeAssertClocks(tran.getTarget().getInvariant()));
         }
         sb.append(testSettings.postfix);
 
@@ -99,7 +100,7 @@ public class TestCase {
             //wait for x time units, based on the maximum delay for a location. If there is not max the delay is 0.
             if(tran.getSource().getLocation().getName().equals(location) && tran.getEdges().get(0).getStatus().equals("INPUT")) {
                 if (fail) {
-                    sb.append("coffeemachine.wait(" + delay + ");\n");
+                    sb.append("cof.wait(" + delay + ");\n");
                     sb.append(testCodeAssertClocks(tran.getSource().getInvariant()));
                     sb.append(tran.getEdges().get(0).getTestCode().replace("True", "False"));
                     sb.append(testSettings.postfix);
@@ -108,12 +109,12 @@ public class TestCase {
                     return;
                 }
                 else {
-                    sb.append("coffeemachine.wait(" + delay + ");\n");
+                    sb.append("cof.wait(" + delay + ");\n");
                 }
             }
             else {
                 int x = (minClockValue(tran.getTarget().getInvariant(), getClocks().get(getClocks().size()-1)) - minClockValue(tran.getSource().getInvariant(), getClocks().get(getClocks().size()-1)));
-                sb.append("coffeemachine.wait(" + x + ");\n");
+                sb.append("cof.wait(" + x + ");\n");
             }
 
             //get exit test code
@@ -145,7 +146,7 @@ public class TestCase {
         String s = filterCDD(state.toString());
 
         for (Clock c : getClocks()) {
-            s = s.replaceAll("(\\W)" + c.getOriginalName() + "(\\W)", "$1" + "coffeemachine."+ c.getOriginalName() + "$2");
+            s = s.replaceAll("(\\W)" + c.getOriginalName() + "(\\W)", "$1" + "cof."+ c.getOriginalName() + "$2");
         }
 
         s = s.replaceFirst(" ", "");
@@ -154,7 +155,7 @@ public class TestCase {
 
     //creates test code for clock assignments
     private String testCodeUpdateClock(Clock clock, Integer value) {
-        return "coffeemachine." + clock.getOriginalName() + " = " + value + ";\n";
+        return "cof." + clock.getOriginalName() + " = " + value + ";\n";
     }
 
     //Filters out boolean variables from a CDD string
@@ -226,6 +227,22 @@ public class TestCase {
 
     }
 
+    public int  maxClockValue(CDD orgCDD, Clock clock){
+        String guardTemplate = clock.getOriginalName() + " == ";
+        int min = 20;
+        while (true) {
+            CDD cdd = helperConjoin(guardTemplate + min, orgCDD);
+            if (cdd.isNotFalse()) {
+                break;
+            }
+            min--;
+            if (min == 0) {
+                break;
+            }
+        }
+        return min;
+
+    }
     public int getTraceSize() {
         return getTrace().size();
     }

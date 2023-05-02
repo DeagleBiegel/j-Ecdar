@@ -10,7 +10,7 @@ public class Playground {
 
     public static void main(String[] args) throws IOException, FileNotFoundException {
 
-        Automaton[] automaton = JSONParser.parse("samples/json/CoffeeMachineN", false);
+        Automaton[] automaton = JSONParser.parse("samples/json/CoffeeTeaMachine", false);
 
         for (var a : automaton) {
             Clock z = new Clock("g", a.getName());
