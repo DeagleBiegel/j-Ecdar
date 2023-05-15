@@ -12,43 +12,65 @@ import java.util.regex.Pattern;
 
 public class BVA {
     Automaton automaton;
-    private HashMap<String, Boolean> invariants = new HashMap<>();
-    private HashMap<String, Integer> invariantDelays = new HashMap<>();
-    private List<BoundaryValues> boundaryValues = new ArrayList<>();
+    private HashMap<String, Boolean> guards = new HashMap<>();
+    public List<TestCase> testcases = new ArrayList<>();
 
-    public BVA(Automaton automaton) {
+
+    public BVA(List<TestCase> testCases, Automaton automaton) {
         this.automaton = automaton;
-        for (Location loc : automaton.getLocations()) {
-            if (!loc.getInvariant().toString().equals("true")) {
-                this.invariants.put(loc.getName(), false);
-            }
+       for (TestCase tc : testCases) {
+           for (Transition trans : tc.getTrace()) {
+               if (trans.getEdges().get(0).getGuard().toString() != "true") {
+                   if (!guards.containsKey(trans.getEdges().get(0).toString())) {
+                       guards.put(trans.getEdges().get(0).toString(), true);
+                       TestCase newTestCase = new TestCase(tc);
+                       testcases.addAll(computeEdgeDelays(newTestCase, trans));
+                   }
+               }
+           }
+       }
+    }
+
+
+    public List<TestCase> computeEdgeDelays(TestCase tc, Transition trans) {
+        List<TestCase> tcs = new ArrayList<>();
+        int ub = maxClockValue(trans.getGuardCDD(), getClock(trans.getEdges().get(0).getGuard().toString()));
+        int ub1 = maxClockValue(trans.getGuardCDD(), getClock(trans.getEdges().get(0).getGuard().toString())) + 1;
+        int lb = minClockValue(trans.getGuardCDD(), getClock(trans.getEdges().get(0).getGuard().toString()));
+        int lb1 = 0;
+        if (lb > 0) {
+            lb1 = minClockValue(trans.getGuardCDD(), getClock(trans.getEdges().get(0).getGuard().toString())) - 1;
         }
-    }
+        System.out.print(trans.getEdges().get(0));
+        System.out.println(lb1 + " " + lb + " " + ub + " " + ub1);
 
-    public void computeInvariantDelays(List<Transition> trace) {
-        for (String key : invariants.keySet()) {
-            if (!invariants.get(key)) {
-                for (Transition t : trace) {
-                    if (t.getSource().getLocation().getName().equals(key) && !invariants.get(key)) {
-                        //compute the max and min value the clock in the invariant can have, subtract min from max and you have the max delay for that location
-                        int min = minClockValue(t.getSource().getInvariant(), getClock(t.getSource().getLocationInvariant()));
-                        int max = maxClockValue(t.getSource().getInvariant(), getClock(t.getSource().getLocationInvariant()));
-                        invariantDelays.put(key, max-min);
-                        invariants.put(key, true);
-                        boundaryValues.add(new BoundaryValues(key, invariantDelays.get(key)));
-                    }
-                }
-            }
+        if (ub == lb) {
+            TestCase testCaseUB = new TestCase(tc);
+            testCaseUB.createTestCode(trans.getEdges().get(0).toString(), ub, false);
+            tcs.add(testCaseUB);
+        } else {
+            TestCase testCaseUB = new TestCase(tc);
+            testCaseUB.createTestCode(trans.getEdges().get(0).toString(), ub, false);
+            tcs.add(testCaseUB);
+            TestCase testCaseLB = new TestCase(tc);
+            testCaseLB.createTestCode(trans.getEdges().get(0).toString(), lb, false);
+            tcs.add(testCaseLB);
         }
+        TestCase testCaseUB1 = new TestCase(tc);
+        testCaseUB1.createTestCode(trans.getEdges().get(0).toString(), ub1, true);
+        tcs.add(testCaseUB1);
+        if (lb > 0) {
+            TestCase testCaseLB1 = new TestCase(tc);
+            testCaseLB1.createTestCode(trans.getEdges().get(0).toString(), lb1, true);
+            tcs.add(testCaseLB1);
+        }
+        return tcs;
     }
 
-    public List<BoundaryValues> getBoundaryValues() {
-        return boundaryValues;
-    }
 
-    private Clock getClock(CDD locInvar) {
+    private Clock getClock(String guard) {
         Pattern pattern = Pattern.compile("([A-Za-z])");
-        Matcher m = pattern.matcher(locInvar.toString());
+        Matcher m = pattern.matcher(guard.toString());
 
         while (m.find()){
 
@@ -61,6 +83,8 @@ public class BVA {
 
         return null;
     }
+
+
     private CDD helperConjoin(String guardString, CDD orgCDD) {
         Guard g = GuardParser.parse(guardString, automaton.getClocks(), automaton.getBVs());
         CDD cdd = orgCDD.conjunction(new CDD(g));
@@ -94,7 +118,5 @@ public class BVA {
         return min;
 
     }
-    public HashMap<String, Integer> getInvariantDelays() {
-        return invariantDelays;
-    }
+
 }

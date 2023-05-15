@@ -22,7 +22,6 @@ public class TestSuite {
 
 
     public void createTestSuite(boolean prefix, boolean extend, boolean bound) throws IOException {
-        BVA bva = new BVA(automaton);
         String boolName = "edgeBoolean";
         BoolVar bv = new BoolVar(boolName, boolName, false);
         automaton.getBVs().add(bv);
@@ -44,11 +43,6 @@ public class TestSuite {
             tc.createTestCode();
             testCases.add(tc);
 
-            //check if there are any transitions in the trace that can be used to compute possible delays for BVA
-            if (bound) {
-                bva.computeInvariantDelays(tc.getTrace());
-            }
-
             //remove the bool assignment from the edge
             e.getUpdates().remove(e.getUpdates().size()-1);
         }
@@ -61,22 +55,8 @@ public class TestSuite {
 
         //Create BVA variants of existing traces
         if (bound) {
-            for (BoundaryValues boundaryValues : bva.getBoundaryValues()) {
-                TestCase temp = findApplicableTrace(boundaryValues.getLocation());
-                if (temp != null) {
-                    //this only works for invariant+expect input case
-                    for (int i = 0; i < boundaryValues.getValues().size(); i++) {
-                        TestCase testCase = new TestCase(temp);
-                        if (i == 1 || i == 2) {
-                            testCase.createTestCode(boundaryValues.getLocation(), boundaryValues.getValues().get(i), true);
-                        }
-                        else {
-                            testCase.createTestCode(boundaryValues.getLocation(), boundaryValues.getValues().get(i), false);
-                        }
-                        testCases.add(testCase);
-                    }
-                }
-            }
+            BVA bva = new BVA(testCases, automaton);
+            testCases.addAll(bva.testcases);
         }
 
         if (initialisedCdd) {

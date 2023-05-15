@@ -111,7 +111,7 @@
       "update": "x \u003d 0",
       "sync": "coin",
       "isLocked": false,
-      "testCode": "cof.coin(); \nassertTrue(cof.coin && !cof.pouringCoffee && !cof.pouringTea && !cof.coffee && !cof.tea);\n",
+      "testCode": "cof.coin();\n assertTrue(cof.coin && !cof.pouringCoffee && !cof.pouringTea && !cof.coffee && !cof.tea);\n",
       "nails": [
         {
           "x": 260.0,
@@ -169,7 +169,7 @@
       "update": "x \u003d 0",
       "sync": "coffee",
       "isLocked": false,
-      "testCode": "cof.coffee(); \nassertTrue(cof.coin && !cof.pouringCoffee && !cof.pouringTea && cof.coffee && !cof.tea);\n",
+      "testCode": "cof.coffee();\n assertTrue(cof.coin && !cof.pouringCoffee && !cof.pouringTea && cof.coffee && !cof.tea);\n",
       "nails": [
         {
           "x": 190.0,
@@ -198,7 +198,7 @@
       "update": "x \u003d 0",
       "sync": "tea",
       "isLocked": false,
-      "testCode": "cof.tea(); \nassertTrue(cof.coin && !cof.pouringCoffee && !cof.pouringTea && !cof.coffee && cof.tea);\n",
+      "testCode": "cof.tea();\n assertTrue(cof.coin && !cof.pouringCoffee && !cof.pouringTea && !cof.coffee && cof.tea);\n",
       "nails": [
         {
           "x": 248.0,
@@ -311,7 +311,7 @@
       "targetLocation": "L0",
       "status": "OUTPUT",
       "select": "",
-      "guard": "x >= 8",
+      "guard": "x >= 10",
       "update": "",
       "sync": "done",
       "isLocked": false,

@@ -1,0 +1,498 @@
+{
+  "name": "Component1",
+  "declarations": "clock x, y;\nbool ticket, prisonTime;",
+  "locations": [
+    {
+      "id": "L0",
+      "nickname": "train_station",
+      "invariant": "",
+      "type": "INITIAL",
+      "urgency": "NORMAL",
+      "x": 225.0,
+      "y": 460.0,
+      "color": "5",
+      "nicknameX": -40.0,
+      "nicknameY": 30.0,
+      "invariantX": 30.0,
+      "invariantY": 10.0
+    },
+    {
+      "id": "L1",
+      "nickname": "",
+      "invariant": "x \u003c\u003d 5",
+      "type": "NORMAL",
+      "urgency": "NORMAL",
+      "x": 220.00000999999997,
+      "y": 354.0,
+      "color": "5",
+      "nicknameX": 30.0,
+      "nicknameY": -10.0,
+      "invariantX": 30.0,
+      "invariantY": 10.0
+    },
+    {
+      "id": "L2",
+      "nickname": "",
+      "invariant": "",
+      "type": "NORMAL",
+      "urgency": "NORMAL",
+      "x": 215.60000999999994,
+      "y": 236.39999999999998,
+      "color": "5",
+      "nicknameX": 30.0,
+      "nicknameY": -10.0,
+      "invariantX": 30.0,
+      "invariantY": 10.0
+    },
+    {
+      "id": "L3",
+      "nickname": "toilet",
+      "invariant": "",
+      "type": "NORMAL",
+      "urgency": "NORMAL",
+      "x": 136.40000999999995,
+      "y": 276.4,
+      "color": "5",
+      "nicknameX": -50.0,
+      "nicknameY": -10.0,
+      "invariantX": 30.0,
+      "invariantY": 10.0
+    },
+    {
+      "id": "L4",
+      "nickname": "",
+      "invariant": "",
+      "type": "NORMAL",
+      "urgency": "NORMAL",
+      "x": 380.0,
+      "y": 240.0,
+      "color": "5",
+      "nicknameX": 30.0,
+      "nicknameY": -10.0,
+      "invariantX": 30.0,
+      "invariantY": 10.0
+    },
+    {
+      "id": "L5",
+      "nickname": "",
+      "invariant": "",
+      "type": "NORMAL",
+      "urgency": "NORMAL",
+      "x": 140.00000000000006,
+      "y": 140.0,
+      "color": "5",
+      "nicknameX": 30.0,
+      "nicknameY": -10.0,
+      "invariantX": 30.0,
+      "invariantY": 10.0
+    },
+    {
+      "id": "L6",
+      "nickname": "",
+      "invariant": "",
+      "type": "NORMAL",
+      "urgency": "NORMAL",
+      "x": 140.16000999999991,
+      "y": 55.19999999999998,
+      "color": "5",
+      "nicknameX": 30.0,
+      "nicknameY": -10.0,
+      "invariantX": 30.0,
+      "invariantY": 10.0
+    },
+    {
+      "id": "L7",
+      "nickname": "",
+      "invariant": "",
+      "type": "NORMAL",
+      "urgency": "NORMAL",
+      "x": 370.0,
+      "y": 55.0,
+      "color": "5",
+      "nicknameX": 30.0,
+      "nicknameY": -10.0,
+      "invariantX": 30.0,
+      "invariantY": 10.0
+    },
+    {
+      "id": "L8",
+      "nickname": "",
+      "invariant": "",
+      "type": "NORMAL",
+      "urgency": "NORMAL",
+      "x": 50.000009999999975,
+      "y": 470.0,
+      "color": "5",
+      "nicknameX": 30.0,
+      "nicknameY": -10.0,
+      "invariantX": 30.0,
+      "invariantY": 10.0
+    }
+  ],
+  "edges": [
+    {
+      "id": "E0",
+      "group": "",
+      "sourceLocation": "L0",
+      "targetLocation": "L0",
+      "status": "INPUT",
+      "select": "",
+      "guard": "ticket \u003d\u003d false",
+      "update": "ticket \u003d true",
+      "sync": "buyTicket",
+      "isLocked": false,
+      "nails": [
+        {
+          "x": 290.0,
+          "y": 450.0,
+          "propertyType": "GUARD",
+          "propertyX": 0.0,
+          "propertyY": -50.0
+        },
+        {
+          "x": 374.4,
+          "y": 432.0,
+          "propertyType": "SYNCHRONIZATION",
+          "propertyX": 10.0,
+          "propertyY": 0.0
+        },
+        {
+          "x": 330.0,
+          "y": 510.0,
+          "propertyType": "UPDATE",
+          "propertyX": -30.0,
+          "propertyY": 10.0
+        }
+      ]
+    },
+    {
+      "id": "E1",
+      "group": "",
+      "sourceLocation": "L0",
+      "targetLocation": "L1",
+      "status": "INPUT",
+      "select": "",
+      "guard": "",
+      "update": "x \u003d 0, y \u003d 0",
+      "sync": "enterTrain",
+      "isLocked": false,
+      "nails": [
+        {
+          "x": 220.79999999999998,
+          "y": 432.8,
+          "propertyType": "SYNCHRONIZATION",
+          "propertyX": -70.0,
+          "propertyY": 0.0
+        },
+        {
+          "x": 220.0,
+          "y": 400.0,
+          "propertyType": "UPDATE",
+          "propertyX": 10.0,
+          "propertyY": 0.0
+        }
+      ]
+    },
+    {
+      "id": "E2",
+      "group": "",
+      "sourceLocation": "L1",
+      "targetLocation": "L3",
+      "status": "INPUT",
+      "select": "",
+      "guard": "",
+      "update": "",
+      "sync": "enterToilet",
+      "isLocked": false,
+      "nails": [
+        {
+          "x": 172.79999999999998,
+          "y": 326.4,
+          "propertyType": "SYNCHRONIZATION",
+          "propertyX": -20.0,
+          "propertyY": -50.0
+        }
+      ]
+    },
+    {
+      "id": "E3",
+      "group": "",
+      "sourceLocation": "L1",
+      "targetLocation": "L2",
+      "status": "OUTPUT",
+      "select": "",
+      "guard": "x \u003d\u003d 5",
+      "update": "",
+      "sync": "ticketCheck",
+      "isLocked": false,
+      "nails": [
+        {
+          "x": 220.0,
+          "y": 290.0,
+          "propertyType": "GUARD",
+          "propertyX": 10.0,
+          "propertyY": 0.0
+        },
+        {
+          "x": 221.2,
+          "y": 316.8,
+          "propertyType": "SYNCHRONIZATION",
+          "propertyX": 10.0,
+          "propertyY": 0.0
+        }
+      ]
+    },
+    {
+      "id": "E4",
+      "group": "",
+      "sourceLocation": "L2",
+      "targetLocation": "L4",
+      "status": "OUTPUT",
+      "select": "",
+      "guard": "ticket \u003d\u003d false",
+      "update": "prisonTime \u003d true",
+      "sync": "caught",
+      "isLocked": false,
+      "nails": [
+        {
+          "x": 250.0,
+          "y": 240.0,
+          "propertyType": "GUARD",
+          "propertyX": 30.000000000000004,
+          "propertyY": -60.0
+        },
+        {
+          "x": 296.19199999999995,
+          "y": 242.65599999999995,
+          "propertyType": "SYNCHRONIZATION",
+          "propertyX": 7.105427357601002E-15,
+          "propertyY": -40.00000000000001
+        },
+        {
+          "x": 330.0,
+          "y": 240.0,
+          "propertyType": "UPDATE",
+          "propertyX": -40.0,
+          "propertyY": 20.0
+        }
+      ]
+    },
+    {
+      "id": "E5",
+      "group": "",
+      "sourceLocation": "L3",
+      "targetLocation": "L1",
+      "status": "INPUT",
+      "select": "",
+      "guard": "",
+      "update": "",
+      "sync": "exitToilet",
+      "isLocked": false,
+      "nails": [
+        {
+          "x": 135.88799999999998,
+          "y": 357.95199999999994,
+          "propertyType": "SYNCHRONIZATION",
+          "propertyX": -30.0,
+          "propertyY": 10.0
+        }
+      ]
+    },
+    {
+      "id": "E6",
+      "group": "",
+      "sourceLocation": "L3",
+      "targetLocation": "L5",
+      "status": "OUTPUT",
+      "select": "",
+      "guard": "y \u003d\u003d 20",
+      "update": "",
+      "sync": "arrived",
+      "isLocked": false,
+      "nails": [
+        {
+          "x": 140.0,
+          "y": 230.0,
+          "propertyType": "GUARD",
+          "propertyX": 10.0,
+          "propertyY": 0.0
+        },
+        {
+          "x": 137.95199999999997,
+          "y": 197.95199999999994,
+          "propertyType": "SYNCHRONIZATION",
+          "propertyX": -70.0,
+          "propertyY": -10.0
+        }
+      ]
+    },
+    {
+      "id": "E7",
+      "group": "",
+      "sourceLocation": "L5",
+      "targetLocation": "L6",
+      "status": "INPUT",
+      "select": "",
+      "guard": "",
+      "update": "",
+      "sync": "exitTrain",
+      "isLocked": false,
+      "nails": [
+        {
+          "x": 138.24,
+          "y": 92.16,
+          "propertyType": "SYNCHRONIZATION",
+          "propertyX": 10.0,
+          "propertyY": 0.0
+        }
+      ]
+    },
+    {
+      "id": "E8",
+      "group": "",
+      "sourceLocation": "L4",
+      "targetLocation": "L5",
+      "status": "OUTPUT",
+      "select": "",
+      "guard": "y \u003d\u003d 20",
+      "update": "",
+      "sync": "arrived",
+      "isLocked": false,
+      "nails": [
+        {
+          "x": 380.0,
+          "y": 200.0,
+          "propertyType": "GUARD",
+          "propertyX": 10.0,
+          "propertyY": -20.0
+        },
+        {
+          "x": 379.2,
+          "y": 142.4,
+          "propertyType": "SYNCHRONIZATION",
+          "propertyX": 10.0,
+          "propertyY": 0.0
+        }
+      ]
+    },
+    {
+      "id": "E9",
+      "group": "",
+      "sourceLocation": "L2",
+      "targetLocation": "L5",
+      "status": "OUTPUT",
+      "select": "",
+      "guard": "y \u003d\u003d 20 \u0026\u0026 ticket \u003d\u003d true",
+      "update": "",
+      "sync": "arrived",
+      "isLocked": false,
+      "nails": [
+        {
+          "x": 180.0,
+          "y": 200.0,
+          "propertyType": "GUARD",
+          "propertyX": 10.000000000000007,
+          "propertyY": -50.0
+        },
+        {
+          "x": 172.79999999999998,
+          "y": 182.4,
+          "propertyType": "SYNCHRONIZATION",
+          "propertyX": 40.0,
+          "propertyY": -10.0
+        }
+      ]
+    },
+    {
+      "id": "E10",
+      "group": "",
+      "sourceLocation": "L6",
+      "targetLocation": "L7",
+      "status": "OUTPUT",
+      "select": "",
+      "guard": "prisonTime \u003d\u003d true",
+      "update": "",
+      "sync": "prison",
+      "isLocked": false,
+      "nails": [
+        {
+          "x": 200.0,
+          "y": 50.0,
+          "propertyType": "GUARD",
+          "propertyX": -20.000000000000004,
+          "propertyY": 20.0
+        },
+        {
+          "x": 253.44,
+          "y": 56.08,
+          "propertyType": "SYNCHRONIZATION",
+          "propertyX": 30.0,
+          "propertyY": 0.0
+        }
+      ]
+    },
+    {
+      "id": "E11",
+      "group": "",
+      "sourceLocation": "L6",
+      "targetLocation": "L8",
+      "status": "OUTPUT",
+      "select": "",
+      "guard": "prisonTime \u003d\u003d false",
+      "update": "",
+      "sync": "destination",
+      "isLocked": false,
+      "nails": [
+        {
+          "x": 50.0,
+          "y": 90.0,
+          "propertyType": "GUARD",
+          "propertyX": -40.0,
+          "propertyY": 20.0
+        },
+        {
+          "x": 47.599999999999994,
+          "y": 269.12,
+          "propertyType": "SYNCHRONIZATION",
+          "propertyX": 10.0,
+          "propertyY": 20.0
+        }
+      ]
+    },
+    {
+      "id": "E12",
+      "group": "",
+      "sourceLocation": "L8",
+      "targetLocation": "L0",
+      "status": "INPUT",
+      "select": "",
+      "guard": "",
+      "update": "ticket \u003d false",
+      "sync": "walk",
+      "isLocked": false,
+      "nails": [
+        {
+          "x": 126.72,
+          "y": 460.79999999999995,
+          "propertyType": "SYNCHRONIZATION",
+          "propertyX": -40.0,
+          "propertyY": 20.0
+        },
+        {
+          "x": 160.0,
+          "y": 460.0,
+          "propertyType": "UPDATE",
+          "propertyX": -60.0,
+          "propertyY": 60.0
+        }
+      ]
+    }
+  ],
+  "description": "",
+  "x": 412.0,
+  "y": 135.0,
+  "width": 450.0,
+  "height": 600.0,
+  "color": "5",
+  "includeInPeriodicCheck": true
+}
