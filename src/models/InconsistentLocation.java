@@ -1,14 +1,9 @@
 package models;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class InconsistentLocation extends SymbolicLocation {
-
-
     @Override
     public String getName() {
-        return null;
+        return "inc-loc";
     }
 
     @Override
@@ -41,8 +36,14 @@ public class InconsistentLocation extends SymbolicLocation {
         return 0;
     }
 
-    public CDD getInvariantCDD() {
+    @Override
+    public String getEnterTestCode(){ return ""; }
+
+    @Override
+    public String getExitTestCode(){ return ""; }
+
+    public CDD getInvariant() {
         // TODO the new clock should be <= 0
-        return CDD.zeroCDD();
+        return CDD.cddZero();
     }
 }

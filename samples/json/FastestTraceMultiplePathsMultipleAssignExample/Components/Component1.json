@@ -1,0 +1,202 @@
+{
+  "name": "Component1",
+  "declarations": "clock x, y;",
+  "locations": [
+    {
+      "id": "L0",
+      "nickname": "",
+      "invariant": "",
+      "type": "INITIAL",
+      "urgency": "NORMAL",
+      "x": 145.0,
+      "y": 290.0,
+      "color": "3",
+      "nicknameX": 30.0,
+      "nicknameY": -10.0,
+      "invariantX": 30.0,
+      "invariantY": 10.0,
+      "enterTestCode": "Enter L0 ",
+      "exitTestCode": "Exit L0 "
+    },
+    {
+      "id": "L1",
+      "nickname": "",
+      "invariant": "",
+      "type": "NORMAL",
+      "urgency": "NORMAL",
+      "x": 310.00001,
+      "y": 300.0,
+      "color": "3",
+      "nicknameX": 30.0,
+      "nicknameY": -10.0,
+      "invariantX": 30.0,
+      "invariantY": 10.0,
+      "enterTestCode": "Enter L1 ",
+      "exitTestCode": "Exit L1 "
+    },
+    {
+      "id": "L2",
+      "nickname": "",
+      "invariant": "",
+      "type": "NORMAL",
+      "urgency": "NORMAL",
+      "x": 221.60000999999997,
+      "y": 389.99999999999994,
+      "color": "3",
+      "nicknameX": 30.0,
+      "nicknameY": -10.0,
+      "invariantX": 30.0,
+      "invariantY": 10.0,
+      "enterTestCode": "Enter L2 ",
+      "exitTestCode": "Exit L2 "
+    },
+    {
+      "id": "L4",
+      "nickname": "",
+      "invariant": "",
+      "type": "NORMAL",
+      "urgency": "NORMAL",
+      "x": 398.80000999999993,
+      "y": 356.79999999999995,
+      "color": "3",
+      "nicknameX": 30.0,
+      "nicknameY": -10.0,
+      "invariantX": 30.0,
+      "invariantY": 10.0,
+      "enterTestCode": "Enter L4 ",
+      "exitTestCode": "Exit L4 "
+    }
+  ],
+  "edges": [
+    {
+      "id": "E0",
+      "group": "",
+      "sourceLocation": "L0",
+      "targetLocation": "L1",
+      "status": "INPUT",
+      "select": "",
+      "guard": "x \u003e 5",
+      "update": "y \u003d 0",
+      "sync": "",
+      "isLocked": false,
+      "testCode": "L0 -> L1",
+      "nails": [
+        {
+          "x": 189.99999999999997,
+          "y": 260.0,
+          "propertyType": "GUARD",
+          "propertyX": 10.0,
+          "propertyY": 0.0
+        },
+        {
+          "x": 219.2,
+          "y": 228.0,
+          "propertyType": "SYNCHRONIZATION",
+          "propertyX": 10.0,
+          "propertyY": 0.0
+        },
+        {
+          "x": 249.99999999999994,
+          "y": 250.0,
+          "propertyType": "UPDATE",
+          "propertyX": 10.0,
+          "propertyY": 0.0
+        }
+      ]
+    },
+    {
+      "id": "E1",
+      "group": "",
+      "sourceLocation": "L0",
+      "targetLocation": "L2",
+      "status": "INPUT",
+      "select": "",
+      "guard": "y > 10",
+      "update": "x \u003d 0",
+      "sync": "",
+      "isLocked": false,
+      "testCode": "L0 -> L2",
+      "nails": [
+        {
+          "x": 172.79999999999998,
+          "y": 316.79999999999995,
+          "propertyType": "SYNCHRONIZATION",
+          "propertyX": 10.0,
+          "propertyY": 0.0
+        },
+        {
+          "x": 169.99999999999994,
+          "y": 350.0,
+          "propertyType": "UPDATE",
+          "propertyX": 10.0,
+          "propertyY": 0.0
+        }
+      ]
+    },
+    {
+      "id": "E2",
+      "group": "",
+      "sourceLocation": "L2",
+      "targetLocation": "L4",
+      "status": "INPUT",
+      "select": "",
+      "guard": "x >= 5 || y >= 5",
+      "update": "",
+      "sync": "",
+      "isLocked": false,
+      "testCode": "L2 -> L4",
+      "nails": [
+        {
+          "x": 260.0,
+          "y": 430.0,
+          "propertyType": "GUARD",
+          "propertyX": 10.0,
+          "propertyY": 0.0
+        },
+        {
+          "x": 264.79999999999995,
+          "y": 374.4,
+          "propertyType": "SYNCHRONIZATION",
+          "propertyX": 10.0,
+          "propertyY": 0.0
+        }
+      ]
+    },
+    {
+      "id": "E3",
+      "group": "",
+      "sourceLocation": "L1",
+      "targetLocation": "L4",
+      "status": "INPUT",
+      "select": "",
+      "guard": "x >= 5 || y >= 5",
+      "update": "",
+      "sync": "",
+      "isLocked": false,
+      "testCode": "L1 -> L4",
+      "nails": [
+        {
+          "x": 350.0,
+          "y": 270.0,
+          "propertyType": "GUARD",
+          "propertyX": 10.0,
+          "propertyY": 0.0
+        },
+        {
+          "x": 345.59999999999997,
+          "y": 302.4,
+          "propertyType": "SYNCHRONIZATION",
+          "propertyX": 10.0,
+          "propertyY": 0.0
+        }
+      ]
+    }
+  ],
+  "description": "",
+  "x": 279.0,
+  "y": 47.0,
+  "width": 450.0,
+  "height": 600.0,
+  "color": "3",
+  "includeInPeriodicCheck": true
+}

@@ -1,13 +1,9 @@
 package models;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class UniversalLocation extends SymbolicLocation {
-
     @Override
     public String getName() {
-        return null;
+        return "univ-loc";
     }
 
     @Override
@@ -40,8 +36,14 @@ public class UniversalLocation extends SymbolicLocation {
         return 0;
     }
 
-    public CDD getInvariantCDD() {
+    public CDD getInvariant() {
         // should be true, so no invariants
         return CDD.cddTrue();
     }
+
+    @Override
+    public String getEnterTestCode() { return ""; }
+
+    @Override
+    public String getExitTestCode() { return ""; }
 }

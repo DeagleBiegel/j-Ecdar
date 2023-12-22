@@ -1,5 +1,6 @@
 package parser;
 
+import log.Log;
 import logic.GraphEdge;
 import logic.GraphNode;
 import models.*;
@@ -28,7 +29,7 @@ public class JSONParser {
     public static Automaton[] parse(String folderPath, boolean makeInpEnabled) throws FileNotFoundException {
         File dir = new File(folderPath + "/Components");
         File[] files = dir.listFiles((dir1, name) -> name.endsWith(".json"));
-        System.out.println(folderPath);
+        Log.trace(folderPath);
         ArrayList<String> locations = new ArrayList<>(Collections.singletonList(folderPath + "/GlobalDeclarations.json"));
         if (files != null) {
             locations.addAll(Arrays.stream(files).map(File::toString).collect(Collectors.toList()));
@@ -47,6 +48,10 @@ public class JSONParser {
         return distrubuteObject(obj, makeInpEnabled);
     }
 
+    public static Automaton parse(String base, String component, boolean makeInputEnabled) {
+        return parse(base, new String[]{ component }, makeInputEnabled)[0];
+    }
+
     public static Automaton[] parse(String base, String[] components, boolean makeInpEnabled) {
         ArrayList<String> locations = Arrays.stream(components).map(c -> base + c).collect(Collectors.toCollection(ArrayList::new));
 
@@ -60,10 +65,10 @@ public class JSONParser {
         obj.put("initial sp id", "" + refTree.getNodeId());
         obj.put("left", "" + refTree.getStatePair().getLeft().getLocation());
         obj.put("right", "" + refTree.getStatePair().getRight().getLocation());
-        obj.put("federation", "" + refTree.getStatePair().getLeft().getCDD());
+        obj.put("federation", "" + refTree.getStatePair().getLeft().getInvariant());
         obj.put("transitions", helper(children));
 
-        System.out.println(obj.toJSONString());
+        Log.trace(obj.toJSONString());
         return obj.toJSONString();
     }
 
@@ -77,7 +82,7 @@ public class JSONParser {
                 statePair.put("state pair id", "" + child.getTarget().getNodeId());
                 statePair.put("left", "" + child.getTarget().getStatePair().getLeft().getLocation());
                 statePair.put("right", "" + child.getTarget().getStatePair().getRight().getLocation());
-                statePair.put("federation", "" + child.getTarget().getStatePair().getLeft().getCDD());
+                statePair.put("federation", "" + child.getTarget().getStatePair().getLeft().getInvariant());
                 transition.put("source sp id", "" + child.getSource().getNodeId());
                 transition.put("target sp id", "" + child.getTarget().getNodeId());
                 transition.put("target sp", statePair);
@@ -107,7 +112,7 @@ public class JSONParser {
             }
 
         } catch (Exception e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
 
         return returnList;
@@ -116,11 +121,12 @@ public class JSONParser {
     private static Automaton distrubuteObject(JSONObject obj, boolean makeInpEnabled){
         automatonName= (String) obj.get("name");
         addDeclarations((String) obj.get("declarations"));
+        addBVs((String) obj.get("declarations"));
         JSONArray locationList = (JSONArray) obj.get("locations");
         List<Location> locations = addLocations(locationList);
         JSONArray edgeList = (JSONArray) obj.get("edges");
         List<Edge> edges = addEdges(edgeList, locations);
-        Automaton automaton = new Automaton((String) obj.get("name"), locations, edges, new ArrayList<>(componentClocks), BVs, makeInpEnabled);
+        Automaton automaton = new Automaton((String) obj.get("name"), locations, edges, new ArrayList<>(componentClocks), new ArrayList<>(BVs), makeInpEnabled);
         componentClocks.clear();
         BVs.clear();
         return automaton;
@@ -129,15 +135,12 @@ public class JSONParser {
     private static Automaton[] distrubuteObjects(ArrayList<JSONObject> objList, boolean makeInpEnabled) {
         ArrayList<Automaton> automata = new ArrayList<>();
 
-        try {
-            for (JSONObject obj : objList) {
-                if (!obj.get("name").toString().equals("Global Declarations")&&!obj.get("name").toString().equals("System Declarations")) {
-                    automata.add(distrubuteObject(obj, makeInpEnabled));
-                }
+        for (JSONObject obj : objList) {
+            if (!obj.get("name").toString().equals("Global Declarations")&&!obj.get("name").toString().equals("System Declarations")) {
+                automata.add(distrubuteObject(obj, makeInpEnabled));
             }
-        } catch (Exception e) {
-            e.printStackTrace();
         }
+
 
         return automata.toArray(new Automaton[0]);
     }
@@ -220,8 +223,15 @@ public class JSONParser {
 
             Guard invariant = ("".equals(jsonObject.get("invariant").toString()) ? new TrueGuard() :
                     GuardParser.parse(jsonObject.get("invariant").toString(), componentClocks, BVs));
-            Location loc = new Location(jsonObject.get("id").toString(), invariant, isInitial, !isNotUrgent,
-                    isUniversal, isInconsistent);
+            Location loc;
+            if (jsonObject.get("enterTestCode") == null){
+                loc = new Location(jsonObject.get("id").toString(), invariant, isInitial, !isNotUrgent,
+                        isUniversal, isInconsistent);
+            }
+            else {
+                loc = new Location(jsonObject.get("id").toString(), invariant, isInitial, !isNotUrgent,
+                        isUniversal, isInconsistent, jsonObject.get("enterTestCode").toString(), jsonObject.get("exitTestCode").toString());
+            }
 
             returnLocList.add(loc);
         }
@@ -282,8 +292,14 @@ public class JSONParser {
 
             Channel c = addChannel(jsonObject.get("sync").toString());
             if (c != null) {
-                Edge edge = new Edge(sourceLocation, targetLocation, c, isInput, guards, updatesList);
-                edges.add(edge);
+                if (jsonObject.get("testCode") == null){
+                    Edge edge = new Edge(sourceLocation, targetLocation, c, isInput, guards, updatesList,"", jsonObject.get("status").toString());
+                    edges.add(edge);
+                }
+                else {
+                    Edge edge = new Edge(sourceLocation, targetLocation, c, isInput, guards, updatesList, jsonObject.get("testCode").toString(), jsonObject.get("status").toString());
+                    edges.add(edge);
+                }
             }
         }
         return edges;

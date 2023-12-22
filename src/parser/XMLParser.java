@@ -32,7 +32,8 @@ public class XMLParser {
                 automata.add(buildAutomaton(el, makeInpEnabled));
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            CDD.done();
+            throw new RuntimeException(e);
         }
 
         return automata.toArray(new Automaton[0]);
@@ -52,7 +53,7 @@ public class XMLParser {
             }
 
         }catch (Exception e){
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
 
         return automata.toArray(new Automaton[0]);
@@ -89,9 +90,8 @@ public class XMLParser {
             Document doc = builder.parse( new InputSource( new StringReader( xmlStr ) ) );
             return doc;
         } catch (Exception e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
-        return null;
     }
 
     private static List<Clock> setClocks(Element el) {
@@ -119,7 +119,7 @@ public class XMLParser {
                 }
             }
         }
-        //System.out.println(clockList);
+        //Log.trace(clockList);
         return clockList;
     }
 
@@ -167,7 +167,7 @@ public class XMLParser {
             boolean xyDefined = false;
 
             if (loc.getAttribute("x").isSpecified()) {
-                //System.out.println(loc.getAttributeValue("x"));
+                //Log.trace(loc.getAttributeValue("x"));
                 x = Integer.parseInt(loc.getAttributeValue("x"));
                 y = Integer.parseInt(loc.getAttributeValue("y"));
                 xyDefined=true;
@@ -183,21 +183,21 @@ public class XMLParser {
             }
 
             Location  newLoc;
-            if (xyDefined) newLoc= new Location(locName, invariants, isInitial, false, false, false, x, y);
-            else newLoc= new Location(locName, invariants, isInitial, false, false, false);
+            if (xyDefined) newLoc= new Location(locName, invariants, isInitial, false, false, false, x, y, "", "");
+            else newLoc= new Location(locName, invariants, isInitial, false, false, false, "", "");
 
 
             List<Element> names = loc.getChildren("name");
             assert(names.size()<=1);
             for (Element name : names)
             {
-                //System.out.println(name.getContent().get(0).getValue().toString());
+                //Log.trace(name.getContent().get(0).getValue().toString());
                 if (name.getContent().get(0).getValue().toString().equals("inc")) {
-                    //System.out.println("Parsed an inconsistent location");
+                    //Log.trace("Parsed an inconsistent location");
                     if (xyDefined)
-                        newLoc = new Location(locName, invariants, isInitial, false, false, true, x,y);
+                        newLoc = new Location(locName, invariants, isInitial, false, false, true, x,y, "", "");
                     else
-                        newLoc = new Location(locName, invariants, isInitial, false, false, true);
+                        newLoc = new Location(locName, invariants, isInitial, false, false, true, "", "");
                 }
             }
 
@@ -220,7 +220,7 @@ public class XMLParser {
                     if (o.getName().equals("controllable") && o.getBooleanValue()==false) isInput = false;
                 } catch (DataConversionException e) {
                     System.err.println("Controllable flag contains non-boolean value");
-                    e.printStackTrace();
+                    throw new RuntimeException(e);
                 }
 
             }
@@ -244,6 +244,10 @@ public class XMLParser {
                         }
                         break;
                     case "synchronisation":
+                        if (text.endsWith("?"))
+                            isInput = true;
+                        if (text.endsWith("!"))
+                            isInput = false;
                         String channel = text.replaceAll("\\?", "").replaceAll("!", "");
                         if (!text.isEmpty())
                             chan = addChannel(channelList, channel);
@@ -256,7 +260,7 @@ public class XMLParser {
                 }
             }
 
-            edgeList.add(new Edge(source, target, chan, isInput, guards, updates));
+            edgeList.add(new Edge(source, target, chan, isInput, guards, updates, "", ""));
         }
 
         return edgeList;

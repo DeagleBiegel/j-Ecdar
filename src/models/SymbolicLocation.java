@@ -1,9 +1,9 @@
 package models;
 
-import java.util.List;
-
 public abstract class SymbolicLocation {
     public abstract String getName();
+
+    public abstract CDD getInvariant();
 
     public abstract boolean getIsInitial();
 
@@ -17,5 +17,7 @@ public abstract class SymbolicLocation {
 
     public abstract int getX();
 
-    public abstract CDD getInvariantCDD();
+    public abstract String getEnterTestCode();
+
+    public abstract String getExitTestCode();
 }

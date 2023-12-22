@@ -34,8 +34,6 @@ public  class Transition {
 
         this(state, state, new Move(state.getLocation(), state.getLocation(), new ArrayList<>()), new CDD(guardCDD.getPointer()));
 
-
-
     }
 
     public State getSource() {
@@ -51,7 +49,7 @@ public  class Transition {
     }
 
     public CDD getGuardCDD() {
-        return guardCDD;
+        return guardCDD;// todo: why does this not work? .conjunction(target.getInvarCDDDirectlyFromInvariants());
     }
 
     public List<Edge> getEdges() {

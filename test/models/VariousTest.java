@@ -2,19 +2,19 @@ package models;
 
 import exceptions.CddAlreadyRunningException;
 import exceptions.CddNotRunningException;
-import logic.Composition;
-import logic.Refinement;
-import logic.SimpleTransitionSystem;
-import logic.TransitionSystem;
+import logic.*;
 import org.junit.After;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import parser.JSONParser;
 import parser.XMLParser;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 public class VariousTest {
@@ -52,11 +52,11 @@ public class VariousTest {
         ClockGuard g1 = new ClockGuard(y, 5,  Relation.GREATER_EQUAL);
         z1.buildConstraintsForGuard(g1,clocks);
 
-        z1.printDBM(true,true);
+        z1.printDbm(true,true);
         ClockGuard g2 = new ClockGuard(y, 6,  Relation.GREATER_EQUAL);
         System.out.println(g2);
         z2.buildConstraintsForGuard(g2,clocks);
-        z2.printDBM(true,true);
+        z2.printDbm(true,true);
 
         List<Zone> zoneList1 = new ArrayList<>();
         List<Zone> zoneList2 = new ArrayList<>();
@@ -99,7 +99,7 @@ public class VariousTest {
 
 
         origin1 = origin1.delay();
-        Guard origin1Guards = CDD.toGuardList(origin1,clocks);
+        Guard origin1Guards = origin1.getGuard(clocks);
         System.out.println(origin1Guards);
         assert(true);
 
@@ -128,7 +128,7 @@ public class VariousTest {
 
         CDD origin1 = new CDD(new AndGuard(inner));
 
-        Guard origin1Guards = CDD.toGuardList(origin1,clocks);
+        Guard origin1Guards = origin1.getGuard(clocks);
         System.out.println(origin1Guards);
 
 
@@ -136,9 +136,9 @@ public class VariousTest {
         Update clockUpdate = new ClockUpdate(x,0);
         List<Update>  list1 = new ArrayList<>();
         list1.add(clockUpdate);
-        origin1 = CDD.applyReset(origin1,list1);
+        origin1 = origin1.applyReset(list1);
 
-        Guard origin2Guards = CDD.toGuardList(origin1,clocks);
+        Guard origin2Guards = origin1.getGuard(clocks);
         System.out.println(origin2Guards);
 
         assert(origin2Guards.toString().equals("(x==0 && y<=3 && y-x<=3 && x-y<=0)"));
@@ -155,6 +155,76 @@ public class VariousTest {
     }
 
     @Test
+    public void testFromFramework1() throws FileNotFoundException {
+        SimpleTransitionSystem A,A1,G,Q;
+        Automaton[] list = JSONParser.parse("samples/json/AG",true);
+        A = new SimpleTransitionSystem(list[0]);
+        A1 = new SimpleTransitionSystem(list[0]);
+        G = new SimpleTransitionSystem(list[2]);
+        Q = new SimpleTransitionSystem(list[4]);
+
+        // refinement: A <= ((A || G) \\\\ Q)
+        Refinement ref = new Refinement(A, new Quotient(new Composition(A1,G),Q));
+        boolean res = ref.check();
+        System.out.println(ref.getErrMsg());
+        assertTrue(res);
+    }
+
+
+
+    @Test
+    public void testFromFramework2() throws FileNotFoundException {
+        SimpleTransitionSystem Inf;
+        Automaton[] list = XMLParser.parse("C:\\tools\\ecdar-test\\Ecdar-test\\samples\\xml\\extrapolation_test.xml",false);
+        Inf = new SimpleTransitionSystem(list[0]);
+        // refinement: A <= ((A || G) \\\\ Q)
+        System.out.println(Inf.isDeterministic());
+        boolean res = Inf.isLeastConsistent();
+        System.out.println(Inf.getLastErr());
+        assertTrue(res);
+    }
+    @Test
+    public void testFromFramework3() throws FileNotFoundException {
+        SimpleTransitionSystem A2,A1,B;
+        Automaton[] list = JSONParser.parse("samples/json/DelayAdd",true);
+        A2 = new SimpleTransitionSystem(list[1]);
+        B = new SimpleTransitionSystem(list[2]);
+        A1 = new SimpleTransitionSystem(list[0]);
+
+        assertFalse(new Refinement(new Composition(A1,A2),B).check());
+
+        // refinement: A2 <= (B \\ A1)
+        Refinement ref = new Refinement(A2, new SimpleTransitionSystem(new Quotient(B,A1).getAutomaton()));
+        boolean res = ref.check();
+        System.out.println(ref.getErrMsg());
+        assertFalse(res);
+    }
+
+    @Test
+    public void testFromFramework4() throws FileNotFoundException {
+        SimpleTransitionSystem C1,C2;
+        Automaton[] list = JSONParser.parse("samples/json/DelayAdd",true);
+        C1 = new SimpleTransitionSystem(list[3]);
+        C2 = new SimpleTransitionSystem(list[4]);
+        System.out.println(C1.getName());
+        System.out.println(C2.getName());
+        assertFalse(new Refinement(C1,C2).check());
+
+    }
+
+
+    @Test
+    public void testFromFramework5() throws FileNotFoundException {
+        SimpleTransitionSystem GuardParan;
+        Automaton[] list = XMLParser.parse("samples/xml/misc_test.xml",true);
+        GuardParan = new SimpleTransitionSystem(list[0]);
+        assertTrue(GuardParan.isLeastConsistent());
+        assertTrue(GuardParan.isFullyConsistent());
+
+    }
+
+
+    @Test
     public void testCDDAllocateInterval() throws CddAlreadyRunningException, CddNotRunningException
     {
         CDD.init(100,100,100);
@@ -163,8 +233,8 @@ public class VariousTest {
         List<Clock> clocks = new ArrayList<>();
         clocks.add(x);clocks.add(y);
         CDD.addClocks(clocks);
-        CDD test = CDD.allocateInterval(1,0,2,true,3,true);
-        System.out.println(CDD.toGuardList(test,clocks));
+        CDD test = CDD.createInterval(1,0,2,true,3,true);
+        System.out.println(test.getGuard(clocks));
         test.printDot();
         assert(true);
     }

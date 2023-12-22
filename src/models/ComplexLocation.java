@@ -1,11 +1,8 @@
 package models;
 
-import javax.rmi.ssl.SslRMIClientSocketFactory;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
 public class ComplexLocation extends SymbolicLocation {
     private final List<SymbolicLocation> locations;
@@ -16,22 +13,11 @@ public class ComplexLocation extends SymbolicLocation {
         CDD invar = CDD.cddTrue();
         for (SymbolicLocation loc1 : locations)
         {
-            CDD invarLoc = loc1.getInvariantCDD();
+            CDD invarLoc = loc1.getInvariant();
             invar = invar.conjunction(invarLoc);
         }
         invariants = invar;
     }
-    public ComplexLocation(SimpleLocation location) {
-        this.locations = new ArrayList<>(){{add(location);}};
-        CDD invar = CDD.cddTrue();
-        for (SymbolicLocation loc1 : locations)
-        {
-            CDD invarLoc = loc1.getInvariantCDD();
-            invar = invar.conjunction(invarLoc);
-        }
-        invariants = invar;
-    }
-
 
     public List<SymbolicLocation> getLocations() {
         return locations;
@@ -89,10 +75,10 @@ public class ComplexLocation extends SymbolicLocation {
 
     @Override
     public boolean getIsUniversal() {
-        boolean isUniversal = false;
+        boolean isUniversal = true;
         for (SymbolicLocation l: getLocations())
         {
-            isUniversal = isUniversal|| l.getIsUrgent();
+            isUniversal = isUniversal && l.getIsUniversal();
         }
         return isUniversal;
     }
@@ -102,12 +88,12 @@ public class ComplexLocation extends SymbolicLocation {
         boolean isInconsistent = false;
         for (SymbolicLocation l: getLocations())
         {
-            isInconsistent = isInconsistent|| l.getIsUrgent();
+            isInconsistent = isInconsistent|| l.getIsInconsistent();
         }
         return isInconsistent;
     }
 
-    public CDD getInvariantCDD() {
+    public CDD getInvariant() {
         return invariants;
     }
 
@@ -132,4 +118,10 @@ public class ComplexLocation extends SymbolicLocation {
     public String toString() {
         return "" + locations;
     }
+
+    @Override
+    public String getEnterTestCode() { return "" ;}
+
+    @Override
+    public String getExitTestCode() {return "" ;}
 }

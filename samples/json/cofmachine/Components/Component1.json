@@ -1,0 +1,150 @@
+{
+  "name": "Component1",
+  "declarations": "clock x, y;",
+  "locations": [
+    {
+      "id": "L0",
+      "nickname": "Idle",
+      "invariant": "x \u003c\u003d 3",
+      "type": "INITIAL",
+      "urgency": "NORMAL",
+      "x": 225.0,
+      "y": 89.99999999999997,
+      "color": "0",
+      "nicknameX": -3.552713678800501E-15,
+      "nicknameY": -50.0,
+      "invariantX": 30.0,
+      "invariantY": 10.0,
+      "enterTestCode": "Idle enter",
+      "exitTestCode" : "Idle exit"
+    },
+    {
+      "id": "L1",
+      "nickname": "brewing1",
+      "invariant": "y \u003c\u003d 6",
+      "type": "NORMAL",
+      "urgency": "NORMAL",
+      "x": 220.00000999999995,
+      "y": 229.99999999999994,
+      "color": "0",
+      "nicknameX": 30.0,
+      "nicknameY": -10.0,
+      "invariantX": 30.0,
+      "invariantY": 10.0,
+      "enterTestCode": "Brewing1 enter",
+      "exitTestCode" : "Brewing1 exit"
+    },
+    {
+      "id": "L2",
+      "nickname": "brewing2",
+      "invariant": "x \u003c\u003d 12",
+      "type": "NORMAL",
+      "urgency": "NORMAL",
+      "x": 220.00000999999995,
+      "y": 360.0,
+      "color": "0",
+      "nicknameX": 30.0,
+      "nicknameY": -10.0,
+      "invariantX": 30.0,
+      "invariantY": 10.0,
+      "enterTestCode": "Brewing2 enter",
+      "exitTestCode" : "Brewing2 exit"
+    }
+  ],
+  "edges": [
+    {
+      "id": "E0",
+      "group": "",
+      "sourceLocation": "L0",
+      "targetLocation": "L1",
+      "status": "INPUT",
+      "select": "",
+      "guard": "x == 3",
+      "update": "y \u003d 0",
+      "sync": "coin",
+      "isLocked": false,
+      "testCode": "L0 -> L1",
+      "nails": [
+        {
+          "x": 222.0,
+          "y": 128.0,
+          "propertyType": "SYNCHRONIZATION",
+          "propertyX": 10.0,
+          "propertyY": 0.0
+        },
+        {
+          "x": 220.0,
+          "y": 160.0,
+          "propertyType": "UPDATE",
+          "propertyX": 10.0,
+          "propertyY": 0.0
+        }
+      ]
+    },
+    {
+      "id": "E1",
+      "group": "",
+      "sourceLocation": "L1",
+      "targetLocation": "L2",
+      "status": "INPUT",
+      "select": "",
+      "guard": " x == 9",
+      "update": "",
+      "sync": "",
+      "isLocked": false,
+      "testCode": "L1 -> L2",
+      "nails": [
+        {
+          "x": 220.0,
+          "y": 270.0,
+          "propertyType": "GUARD",
+          "propertyX": 10.0,
+          "propertyY": 0.0
+        },
+        {
+          "x": 223.5,
+          "y": 297.5,
+          "propertyType": "SYNCHRONIZATION",
+          "propertyX": 10.0,
+          "propertyY": 0.0
+        }
+      ]
+    },
+    {
+      "id": "E2",
+      "group": "",
+      "sourceLocation": "L2",
+      "targetLocation": "L0",
+      "status": "OUTPUT",
+      "select": "",
+      "guard": "",
+      "update": "x \u003d 0",
+      "sync": "coffee",
+      "isLocked": false,
+      "testCode": "L2 -> L0",
+      "nails": [
+        {
+          "x": 37.0,
+          "y": 203.5,
+          "propertyType": "SYNCHRONIZATION",
+          "propertyX": 10.0,
+          "propertyY": 0.0
+        },
+        {
+          "x": 110.0,
+          "y": 150.0,
+          "propertyType": "UPDATE",
+          "propertyX": 10.0,
+          "propertyY": 0.0
+        }
+      ]
+    }
+  ],
+  "description": "",
+  "x": 769.0,
+  "y": 315.0,
+  "width": 450.0,
+  "height": 600.0,
+  "color": "0",
+  "includeInPeriodicCheck": true
+}

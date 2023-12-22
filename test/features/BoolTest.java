@@ -10,10 +10,8 @@ import org.junit.Test;
 import parser.XMLFileWriter;
 import parser.XMLParser;
 
-import java.sql.Ref;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static models.CDD.*;
 
@@ -30,7 +28,7 @@ public class BoolTest {
         BVs.add(a); BVs.add(b); BVs.add(c);
 
         CDD.init(CDD.maxSize,CDD.cs,CDD.stackSize);
-        CDD.addBddvar(BVs);
+        CDD.addBooleans(BVs);
         CDD ba = CDD.createBddNode(0);
         CDD bb = CDD.createBddNode(1);
         CDD bc = CDD.createBddNode(2);
@@ -55,8 +53,8 @@ public class BoolTest {
 
         CDD.init(CDD.maxSize,CDD.cs,CDD.stackSize);
         CDD.addClocks(clocks);
-        CDD ba = CDD.allocateInterval(1,0,3, true,5, true);
-        CDD bb = CDD.allocateInterval(2,0,2,true,8,true);
+        CDD ba = CDD.createInterval(1,0,3, true,5, true);
+        CDD bb = CDD.createInterval(2,0,2,true,8,true);
         CDD cdd =ba.disjunction(bb);
         System.out.println("size " + clocks.size());
 
@@ -86,15 +84,15 @@ public class BoolTest {
         List<List<Guard>> list = new ArrayList();
         list.add(l1); //list.add(l2); list.add(l3);
         CDD.init(CDD.maxSize,CDD.cs,CDD.stackSize);
-        CDD.addBddvar(BVs);
+        CDD.addBooleans(BVs);
         CDD cdd =new CDD(new AndGuard(l1));
         BDDArrays bddArr = new BDDArrays(CDDLib.bddToArray(cdd.getPointer(),BVs.size()));
         System.out.println(bddArr.getValues());
-        System.out.println(bddArr.getVars());
+        System.out.println(bddArr.getVariables());
 
         // A & !B & !C
         System.out.println("here too! " + cdd);
-  //      assert(cdd.toString().equals("[[(a==true), (b==false), (c==false)], [(a==true), (b==true), (c==false)], [(a==false), (b==true), (c==false)]]"));
+        //      assert(cdd.toString().equals("[[(a==true), (b==false), (c==false)], [(a==true), (b==true), (c==false)], [(a==false), (b==true), (c==false)]]"));
         CDD.done();
     }
 
@@ -117,7 +115,7 @@ public class BoolTest {
         Guard l2 = new AndGuard(bg_a_true,bg_b_true,bg_c_false);
         Guard l3 = new AndGuard(bg_a_false,bg_b_true,bg_c_false);
         CDD.init(CDD.maxSize,CDD.cs,CDD.stackSize);
-        CDD.addBddvar(BVs);
+        CDD.addBooleans(BVs);
         System.out.println("or guard " + new OrGuard(l1,l2,l3));
         CDD cdd =new CDD(new OrGuard(l1,l2,l3));
         cdd.printDot();
@@ -202,7 +200,7 @@ public class BoolTest {
         bools.add(b);
         CDD.init(CDD.maxSize,CDD.cs,CDD.stackSize);
         CDD.addClocks(clocks);
-        CDD.addBddvar(BVs);
+        CDD.addBooleans(BVs);
         CDD origin1 = new CDD(new AndGuard(inner));
         CDD origin2 = new CDD(new AndGuard(inner1));
         CDD bothOrigins = origin1.disjunction(origin2);
@@ -285,7 +283,7 @@ public class BoolTest {
 
         CDD.init(CDD.maxSize,CDD.cs,CDD.stackSize);
         CDD.addClocks();
-        CDD.addBddvar(BVs);
+        CDD.addBooleans(BVs);
         CDD compl = (new CDD(new AndGuard(inner)).disjunction(new CDD(new AndGuard(inner1)))).negation();
 
 
@@ -296,7 +294,8 @@ public class BoolTest {
 
         Edge e0 = new Edge(l0, l1, i1, true, new AndGuard(inner), noUpdate);
         Edge e1 = new Edge(l0, l1, i1, true, new AndGuard(inner1), noUpdate);
-        Edge e2 = new Edge(l0, l1, i1, true, CDD.toGuardList(compl,clocks), noUpdate);
+        Edge e2 = new Edge(l0, l1, i1, true, compl.getGuard(clocks), noUpdate);
+        CDD.done();
 
         List<Location> locations = new ArrayList<>();
         locations.add(l0);
@@ -316,7 +315,6 @@ public class BoolTest {
         Automaton aut = new Automaton("Automaton", locations, edges, clocks, bools,false);
         XMLFileWriter.toXML("testOutput/booltest2.xml",new SimpleTransitionSystem(aut));
         assert(new SimpleTransitionSystem(aut).isDeterministic()); // no idea if it is...
-        CDD.done();
         assert(true);
 //here: [cg: (x<1 && y≥2 && y≤7) || (x≤10 && y<2) || (x≤10 && y>7) || (x>10) - bg:()]
     }
@@ -389,7 +387,7 @@ public class BoolTest {
 
         CDD.init(CDD.maxSize,CDD.cs,CDD.stackSize);
         CDD.addClocks();
-        CDD.addBddvar(BVs);
+        CDD.addBooleans(BVs);
         CDD compl = (new CDD(new AndGuard(inner)).disjunction(new CDD(new AndGuard(inner1)))).negation();
 
 
@@ -400,7 +398,8 @@ public class BoolTest {
 
         Edge e0 = new Edge(l0, l1, i1, true, new AndGuard(inner), noUpdate);
         Edge e1 = new Edge(l0, l1, i1, true, new AndGuard(inner1), noUpdate);
-        Edge e2 = new Edge(l0, l1, i1, true, CDD.toGuardList(compl,clocks), noUpdate);
+        Edge e2 = new Edge(l0, l1, i1, true, compl.getGuard(clocks), noUpdate);
+        CDD.done();
 
         List<Location> locations = new ArrayList<>();
         locations.add(l0);
@@ -415,7 +414,6 @@ public class BoolTest {
 
 
 
-        CDD.done();
 
         Automaton aut = new Automaton("Automaton", locations, edges, clocks, bools,true);
         XMLFileWriter.toXML("testOutput/booltest2.xml",new SimpleTransitionSystem(aut));
@@ -431,7 +429,7 @@ public class BoolTest {
         CDD.init(100,100,100);
         CDD.addClocks(new ArrayList<>() {{add(new Clock("testclk", "Aut"));}});
         BoolVar bv = new BoolVar("a","aut",false);
-        CDD.addBddvar(new ArrayList<>(){{add(bv);}});
+        CDD.addBooleans(new ArrayList<>(){{add(bv);}});
 
         CDD test = new CDD(CDDLib.cddNBddvar(bddStartLevel));
         test.printDot();
@@ -447,9 +445,9 @@ public class BoolTest {
         System.out.println(arr1);
         CDD.done();
 
-        assert(arr.getVars().get(0).get(0) ==1);
+        assert(arr.getVariables().get(0).get(0) ==1);
         assert(arr.getValues().get(0).get(0) ==0);
-        assert(arr1.getVars().get(0).get(0) ==1);
+        assert(arr1.getVariables().get(0).get(0) ==1);
         assert(arr1.getValues().get(0).get(0) ==1);
 
 
@@ -458,16 +456,16 @@ public class BoolTest {
         CDD.init(100,100,100);
         CDD.addClocks(new ArrayList<>() {{add(new Clock("testclk", "Aut"));add(new Clock("testclk1", "Aut"));}});
         BoolVar bv1 = new BoolVar("a","aut",false);
-        CDD.addBddvar(new ArrayList<>(){{add(bv1);}});
+        CDD.addBooleans(new ArrayList<>(){{add(bv1);}});
 
         CDD test2 = new CDD(CDDLib.cddNBddvar(bddStartLevel));
         BDDArrays arr2 = new BDDArrays(CDDLib.bddToArray(test2.getPointer(),CDD.numBools));
         System.out.println(arr2);
+        CDD.done();
 
-        assert(arr2.getVars().get(0).get(0) ==3);
+        assert(arr2.getVariables().get(0).get(0) ==3);
         assert(arr2.getValues().get(0).get(0) ==0);
 
-        CDD.done();
 
 
 
@@ -508,13 +506,13 @@ public class BoolTest {
 
         CDD.init(100,100,100);
         CDD.addClocks(new ArrayList<>(){{add(new Clock("x", "Aut"));}});
-        CDD.addBddvar(new ArrayList<>());
+        CDD.addBooleans(new ArrayList<>());
         System.out.println("found the bug: " + CDD.cddTrue().removeNegative().negation().removeNegative());
         CDD.done();
     }
 
     @Test
-    public void testBoolQuotient()
+    public void testBoolQuotient() // TODO: check and make an assert statement
     {
         CDD.done();
         Automaton auts[] = XMLParser.parse("samples/xml/BoolQuotient.xml",true);
@@ -596,9 +594,9 @@ public class BoolTest {
         CDD.init(100,100,100);
         CDD.addClocks(new ArrayList<>() {{add(new Clock("clk", "Aut"));}});
         BoolVar a = new BoolVar("a","aut",false);
-        CDD.addBddvar(new ArrayList<>(){{add(a);}});
+        CDD.addBooleans(new ArrayList<>(){{add(a);}});
 
-        CDD state = CDD.allocateInterval(1,0,0,true,5,true);
+        CDD state = CDD.createInterval(1,0,0,true,5,true);
         Update update = new BoolUpdate(a,true);
         List<Update> updates = new ArrayList<>();
         updates.add(update);
@@ -696,8 +694,8 @@ public class BoolTest {
         XMLFileWriter.toXML("testOutput/BoolAutomatonNew.xml",new Automaton[]{newAut});
         System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 
-       // assert(new Refinement(new SimpleTransitionSystem(aut),new SimpleTransitionSystem(aut)).check());
-      //  assert(new Refinement(new SimpleTransitionSystem(newAut),new SimpleTransitionSystem(newAut)).check());
+        // assert(new Refinement(new SimpleTransitionSystem(aut),new SimpleTransitionSystem(aut)).check());
+        //  assert(new Refinement(new SimpleTransitionSystem(newAut),new SimpleTransitionSystem(newAut)).check());
 
 
         System.out.println(aut.toString());
